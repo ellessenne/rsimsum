@@ -1,0 +1,15 @@
+citHeader("To cite rsimsum in publications, please use:")
+
+citEntry(
+	entry = "article",
+  author = "Ian R. White",
+  title = "simsum: Analyses of simulation studies including Monte Carlo error",
+  journal = "The Stata Journal",
+  year = "2010",
+  volume = "10",
+  number = "3",
+  pages = "369--385",
+  abstract = "A new Stata command, simsum, analyzes data from simulation studies. The data may comprise point estimates and standard errors from several analysis methods, possibly resulting from several different simulation settings. simsum can report bias, coverage, power, empirical standard error, relative precision, average model-based standard error, and the relative error of the standard error. Monte Carlo errors are available for all of these estimated quantities.",
+  keywords = "st0200; simsum; Simulation; Monte Carlo error; Normal approximation; Sandwich variance",
+  textVersion = "I.R. White. simsum: Analyses of simulation studies including Monte Carlo error. The Stata Journal, 2010, 10(3):369-385"
+}
