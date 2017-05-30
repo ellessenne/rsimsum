@@ -4,7 +4,7 @@
 \name{MIsim}
 \alias{MIsim}
 \title{Example of a simulation study}
-\format{A data frame with 53940 rows and 10 variables:
+\format{A data frame with 3,000 rows and 4 variables:
 \describe{
   \item{dataset}{simulated dataset number}
   \item{method}{method used (\code{CC}, \code{MI_LOGT} or \code{MI_T})}
