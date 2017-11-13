@@ -9,6 +9,9 @@ License: GPL (>= 3)
 Imports:
  checkmate,
  assertthat
+Suggests: 
+ testthat,
+ covr
 URL: https://github.com/ellessenne/rsimsum
 BugReports: https://github.com/ellessenne/rsimsum/issues
 VignetteBuilder: knitr
