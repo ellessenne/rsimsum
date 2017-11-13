@@ -1,15 +1,18 @@
 Package: rsimsum
 Version: 0.0.1
-Date: 2017-05-25
-Title: Porting of Stata's simsum: Analyses of simulation studies including Monte Carlo error
+Date: 2017-11-13
+Title: Analysis of simulation studies including Monte Carlo error
+Description: This package is a port of the user-written command simsum in Stata.
 Authors@R: c(person("Alessandro", "Gasparini", role = c("aut", "cre"), email = "ag475@leicester.ac.uk"),
 	person("Ian R.", "White", role = "aut"))
-Depends: R (>= 3.4.0)
-Description: Add a description (one paragraph) of what the package does and why it may be useful here.
-License: GPL (>= 2)
+License: GPL (>= 3)
+Imports:
+ checkmate,
+ assertthat
 URL: https://github.com/ellessenne/rsimsum
 BugReports: https://github.com/ellessenne/rsimsum/issues
 VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
 Encoding: UTF-8
 LazyData: true
