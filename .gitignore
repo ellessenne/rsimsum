@@ -1,1 +1,35 @@
-*.Rproj
+# History files
+.Rhistory
+.Rapp.history
+
+# Session Data files
+.RData
+
+# Output files from R CMD build
+/*.tar.gz
+
+# Output files from R CMD check
+/*.Rcheck/
+
+# RStudio files
+.Rproj.user/
+.Rproj.user
+
+# knitr and R markdown default cache directories
+/*_cache/
+/cache/
+
+# knitr and R markdown default files directories
+/*_files/
+/files/
+
+# Temporary files created by R markdown
+*.utf8.md
+*.knit.md
+
+# Word documents
+*.doc
+*.docx
+
+# Html files
+*.html
