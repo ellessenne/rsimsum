@@ -103,7 +103,8 @@ simsum <- function(data, estvarname, true, se, id, methodvar = NULL, ref = NULL,
 		if (!is.null(ref)) {
 			if (!(ref %in% methods)) stop(paste("The reference method", ref, "cannot be found in `methodvar`"))
 		} else {
-			# If ref is not specified, set the first method as the reference one
+			# If ref is not specified, set the first method as the reference one and throw a warning
+			warning(paste("`ref` was not specified,", methods[1], "set as the reference"))
 			ref = methods[1]
 		}
 	}
