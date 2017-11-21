@@ -271,7 +271,7 @@ simsum <- function(data,
 	obj$modelsemethod = modelsemethod
 
 	### Return object of class simsum
-	obj = structure(obj, class = c("simsum", "list"))
+	class(obj) = append(class(obj),"simsum")
 	return(obj)
 }
 
