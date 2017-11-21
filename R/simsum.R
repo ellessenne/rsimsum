@@ -5,7 +5,6 @@
 #' @param estvarname a variable containing the point estimates
 #' @param true gives the true value of the parameter.  This is used in calculations of bias and coverage and is required whenever these performance measures are requested.
 #' @param methodvar identifies the method
-#' @param id identifies the simulated data set
 #' @param se lists the names of the variables containing the standard errors of the point estimates.  For data in long format, this is a single variable.
 #' @param max specifies the maximum acceptable absolute value of the point estimates, standardised to mean 0 and SD 1. The default value is 10.
 #' @param semax specifies the maximum acceptable value of the standard error, as a multiple of the mean standard error.  The default value is 100.
@@ -27,6 +26,7 @@
 #' * `relerror` estimates the proportional error in the model-based standard error, using the empirical standard error as gold standard.
 #' * `cover` estimates the coverage of nominal confidence intervals at the specified level.
 #' * `power` estimates the power to reject the null hypothesis that the true parameter is zero, at the specified level.
+#' @param sanitise Sanitise column names passed to `simsum` by removing all dot characters (`.`).
 #'
 #' @return An object of class `simsum`.
 #'
@@ -38,17 +38,31 @@
 #' x = simsum(...)
 #' }
 
-simsum <- function(data, estvarname, true, se, id, methodvar = NULL, ref = NULL, df = NULL, dropbig = FALSE, max = 10, semax = 100, level = 0.95, by = NULL, mcse = FALSE, robust = FALSE, modelsemethod = "rmse") {
+simsum <- function(data,
+									 estvarname,
+									 true,
+									 se,
+									 methodvar = NULL,
+									 ref = NULL,
+									 df = NULL,
+									 dropbig = FALSE,
+									 max = 10,
+									 semax = 100,
+									 level = 0.95,
+									 by = NULL,
+									 sanitise = TRUE,
+									 mcse = FALSE,
+									 robust = FALSE,
+									 modelsemethod = "rmse") {
 	### Check arguments
 	arg_checks = makeAssertCollection()
 
 	# `data` must be a data.frame
 	assert_data_frame(data, add = arg_checks)
 
-	# `estvarname`, `se`, `id`, `methodvar`, `ref` must be a single string value
+	# `estvarname`, `se`, `methodvar`, `ref` must be a single string value
 	assert_string(estvarname, add = arg_checks)
 	assert_string(se, add = arg_checks)
-	assert_string(id, add = arg_checks)
 	assert_string(methodvar, null.ok = TRUE, add = arg_checks)
 	assert_string(ref, null.ok = TRUE, add = arg_checks)
 
@@ -60,10 +74,11 @@ simsum <- function(data, estvarname, true, se, id, methodvar = NULL, ref = NULL,
 	assert_number(semax, add = arg_checks)
 	assert_number(level, add = arg_checks)
 
-	# `dropbig`, `mcse`, `robust` must be single logical value
+	# `dropbig`, `mcse`, `robust`, `sanitise` must be single logical value
 	assert_logical(dropbig, len = 1, add = arg_checks)
 	assert_logical(mcse, len = 1, add = arg_checks)
 	assert_logical(robust, len = 1, add = arg_checks)
+	assert_logical(sanitise, len = 1, add = arg_checks)
 
 	# `by` must be a vector of strings; can be NULL
 	assert_character(by, null.ok = TRUE, add = arg_checks)
@@ -74,9 +89,9 @@ simsum <- function(data, estvarname, true, se, id, methodvar = NULL, ref = NULL,
 	### Report if there are any errors
 	if (!arg_checks$isEmpty()) reportAssertions(arg_checks)
 
-	### Check if `estvarname`, `se`, `id` in `data`
+	### Check if `estvarname`, `se` in `data`
 	errvec = character()
-	for (args in c(estvarname, se, id)) {
+	for (args in c(estvarname, se)) {
 		msg = validate_that(args %in% names(data), msg = args)
 		if (!is.logical(msg)) errvec = c(errvec, msg)
 	}
@@ -105,7 +120,7 @@ simsum <- function(data, estvarname, true, se, id, methodvar = NULL, ref = NULL,
 			if (!(ref %in% methods)) stop(paste("The reference method", ref, "cannot be found in `methodvar`"))
 		} else {
 			# If ref is not specified, set the first method as the reference one and throw a warning
-			warning(paste("`ref` was not specified,", methods[1], "set as the reference"))
+			message(paste("`ref` was not specified,", methods[1], "set as the reference"))
 			ref = methods[1]
 		}
 	}
@@ -116,64 +131,152 @@ simsum <- function(data, estvarname, true, se, id, methodvar = NULL, ref = NULL,
 		ref = NULL
 	}
 
-	### Process...
+	### Sanitise names
+	if (sanitise) {
+		names(data) = gsub(pattern = ".", replacement = "", x = names(data), fixed = TRUE)
+		if (!is.null(estvarname)) estvarname = gsub(pattern = ".", replacement = "", x = estvarname, fixed = TRUE)
+		if (!is.null(se)) se = gsub(pattern = ".", replacement = "", x = se, fixed = TRUE)
+		if (!is.null(methodvar)) by = gsub(pattern = ".", replacement = "", x = methodvar, fixed = TRUE)
+		if (!is.null(by)) by = gsub(pattern = ".", replacement = "", x = by, fixed = TRUE)
+	}
+
+	### Compute summary statistics
 	if (is.null(by)) {
+		# No `by` factors
 		if (is.null(methodvar)) {
-			# Simplest case: no method column, no by columns
-			obj = perfms(data = data, estvarname = estvarname, true = true, se = se, dropbig = dropbig, max = max, semax = semax, ref = ref, level = level, df = df, mcse = mcse, robust = robust, modelsemethod = modelsemethod)
+			# No `methodvar`, no `by`
+			obj = perfms(data = data,
+									 estvarname = estvarname,
+									 true = true,
+									 se = se,
+									 dropbig = dropbig,
+									 max = max,
+									 semax = semax,
+									 ref = ref,
+									 level = level,
+									 df = df,
+									 mcse = mcse,
+									 robust = robust,
+									 modelsemethod = modelsemethod)
 		} else {
-		methodvar_split = split(data, f = lapply(methodvar, function(f) data[[f]]))
+			# With `methodvar`, no `by`
+			# Split data
+			methodvar_split = split(x = data,
+															f = lapply(methodvar, function(f) data[[f]]))
+			# Compute correlations
 			rho = vapply(X = methods,
-										FUN = function(x) cor(methodvar_split[[ref]][[estvarname]], methodvar_split[[x]][[estvarname]]),
-										FUN.VALUE = numeric(1))
+									 FUN = function(x) cor(methodvar_split[[ref]][[estvarname]], methodvar_split[[x]][[estvarname]]),
+									 FUN.VALUE = numeric(1))
+			# Compute n. of observations used in computing correlations
 			ncorr = vapply(X = methods,
 										 FUN = function(x) sum(!is.na(methodvar_split[[ref]][[estvarname]]) & !is.na(methodvar_split[[x]][[estvarname]])),
 										 FUN.VALUE = numeric(1))
 			obj = lapply(X = methods,
-									 FUN = function(x) perfms(data = methodvar_split[[x]], estvarname = estvarname, true = true, se = se, dropbig = dropbig, max = max, semax = semax, ref = ref, level = level, df = df, mcse = mcse, robust = robust, modelsemethod = modelsemethod, esd_ref = sqrt(var(methodvar_split[[ref]][[estvarname]])), rho = rho[x], ncorr = ncorr[x]))
-			names(obj) = methods
+									 FUN = function(x) perfms(data = methodvar_split[[x]],
+									 												 estvarname = estvarname,
+									 												 true = true,
+									 												 se = se,
+									 												 dropbig = dropbig,
+									 												 max = max,
+									 												 semax = semax,
+									 												 ref = ref,
+									 												 method = x,
+									 												 level = level,
+									 												 df = df,
+									 												 mcse = mcse,
+									 												 robust = robust,
+									 												 modelsemethod = modelsemethod,
+									 												 esd_ref = sqrt(var(methodvar_split[[ref]][[estvarname]])),
+									 												 rho = rho[x],
+									 												 ncorr = ncorr[x]))
+			obj = do.call(rbind.data.frame, obj)
 		}
 	} else {
 		# Split data by `by` factors
-		by_split = split(data, f = lapply(by, function(f) data[[f]]))
-		obj = lapply(by_split, function(x) {
+		by_split = split(data,
+										 f = lapply(by, function(f) data[[f]]))
+
+		obj = lapply(seq_along(by_split), function(i) {
+			# No `methodvar`
 			if (is.null(methodvar)) {
-				# Simplest case: no method column, no by columns
-				obj = perfms(data = x, estvarname = estvarname, true = true, se = se, dropbig = dropbig, max = max, semax = semax, ref = ref, level = level, df = df, mcse = mcse, robust = robust, modelsemethod = modelsemethod)
-				obj$method = " "
+				obj = perfms(data = by_split[[i]],
+										 estvarname = estvarname,
+										 true = true,
+										 se = se,
+										 dropbig = dropbig,
+										 max = max,
+										 semax = semax,
+										 ref = ref,
+										 level = level,
+										 df = df,
+										 mcse = mcse,
+										 robust = robust,
+										 modelsemethod = modelsemethod,
+										 by = by,
+										 byvalues = names(by_split)[i])
+				# obj$method = " "
 				return(obj)
 			} else {
-				methodvar_split = split(x, f = lapply(methodvar, function(f) x[[f]]))
+				# With `methodvar`
+				methodvar_split = split(by_split[[i]],
+																f = lapply(methodvar, function(f) by_split[[i]][[f]]))
 				rho = vapply(X = methods,
-											FUN = function(x) cor(methodvar_split[[ref]][[estvarname]], methodvar_split[[x]][[estvarname]]),
-											FUN.VALUE = numeric(1))
+										 FUN = function(x) cor(methodvar_split[[ref]][[estvarname]], methodvar_split[[x]][[estvarname]]),
+										 FUN.VALUE = numeric(1))
 				ncorr = vapply(X = methods,
 											 FUN = function(x) sum(!is.na(methodvar_split[[ref]][[estvarname]]) & !is.na(methodvar_split[[x]][[estvarname]])),
 											 FUN.VALUE = numeric(1))
 				obj = lapply(X = methods,
-										 FUN = function(x) {
-										 	tmp = perfms(data = methodvar_split[[x]], estvarname = estvarname, true = true, se = se, dropbig = dropbig, max = max, semax = semax, ref = ref, level = level, df = df, mcse = mcse, robust = robust, modelsemethod = modelsemethod, esd_ref = sqrt(var(methodvar_split[[ref]][[estvarname]])), rho = rho[x], ncorr = ncorr[x])
-										 	tmp$method = x
-										 	return(tmp)
-										 	})
+										 FUN = function(x) perfms(data = methodvar_split[[x]],
+										 												 estvarname = estvarname,
+										 												 true = true,
+										 												 se = se,
+										 												 dropbig = dropbig,
+										 												 max = max,
+										 												 semax = semax,
+										 												 ref = ref,
+										 												 method = x,
+										 												 level = level,
+										 												 df = df,
+										 												 mcse = mcse,
+										 												 robust = robust,
+										 												 modelsemethod = modelsemethod,
+										 												 esd_ref = sqrt(var(methodvar_split[[ref]][[estvarname]])),
+										 												 rho = rho[x],
+										 												 ncorr = ncorr[x],
+										 												 by = by,
+										 												 byvalues = names(by_split)[i]))
 				obj = do.call(rbind.data.frame, obj)
 				return(obj)
 			}
 		})
-		obj = lapply(1:length(obj), function(x) {
-			tmp = obj[[x]]
-			tmp$by = names(obj)[x]
-			return(tmp)
-		})
-		obj = do.call(rbind.data.frame, obj)
 	}
 
 	# Return object of class simsum
-	obj = structure(obj, class = c("simsum", "data.frame"))
+	# obj = structure(obj, class = "simsum")
 	return(obj)
 }
 
-perfms <- function(data, estvarname, true, se, dropbig, max, semax, ref, level, df, mcse, robust, modelsemethod, esd_ref = NULL, rho = NULL, ncorr = NULL) {
+perfms <- function(data,
+									 estvarname,
+									 true,
+									 se,
+									 dropbig,
+									 max,
+									 semax,
+									 ref,
+									 method = NULL,
+									 level,
+									 df,
+									 mcse,
+									 robust,
+									 modelsemethod,
+									 esd_ref = NULL,
+									 rho = NULL,
+									 ncorr = NULL,
+									 by = NULL,
+									 byvalues = NULL) {
+
 	### Make object to return
 	obj = list()
 
@@ -253,24 +356,30 @@ perfms <- function(data, estvarname, true, se, dropbig, max, semax, ref, level, 
 	power_mcse = sqrt(power * (100 - power) / bothsims)
 
 	### Assemble object to return
-	obj = data.frame(
-		bsims,
-		sesims,
-		bias,
-		bias_mcse,
-		esd,
-		esd_mcse,
-		mse,
-		mse_mcse,
-		relprec,
-		relprec_mcse,
-		modelse,
-		modelse_mcse,
-		relerror,
-		relerror_mcse,
-		cover,
-		cover_mcse,
-		power,
-		power_mcse)
+	obj$bsims = bsims
+	obj$sesims = sesims
+	obj$bias = bias
+	obj$bias_mcse = bias_mcse
+	obj$esd = esd
+	obj$esd_mcse = esd_mcse
+	obj$mse = mse
+	obj$mse_mcse = mse_mcse
+	obj$relprec = relprec
+	obj$relprec_mcse = relprec_mcse
+	obj$modelse = modelse
+	obj$modelse_mcse = modelse_mcse
+	obj$relerror = relerror
+	obj$relerror_mcse = relerror_mcse
+	obj$cover = cover
+	obj$cover_mcse = cover_mcse
+	obj$power = power
+	obj$power_mcse = power_mcse
+	if (!is.null(method)) obj$method = method
+	if (!is.null(by)) {
+		byvalues = unlist(strsplit(byvalues, ".", fixed = TRUE))
+		for (w in seq_along(by)) {
+			obj[[by[w]]] = byvalues[w]
+		}
+	}
 	return(obj)
 }
