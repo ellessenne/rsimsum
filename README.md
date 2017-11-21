@@ -9,10 +9,11 @@
 
 # To-do
 
-- [ ] Robust calculations
-- [ ] Improve documentation for `simsum`
-- [ ] S3 `print` method
-- [ ] S3 `as.data.frame` method
+- [x] Improve documentation for `simsum`
+- [ ] S3 `is.simsum` method
 - [ ] S3 `summary` method
+- [ ] S3 `format` method
+- [ ] S3 `print` method
 - [ ] Tidy up code
+- [ ] Robust calculations
 - [ ] Set up testing suite
