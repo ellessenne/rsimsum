@@ -5,11 +5,11 @@
 \alias{MIsim}
 \title{Example of a simulation study}
 \format{A data frame with 3,000 rows and 4 variables:
-\describe{
-  \item{dataset}{simulated dataset number}
-  \item{method}{method used (\code{CC}, \code{MI_LOGT} or \code{MI_T})}
-  \item{b}{point estimate}
-  \item{se}{standard error of the point estimate}
+\itemize{
+\item \code{dataset} Simulated dataset number.
+\item \code{method} Method used (\code{CC}, \code{MI_LOGT} or \code{MI_T}).
+\item \code{b} Point estimate.
+\item \code{se} Standard error of the point estimate.
 }}
 \usage{
 MIsim
@@ -17,11 +17,16 @@ MIsim
 \description{
 A dataset from a simulation study comparing different ways to handle missing covariates when fitting a Cox model (White and Royston, 2009). One thousand datasets were simulated, each containing normally distributed covariates \eqn{x} and \eqn{z} and time-to-event outcome. Both covariates has 20\% of their values deleted independently of all other variables so the data became missing completely at random (Little and Rubin, 2002). Each simulated dataset was analysed in three ways. A Cox model was fit to the complete cases (\code{CC}). Then two methods of multiple imputation using chained equations (van Buuren, Boshuizen, and Knook, 1999) were used. The \code{MI_LOGT} method multiply imputes the missing values of \eqn{x} and \eqn{z} with the outcome included as \eqn{\log (t)} and \eqn{d}, where \eqn{t} is the survival time and \eqn{d} is the event indicator. The \code{MI_T} method is the same except that \eqn{\log (t)} is replaced by \eqn{t} in the imputation model. The results are stored in long format.
 }
+\examples{
+library(rsimsum)
+data("MIsim")
+
+}
 \references{
-White, I.R., and P. Royston. 2009. Imputing missing covariate values for the Cox model. Statistics in Medicine 28: 1982-1998 \url{http://dx.doi.org/10.1002/sim.3618}
+White, I.R., and P. Royston. 2009. Imputing missing covariate values for the Cox model. Statistics in Medicine 28: 1982-1998 \url{https://doi.org/10.1002/sim.3618}
 
-Little, R.J.A., and D.B. Rubin. 2002. Statistical analysis with missing data. 2nd ed. Hoboken, NJ: Wiley \url{http://dx.doi.org/10.1002/9781119013563}
+Little, R.J.A., and D.B. Rubin. 2002. Statistical analysis with missing data. 2nd ed. Hoboken, NJ: Wiley \url{https://doi.org/10.1002/9781119013563}
 
-van Buuren, S., H.C. Boshuizen, and D.L. Knook. 1999. Multiple imputation of missing blood pressure covariates in survival analysis. Statistics in Medicine 18: 681-694 \url{http://dx.doi.org/10.1002/(SICI)1097-0258(19990330)18:6<681::AID-SIM71>3.0.CO;2-R}
+van Buuren, S., H.C. Boshuizen, and D.L. Knook. 1999. Multiple imputation of missing blood pressure covariates in survival analysis. Statistics in Medicine 18: 681-694 \href{[https://doi.org/10.1002/(SICI)1097-0258(19990330)18:6<681::AID-SIM71>3.0.CO;2-R}{https://doi.org/10.1002/(SICI)1097-0258(19990330)18:6<681::AID-SIM71>3.0.CO;2-R}
 }
 \keyword{datasets}

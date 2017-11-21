@@ -7,13 +7,13 @@
 nsim(alpha, sigma, delta, power = 0.5)
 }
 \arguments{
-\item{alpha}{Significance level. Must be a value between 0 and 1}
+\item{alpha}{Significance level. Must be a value between 0 and 1.}
 
-\item{sigma}{Variance for the parameter of interest}
+\item{sigma}{Variance for the parameter of interest.}
 
-\item{delta}{Specified level of accuracy of the estimate of interest you are willing to accept}
+\item{delta}{Specified level of accuracy of the estimate of interest you are willing to accept.}
 
-\item{power}{Power to detect a specific difference from the true value as significant. Must be a value between 0 and 1. Defaults to 0.5, e.g. a power of 50\%}
+\item{power}{Power to detect a specific difference from the true value as significant. Must be a value between 0 and 1. Defaults to 0.5, e.g. a power of 50\%.}
 }
 \value{
 A scalar value \eqn{B}{B} representing the number of simulations to perform based on the accuracy required.
@@ -35,5 +35,5 @@ nsim(alpha = 0.05, sigma = sqrt(0.0166), delta = 0.349 * 5 / 100, power = 0.5)
 nsim(alpha = 0.05, sigma = sqrt(0.0166), delta = 0.349 * 1 / 100, power = 0.5)
 }
 \references{
-Burton, A., Douglas G. Altman, P. Royston. et al. 2006. The design of simulation studies in medical statistics. Statistics in Medicine 25: 4279-4292 \url{http://dx.doi.org/10.1002/sim.2673}
+Burton, A., Douglas G. Altman, P. Royston. et al. 2006. The design of simulation studies in medical statistics. Statistics in Medicine 25: 4279-4292 \url{https://doi.org/10.1002/sim.2673}
 }
