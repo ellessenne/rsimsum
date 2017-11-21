@@ -1,42 +1,39 @@
 #' simsum
 #'
-#' @description
-#' @param data A `data.frame` in which variable names are interpreted.
-#' @param estvarname a variable containing the point estimates
-#' @param true gives the true value of the parameter.  This is used in calculations of bias and coverage and is required whenever these performance measures are requested.
-#' @param methodvar identifies the method
-#' @param se lists the names of the variables containing the standard errors of the point estimates.  For data in long format, this is a single variable.
-#' @param max specifies the maximum acceptable absolute value of the point estimates, standardised to mean 0 and SD 1. The default value is 10.
-#' @param semax specifies the maximum acceptable value of the standard error, as a multiple of the mean standard error.  The default value is 100.
-#' @param dropbig specifies that point estimates or standard errors beyond the maximum acceptable values should be dropped.
-#' @param level specifies the confidence level for coverages and powers. Default is 0.95.
-#' @param by  computes performance measures by varlist. Multiple factors are collapsed into a single one using [base::interaction()]
-#' @param mcse reports Monte Carlo standard errors for all performance measures.
-#' @param robust  is only useful if mcse is also specified.  It requests robust Monte Carlo standard errors for the performance measures `empse`, `relprec` and `relerror`, instead of those based on an assumption of normally distributed point estimates.
-#' @param modelsemethod specifies whether the model standard error should be computed as the root mean squared value (the default) or as the arithmetic mean.
-#' @param ref specifies the reference method against which relative precisions will be calculated.
-#' @param perfmeasures If none of the following options is specified, then all available performance measures are computed. Possible values are:
-#' * `bsims` reports the number of simulations with non-missing point estimates.
-#' * `sesims` reports the number of simulations with non-missing standard errors.
-#' * `bias` estimates the bias in the point estimates.
-#' * `empse` estimates the empirical standard error -- the standard deviation of the point estimates.
-#' * `relprec` estimates the relative precision -- the inverse squared ratio of the empirical standard error of this method to the empirical standard error of the reference method.  This calculation is slow: 	omitting it can reduce run time by up to 90%.
-#' * `mse` estimates the mean squared error.
-#' * `modelse` estimates the model-based standard error. See modelsemethod() above.
-#' * `relerror` estimates the proportional error in the model-based standard error, using the empirical standard error as gold standard.
-#' * `cover` estimates the coverage of nominal confidence intervals at the specified level.
-#' * `power` estimates the power to reject the null hypothesis that the true parameter is zero, at the specified level.
-#' @param sanitise Sanitise column names passed to `simsum` by removing all dot characters (`.`).
+#' @title Analyses of simulation studies including Monte Carlo error
+#'
+#' @description `simsum` computes performance measures for simulation studies in which each simulated data set yields point estimates by one or more analysis methods. Bias, empirical standard error and precision relative to a reference method can be computed for each method.  If, in addition, model-based standard errors are available then `simsum` can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, and the power to reject a null hypothesis. Monte Carlo errors are available for all estimated quantities.
+#'
+#' @param data A `data.frame` in which variable names are interpreted. It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.
+#' @param estvarname The name of the variable containing the point estimates.
+#' @param true The true value of the parameter. This is used in calculations of bias and coverage.
+#' @param methodvar The name of the variable containing the methods to compare. Can be `NULL`.
+#' @param se The name of the variable containing the standard errors of the point estimates.
+#' @param max Specifies the maximum acceptable absolute value of the point estimates, standardised to mean 0 and SD 1. Defaults to `10`.
+#' @param semax Specifies the maximum acceptable value of the standard error, as a multiple of the mean standard error. Defaults to `100`.
+#' @param dropbig Specifies that point estimates or standard errors beyond the maximum acceptable values should be dropped.
+#' @param level Specifies the confidence level for coverage and power. Defaults to `0.95`.
+#' @param by A vector of variable names to compute performance measures by a list of factors. Can be `NULL`.
+#' @param mcse Reports Monte Carlo standard errors for all performance measures. Defaults to `TRUE`.
+#' @param robust Specifies that robust Monte Carlo standard errors for the performance measures empirical standard error, relative gain in precision, relative error should be returned. More details in White (2010). Only useful when `mcse = TRUE`. Not yet implemented.
+#' @param modelsemethod Specifies whether the model standard error should be computed as the root mean squared value (`modelsemethod = rmse`) or as the arithmetic mean (`modelsemethod = mean`). Defaults to `rmse`.
+#' @param ref Specifies the reference method against which relative precisions will be calculated. Only useful if `methodvar` is specified.
+#' @param sanitise Sanitise column names passed to `simsum` by removing all dot characters (`.`). Defaults to `TRUE`.
 #'
 #' @return An object of class `simsum`.
 #'
-#' @details Beware of `by` or `methodvar` whose levels contain dots (`.`)!
+#' @references White, I.R. 2010. simsum: Analyses of simulation studies including Monte Carlo error. The Stata Journal 10(3): 369-385
+#'
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' x = simsum(...)
-#' }
+#'
+#' data("MIsim")
+#'
+#' s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", ref = "CC")
+#'
+#' # If `ref` is not specified, the reference method is inferred
+#' s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
 
 simsum <- function(data,
 									 estvarname,
@@ -145,19 +142,19 @@ simsum <- function(data,
 		# No `by` factors
 		if (is.null(methodvar)) {
 			# No `methodvar`, no `by`
-			obj = perfms(data = data,
-									 estvarname = estvarname,
-									 true = true,
-									 se = se,
-									 dropbig = dropbig,
-									 max = max,
-									 semax = semax,
-									 ref = ref,
-									 level = level,
-									 df = df,
-									 mcse = mcse,
-									 robust = robust,
-									 modelsemethod = modelsemethod)
+			summ = perfms(data = data,
+										estvarname = estvarname,
+										true = true,
+										se = se,
+										dropbig = dropbig,
+										max = max,
+										semax = semax,
+										ref = ref,
+										level = level,
+										df = df,
+										mcse = mcse,
+										robust = robust,
+										modelsemethod = modelsemethod)
 		} else {
 			# With `methodvar`, no `by`
 			# Split data
@@ -172,51 +169,50 @@ simsum <- function(data,
 			ncorr = vapply(X = methods,
 										 FUN = function(x) sum(!is.na(methodvar_split[[ref]][[estvarname]]) & !is.na(methodvar_split[[x]][[estvarname]])),
 										 FUN.VALUE = numeric(1))
-			obj = lapply(X = methods,
-									 FUN = function(x) perfms(data = methodvar_split[[x]],
-									 												 estvarname = estvarname,
-									 												 true = true,
-									 												 se = se,
-									 												 dropbig = dropbig,
-									 												 max = max,
-									 												 semax = semax,
-									 												 ref = ref,
-									 												 method = x,
-									 												 level = level,
-									 												 df = df,
-									 												 mcse = mcse,
-									 												 robust = robust,
-									 												 modelsemethod = modelsemethod,
-									 												 esd_ref = sqrt(var(methodvar_split[[ref]][[estvarname]])),
-									 												 rho = rho[x],
-									 												 ncorr = ncorr[x]))
-			obj = do.call(rbind.data.frame, obj)
+			summ = lapply(X = methods,
+										FUN = function(x) perfms(data = methodvar_split[[x]],
+																						 estvarname = estvarname,
+																						 true = true,
+																						 se = se,
+																						 dropbig = dropbig,
+																						 max = max,
+																						 semax = semax,
+																						 ref = ref,
+																						 method = x,
+																						 level = level,
+																						 df = df,
+																						 mcse = mcse,
+																						 robust = robust,
+																						 modelsemethod = modelsemethod,
+																						 esd_ref = sqrt(var(methodvar_split[[ref]][[estvarname]])),
+																						 rho = rho[x],
+																						 ncorr = ncorr[x]))
+			summ = do.call(rbind.data.frame, summ)
 		}
 	} else {
 		# Split data by `by` factors
 		by_split = split(data,
 										 f = lapply(by, function(f) data[[f]]))
 
-		obj = lapply(seq_along(by_split), function(i) {
+		summ = lapply(seq_along(by_split), function(i) {
 			# No `methodvar`
 			if (is.null(methodvar)) {
-				obj = perfms(data = by_split[[i]],
-										 estvarname = estvarname,
-										 true = true,
-										 se = se,
-										 dropbig = dropbig,
-										 max = max,
-										 semax = semax,
-										 ref = ref,
-										 level = level,
-										 df = df,
-										 mcse = mcse,
-										 robust = robust,
-										 modelsemethod = modelsemethod,
-										 by = by,
-										 byvalues = names(by_split)[i])
-				# obj$method = " "
-				return(obj)
+				summ = perfms(data = by_split[[i]],
+											estvarname = estvarname,
+											true = true,
+											se = se,
+											dropbig = dropbig,
+											max = max,
+											semax = semax,
+											ref = ref,
+											level = level,
+											df = df,
+											mcse = mcse,
+											robust = robust,
+											modelsemethod = modelsemethod,
+											by = by,
+											byvalues = names(by_split)[i])
+				return(summ)
 			} else {
 				# With `methodvar`
 				methodvar_split = split(by_split[[i]],
@@ -227,35 +223,55 @@ simsum <- function(data,
 				ncorr = vapply(X = methods,
 											 FUN = function(x) sum(!is.na(methodvar_split[[ref]][[estvarname]]) & !is.na(methodvar_split[[x]][[estvarname]])),
 											 FUN.VALUE = numeric(1))
-				obj = lapply(X = methods,
-										 FUN = function(x) perfms(data = methodvar_split[[x]],
-										 												 estvarname = estvarname,
-										 												 true = true,
-										 												 se = se,
-										 												 dropbig = dropbig,
-										 												 max = max,
-										 												 semax = semax,
-										 												 ref = ref,
-										 												 method = x,
-										 												 level = level,
-										 												 df = df,
-										 												 mcse = mcse,
-										 												 robust = robust,
-										 												 modelsemethod = modelsemethod,
-										 												 esd_ref = sqrt(var(methodvar_split[[ref]][[estvarname]])),
-										 												 rho = rho[x],
-										 												 ncorr = ncorr[x],
-										 												 by = by,
-										 												 byvalues = names(by_split)[i]))
-				obj = do.call(rbind.data.frame, obj)
-				return(obj)
+				summ = lapply(X = methods,
+											FUN = function(x) perfms(data = methodvar_split[[x]],
+																							 estvarname = estvarname,
+																							 true = true,
+																							 se = se,
+																							 dropbig = dropbig,
+																							 max = max,
+																							 semax = semax,
+																							 ref = ref,
+																							 method = x,
+																							 level = level,
+																							 df = df,
+																							 mcse = mcse,
+																							 robust = robust,
+																							 modelsemethod = modelsemethod,
+																							 esd_ref = sqrt(var(methodvar_split[[ref]][[estvarname]])),
+																							 rho = rho[x],
+																							 ncorr = ncorr[x],
+																							 by = by,
+																							 byvalues = names(by_split)[i]))
+				summ = do.call(rbind.data.frame, summ)
+				return(summ)
 			}
 		})
-		obj = do.call(rbind.data.frame, obj)
+		summ = do.call(rbind.data.frame, summ)
 	}
 
-	# Return object of class simsum
-	# obj = structure(obj, class = "simsum")
+	### Include call and other info into object to return
+	obj = list()
+	obj$call = match.call()
+	obj$summ = summ
+	obj$estvarname = estvarname
+	obj$true = true
+	obj$se = se
+	obj$methodvar = methodvar
+	obj$ref = ref
+	obj$df = df
+	obj$dropbig = dropbig
+	obj$max = max
+	obj$semax = semax
+	obj$level = level
+	obj$by = by
+	obj$sanitise = sanitise
+	obj$mcse = mcse
+	obj$robust = robust
+	obj$modelsemethod = modelsemethod
+
+	### Return object of class simsum
+	obj = structure(obj, class = c("simsum", "list"))
 	return(obj)
 }
 
@@ -358,24 +374,9 @@ perfms <- function(data,
 	power_mcse = sqrt(power * (100 - power) / bothsims)
 
 	### Assemble object to return
-	obj$bsims = bsims
-	obj$sesims = sesims
-	obj$bias = bias
-	obj$bias_mcse = bias_mcse
-	obj$esd = esd
-	obj$esd_mcse = esd_mcse
-	obj$mse = mse
-	obj$mse_mcse = mse_mcse
-	obj$relprec = relprec
-	obj$relprec_mcse = relprec_mcse
-	obj$modelse = modelse
-	obj$modelse_mcse = modelse_mcse
-	obj$relerror = relerror
-	obj$relerror_mcse = relerror_mcse
-	obj$cover = cover
-	obj$cover_mcse = cover_mcse
-	obj$power = power
-	obj$power_mcse = power_mcse
+	obj$stat = c("bsims", "sesims", "bias", "esd", "mse", "relprec", "modelse", "relerror", "cover", "power")
+	obj$coef = c(bsims, sesims, bias, esd, mse, relprec, modelse, relerror, cover, power)
+	obj$mcse = c(NA, NA, bias_mcse, esd_mcse, mse_mcse, relprec_mcse, modelse_mcse, relerror_mcse, cover_mcse, power_mcse)
 	if (!is.null(method)) obj$method = method
 	if (!is.null(by)) {
 		byvalues = unlist(strsplit(byvalues, ".", fixed = TRUE))
@@ -383,5 +384,6 @@ perfms <- function(data,
 			obj[[by[w]]] = byvalues[w]
 		}
 	}
+	obj = as.data.frame(obj, stringsAsFactors = FALSE)
 	return(obj)
 }

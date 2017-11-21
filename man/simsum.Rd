@@ -2,7 +2,7 @@
 % Please edit documentation in R/simsum.R
 \name{simsum}
 \alias{simsum}
-\title{simsum}
+\title{Analyses of simulation studies including Monte Carlo error}
 \usage{
 simsum(data, estvarname, true, se, methodvar = NULL, ref = NULL,
   df = NULL, dropbig = FALSE, max = 10, semax = 100, level = 0.95,
@@ -10,58 +10,54 @@ simsum(data, estvarname, true, se, methodvar = NULL, ref = NULL,
   modelsemethod = "rmse")
 }
 \arguments{
-\item{data}{A \code{data.frame} in which variable names are interpreted.}
+\item{data}{A \code{data.frame} in which variable names are interpreted. It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.}
 
-\item{estvarname}{a variable containing the point estimates}
+\item{estvarname}{The name of the variable containing the point estimates.}
 
-\item{true}{gives the true value of the parameter.  This is used in calculations of bias and coverage and is required whenever these performance measures are requested.}
+\item{true}{The true value of the parameter. This is used in calculations of bias and coverage.}
 
-\item{se}{lists the names of the variables containing the standard errors of the point estimates.  For data in long format, this is a single variable.}
+\item{se}{The name of the variable containing the standard errors of the point estimates.}
 
-\item{methodvar}{identifies the method}
+\item{methodvar}{The name of the variable containing the methods to compare. Can be \code{NULL}.}
 
-\item{ref}{specifies the reference method against which relative precisions will be calculated.}
+\item{ref}{Specifies the reference method against which relative precisions will be calculated. Only useful if \code{methodvar} is specified.}
 
-\item{dropbig}{specifies that point estimates or standard errors beyond the maximum acceptable values should be dropped.}
+\item{dropbig}{Specifies that point estimates or standard errors beyond the maximum acceptable values should be dropped.}
 
-\item{max}{specifies the maximum acceptable absolute value of the point estimates, standardised to mean 0 and SD 1. The default value is 10.}
+\item{max}{Specifies the maximum acceptable absolute value of the point estimates, standardised to mean 0 and SD 1. Defaults to \code{10}.}
 
-\item{semax}{specifies the maximum acceptable value of the standard error, as a multiple of the mean standard error.  The default value is 100.}
+\item{semax}{Specifies the maximum acceptable value of the standard error, as a multiple of the mean standard error. Defaults to \code{100}.}
 
-\item{level}{specifies the confidence level for coverages and powers. Default is 0.95.}
+\item{level}{Specifies the confidence level for coverage and power. Defaults to \code{0.95}.}
 
-\item{by}{computes performance measures by varlist. Multiple factors are collapsed into a single one using \code{\link[base:interaction]{base::interaction()}}}
+\item{by}{A vector of variable names to compute performance measures by a list of factors. Can be \code{NULL}.}
 
-\item{sanitise}{Sanitise column names passed to \code{simsum} by removing all dot characters (\code{.}).}
+\item{sanitise}{Sanitise column names passed to \code{simsum} by removing all dot characters (\code{.}). Defaults to \code{TRUE}.}
 
-\item{mcse}{reports Monte Carlo standard errors for all performance measures.}
+\item{mcse}{Reports Monte Carlo standard errors for all performance measures. Defaults to \code{TRUE}.}
 
-\item{robust}{is only useful if mcse is also specified.  It requests robust Monte Carlo standard errors for the performance measures \code{empse}, \code{relprec} and \code{relerror}, instead of those based on an assumption of normally distributed point estimates.}
+\item{robust}{Specifies that robust Monte Carlo standard errors for the performance measures empirical standard error, relative gain in precision, relative error should be returned. More details in White (2010). Only useful when \code{mcse = TRUE}. Not yet implemented.}
 
-\item{modelsemethod}{specifies whether the model standard error should be computed as the root mean squared value (the default) or as the arithmetic mean.}
-
-\item{perfmeasures}{If none of the following options is specified, then all available performance measures are computed. Possible values are:
-\itemize{
-\item \code{bsims} reports the number of simulations with non-missing point estimates.
-\item \code{sesims} reports the number of simulations with non-missing standard errors.
-\item \code{bias} estimates the bias in the point estimates.
-\item \code{empse} estimates the empirical standard error -- the standard deviation of the point estimates.
-\item \code{relprec} estimates the relative precision -- the inverse squared ratio of the empirical standard error of this method to the empirical standard error of the reference method.  This calculation is slow:     omitting it can reduce run time by up to 90%.
-\item \code{mse} estimates the mean squared error.
-\item \code{modelse} estimates the model-based standard error. See modelsemethod() above.
-\item \code{relerror} estimates the proportional error in the model-based standard error, using the empirical standard error as gold standard.
-\item \code{cover} estimates the coverage of nominal confidence intervals at the specified level.
-\item \code{power} estimates the power to reject the null hypothesis that the true parameter is zero, at the specified level.
-}}
+\item{modelsemethod}{Specifies whether the model standard error should be computed as the root mean squared value (\code{modelsemethod = rmse}) or as the arithmetic mean (\code{modelsemethod = mean}). Defaults to \code{rmse}.}
 }
 \value{
 An object of class \code{simsum}.
 }
+\description{
+\code{simsum} computes performance measures for simulation studies in which each simulated data set yields point estimates by one or more analysis methods. Bias, empirical standard error and precision relative to a reference method can be computed for each method.  If, in addition, model-based standard errors are available then \code{simsum} can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, and the power to reject a null hypothesis. Monte Carlo errors are available for all estimated quantities.
+}
 \details{
-Beware of \code{by} or \code{methodvar} whose levels contain dots (\code{.})!
+simsum
 }
 \examples{
-\dontrun{
-x = simsum(...)
+
+data("MIsim")
+
+s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", ref = "CC")
+
+# If `ref` is not specified, the reference method is inferred
+s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
 }
+\references{
+White, I.R. 2010. simsum: Analyses of simulation studies including Monte Carlo error. The Stata Journal 10(3): 369-385
 }
