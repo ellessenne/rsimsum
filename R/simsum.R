@@ -136,7 +136,7 @@ simsum <- function(data,
 		names(data) = gsub(pattern = ".", replacement = "", x = names(data), fixed = TRUE)
 		if (!is.null(estvarname)) estvarname = gsub(pattern = ".", replacement = "", x = estvarname, fixed = TRUE)
 		if (!is.null(se)) se = gsub(pattern = ".", replacement = "", x = se, fixed = TRUE)
-		if (!is.null(methodvar)) by = gsub(pattern = ".", replacement = "", x = methodvar, fixed = TRUE)
+		if (!is.null(methodvar)) methodvar = gsub(pattern = ".", replacement = "", x = methodvar, fixed = TRUE)
 		if (!is.null(by)) by = gsub(pattern = ".", replacement = "", x = by, fixed = TRUE)
 	}
 
@@ -163,6 +163,7 @@ simsum <- function(data,
 			# Split data
 			methodvar_split = split(x = data,
 															f = lapply(methodvar, function(f) data[[f]]))
+
 			# Compute correlations
 			rho = vapply(X = methods,
 									 FUN = function(x) cor(methodvar_split[[ref]][[estvarname]], methodvar_split[[x]][[estvarname]]),
@@ -250,6 +251,7 @@ simsum <- function(data,
 				return(obj)
 			}
 		})
+		obj = do.call(rbind.data.frame, obj)
 	}
 
 	# Return object of class simsum
