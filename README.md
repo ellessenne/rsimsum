@@ -9,11 +9,13 @@
 
 # To-do
 
-- [x] Improve documentation for `simsum`
-- [ ] S3 `is.simsum` method
-- [ ] S3 `summary` method
-- [ ] S3 `format` method
-- [ ] S3 `print` method
-- [ ] Tidy up code
-- [ ] Robust calculations
-- [ ] Set up testing suite
+- [x] Improve documentation for `simsum` (0.0.1)
+- [x] S3 `is.simsum` method (0.0.2)
+- [x] S3 `summary` method (0.0.2)
+- [ ] S3 `print.summary` method (0.0.2)
+- [ ] S3 `format` method (0.0.2)
+- [ ] S3 `print` method (0.0.2)
+- [ ] Implement reporting of observations dropped as a results of `dropbig = TRUE` (0.0.3)
+- [ ] Robust calculations (0.0.4)
+- [ ] Set up testing suite (0.0.5)
+- [ ] Tidy up code before 0.1.0 release
