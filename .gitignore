@@ -33,3 +33,7 @@
 
 # Html files
 *.html
+
+# Stata data files
+*.dta
+*.DTA
