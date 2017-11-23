@@ -18,24 +18,27 @@
 #' xs
 
 
-summary.simsum <- function(x, level = 0.95) {
+summary.simsum <- function(x, ci_level = 0.95) {
 	### Check arguments
-	arg_checks = makeAssertCollection()
+	arg_checks = checkmate::makeAssertCollection()
 
 	# `x` must be an object of class `simsum`
-	assert_class(x, classes = "simsum", add = arg_checks)
+	checkmate::assert_class(x, classes = "simsum", add = arg_checks)
 
 	# `level` must be a numeric value
-	assert_number(level, lower = 0, upper = 1, add = arg_checks)
+	checkmate::assert_number(ci_level, lower = 0, upper = 1, add = arg_checks)
 
 	### Report if there are any errors
-	if (!arg_checks$isEmpty()) reportAssertions(arg_checks)
+	if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
 
 	### Compute confidence intervals if Monte Carlo standard errors are available
 	if (x$mcse) {
-		x$summ$lower = x$summ$coef - qnorm(1 - (1 - level) / 2) * x$summ$mcse
-		x$summ$upper = x$summ$coef + qnorm(1 - (1 - level) / 2) * x$summ$mcse
+		x$summ$lower = x$summ$coef - qnorm(1 - (1 - ci_level) / 2) * x$summ$mcse
+		x$summ$upper = x$summ$coef + qnorm(1 - (1 - ci_level) / 2) * x$summ$mcse
 	}
+
+	### Add ci_level slot
+	x$ci_level = ci_level
 
 	### Return object of class summary.simsum
 	class(x) = c("list", "summary.simsum")

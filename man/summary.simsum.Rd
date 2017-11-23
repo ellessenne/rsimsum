@@ -4,7 +4,7 @@
 \alias{summary.simsum}
 \title{Summarising simsum objects}
 \usage{
-\method{summary}{simsum}(x, level = 0.95)
+\method{summary}{simsum}(x, ci_level = 0.95)
 }
 \arguments{
 \item{x}{An object of class \code{simsum}.}
