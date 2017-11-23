@@ -18,5 +18,6 @@
 - [ ] Implement reporting of observations dropped as a results of `dropbig = TRUE` (0.0.4)
 - [ ] Implement calculating (and reporting) mcse only when `mcse = TRUE` (0.0.5)
 - [ ] Robust calculations (0.0.6)
-- [ ] Set up testing suite: expected errors/warnings with wrong input, correct results with appropriate input (0.0.7)
+- [ ] Set up TravisCI, Appveyor, Codecov (0.0.7)
+- [ ] Set up testing suite: expected errors/warnings with wrong input, correct results with appropriate input (0.0.8)
 - [ ] Tidy up code before 0.1.0 release
