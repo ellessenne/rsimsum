@@ -23,6 +23,9 @@ The function \code{nsim} computes the number of simulations \eqn{B}{B} to perfor
 \deqn{B = \left( \frac{(Z_{1 - \alpha / 2} + Z_{1 - theta}) \sigma}{\delta} \right) ^ 2,}{B = [((Z(1 - \alpha / 2) + Z(1 - \theta)) \sigma) / \delta] ^ 2 }
 where \eqn{\delta} is the specified level of accuracy of the estimate of interest you are willing to accept (i.e. the permissible difference from the true value \eqn{\beta}{\beta}), \eqn{Z_{1 - \alpha / 2}}{Z(1 - \alpha / 2)} is the \eqn{(1 - \alpha / 2)}{(1 - \alpha / 2)} quantile of the standard normal distribution, \eqn{Z_{1 - \theta}}{Z(1 - \theta)} is the \eqn{(1 - \theta)}{(1 - \theta)} quantile of the standard normal distribution with \eqn{(1 - \theta)}{1 - \theta} being the power to detect a specific difference from the true value as significant, and \eqn{\sigma ^ 2}{\sigma ^ 2]} is the variance of the parameter of interest.
 }
+\details{
+nsim
+}
 \examples{
 # Number of simulations required to produce an estimate to within 5\%
 # accuracy of the true coefficient of 0.349 with a 5\% significance level,

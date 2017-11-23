@@ -1,6 +1,8 @@
-#' Compute number of simulations required
+#' nsim
 #'
-#' The function `nsim` computes the number of simulations \eqn{B}{B} to perform based on the accuracy of an estimate of interest, using the following equation:
+#' @title Compute number of simulations required
+#'
+#' @description The function `nsim` computes the number of simulations \eqn{B}{B} to perform based on the accuracy of an estimate of interest, using the following equation:
 #' \deqn{B = \left( \frac{(Z_{1 - \alpha / 2} + Z_{1 - theta}) \sigma}{\delta} \right) ^ 2,}{B = [((Z(1 - \alpha / 2) + Z(1 - \theta)) \sigma) / \delta] ^ 2 }
 #' where \eqn{\delta} is the specified level of accuracy of the estimate of interest you are willing to accept (i.e. the permissible difference from the true value \eqn{\beta}{\beta}), \eqn{Z_{1 - \alpha / 2}}{Z(1 - \alpha / 2)} is the \eqn{(1 - \alpha / 2)}{(1 - \alpha / 2)} quantile of the standard normal distribution, \eqn{Z_{1 - \theta}}{Z(1 - \theta)} is the \eqn{(1 - \theta)}{(1 - \theta)} quantile of the standard normal distribution with \eqn{(1 - \theta)}{1 - \theta} being the power to detect a specific difference from the true value as significant, and \eqn{\sigma ^ 2}{\sigma ^ 2]} is the variance of the parameter of interest.
 #'
@@ -26,8 +28,21 @@
 #' nsim(alpha = 0.05, sigma = sqrt(0.0166), delta = 0.349 * 1 / 100, power = 0.5)
 
 nsim <- function(alpha, sigma, delta, power = 0.5) {
-	if (!(alpha >= 0 & alpha <= 1)) stop(paste("'alpha' must be a value between 0 and 1, currently", alpha))
-	if (!(power >= 0 & power <= 1)) stop(paste("'power' must be a value between 0 and 1, currently", power))
+	### Check arguments
+	arg_checks = checkmate::makeAssertCollection()
+
+	# `alpha` and `power` must be a numeric value between 0 and 1
+	checkmate::assert_number(alpha, lower = 0, upper = 1, add = arg_checks)
+	checkmate::assert_number(power, lower = 0, upper = 1, add = arg_checks)
+
+	# `sigma` and `delta` must be a numeric value
+	checkmate::assert_number(sigma, add = arg_checks)
+	checkmate::assert_number(delta, add = arg_checks)
+
+	### Report if there are any errors
+	if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
+
+	### Compute B
 	B = (((qnorm(1 - alpha / 2) + qnorm(power)) * sigma) / delta) ^ 2
 	return(B)
 }
