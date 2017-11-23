@@ -35,88 +35,56 @@
 #' # If `ref` is not specified, the reference method is inferred
 #' s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
 
-simsum <- function(data,
-									 estvarname,
-									 true,
-									 se,
-									 methodvar = NULL,
-									 ref = NULL,
-									 df = NULL,
-									 dropbig = FALSE,
-									 max = 10,
-									 semax = 100,
-									 level = 0.95,
-									 by = NULL,
-									 sanitise = TRUE,
-									 mcse = FALSE,
-									 robust = FALSE,
-									 modelsemethod = "rmse") {
+simsum <- function(data, estvarname, true, se, methodvar = NULL, ref = NULL, df = NULL, dropbig = FALSE, dropbig_verbose = FALSE, max = 10, semax = 100, level = 0.95, by = NULL, sanitise = TRUE, mcse = FALSE, robust = FALSE, modelsemethod = "rmse") {
 	### Check arguments
-	arg_checks = makeAssertCollection()
+	arg_checks = checkmate::makeAssertCollection()
 
 	# `data` must be a data.frame
-	assert_data_frame(data, add = arg_checks)
+	checkmate::assert_data_frame(data, add = arg_checks)
 
 	# `estvarname`, `se`, `methodvar`, `ref` must be a single string value
-	assert_string(estvarname, add = arg_checks)
-	assert_string(se, add = arg_checks)
-	assert_string(methodvar, null.ok = TRUE, add = arg_checks)
-	assert_string(ref, null.ok = TRUE, add = arg_checks)
+	checkmate::assert_string(estvarname, add = arg_checks)
+	checkmate::assert_string(se, add = arg_checks)
+	checkmate::assert_string(methodvar, null.ok = TRUE, add = arg_checks)
+	checkmate::assert_string(ref, null.ok = TRUE, add = arg_checks)
 
 	# `true`, `df`, `max`, `semax`, `level` must be a single numberic value
 	# `df` can be NULL
-	assert_number(true, add = arg_checks)
-	assert_number(df, null.ok = TRUE, add = arg_checks)
-	assert_number(max, add = arg_checks)
-	assert_number(semax, add = arg_checks)
-	assert_number(level, add = arg_checks)
+	checkmate::assert_number(true, add = arg_checks)
+	checkmate::assert_number(df, null.ok = TRUE, add = arg_checks)
+	checkmate::assert_number(max, add = arg_checks)
+	checkmate::assert_number(semax, add = arg_checks)
+	checkmate::assert_number(level, lower = 0, upper = 1, add = arg_checks)
 
-	# `dropbig`, `mcse`, `robust`, `sanitise` must be single logical value
-	assert_logical(dropbig, len = 1, add = arg_checks)
-	assert_logical(mcse, len = 1, add = arg_checks)
-	assert_logical(robust, len = 1, add = arg_checks)
-	assert_logical(sanitise, len = 1, add = arg_checks)
+	# `dropbig`, `dropbig_verbose`, `mcse`, `robust`, `sanitise` must be single logical value
+	checkmate::assert_logical(dropbig, len = 1, add = arg_checks)
+	checkmate::assert_logical(dropbig_verbose, len = 1, add = arg_checks)
+	checkmate::assert_logical(mcse, len = 1, add = arg_checks)
+	checkmate::assert_logical(robust, len = 1, add = arg_checks)
+	checkmate::assert_logical(sanitise, len = 1, add = arg_checks)
 
 	# `by` must be a vector of strings; can be NULL
-	assert_character(by, null.ok = TRUE, add = arg_checks)
+	checkmate::assert_character(by, null.ok = TRUE, add = arg_checks)
 
 	# `modelsemethod` must be `rmse` or `mean`
-	assert_choice(modelsemethod, choices = c("rmse", "mean"), add = arg_checks)
+	checkmate::assert_choice(modelsemethod, choices = c("rmse", "mean"), add = arg_checks)
+
+	# `estvarname`, `se` must be in `data`; all elements of `by` must be in data; `methodvar` must be in data
+	checkmate::assert_subset(estvarname, choices = names(data), add = arg_checks)
+	checkmate::assert_subset(se, choices = names(data), add = arg_checks)
+	checkmate::assert_subset(by, choices = names(data), add = arg_checks)
+	checkmate::assert_subset(methodvar, choices = names(data), add = arg_checks)
+
+	# `ref` must be one of the options in `methodvar`
+	if (!is.null(methodvar)) checkmate::assert_subset(ref, choices = unique(data[[methodvar]]), add = arg_checks)
 
 	### Report if there are any errors
-	if (!arg_checks$isEmpty()) reportAssertions(arg_checks)
+	if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
 
-	### Check if `estvarname`, `se` in `data`
-	errvec = character()
-	for (args in c(estvarname, se)) {
-		msg = validate_that(args %in% names(data), msg = args)
-		if (!is.logical(msg)) errvec = c(errvec, msg)
-	}
-	if (length(errvec) > 0) stop(paste("The following variables are not in `data`:", paste(errvec, collapse = ", ")))
-
-	### Check if all elements of `by` are in `data`
-	if (!is.null(by)) {
-		errvec = character()
-		for (args in by) {
-			msg = validate_that(args %in% names(data), msg = args)
-			if (!is.logical(msg)) errvec = c(errvec, msg)
-		}
-		if (length(errvec) > 0) stop(paste("The following `by` variables are not in `data`:", paste(errvec, collapse = ", ")))
-	}
-
-	### Check that level is a value between 0 and 1
-	if (level < 0 | level > 1) stop("`level` must be a value between 0 and 1")
-
-	### Check that `methodvar` is in `data`, and that ref` value is in `methodvar`
+	### Set reference method if `ref` is not specified
 	if (!is.null(methodvar)) {
-		if (!(methodvar %in% names(data))) stop("`methodvar` not in `data`")
-		# Make vector of unique methods
 		methods = sort(unique(data[[methodvar]]))
-
-		if (!is.null(ref)) {
-			if (!(ref %in% methods)) stop(paste("The reference method", ref, "cannot be found in `methodvar`"))
-		} else {
-			# If ref is not specified, set the first method as the reference one and throw a warning
+		if (is.null(ref)) {
 			message(paste("`ref` was not specified,", methods[1], "set as the reference"))
 			ref = methods[1]
 		}
