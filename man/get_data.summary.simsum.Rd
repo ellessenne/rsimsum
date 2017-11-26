@@ -4,10 +4,12 @@
 \alias{get_data.summary.simsum}
 \title{Extract data from a summary.simsum object}
 \usage{
-\method{get_data}{summary.simsum}(x)
+\method{get_data}{summary.simsum}(x, ...)
 }
 \arguments{
-\item{x}{An object of class \code{summary.simsum}}
+\item{x}{An object of class \code{summary.simsum}.}
+
+\item{...}{Ignored.}
 }
 \value{
 A \code{data.frame} containing summary statistics from a simulation study.

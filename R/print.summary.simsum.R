@@ -1,7 +1,7 @@
 #' print.summary.simsum
 #'
 #' @title Print method for summary.simsum objects
-#' @param x An object of class `summary.simsum`
+#' @param x An object of class `summary.simsum`.
 #' @param digits Number of significant digits used for printing. Defaults to 4.
 #' @param sstat Summary statistics to print; can be a scalar of a vector (for printing multiple summary statistics at once). Possible choices are:
 #' * `all`, all the summary statistics are printed. This is the default option.
@@ -15,7 +15,7 @@
 #' * `relerror`, relative percentage error in standard error.
 #' * `cover`, coverage of a nominal `level`\% confidence interval.
 #' * `power`, power of a (1 - `level`)\% level test.
-#'
+#' @param ... Ignored.
 #' @note If `sstat` is a vector that contains `all`, all summary statistics are printed by default.
 #' @export
 #'
@@ -25,12 +25,9 @@
 #' xs = summary(x)
 #' xs
 
-print.summary.simsum <- function(x, digits = 4, sstat = "all") {
+print.summary.simsum <- function(x, digits = 4, sstat = "all", ...) {
 	### Check arguments
 	arg_checks = checkmate::makeAssertCollection()
-
-	# `x` must be an object of class `summary.simsum`
-	checkmate::assert_class(x, classes = "summary.simsum", add = arg_checks)
 
 	# `digits` must be an integer value greater than or equal to zero
 	checkmate::assert_int(digits, lower = 0, upper = Inf, add = arg_checks)

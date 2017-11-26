@@ -4,10 +4,10 @@
 \alias{print.summary.simsum}
 \title{Print method for summary.simsum objects}
 \usage{
-\method{print}{summary.simsum}(x, digits = 4, sstat = "all")
+\method{print}{summary.simsum}(x, digits = 4, sstat = "all", ...)
 }
 \arguments{
-\item{x}{An object of class \code{summary.simsum}}
+\item{x}{An object of class \code{summary.simsum}.}
 
 \item{digits}{Number of significant digits used for printing. Defaults to 4.}
 
@@ -25,6 +25,8 @@
 \item \code{cover}, coverage of a nominal \code{level}\% confidence interval.
 \item \code{power}, power of a (1 - \code{level})\% level test.
 }}
+
+\item{...}{Ignored.}
 }
 \description{
 print.summary.simsum

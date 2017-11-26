@@ -1,15 +1,12 @@
 #' format.simsum
 #'
 #' @title Format simsum objects
-#'
 #' @description Format an object of class `simsum` for pretty printing.
-#'
 #' @param x An object of class `simsum`.
 #' @param digits Number of significant digits. Defaults to 4.
-#'
 #' @seealso [simsum()], [format.summary.simsum()]
-#'
 #' @return An object of class `simsum` with its `summ` slot formatted for pretty printing.
+
 format.simsum <- function(x, digits) {
 	x$summ$coef = sprintf(paste0("%.", digits, "f"), x$summ$coef)
 	if (x$mcse) {

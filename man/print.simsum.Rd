@@ -4,10 +4,12 @@
 \alias{print.simsum}
 \title{Print method for simsum objects}
 \usage{
-\method{print}{simsum}(x)
+\method{print}{simsum}(x, ...)
 }
 \arguments{
-\item{x}{An object of class \code{simsum}}
+\item{x}{An object of class \code{simsum}.}
+
+\item{...}{Ignored.}
 }
 \description{
 print.simsum

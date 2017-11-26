@@ -1,41 +1,34 @@
 #' simsum
 #'
 #' @title Analyses of simulation studies including Monte Carlo error
-#'
 #' @description `simsum` computes performance measures for simulation studies in which each simulated data set yields point estimates by one or more analysis methods. Bias, empirical standard error and precision relative to a reference method can be computed for each method.  If, in addition, model-based standard errors are available then `simsum` can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, and the power to reject a null hypothesis. Monte Carlo errors are available for all estimated quantities.
-#'
 #' @param data A `data.frame` in which variable names are interpreted. It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.
 #' @param estvarname The name of the variable containing the point estimates.
 #' @param true The true value of the parameter. This is used in calculations of bias and coverage.
 #' @param methodvar The name of the variable containing the methods to compare. Can be `NULL`.
 #' @param se The name of the variable containing the standard errors of the point estimates.
+#' @param dropbig Specifies that point estimates or standard errors beyond the maximum acceptable values should be dropped.
 #' @param max Specifies the maximum acceptable absolute value of the point estimates, standardised to mean 0 and SD 1. Defaults to `10`.
 #' @param semax Specifies the maximum acceptable value of the standard error, as a multiple of the mean standard error. Defaults to `100`.
-#' @param dropbig Specifies that point estimates or standard errors beyond the maximum acceptable values should be dropped.
 #' @param level Specifies the confidence level for coverage and power. Defaults to `0.95`.
 #' @param by A vector of variable names to compute performance measures by a list of factors. Can be `NULL`.
 #' @param mcse Reports Monte Carlo standard errors for all performance measures. Defaults to `TRUE`.
 #' @param robust Specifies that robust Monte Carlo standard errors for the performance measures empirical standard error, relative gain in precision, relative error should be returned. More details in White (2010). Only useful when `mcse = TRUE`. Not yet implemented.
 #' @param modelsemethod Specifies whether the model standard error should be computed as the root mean squared value (`modelsemethod = rmse`) or as the arithmetic mean (`modelsemethod = mean`). Defaults to `rmse`.
 #' @param ref Specifies the reference method against which relative precisions will be calculated. Only useful if `methodvar` is specified.
-#' @param sanitise Sanitise column names passed to `simsum` by removing all dot characters (`.`). Defaults to `TRUE`.
-#'
+#' @param df If specified, a t distribution with `df` degrees of freedom is used when calculating coverage and power.
+#' @param sanitise Sanitise column names passed to `simsum` by removing all dot characters (`.`), which could cause problems. Defaults to `TRUE`.
 #' @return An object of class `simsum`.
-#'
 #' @references White, I.R. 2010. simsum: Analyses of simulation studies including Monte Carlo error. The Stata Journal 10(3): 369-385
-#'
 #' @export
 #'
 #' @examples
-#'
 #' data("MIsim")
-#'
-#' s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", ref = "CC")
-#'
+#' s = simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", ref = "CC")
 #' # If `ref` is not specified, the reference method is inferred
-#' s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
+#' s = simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
 
-simsum <- function(data, estvarname, true, se, methodvar = NULL, ref = NULL, df = NULL, dropbig = FALSE, dropbig_verbose = FALSE, max = 10, semax = 100, level = 0.95, by = NULL, sanitise = TRUE, mcse = FALSE, robust = FALSE, modelsemethod = "rmse") {
+simsum <- function(data, estvarname, true, se, methodvar = NULL, ref = NULL, df = NULL, dropbig = FALSE, max = 10, semax = 100, level = 0.95, by = NULL, sanitise = TRUE, mcse = FALSE, robust = FALSE, modelsemethod = "rmse") {
 	### Check arguments
 	arg_checks = checkmate::makeAssertCollection()
 
@@ -56,9 +49,8 @@ simsum <- function(data, estvarname, true, se, methodvar = NULL, ref = NULL, df 
 	checkmate::assert_number(semax, add = arg_checks)
 	checkmate::assert_number(level, lower = 0, upper = 1, add = arg_checks)
 
-	# `dropbig`, `dropbig_verbose`, `mcse`, `robust`, `sanitise` must be single logical value
+	# `dropbig`, `mcse`, `robust`, `sanitise` must be single logical value
 	checkmate::assert_logical(dropbig, len = 1, add = arg_checks)
-	checkmate::assert_logical(dropbig_verbose, len = 1, add = arg_checks)
 	checkmate::assert_logical(mcse, len = 1, add = arg_checks)
 	checkmate::assert_logical(robust, len = 1, add = arg_checks)
 	checkmate::assert_logical(sanitise, len = 1, add = arg_checks)
@@ -105,56 +97,41 @@ simsum <- function(data, estvarname, true, se, methodvar = NULL, ref = NULL, df 
 		if (!is.null(by)) by = gsub(pattern = ".", replacement = "", x = by, fixed = TRUE)
 	}
 
+	### Identify and drop (if required) point estimates and standard errors that are too big
+	if (dropbig) {
+		# Save observations which one are too big
+		big_estvarname = data.frame(
+			rownumber = which((data[[estvarname]] - mean(data[[estvarname]])) / sqrt(stats::var(data[[estvarname]])) >= max),
+			value = data[[estvarname]][(data[[estvarname]] - mean(data[[estvarname]])) / sqrt(stats::var(data[[estvarname]])) >= max])
+		big_se = data.frame(
+			rownumber = which(data[[se]] >= mean(data[[se]]) * semax),
+			value = data[[se]][data[[se]] >= mean(data[[se]]) * semax])
+		# Drop 'em
+		data[[estvarname]][(data[[estvarname]] - mean(data[[estvarname]])) / sqrt(stats::var(data[[estvarname]])) >= max] = NA
+		data[[se]][data[[se]] >= mean(data[[se]]) * semax] = NA
+	}
+
 	### Compute summary statistics
 	if (is.null(by)) {
 		# No `by` factors
 		if (is.null(methodvar)) {
 			# No `methodvar`, no `by`
-			summ = perfms(data = data,
-										estvarname = estvarname,
-										true = true,
-										se = se,
-										dropbig = dropbig,
-										max = max,
-										semax = semax,
-										ref = ref,
-										level = level,
-										df = df,
-										mcse = mcse,
-										robust = robust,
-										modelsemethod = modelsemethod)
+			summ = perfms(data = data, estvarname = estvarname, true = true, se = se, ref = ref, level = level, df = df, mcse = mcse, robust = robust, modelsemethod = modelsemethod)
 		} else {
 			# With `methodvar`, no `by`
 			# Split data
-			methodvar_split = split(x = data,
-															f = lapply(methodvar, function(f) data[[f]]))
+			methodvar_split = split(x = data, f = lapply(methodvar, function(f) data[[f]]))
 
 			# Compute correlations
 			rho = vapply(X = methods,
-									 FUN = function(x) cor(methodvar_split[[ref]][[estvarname]], methodvar_split[[x]][[estvarname]]),
+									 FUN = function(x) stats::cor(methodvar_split[[ref]][[estvarname]], methodvar_split[[x]][[estvarname]]),
 									 FUN.VALUE = numeric(1))
 			# Compute n. of observations used in computing correlations
 			ncorr = vapply(X = methods,
 										 FUN = function(x) sum(!is.na(methodvar_split[[ref]][[estvarname]]) & !is.na(methodvar_split[[x]][[estvarname]])),
 										 FUN.VALUE = numeric(1))
 			summ = lapply(X = methods,
-										FUN = function(x) perfms(data = methodvar_split[[x]],
-																						 estvarname = estvarname,
-																						 true = true,
-																						 se = se,
-																						 dropbig = dropbig,
-																						 max = max,
-																						 semax = semax,
-																						 ref = ref,
-																						 method = x,
-																						 level = level,
-																						 df = df,
-																						 mcse = mcse,
-																						 robust = robust,
-																						 modelsemethod = modelsemethod,
-																						 esd_ref = sqrt(var(methodvar_split[[ref]][[estvarname]])),
-																						 rho = rho[x],
-																						 ncorr = ncorr[x]))
+										FUN = function(x) perfms(data = methodvar_split[[x]], estvarname = estvarname, true = true, se = se, ref = ref, method = x, methodvar = methodvar, level = level, df = df, mcse = mcse, robust = robust, modelsemethod = modelsemethod, esd_ref = sqrt(stats::var(methodvar_split[[ref]][[estvarname]])), rho = rho[x], ncorr = ncorr[x]))
 			summ = do.call(rbind.data.frame, summ)
 		}
 	} else {
@@ -165,52 +142,20 @@ simsum <- function(data, estvarname, true, se, methodvar = NULL, ref = NULL, df 
 		summ = lapply(seq_along(by_split), function(i) {
 			# No `methodvar`
 			if (is.null(methodvar)) {
-				summ = perfms(data = by_split[[i]],
-											estvarname = estvarname,
-											true = true,
-											se = se,
-											dropbig = dropbig,
-											max = max,
-											semax = semax,
-											ref = ref,
-											level = level,
-											df = df,
-											mcse = mcse,
-											robust = robust,
-											modelsemethod = modelsemethod,
-											by = by,
-											byvalues = names(by_split)[i])
+				summ = perfms(data = by_split[[i]], estvarname = estvarname, true = true, se = se, ref = ref, level = level, df = df, mcse = mcse, robust = robust, modelsemethod = modelsemethod, by = by, byvalues = names(by_split)[i])
 				return(summ)
 			} else {
 				# With `methodvar`
 				methodvar_split = split(by_split[[i]],
 																f = lapply(methodvar, function(f) by_split[[i]][[f]]))
 				rho = vapply(X = methods,
-										 FUN = function(x) cor(methodvar_split[[ref]][[estvarname]], methodvar_split[[x]][[estvarname]]),
+										 FUN = function(x) stats::cor(methodvar_split[[ref]][[estvarname]], methodvar_split[[x]][[estvarname]]),
 										 FUN.VALUE = numeric(1))
 				ncorr = vapply(X = methods,
 											 FUN = function(x) sum(!is.na(methodvar_split[[ref]][[estvarname]]) & !is.na(methodvar_split[[x]][[estvarname]])),
 											 FUN.VALUE = numeric(1))
 				summ = lapply(X = methods,
-											FUN = function(x) perfms(data = methodvar_split[[x]],
-																							 estvarname = estvarname,
-																							 true = true,
-																							 se = se,
-																							 dropbig = dropbig,
-																							 max = max,
-																							 semax = semax,
-																							 ref = ref,
-																							 method = x,
-																							 level = level,
-																							 df = df,
-																							 mcse = mcse,
-																							 robust = robust,
-																							 modelsemethod = modelsemethod,
-																							 esd_ref = sqrt(var(methodvar_split[[ref]][[estvarname]])),
-																							 rho = rho[x],
-																							 ncorr = ncorr[x],
-																							 by = by,
-																							 byvalues = names(by_split)[i]))
+											FUN = function(x) perfms(data = methodvar_split[[x]], estvarname = estvarname, true = true, se = se, ref = ref, method = x, methodvar = methodvar, level = level, df = df, mcse = mcse, robust = robust, modelsemethod = modelsemethod, esd_ref = sqrt(stats::var(methodvar_split[[ref]][[estvarname]])), rho = rho[x], ncorr = ncorr[x], by = by, byvalues = names(by_split)[i]))
 				summ = do.call(rbind.data.frame, summ)
 				return(summ)
 			}
@@ -229,6 +174,10 @@ simsum <- function(data, estvarname, true, se, methodvar = NULL, ref = NULL, df 
 	obj$ref = ref
 	obj$df = df
 	obj$dropbig = dropbig
+	if (dropbig) {
+		obj$big_estvarname = big_estvarname
+		obj$big_se = big_se
+	}
 	obj$max = max
 	obj$semax = semax
 	obj$level = level
@@ -239,60 +188,28 @@ simsum <- function(data, estvarname, true, se, methodvar = NULL, ref = NULL, df 
 	obj$modelsemethod = modelsemethod
 
 	### Return object of class simsum
-	class(obj) = append(class(obj),"simsum")
+	class(obj) = c("list", "simsum")
 	return(obj)
 }
 
-perfms <- function(data,
-									 estvarname,
-									 true,
-									 se,
-									 dropbig,
-									 max,
-									 semax,
-									 ref,
-									 method = NULL,
-									 level,
-									 df,
-									 mcse,
-									 robust,
-									 modelsemethod,
-									 esd_ref = NULL,
-									 rho = NULL,
-									 ncorr = NULL,
-									 by = NULL,
-									 byvalues = NULL) {
+perfms <- function(data, estvarname, true, se, ref, method = NULL, methodvar = NULL, level, df, mcse, robust, modelsemethod, esd_ref = NULL, rho = NULL, ncorr = NULL, by = NULL, byvalues = NULL) {
 
 	### Make object to return
 	obj = list()
 
-	### Check for too big estimates / standard errors
-	# Save which one are too big as an attribute
-	attr(obj, "big_estvarname") = data.frame(
-		rownumber = which((data[[estvarname]] - mean(data[[estvarname]])) / sqrt(var(data[[estvarname]])) >= max),
-		value = data[[estvarname]][(data[[estvarname]] - mean(data[[estvarname]])) / sqrt(var(data[[estvarname]])) >= max])
-	attr(obj, "big_se") = data.frame(
-		rownumber = which(data[[se]] >= mean(data[[se]]) * semax),
-		value = data[[se]][data[[se]] >= mean(data[[se]]) * semax])
-	# Drop them if required
-	if (dropbig) {
-		data[[estvarname]][(data[[estvarname]] - mean(data[[estvarname]])) / sqrt(var(data[[estvarname]])) >= max] = NA
-		data[[se]][data[[se]] >= mean(data[[se]]) * semax] = NA
-	}
-
 	### Compute performance measures
-	# Number of non-missing standard errors:
+	# Number of non-missing point estimates, standard errors:
 	bsims = sum(!is.na(data[[estvarname]]))
 	sesims = sum(!is.na(data[[se]]))
 	bothsims = sum(!is.na(data[[estvarname]]) & !is.na(data[[se]]))
 
 	# Mean and variance of betas
 	beta_mean = mean(data[[estvarname]])
-	beta_var = var(data[[estvarname]])
+	beta_var = stats::var(data[[estvarname]])
 
 	# Mean and average of ses
 	se2_mean = mean(data[[se]] ^ 2)
-	se2_var = var(data[[se]] ^ 2)
+	se2_var = stats::var(data[[se]] ^ 2)
 
 	# Bias
 	bias = beta_mean - true
@@ -304,7 +221,7 @@ perfms <- function(data,
 
 	# Mean squared error
 	mse = mean((data[[estvarname]] - true) ^ 2)
-	mse_mcse = sqrt(var((data[[estvarname]] - true) ^ 2)) / sqrt(bsims)
+	mse_mcse = sqrt(stats::var((data[[estvarname]] - true) ^ 2)) / sqrt(bsims)
 
 	# Relative change in precision
 	if (!is.null(esd_ref) & !is.null(rho) & !is.null(ncorr)) {
@@ -323,7 +240,7 @@ perfms <- function(data,
 		modelse_mcse = sqrt(se2_var / (4 * sesims * se2_mean))
 	} else {
 		modelse = mean(data[[se]])
-		modelse_mcse = sqrt(var(data[[se]])) / sqrt(sesims)
+		modelse_mcse = sqrt(stats::var(data[[se]])) / sqrt(sesims)
 	}
 
 	# Relative error in model-based standard error
@@ -331,7 +248,7 @@ perfms <- function(data,
 	relerror_mcse = 100 * (modelse / esd) * sqrt((modelse_mcse / modelse) ^ 2 + (esd_mcse / esd) ^ 2)
 
 	# Compute critical value from either a normal or a t distribution
-	crit = ifelse(is.null(df), qnorm(1 - (1 - level) / 2), qt(1 - (1 - level) / 2, df = df))
+	crit = ifelse(is.null(df), stats::qnorm(1 - (1 - level) / 2), stats::qt(1 - (1 - level) / 2, df = df))
 
 	# Coverage of a nominal (1 - level)% confidence interval
 	cover = mean(100 * (abs(data[[estvarname]] - true) < crit * data[[se]]))
@@ -345,7 +262,7 @@ perfms <- function(data,
 	obj$stat = c("bsims", "sesims", "bias", "esd", "mse", "relprec", "modelse", "relerror", "cover", "power")
 	obj$coef = c(bsims, sesims, bias, esd, mse, relprec, modelse, relerror, cover, power)
 	obj$mcse = c(NA, NA, bias_mcse, esd_mcse, mse_mcse, relprec_mcse, modelse_mcse, relerror_mcse, cover_mcse, power_mcse)
-	if (!is.null(method)) obj$method = method
+	if (!is.null(method)) obj[[methodvar]] = method
 	if (!is.null(by)) {
 		byvalues = unlist(strsplit(byvalues, ".", fixed = TRUE))
 		for (w in seq_along(by)) {
@@ -353,5 +270,7 @@ perfms <- function(data,
 		}
 	}
 	obj = as.data.frame(obj, stringsAsFactors = FALSE)
+
+	### Return object
 	return(obj)
 }

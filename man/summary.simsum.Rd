@@ -4,12 +4,14 @@
 \alias{summary.simsum}
 \title{Summarising simsum objects}
 \usage{
-\method{summary}{simsum}(x, ci_level = 0.95)
+\method{summary}{simsum}(object, ci_level = 0.95, ...)
 }
 \arguments{
-\item{x}{An object of class \code{simsum}.}
+\item{object}{An object of class \code{simsum}.}
 
-\item{level}{Significance level for confidence intervals based on Monte Carlo standard errors. Ignored if a \code{simsum} object is obtained with \code{mcse = FALSE}.}
+\item{ci_level}{Significance level for confidence intervals based on Monte Carlo standard errors. Ignored if a \code{simsum} object is obtained with \code{mcse = FALSE}.}
+
+\item{...}{Ignored.}
 }
 \value{
 An object of class \code{summary.simsum}.
@@ -20,10 +22,14 @@ The \code{summary()} method for objects of class \code{simsum} returns confidenc
 \details{
 summary.simsum
 }
+\note{
+Confidence intervals are constructed using quantiles from a normal distribution with the specified \code{ci_level} confidence level, and are therefore symmetric by definition.
+}
 \examples{
 data("MIsim")
-x = simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", mcse = TRUE)
-xs = summary(x)
+object = simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se",
+methodvar = "method", mcse = TRUE)
+xs = summary(object)
 xs
 }
 \seealso{

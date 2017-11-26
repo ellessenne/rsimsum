@@ -22,6 +22,8 @@ simsum(data, estvarname, true, se, methodvar = NULL, ref = NULL,
 
 \item{ref}{Specifies the reference method against which relative precisions will be calculated. Only useful if \code{methodvar} is specified.}
 
+\item{df}{If specified, a t distribution with \code{df} degrees of freedom is used when calculating coverage and power.}
+
 \item{dropbig}{Specifies that point estimates or standard errors beyond the maximum acceptable values should be dropped.}
 
 \item{max}{Specifies the maximum acceptable absolute value of the point estimates, standardised to mean 0 and SD 1. Defaults to \code{10}.}
@@ -32,7 +34,7 @@ simsum(data, estvarname, true, se, methodvar = NULL, ref = NULL,
 
 \item{by}{A vector of variable names to compute performance measures by a list of factors. Can be \code{NULL}.}
 
-\item{sanitise}{Sanitise column names passed to \code{simsum} by removing all dot characters (\code{.}). Defaults to \code{TRUE}.}
+\item{sanitise}{Sanitise column names passed to \code{simsum} by removing all dot characters (\code{.}), which could cause problems. Defaults to \code{TRUE}.}
 
 \item{mcse}{Reports Monte Carlo standard errors for all performance measures. Defaults to \code{TRUE}.}
 
@@ -50,13 +52,10 @@ An object of class \code{simsum}.
 simsum
 }
 \examples{
-
 data("MIsim")
-
-s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", ref = "CC")
-
+s = simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", ref = "CC")
 # If `ref` is not specified, the reference method is inferred
-s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
+s = simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
 }
 \references{
 White, I.R. 2010. simsum: Analyses of simulation studies including Monte Carlo error. The Stata Journal 10(3): 369-385
