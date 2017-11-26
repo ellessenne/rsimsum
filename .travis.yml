@@ -4,5 +4,20 @@ language: R
 sudo: false
 cache: packages
 
+os:
+  - linux
+
+r:
+  - oldrel
+  - release
+  - devel
+
+cran: http://cran.rstudio.com
+repos:
+  CRAN: http://cran.rstudio.com
+
+r_packages:
+  - covr
+
 after_success:
-  - Rscript -e 'covr::codecov()'
+  - travis_wait 20 Rscript -e 'covr::codecov()'
