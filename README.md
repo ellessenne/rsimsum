@@ -16,9 +16,8 @@
 - [x] S3 `format` method (0.0.2)
 - [x] S3 `print.simsum` method (0.0.3)
 - [x] S3 `get_data` methods, to extract data slot from `simsum` and `summary.simsum` objects (0.0.3)
-- [ ] S3 `dropped.simsum` method, to report observations dropped as a result of `dropbig = TRUE` (0.0.3)
+- [x] S3 `dropped.simsum` method, to report observations dropped as a result of `dropbig = TRUE` (0.0.3)
 - [ ] Implement calculating (and reporting) mcse only when `mcse = TRUE` (0.0.4)
-- [ ] Robust calculations (0.0.5)
 - [ ] Set up TravisCI, Appveyor, Codecov (0.0.6)
 - [ ] Set up testing suite: expected errors/warnings with wrong input, correct results with appropriate input (0.0.7)
-- [ ] Tidy up code before 0.1.0 release
+- [ ] Robust calculations (0.2.0)
