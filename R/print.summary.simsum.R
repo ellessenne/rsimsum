@@ -69,8 +69,8 @@ print.summary.simsum <- function(x, digits = 4, sstat = "all", ...) {
 	### Make names of the summary table
 	names(x$summ)[names(x$summ) == "stat"] = " "
 	names(x$summ)[names(x$summ) == "coef"] = "Coef"
-	names(x$summ)[names(x$summ) == "mcse"] = "MCSE"
 	if (x$mcse) {
+		names(x$summ)[names(x$summ) == "mcse"] = "MCSE"
 		names(x$summ)[names(x$summ) == "lower"] = paste("Lower", sprintf("%.0f%%", 100 * (x$ci_level)))
 		names(x$summ)[names(x$summ) == "upper"] = paste("Upper", sprintf("%.0f%%", 100 * (x$ci_level)))
 	}

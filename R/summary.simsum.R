@@ -35,7 +35,7 @@ summary.simsum <- function(object, ci_level = 0.95, ...) {
 	}
 
 	### Add ci_level slot
-	object$ci_level = ci_level
+	if (object$mcse) object$ci_level = ci_level
 
 	### Return object of class summary.simsum
 	class(object) = c("list", "summary.simsum")

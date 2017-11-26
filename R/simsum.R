@@ -28,7 +28,7 @@
 #' # If `ref` is not specified, the reference method is inferred
 #' s = simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
 
-simsum <- function(data, estvarname, true, se, methodvar = NULL, ref = NULL, df = NULL, dropbig = FALSE, max = 10, semax = 100, level = 0.95, by = NULL, sanitise = TRUE, mcse = FALSE, robust = FALSE, modelsemethod = "rmse") {
+simsum <- function(data, estvarname, true, se, methodvar = NULL, ref = NULL, df = NULL, dropbig = FALSE, max = 10, semax = 100, level = 0.95, by = NULL, sanitise = TRUE, mcse = TRUE, robust = FALSE, modelsemethod = "rmse") {
 	### Check arguments
 	arg_checks = checkmate::makeAssertCollection()
 
@@ -202,66 +202,65 @@ perfms <- function(data, estvarname, true, se, ref, method = NULL, methodvar = N
 	bsims = sum(!is.na(data[[estvarname]]))
 	sesims = sum(!is.na(data[[se]]))
 	bothsims = sum(!is.na(data[[estvarname]]) & !is.na(data[[se]]))
-
 	# Mean and variance of betas
 	beta_mean = mean(data[[estvarname]])
 	beta_var = stats::var(data[[estvarname]])
-
 	# Mean and average of ses
 	se2_mean = mean(data[[se]] ^ 2)
 	se2_var = stats::var(data[[se]] ^ 2)
-
 	# Bias
 	bias = beta_mean - true
-	bias_mcse = sqrt(beta_var / bsims)
-
 	# Empirical standard deviation
 	esd = sqrt(beta_var)
-	esd_mcse = esd / sqrt(2 * (bsims - 1))
-
 	# Mean squared error
 	mse = mean((data[[estvarname]] - true) ^ 2)
-	mse_mcse = sqrt(stats::var((data[[estvarname]] - true) ^ 2)) / sqrt(bsims)
-
 	# Relative change in precision
 	if (!is.null(esd_ref) & !is.null(rho) & !is.null(ncorr)) {
 		relprec = 100 * ((esd_ref / esd) ^ 2 - 1)
-		relprec_mcse = 200 * (esd_ref / esd) ^ 2 * sqrt((1 - rho ^ 2) / (ncorr - 1))
 	} else {
 		relprec = NA
-		relprec_mcse = NA
 	}
 	names(relprec) = NULL
-	names(relprec_mcse) = NULL
-
 	# Model-based standard error
 	if (modelsemethod == "rmse") {
 		modelse = sqrt(se2_mean)
-		modelse_mcse = sqrt(se2_var / (4 * sesims * se2_mean))
 	} else {
 		modelse = mean(data[[se]])
-		modelse_mcse = sqrt(stats::var(data[[se]])) / sqrt(sesims)
 	}
-
 	# Relative error in model-based standard error
 	relerror = 100 * (modelse / esd - 1)
-	relerror_mcse = 100 * (modelse / esd) * sqrt((modelse_mcse / modelse) ^ 2 + (esd_mcse / esd) ^ 2)
-
 	# Compute critical value from either a normal or a t distribution
 	crit = ifelse(is.null(df), stats::qnorm(1 - (1 - level) / 2), stats::qt(1 - (1 - level) / 2, df = df))
-
 	# Coverage of a nominal (1 - level)% confidence interval
 	cover = mean(100 * (abs(data[[estvarname]] - true) < crit * data[[se]]))
-	cover_mcse = sqrt(cover * (100 - cover) / bothsims)
-
 	# Power of a significance test at the `level` level
 	power = mean(100 * (abs(data[[estvarname]]) >= crit * data[[se]]))
-	power_mcse = sqrt(power * (100 - power) / bothsims)
+
+	### Compute Monte Carlo SEs if requested:
+	if (mcse) {
+		bias_mcse = sqrt(beta_var / bsims)
+		esd_mcse = esd / sqrt(2 * (bsims - 1))
+		mse_mcse = sqrt(stats::var((data[[estvarname]] - true) ^ 2)) / sqrt(bsims)
+		if (!is.null(esd_ref) & !is.null(rho) & !is.null(ncorr)) {
+			relprec_mcse = 200 * (esd_ref / esd) ^ 2 * sqrt((1 - rho ^ 2) / (ncorr - 1))
+		} else {
+			relprec_mcse = NA
+		}
+		names(relprec_mcse) = NULL
+		if (modelsemethod == "rmse") {
+			modelse_mcse = sqrt(se2_var / (4 * sesims * se2_mean))
+		} else {
+			modelse_mcse = sqrt(stats::var(data[[se]])) / sqrt(sesims)
+		}
+		relerror_mcse = 100 * (modelse / esd) * sqrt((modelse_mcse / modelse) ^ 2 + (esd_mcse / esd) ^ 2)
+		cover_mcse = sqrt(cover * (100 - cover) / bothsims)
+		power_mcse = sqrt(power * (100 - power) / bothsims)
+	}
 
 	### Assemble object to return
 	obj$stat = c("bsims", "sesims", "bias", "esd", "mse", "relprec", "modelse", "relerror", "cover", "power")
 	obj$coef = c(bsims, sesims, bias, esd, mse, relprec, modelse, relerror, cover, power)
-	obj$mcse = c(NA, NA, bias_mcse, esd_mcse, mse_mcse, relprec_mcse, modelse_mcse, relerror_mcse, cover_mcse, power_mcse)
+	if (mcse) obj$mcse = c(NA, NA, bias_mcse, esd_mcse, mse_mcse, relprec_mcse, modelse_mcse, relerror_mcse, cover_mcse, power_mcse)
 	if (!is.null(method)) obj[[methodvar]] = method
 	if (!is.null(by)) {
 		byvalues = unlist(strsplit(byvalues, ".", fixed = TRUE))

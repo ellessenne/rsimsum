@@ -6,7 +6,7 @@
 \usage{
 simsum(data, estvarname, true, se, methodvar = NULL, ref = NULL,
   df = NULL, dropbig = FALSE, max = 10, semax = 100, level = 0.95,
-  by = NULL, sanitise = TRUE, mcse = FALSE, robust = FALSE,
+  by = NULL, sanitise = TRUE, mcse = TRUE, robust = FALSE,
   modelsemethod = "rmse")
 }
 \arguments{

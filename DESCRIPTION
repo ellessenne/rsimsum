@@ -1,5 +1,5 @@
 Package: rsimsum
-Version: 0.0.3
+Version: 0.0.4
 Date: 2017-11-26
 Title: Analysis of simulation studies including Monte Carlo error
 Description: This package is a port of the user-written command simsum in Stata.

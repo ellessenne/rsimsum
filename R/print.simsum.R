@@ -30,4 +30,11 @@ print.simsum <- function(x, ...) {
 	} else {
 		cat("By factors: none\n")
 	}
+
+	### Print whether Monte Carlo SEs were computed or not
+	if (x$mcse) {
+		cat("\nMonte Carlo standard errors were computed.\n")
+	} else {
+		cat("\nMonte Carlo standard errors were not computed.\n")
+	}
 }
