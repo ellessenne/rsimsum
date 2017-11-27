@@ -9,9 +9,9 @@ nsim(alpha, sigma, delta, power = 0.5)
 \arguments{
 \item{alpha}{Significance level. Must be a value between 0 and 1.}
 
-\item{sigma}{Variance for the parameter of interest.}
+\item{sigma}{Variance for the parameter of interest. Must be greater than 0.}
 
-\item{delta}{Specified level of accuracy of the estimate of interest you are willing to accept.}
+\item{delta}{Specified level of accuracy of the estimate of interest you are willing to accept. Must be greater than 0.}
 
 \item{power}{Power to detect a specific difference from the true value as significant. Must be a value between 0 and 1. Defaults to 0.5, e.g. a power of 50\%.}
 }
