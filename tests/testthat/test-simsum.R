@@ -52,7 +52,7 @@ test_that("specifying methodvar and not ref shows a message", {
 test_that("running simsum on MIsim return summaries of the correct dimension", {
 	data("MIsim")
 	s = simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
-	expect_equal(dim(s$summ), expected = c(30, 4))
+	expect_equal(dim(s$summ), expected = c(42, 4))
 })
 
 test_that("simsum with mcse option returns mcse", {

@@ -2,12 +2,14 @@
 
 ## Version 0.1.0
 
-* Set up TravisCI
-* Set up AppVeyor
-* Set up Codecov
-* Set up testing suite
+* Improve code coverage
+* Coef method for simsum objects
+* Stderr method for simsum objects
 
 ## Version 0.2.0
 
-* Robust Monte Carlo standard errors
+* Another abstraction level: summary statistics by estimand
 
+## Version 0.3.0
+
+* Robust Monte Carlo standard errors

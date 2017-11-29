@@ -16,6 +16,10 @@
 \item \code{all}, all the summary statistics are printed. This is the default option.
 \item \code{bsims}, the number of non-missing point estimates.
 \item \code{sesims}, the number of non-missing standard errors.
+\item \code{bmean}, average point estimate.
+\item \code{bmedian}, median point estimate.
+\item \code{se2mean}, average standard error.
+\item \code{se2median}, median standard error.
 \item \code{bias}, bias in point estimate.
 \item \code{esd}, empirical standard error.
 \item \code{mse}, mean squared error.

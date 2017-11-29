@@ -18,6 +18,10 @@ format.simsum <- function(x, digits) {
 	}
 	x$summ$stat[x$summ$stat == "bsims"] = "Non-missing point estimates"
 	x$summ$stat[x$summ$stat == "sesims"] = "Non-missing standard errors"
+	x$summ$stat[x$summ$stat == "bmean"] = "Average point estimate"
+	x$summ$stat[x$summ$stat == "bmedian"] = "Median point estimate"
+	x$summ$stat[x$summ$stat == "se2mean"] = "Average standard error"
+	x$summ$stat[x$summ$stat == "se2median"] = "Median standard error"
 	x$summ$stat[x$summ$stat == "bias"] = "Bias in point estimate"
 	x$summ$stat[x$summ$stat == "esd"] = "Empirical standard error"
 	x$summ$stat[x$summ$stat == "mse"] = "Mean squared error"

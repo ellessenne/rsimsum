@@ -202,11 +202,13 @@ perfms <- function(data, estvarname, true, se, ref, method = NULL, methodvar = N
 	bsims = sum(!is.na(data[[estvarname]]))
 	sesims = sum(!is.na(data[[se]]))
 	bothsims = sum(!is.na(data[[estvarname]]) & !is.na(data[[se]]))
-	# Mean and variance of betas
+	# Mean, median and variance of betas
 	beta_mean = mean(data[[estvarname]])
+	beta_median = stats::median(data[[estvarname]])
 	beta_var = stats::var(data[[estvarname]])
-	# Mean and average of ses
+	# Mean, median and average of ses
 	se2_mean = mean(data[[se]] ^ 2)
+	se2_median = stats::median(data[[se]] ^ 2)
 	se2_var = stats::var(data[[se]] ^ 2)
 	# Bias
 	bias = beta_mean - true
@@ -258,9 +260,9 @@ perfms <- function(data, estvarname, true, se, ref, method = NULL, methodvar = N
 	}
 
 	### Assemble object to return
-	obj$stat = c("bsims", "sesims", "bias", "esd", "mse", "relprec", "modelse", "relerror", "cover", "power")
-	obj$coef = c(bsims, sesims, bias, esd, mse, relprec, modelse, relerror, cover, power)
-	if (mcse) obj$mcse = c(NA, NA, bias_mcse, esd_mcse, mse_mcse, relprec_mcse, modelse_mcse, relerror_mcse, cover_mcse, power_mcse)
+	obj$stat = c("bsims", "sesims", "bmean", "bmedian", "se2mean", "se2median", "bias", "esd", "mse", "relprec", "modelse", "relerror", "cover", "power")
+	obj$coef = c(bsims, sesims, beta_mean, beta_median, se2_mean, se2_median, bias, esd, mse, relprec, modelse, relerror, cover, power)
+	if (mcse) obj$mcse = c(rep(NA, 6), bias_mcse, esd_mcse, mse_mcse, relprec_mcse, modelse_mcse, relerror_mcse, cover_mcse, power_mcse)
 	if (!is.null(method)) obj[[methodvar]] = method
 	if (!is.null(by)) {
 		byvalues = unlist(strsplit(byvalues, ".", fixed = TRUE))

@@ -7,6 +7,10 @@
 #' * `all`, all the summary statistics are printed. This is the default option.
 #' * `bsims`, the number of non-missing point estimates.
 #' * `sesims`, the number of non-missing standard errors.
+#' * `bmean`, average point estimate.
+#' * `bmedian`, median point estimate.
+#' * `se2mean`, average standard error.
+#' * `se2median`, median standard error.
 #' * `bias`, bias in point estimate.
 #' * `esd`, empirical standard error.
 #' * `mse`, mean squared error.
@@ -33,7 +37,7 @@ print.summary.simsum <- function(x, digits = 4, sstat = "all", ...) {
 	checkmate::assert_int(digits, lower = 0, upper = Inf, add = arg_checks)
 
 	# `sstat` must be one of the possible choices
-	checkmate::assert_subset(sstat, choices = c("all", "bsims", "sesims", "bias", "esd", "mse", "relprec", "modelse", "relerror", "cover", "power"), add = arg_checks)
+	checkmate::assert_subset(sstat, choices = c("all", "bsims", "sesims", "bmean", "bmedian", "se2mean", "se2median", "bias", "esd", "mse", "relprec", "modelse", "relerror", "cover", "power"), add = arg_checks)
 
 	### Report if there are any errors
 	if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
