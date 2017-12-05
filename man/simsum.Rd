@@ -6,8 +6,8 @@
 \usage{
 simsum(data, estvarname, true, se, methodvar = NULL, ref = NULL,
   df = NULL, dropbig = FALSE, max = 10, semax = 100, level = 0.95,
-  by = NULL, sanitise = TRUE, mcse = TRUE, robust = FALSE,
-  modelsemethod = "rmse")
+  by = NULL, mcse = TRUE, robust = FALSE, modelsemethod = "rmse",
+  sanitise = TRUE, na.rm = TRUE)
 }
 \arguments{
 \item{data}{A \code{data.frame} in which variable names are interpreted. It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.}
@@ -34,13 +34,15 @@ simsum(data, estvarname, true, se, methodvar = NULL, ref = NULL,
 
 \item{by}{A vector of variable names to compute performance measures by a list of factors. Can be \code{NULL}.}
 
-\item{sanitise}{Sanitise column names passed to \code{simsum} by removing all dot characters (\code{.}), which could cause problems. Defaults to \code{TRUE}.}
-
 \item{mcse}{Reports Monte Carlo standard errors for all performance measures. Defaults to \code{TRUE}.}
 
 \item{robust}{Specifies that robust Monte Carlo standard errors for the performance measures empirical standard error, relative gain in precision, relative error should be returned. More details in White (2010). Only useful when \code{mcse = TRUE}. Not yet implemented.}
 
 \item{modelsemethod}{Specifies whether the model standard error should be computed as the root mean squared value (\code{modelsemethod = rmse}) or as the arithmetic mean (\code{modelsemethod = mean}). Defaults to \code{rmse}.}
+
+\item{sanitise}{Sanitise column names passed to \code{simsum} by removing all dot characters (\code{.}), which could cause problems. Defaults to \code{TRUE}.}
+
+\item{na.rm}{A logical value indicating whether \code{NA} values should be removed before the computation proceeds. Defaults to \code{TRUE}.}
 }
 \value{
 An object of class \code{simsum}.

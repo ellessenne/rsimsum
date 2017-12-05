@@ -4,3 +4,7 @@
 ^appveyor\.yml$
 ^codecov\.yml$
 R/test.R
+cran-comments.md
+NEWS.md
+TODO.md
+^.*\.dta$

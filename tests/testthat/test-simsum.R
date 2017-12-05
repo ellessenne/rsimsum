@@ -49,6 +49,18 @@ test_that("specifying methodvar and not ref shows a message", {
 	}, "`ref` was not specified, CC set as the reference")
 })
 
+test_that("specifying dropbig includes a slot with dropped point estimates", {
+	data("MIsim")
+	s = simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", dropbig = TRUE)
+	expect_false(is.null(s$big_estvarname))
+})
+
+test_that("specifying dropbig includes a slot with dropped standard errors", {
+	data("MIsim")
+	s = simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", dropbig = TRUE)
+	expect_false(is.null(s$big_se))
+})
+
 test_that("running simsum on MIsim return summaries of the correct dimension", {
 	data("MIsim")
 	s = simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
@@ -61,7 +73,7 @@ test_that("simsum with mcse option returns mcse", {
 	expect_true("mcse" %in% names(s$summ))
 })
 
-test_that("simsum without mcse option returns mcse", {
+test_that("simsum without mcse option does not returns mcse", {
 	data("MIsim")
 	s = simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", mcse = FALSE)
 	expect_false("mcse" %in% names(s$summ))
