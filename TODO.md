@@ -2,7 +2,6 @@
 
 ## Version 0.1.0
 
-* Handling missing values in point estimates, standard errors
 * Improve code coverage
 
 ## Version 0.2.0
