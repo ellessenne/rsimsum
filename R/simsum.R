@@ -93,7 +93,7 @@ simsum <-
 
 		# `ref` must be one of the options in `methodvar`
 		if (!is.null(methodvar))
-			checkmate::assert_subset(ref, choices = unique(data[[methodvar]]), add = arg_checks)
+			checkmate::assert_subset(ref, choices = as.character(unique(data[[methodvar]])), add = arg_checks)
 
 		### Report if there are any errors
 		if (!arg_checks$isEmpty())
