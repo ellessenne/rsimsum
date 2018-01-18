@@ -16,7 +16,6 @@
 #' @param by A vector of variable names to compute performance measures by a list of factors. Can be `NULL`.
 #' @param mcse Reports Monte Carlo standard errors for all performance measures. Defaults to `TRUE`.
 #' @param robust Specifies that robust Monte Carlo standard errors for the performance measures empirical standard error, relative gain in precision, relative error should be returned. More details in White (2010). Only useful when `mcse = TRUE`. Not yet implemented.
-#' @param modelsemethod Specifies whether the model standard error should be computed as the root mean squared value (`modelsemethod = rmse`) or as the arithmetic mean (`modelsemethod = mean`). Defaults to `rmse`.
 #' @param sanitise Sanitise column names passed to `simsum` by removing all dot characters (`.`), which could cause problems. Defaults to `TRUE`.
 #' @param na.rm A logical value indicating whether `NA` values should be removed before the computation proceeds. Defaults to `TRUE`.
 #' @return An object of class `simsum`.
@@ -44,7 +43,6 @@ simsum <-
            by = NULL,
            mcse = TRUE,
            robust = FALSE,
-           modelsemethod = "rmse",
            sanitise = TRUE,
            na.rm = TRUE) {
     ### Check arguments
@@ -81,13 +79,6 @@ simsum <-
 
     # `by` must be a vector of strings; can be NULL
     checkmate::assert_character(by, null.ok = TRUE, add = arg_checks)
-
-    # `modelsemethod` must be `rmse` or `mean`
-    checkmate::assert_choice(
-      modelsemethod,
-      choices = c("rmse", "mean"),
-      add = arg_checks
-    )
 
     # `estvarname`, `se` must be in `data`; all elements of `by` must be in data; `methodvar` must be in data
     checkmate::assert_subset(estvarname, choices = names(data), add = arg_checks)
@@ -193,7 +184,6 @@ simsum <-
           df = df,
           mcse = mcse,
           robust = robust,
-          modelsemethod = modelsemethod,
           na.rm = na.rm
         )
       } else {
@@ -232,7 +222,6 @@ simsum <-
               df = df,
               mcse = mcse,
               robust = robust,
-              modelsemethod = modelsemethod,
               na.rm = na.rm,
               esd_ref = sqrt(stats::var(methodvar_split[[ref]][[estvarname]])),
               rho = rho[x],
@@ -262,7 +251,6 @@ simsum <-
             df = df,
             mcse = mcse,
             robust = robust,
-            modelsemethod = modelsemethod,
             na.rm = na.rm,
             by = by,
             byvalues = names(by_split)[i]
@@ -305,7 +293,6 @@ simsum <-
                 df = df,
                 mcse = mcse,
                 robust = robust,
-                modelsemethod = modelsemethod,
                 na.rm = na.rm,
                 esd_ref = sqrt(stats::var(methodvar_split[[ref]][[estvarname]])),
                 rho = rho[x],
@@ -342,7 +329,6 @@ simsum <-
     obj$by <- by
     obj$mcse <- mcse
     obj$robust <- robust
-    obj$modelsemethod <- modelsemethod
     obj$sanitise <- sanitise
     obj$na.rm <- na.rm
 
@@ -363,7 +349,6 @@ perfms <-
            df,
            mcse,
            robust,
-           modelsemethod,
            esd_ref = NULL,
            rho = NULL,
            ncorr = NULL,
@@ -401,11 +386,7 @@ perfms <-
     }
     names(relprec) <- NULL
     # Model-based standard error
-    if (modelsemethod == "rmse") {
-      modelse <- sqrt(se2_mean)
-    } else {
-      modelse <- mean(data[[se]], na.rm = na.rm)
-    }
+    modelse <- sqrt(se2_mean)
     # Relative error in model-based standard error
     relerror <- 100 * (modelse / esd - 1)
     # Compute critical value from either a normal or a t distribution
@@ -426,11 +407,7 @@ perfms <-
         relprec_mcse <- NA
       }
       names(relprec_mcse) <- NULL
-      if (modelsemethod == "rmse") {
-        modelse_mcse <- sqrt(se2_var / (4 * sesims * se2_mean))
-      } else {
-        modelse_mcse <- sqrt(stats::var(data[[se]], na.rm = na.rm)) / sqrt(sesims)
-      }
+      modelse_mcse <- sqrt(se2_var / (4 * sesims * se2_mean))
       relerror_mcse <- 100 * (modelse / esd) * sqrt((modelse_mcse / modelse) ^ 2 + (esd_mcse / esd) ^ 2)
       cover_mcse <- sqrt(cover * (100 - cover) / bothsims)
       power_mcse <- sqrt(power * (100 - power) / bothsims)
