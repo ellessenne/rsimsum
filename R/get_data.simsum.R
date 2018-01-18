@@ -13,5 +13,5 @@
 #' get_data(x)
 
 get_data.simsum <- function(x, ...) {
-	x$summ
+  x$summ
 }

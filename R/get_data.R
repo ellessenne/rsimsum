@@ -7,5 +7,5 @@
 #' @export
 
 get_data <- function(x, ...) {
-	UseMethod("get_data", x)
+  UseMethod("get_data", x)
 }

@@ -23,21 +23,21 @@
 #' nsim(alpha = 0.05, sigma = sqrt(0.0166), delta = 0.349 * 1 / 100, power = 0.5)
 
 nsim <- function(alpha, sigma, delta, power = 0.5) {
-	### Check arguments
-	arg_checks = checkmate::makeAssertCollection()
+  ### Check arguments
+  arg_checks <- checkmate::makeAssertCollection()
 
-	# `alpha` and `power` must be a numeric value between 0 and 1
-	checkmate::assert_number(alpha, lower = 0, upper = 1, add = arg_checks)
-	checkmate::assert_number(power, lower = 0, upper = 1, add = arg_checks)
+  # `alpha` and `power` must be a numeric value between 0 and 1
+  checkmate::assert_number(alpha, lower = 0, upper = 1, add = arg_checks)
+  checkmate::assert_number(power, lower = 0, upper = 1, add = arg_checks)
 
-	# `sigma` and `delta` must be a numeric value
-	checkmate::assert_number(sigma, lower = 0, add = arg_checks)
-	checkmate::assert_number(delta, lower = 0, add = arg_checks)
+  # `sigma` and `delta` must be a numeric value
+  checkmate::assert_number(sigma, lower = 0, add = arg_checks)
+  checkmate::assert_number(delta, lower = 0, add = arg_checks)
 
-	### Report if there are any errors
-	if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
+  ### Report if there are any errors
+  if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
 
-	### Compute B
-	B = (((stats::qnorm(1 - alpha / 2) + stats::qnorm(power)) * sigma) / delta) ^ 2
-	return(B)
+  ### Compute B
+  B <- (((stats::qnorm(1 - alpha / 2) + stats::qnorm(power)) * sigma) / delta) ^ 2
+  return(B)
 }

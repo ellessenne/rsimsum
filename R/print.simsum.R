@@ -11,30 +11,30 @@
 #' x
 
 print.simsum <- function(x, ...) {
-	### Print call to `simsum`
-	cat("\nCall:\n\t", paste(deparse(x$call), sep = "\n", collapse = "\n"), "\n", sep = "")
+  ### Print call to `simsum`
+  cat("\nCall:\n\t", paste(deparse(x$call), sep = "\n", collapse = "\n"), "\n", sep = "")
 
-	### Print `methodvar` (if any), possible methods, and reference method
-	if (!is.null(x$methodvar)) {
-		cat("\nMethod variable:", x$methodvar, "\n")
-		methods = unique(x$summ$method)
-		cat("\tUnique methods:", paste(methods, collapse = ", "), "\n")
-		cat("\tReference method:", x$ref, "\n")
-	} else {
-		cat("\nMethod variable: none\n")
-	}
+  ### Print `methodvar` (if any), possible methods, and reference method
+  if (!is.null(x$methodvar)) {
+    cat("\nMethod variable:", x$methodvar, "\n")
+    methods <- unique(x$summ$method)
+    cat("\tUnique methods:", paste(methods, collapse = ", "), "\n")
+    cat("\tReference method:", x$ref, "\n")
+  } else {
+    cat("\nMethod variable: none\n")
+  }
 
-	### Print `by` factors (if any)
-	if (!is.null(x$by)) {
-		cat("By factors:", paste(x$by, collapse = ", "), "\n")
-	} else {
-		cat("By factors: none\n")
-	}
+  ### Print `by` factors (if any)
+  if (!is.null(x$by)) {
+    cat("By factors:", paste(x$by, collapse = ", "), "\n")
+  } else {
+    cat("By factors: none\n")
+  }
 
-	### Print whether Monte Carlo SEs were computed or not
-	if (x$mcse) {
-		cat("\nMonte Carlo standard errors were computed.\n")
-	} else {
-		cat("\nMonte Carlo standard errors were not computed.\n")
-	}
+  ### Print whether Monte Carlo SEs were computed or not
+  if (x$mcse) {
+    cat("\nMonte Carlo standard errors were computed.\n")
+  } else {
+    cat("\nMonte Carlo standard errors were not computed.\n")
+  }
 }

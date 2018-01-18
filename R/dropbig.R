@@ -8,5 +8,5 @@
 #' @export
 
 dropbig <- function(x, ...) {
-	UseMethod("dropbig", x)
+  UseMethod("dropbig", x)
 }

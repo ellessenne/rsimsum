@@ -3,5 +3,5 @@
 #' @param x An object to test.
 #' @export
 is.simsum <- function(x) {
-	inherits(x, "simsum")
+  inherits(x, "simsum")
 }

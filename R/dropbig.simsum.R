@@ -16,14 +16,14 @@
 #' d
 
 dropbig.simsum <- function(x, ...) {
-	obj = list()
-	if (x$dropbig) {
-		obj$big_estvarname = x$big_estvarname
-		obj$big_se = x$big_se
-	} else {
-		message("`dropbig = FALSE`, no point estimate / standard error was dropped. ")
-		return(NULL)
-	}
-	class(obj) = c("dropbig.simsum")
-	return(obj)
+  obj <- list()
+  if (x$dropbig) {
+    obj$big_estvarname <- x$big_estvarname
+    obj$big_se <- x$big_se
+  } else {
+    message("`dropbig = FALSE`, no point estimate / standard error was dropped. ")
+    return(NULL)
+  }
+  class(obj) <- c("dropbig.simsum")
+  return(obj)
 }
