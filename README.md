@@ -10,7 +10,7 @@ rsimsum
 Installation
 ------------
 
-You can install rsimsum from GitHub with:
+You can install `rsimsum` from GitHub with:
 
 ``` r
 # install.packages("devtools")

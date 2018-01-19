@@ -2,8 +2,9 @@ context("simsum")
 
 test_that("simsum prints ok", {
   data("MIsim")
-  s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
-  print(s)
+	print(simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method"))
+	print(simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se"))
+	print(simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", by = "method"))
 })
 
 test_that("simsum returns an object of class simsum", {
