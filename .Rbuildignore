@@ -8,3 +8,5 @@ cran-comments.md
 NEWS.md
 TODO.md
 ^.*\.dta$
+^README\.Rmd$
+^README-.*\.png$
