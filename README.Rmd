@@ -41,3 +41,5 @@ This is a basic example which shows you how to solve a common problem:
 
 # References
 
+* White, I.R. 2010. _simsum: Analyses of simulation studies including Monte Carlo error_. The Stata Journal 10(3): 369-385, [](http://www.stata-journal.com/article.html?article=st0200)
+* Morris, T.P, White, I.R. and Crowther, M.J. 2017. _Using simulation studies to evaluate statistical methods_. <[arXiv:1712.03198](https://arxiv.org/abs/1712.03198)>
