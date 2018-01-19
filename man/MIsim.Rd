@@ -3,7 +3,7 @@
 \docType{data}
 \name{MIsim}
 \alias{MIsim}
-\title{Example of a simulation study}
+\title{Example of a simulation study on missing data}
 \format{A data frame with 3,000 rows and 4 variables:
 \itemize{
 \item \code{dataset} Simulated dataset number.
@@ -21,7 +21,7 @@ A dataset from a simulation study comparing different ways to handle missing cov
 MIsim
 }
 \examples{
-data("MIsim")
+data("MIsim", package = "rsimsum")
 
 }
 \references{
