@@ -1,5 +1,11 @@
 context("simsum")
 
+test_that("simsum prints ok", {
+  data("MIsim")
+  s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
+  print(s)
+})
+
 test_that("simsum returns an object of class simsum", {
   data("MIsim")
   s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", ref = "CC")
@@ -77,4 +83,24 @@ test_that("simsum without mcse option does not returns mcse", {
   data("MIsim")
   s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", mcse = FALSE)
   expect_false("mcse" %in% names(s$summ))
+})
+
+test_that("simsum with by factors returns error when 'by' name is not a variable in data", {
+  expect_error({
+    data("relhaz")
+    simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = "by")
+  })
+})
+
+test_that("simsum with by factors works fine", {
+  data("relhaz")
+  s <- simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = "n")
+  s <- simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = "baseline")
+  s <- simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = c("n", "baseline"))
+})
+
+test_that("simsum with by factors returns a data.frame with results", {
+  data("relhaz")
+  s <- simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = c("n", "baseline"))
+  expect_s3_class(object = s$summ, class = "data.frame")
 })
