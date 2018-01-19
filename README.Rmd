@@ -34,7 +34,7 @@ devtools::install_github("ellessenne/rsimsum")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example using data from a simulation study on missing data (type `help("MIsim", package = "rsimsum")` in the R console for more information):
 
 ```{r simsum}
 library(rsimsum)

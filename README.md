@@ -20,12 +20,12 @@ devtools::install_github("ellessenne/rsimsum")
 Example
 -------
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example using data from a simulation study on missing data (type `help("MIsim", package = "rsimsum")` in the R console for more information):
 
 ``` r
 library(rsimsum)
 data(MIsim)
-s = simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
+s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
 #> `ref` was not specified, CC set as the reference
 s
 #> 
@@ -58,55 +58,55 @@ summary(s)
 #> Summary statistics:
 #> 
 #>  Method = CC 
-#>                                                   Coef   MCSE Lower 95% Upper 95%
-#>                  Non-missing point estimates 1000.0000     NA        NA        NA
-#>                  Non-missing standard errors 1000.0000     NA        NA        NA
-#>                       Average point estimate    0.5168     NA        NA        NA
-#>                        Median point estimate    0.5070     NA        NA        NA
-#>                       Average standard error    0.0216     NA        NA        NA
-#>                        Median standard error    0.0211     NA        NA        NA
-#>                       Bias in point estimate    0.0168 0.0048    0.0074    0.0261
-#>                     Empirical standard error    0.1511 0.0034    0.1445    0.1577
-#>                           Mean squared error    0.0231 0.0011    0.0209    0.0253
-#>    % gain in precision relative to method CC    0.0000 0.0000    0.0000    0.0000
-#>               RMS model-based standard error    0.1471 0.0005    0.1461    0.1481
-#>           Relative % error in standard error   -2.6594 2.2055   -6.9820    1.6633
-#>  Coverage of nominal 95% confidence interval   94.3000 0.7332   92.8631   95.7369
-#>                       Power of 5% level test   94.6000 0.7147   93.1992   96.0008
+#>                                                  Coef   MCSE Lower 95% Upper 95%
+#>  Simulations with non-missing estimates/SEs 1000.0000     NA        NA        NA
+#>                      Average point estimate    0.5168     NA        NA        NA
+#>                       Median point estimate    0.5070     NA        NA        NA
+#>                      Average standard error    0.0216     NA        NA        NA
+#>                       Median standard error    0.0211     NA        NA        NA
+#>                      Bias in point estimate    0.0168 0.0048    0.0074    0.0261
+#>                    Empirical standard error    0.1511 0.0034    0.1445    0.1577
+#>                          Mean squared error    0.0231 0.0011    0.0209    0.0253
+#>   % gain in precision relative to method CC    1.0000 0.0000    1.0000    1.0000
+#>                  Model-based standard error    0.1471 0.0005    0.1461    0.1481
+#>          Relative % error in standard error   -2.6594 2.2049   -6.9810    1.6622
+#>                  Coverage of nominal 95% CI    0.9430 0.0073    0.9286    0.9574
+#>   Bias corrected coverage of nominal 95% CI    0.9400 0.0075    0.9253    0.9547
+#>                      Power of 5% level test    0.9460 0.0071    0.9320    0.9600
 #> 
 #>  Method = MI_LOGT 
-#>                                                   Coef   MCSE Lower 95% Upper 95%
-#>                  Non-missing point estimates 1000.0000     NA        NA        NA
-#>                  Non-missing standard errors 1000.0000     NA        NA        NA
-#>                       Average point estimate    0.5009     NA        NA        NA
-#>                        Median point estimate    0.4969     NA        NA        NA
-#>                       Average standard error    0.0182     NA        NA        NA
-#>                        Median standard error    0.0172     NA        NA        NA
-#>                       Bias in point estimate    0.0009 0.0042   -0.0073    0.0091
-#>                     Empirical standard error    0.1320 0.0030    0.1262    0.1378
-#>                           Mean squared error    0.0174 0.0009    0.0157    0.0191
-#>    % gain in precision relative to method CC   31.0463 3.9375   23.3290   38.7636
-#>               RMS model-based standard error    0.1349 0.0006    0.1338    0.1361
-#>           Relative % error in standard error    2.2233 2.3323   -2.3480    6.7946
-#>  Coverage of nominal 95% confidence interval   94.9000 0.6957   93.5365   96.2635
-#>                       Power of 5% level test   96.9000 0.5481   95.8258   97.9742
+#>                                                  Coef   MCSE Lower 95% Upper 95%
+#>  Simulations with non-missing estimates/SEs 1000.0000     NA        NA        NA
+#>                      Average point estimate    0.5009     NA        NA        NA
+#>                       Median point estimate    0.4969     NA        NA        NA
+#>                      Average standard error    0.0182     NA        NA        NA
+#>                       Median standard error    0.0172     NA        NA        NA
+#>                      Bias in point estimate    0.0009 0.0042   -0.0073    0.0091
+#>                    Empirical standard error    0.1320 0.0030    0.1262    0.1378
+#>                          Mean squared error    0.0174 0.0009    0.0157    0.0191
+#>   % gain in precision relative to method CC    1.3105 0.0394    1.2333    1.3876
+#>                  Model-based standard error    0.1349 0.0006    0.1338    0.1361
+#>          Relative % error in standard error    2.2233 2.3318   -2.3469    6.7935
+#>                  Coverage of nominal 95% CI    0.9490 0.0070    0.9354    0.9626
+#>   Bias corrected coverage of nominal 95% CI    0.9490 0.0070    0.9354    0.9626
+#>                      Power of 5% level test    0.9690 0.0055    0.9583    0.9797
 #> 
 #>  Method = MI_T 
-#>                                                   Coef   MCSE Lower 95% Upper 95%
-#>                  Non-missing point estimates 1000.0000     NA        NA        NA
-#>                  Non-missing standard errors 1000.0000     NA        NA        NA
-#>                       Average point estimate    0.4988     NA        NA        NA
-#>                        Median point estimate    0.4939     NA        NA        NA
-#>                       Average standard error    0.0179     NA        NA        NA
-#>                        Median standard error    0.0169     NA        NA        NA
-#>                       Bias in point estimate   -0.0012 0.0043   -0.0095    0.0071
-#>                     Empirical standard error    0.1344 0.0030    0.1285    0.1403
-#>                           Mean squared error    0.0181 0.0009    0.0163    0.0198
-#>    % gain in precision relative to method CC   26.3682 3.8424   18.8372   33.8991
-#>               RMS model-based standard error    0.1338 0.0006    0.1327    0.1350
-#>           Relative % error in standard error   -0.4412 2.2695   -4.8894    4.0070
-#>  Coverage of nominal 95% confidence interval   94.3000 0.7332   92.8631   95.7369
-#>                       Power of 5% level test   96.3000 0.5969   95.1301   97.4699
+#>                                                  Coef   MCSE Lower 95% Upper 95%
+#>  Simulations with non-missing estimates/SEs 1000.0000     NA        NA        NA
+#>                      Average point estimate    0.4988     NA        NA        NA
+#>                       Median point estimate    0.4939     NA        NA        NA
+#>                      Average standard error    0.0179     NA        NA        NA
+#>                       Median standard error    0.0169     NA        NA        NA
+#>                      Bias in point estimate   -0.0012 0.0043   -0.0095    0.0071
+#>                    Empirical standard error    0.1344 0.0030    0.1285    0.1403
+#>                          Mean squared error    0.0181 0.0009    0.0163    0.0198
+#>   % gain in precision relative to method CC    1.2637 0.0384    1.1884    1.3390
+#>                  Model-based standard error    0.1338 0.0006    0.1327    0.1350
+#>          Relative % error in standard error   -0.4412 2.2690   -4.8883    4.0059
+#>                  Coverage of nominal 95% CI    0.9430 0.0073    0.9286    0.9574
+#>   Bias corrected coverage of nominal 95% CI    0.9430 0.0073    0.9286    0.9574
+#>                      Power of 5% level test    0.9630 0.0060    0.9513    0.9747
 ```
 
 References

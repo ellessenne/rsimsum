@@ -1,5 +1,5 @@
 Package: rsimsum
-Version: 0.0.6.9001
+Version: 0.0.6.9002
 Title: Analysis of simulation studies including Monte Carlo error
 Description: This package is a port of the user-written command simsum in Stata.
 Authors@R: c(person("Alessandro", "Gasparini", role = c("aut", "cre"), email = "ag475@leicester.ac.uk"),
@@ -15,6 +15,7 @@ Suggests:
  devtools,
  knitr,
  rmarkdown,
+ rstpm2,
  survival,
  testthat
 URL: https://github.com/ellessenne/rsimsum
