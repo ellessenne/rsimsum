@@ -9,6 +9,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 ```{r setup, include = FALSE}
+options(width = 150)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -27,7 +28,7 @@ Say we want to run a simulation study in which we want to compare the sensitivit
 
 # Data generating mechanisms
 
-We simulate an hypotetical trial with a binary treatment. We fix the log-treatment effect to $-0.50$, and we generate a treatment indicator variable for each simulated individual via a $Binom(1, 0.5)$ random variable. We simulate two different sample sizes (100 individuals and 500 individuals) and we assume two different baseline hazard functions: exponential with scale parameter $\lambda = 0.5$, and Weibull with scale parameter $\lambda = 0.5$ and shape parameter $\gamma = 1.5$. Finally, we apply administrative censoring at time $t = 5$.
+We simulate an hypotetical trial with a binary treatment. We fix the log-treatment effect to $-0.50$, and we generate a treatment indicator variable for each simulated individual via a $Binom(1, 0.5)$ random variable. We simulate two different sample sizes (50 and 250 individuals) and we assume two different baseline hazard functions: exponential with scale parameter $\lambda = 0.5$, and Weibull with scale parameter $\lambda = 0.5$ and shape parameter $\gamma = 1.5$. Finally, we apply administrative censoring at time $t = 5$.
 
 ```{r baseline-hazards}
 exp_basehaz <- function(t, lambda = 0.5) lambda * 1 * t ^ 0
@@ -59,6 +60,12 @@ simulate_data <- function(dataset, n, baseline, params = list(), coveff = -0.50)
   } else {
     t <- (-log(u) / (params$lambda * exp(x * coveff))) ^ (1 / params$gamma)
   }
+  # Winsorising tiny values for t (smaller than one day on a yearly-scale, e.g. 1 / 365.242), and adding a tiny amount of white noise not to have too many concurrent values
+  t <- ifelse(t < 1 / 365.242, 1 / 365.242, t)
+  t[t == 1 / 365.242] <- t[t == 1 / 365.242] + rnorm(length(t[t == 1 / 365.242]), mean = 0, sd = 1e-4)
+  # ...and make sure that the resulting value is positive
+  t <- abs(t)
+
   # Make event indicator variable applying administrative censoring at t = 5
   d <- as.numeric(t < 5)
   t <- pmin(t, 5)
@@ -69,7 +76,7 @@ simulate_data <- function(dataset, n, baseline, params = list(), coveff = -0.50)
 
 # Methods
 
-We compare the the performance of different parametric survival models in estimating 
+We compare the Cox model with a flexible parametric model with 2 degrees of freedom for modelling the baseline hazard (Royston and Parmar, 2002). The Cox model can be fit via the `coxph` function from the `survival` package, while the Royston-Parmar model can be fixed via the `stpm2` function from the `rstpm2` package.
 
 # Performance measures
 
@@ -110,31 +117,31 @@ set.seed(755353002)
 Then, we simulate the data:
 ```{r generate-data}
 data <- list()
-data[["n = 100, baseline = Exp"]] <- lapply(
+data[["n = 50, baseline = Exp"]] <- lapply(
   X = 1:1000,
   FUN = simulate_data,
-  n = 100,
+  n = 50,
   baseline = "Exponential",
   params = list(lambda = 0.5)
 )
-data[["n = 500, baseline = Exp"]] <- lapply(
+data[["n = 250, baseline = Exp"]] <- lapply(
   X = 1:1000,
   FUN = simulate_data,
-  n = 500,
+  n = 250,
   baseline = "Exponential",
   params = list(lambda = 0.5)
 )
-data[["n = 100, baseline = Wei"]] <- lapply(
+data[["n = 50, baseline = Wei"]] <- lapply(
   X = 1:1000,
   FUN = simulate_data,
-  n = 100,
+  n = 50,
   baseline = "Weibull",
   params = list(lambda = 0.5, gamma = 1.5)
 )
-data[["n = 500, baseline = Wei"]] <- lapply(
+data[["n = 250, baseline = Wei"]] <- lapply(
   X = 1:1000,
   FUN = simulate_data,
-  n = 500,
+  n = 250,
   baseline = "Weibull",
   params = list(lambda = 0.5, gamma = 1.5)
 )
@@ -145,22 +152,23 @@ data[["n = 500, baseline = Wei"]] <- lapply(
 We define a function to fit the models of interest:
 
 ```{r fitting-function}
+library(survival)
+library(rstpm2)
+
 fit_models <- function(data, model) {
   # Fit model
   if (model == "Cox") {
-    fit <- coxph(Surv(t, d) ~ x, data = data)
-  } else if (model == "Exponential") {
-    fit <- survreg(Surv(t, d) ~ x, data = data, dist = "exponential")
-  } else if (model == "Weibull") {
-    fit <- survreg(Surv(t, d) ~ x, data = data, dist = "weibull")
+    fit <- survival::coxph(Surv(t, d) ~ x, data = data)
+  } else {
+    fit <- rstpm2::stpm2(Surv(t, d) ~ x, data = data, df = 2)
   }
   # Return relevant coefficients
   data.frame(
     dataset = unique(data$dataset),
     n = unique(data$n),
     baseline = unique(data$baseline),
-    theta = fit$coefficients["x"],
-    se = sqrt(c(vcov(fit)["x", "x"])),
+    theta = coef(fit)["x"],
+    se = sqrt(vcov(fit)["x", "x"]),
     model = model,
     stringsAsFactors = FALSE,
     row.names = NULL
@@ -171,104 +179,70 @@ fit_models <- function(data, model) {
 We now run the models for each simulated dataset:
 
 ```{r run-models}
-library(survival)
 results <- list()
-results[["n = 100, baseline = Exp, model = Cox"]] <- do.call(
+results[["n = 50, baseline = Exp, model = Cox"]] <- do.call(
   rbind.data.frame,
   lapply(
-    X = data[["n = 100, baseline = Exp"]],
+    X = data[["n = 50, baseline = Exp"]],
     FUN = fit_models,
     model = "Cox"
   )
 )
-results[["n = 500, baseline = Exp, model = Cox"]] <- do.call(
+results[["n = 250, baseline = Exp, model = Cox"]] <- do.call(
   rbind.data.frame,
   lapply(
-    X = data[["n = 500, baseline = Exp"]],
+    X = data[["n = 250, baseline = Exp"]],
     FUN = fit_models,
     model = "Cox"
   )
 )
-results[["n = 100, baseline = Wei, model = Cox"]] <- do.call(
+results[["n = 50, baseline = Wei, model = Cox"]] <- do.call(
   rbind.data.frame,
   lapply(
-    X = data[["n = 100, baseline = Wei"]],
+    X = data[["n = 50, baseline = Wei"]],
     FUN = fit_models,
     model = "Cox"
   )
 )
-results[["n = 500, baseline = Wei, model = Cox"]] <- do.call(
+results[["n = 250, baseline = Wei, model = Cox"]] <- do.call(
   rbind.data.frame,
   lapply(
-    X = data[["n = 500, baseline = Wei"]],
+    X = data[["n = 250, baseline = Wei"]],
     FUN = fit_models,
     model = "Cox"
   )
 )
 
-results[["n = 100, baseline = Exp, model = Exponential"]] <- do.call(
+results[["n = 50, baseline = Exp, model = RP(2)"]] <- do.call(
   rbind.data.frame,
   lapply(
-    X = data[["n = 100, baseline = Exp"]],
+    X = data[["n = 50, baseline = Exp"]],
     FUN = fit_models,
-    model = "Exponential"
+    model = "RP(2)"
   )
 )
-results[["n = 500, baseline = Exp, model = Exponential"]] <- do.call(
+results[["n = 250, baseline = Exp, model = RP(2)"]] <- do.call(
   rbind.data.frame,
   lapply(
-    X = data[["n = 500, baseline = Exp"]],
+    X = data[["n = 250, baseline = Exp"]],
     FUN = fit_models,
-    model = "Exponential"
+    model = "RP(2)"
   )
 )
-results[["n = 100, baseline = Wei, model = Exponential"]] <- do.call(
+results[["n = 50, baseline = Wei, model = RP(2)"]] <- do.call(
   rbind.data.frame,
   lapply(
-    X = data[["n = 100, baseline = Wei"]],
+    X = data[["n = 50, baseline = Wei"]],
     FUN = fit_models,
-    model = "Exponential"
+    model = "RP(2)"
   )
 )
-results[["n = 500, baseline = Wei, model = Exponential"]] <- do.call(
+results[["n = 250, baseline = Wei, model = RP(2)"]] <- do.call(
   rbind.data.frame,
   lapply(
-    X = data[["n = 500, baseline = Wei"]],
+    X = data[["n = 250, baseline = Wei"]],
     FUN = fit_models,
-    model = "Exponential"
-  )
-)
-
-results[["n = 100, baseline = Exp, model = Weibull"]] <- do.call(
-  rbind.data.frame,
-  lapply(
-    X = data[["n = 100, baseline = Exp"]],
-    FUN = fit_models,
-    model = "Weibull"
-  )
-)
-results[["n = 500, baseline = Exp, model = Weibull"]] <- do.call(
-  rbind.data.frame,
-  lapply(
-    X = data[["n = 500, baseline = Exp"]],
-    FUN = fit_models,
-    model = "Weibull"
-  )
-)
-results[["n = 100, baseline = Wei, model = Weibull"]] <- do.call(
-  rbind.data.frame,
-  lapply(
-    X = data[["n = 100, baseline = Wei"]],
-    FUN = fit_models,
-    model = "Weibull"
-  )
-)
-results[["n = 500, baseline = Wei, model = Weibull"]] <- do.call(
-  rbind.data.frame,
-  lapply(
-    X = data[["n = 500, baseline = Wei"]],
-    FUN = fit_models,
-    model = "Weibull"
+    model = "RP(2)"
   )
 )
 ```
@@ -287,7 +261,7 @@ We save the final results, that will be included as an example in the R package 
 
 ```{r saving, eval = FALSE}
 library(devtools)
-use_data(relhaz, overwrite = TRUE)
+devtools::use_data(relhaz, overwrite = TRUE)
 ```
 
 ## Summarising results
@@ -296,7 +270,7 @@ Finally, we obtain summary statistics by calling the `simsum` function:
 
 ```{r compute-summaries}
 library(rsimsum)
-s <- simsum(data = relhaz, estvarname = "theta", se = "se", true = -0.50, methodvar = "model", ref = "Cox", mcse = TRUE)
+s <- rsimsum::simsum(data = relhaz, estvarname = "theta", se = "se", true = -0.50, methodvar = "model", ref = "Cox", mcse = TRUE, by = c("n", "baseline"))
 s
 ```
 
@@ -309,5 +283,7 @@ summary(s)
 With this vignette we showed how to simulate survival data and run a small, simple simulation study.
 
 # References
+
+* Royston P. and Parmar M.K. _Flexible parametric proportional-hazards and proportional-odds models for censored survival data, with application to prognostic modelling and estimation of treatment effects_. Statistics in Medicine, 2002, 21(15):2175-2197 
 
 * Bender R., Augustin T., and Blettner M. _Generating survival times to simulate Cox proportional hazards models_. Statistics in Medicine, 2005, 24(11):1713-1723
