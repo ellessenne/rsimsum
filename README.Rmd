@@ -10,6 +10,7 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "README-"
 )
+options(width = 100)
 ```
 
 # rsimsum
@@ -35,8 +36,17 @@ devtools::install_github("ellessenne/rsimsum")
 
 This is a basic example which shows you how to solve a common problem:
 
-```{r example}
-## basic example code
+```{r simsum}
+library(rsimsum)
+data(MIsim)
+s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
+s
+```
+
+Summarising the results:
+
+```{r summary}
+summary(s)
 ```
 
 # References
