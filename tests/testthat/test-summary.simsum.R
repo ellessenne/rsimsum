@@ -11,6 +11,8 @@ test_that("summarising a simsum object works fine and prints ok", {
   x <- simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = c("n", "baseline"))
   print(summary(x))
   print(summary(x), sstat = c("bias", "bccover"))
+  x <- simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", by = c("n", "baseline"))
+  print(summary(x), sstat = c("bias", "bccover"))
 })
 
 test_that("summary.simsum returns an object of class summary.simsum", {

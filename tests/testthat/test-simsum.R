@@ -7,6 +7,7 @@ test_that("simsum prints ok", {
   print(simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se"))
   print(simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", mcse = FALSE))
   print(simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = c("n", "baseline")))
+  print(simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", by = c("n", "baseline")))
 })
 
 test_that("simsum returns an object of class simsum", {
