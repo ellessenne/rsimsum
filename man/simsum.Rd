@@ -6,8 +6,7 @@
 \usage{
 simsum(data, estvarname, true, se, methodvar = NULL, ref = NULL,
   df = NULL, dropbig = FALSE, max = 10, semax = 100, level = 0.95,
-  by = NULL, mcse = TRUE, robust = FALSE, sanitise = TRUE,
-  na.rm = TRUE)
+  by = NULL, mcse = TRUE, sanitise = TRUE, na.rm = TRUE)
 }
 \arguments{
 \item{data}{A \code{data.frame} in which variable names are interpreted. It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.}
@@ -36,11 +35,9 @@ simsum(data, estvarname, true, se, methodvar = NULL, ref = NULL,
 
 \item{mcse}{Reports Monte Carlo standard errors for all performance measures. Defaults to \code{TRUE}.}
 
-\item{robust}{Specifies that robust Monte Carlo standard errors for the performance measures empirical standard error, relative gain in precision, relative error should be returned. More details in White (2010). Only useful when \code{mcse = TRUE}. Not yet implemented.}
-
 \item{sanitise}{Sanitise column names passed to \code{simsum} by removing all dot characters (\code{.}), which could cause problems. Defaults to \code{TRUE}.}
 
-\item{na.rm}{A logical value indicating whether \code{NA} values should be removed before the computation proceeds. Defaults to \code{TRUE}.}
+\item{na.rm}{A logical value indicating whether missing values (\code{NA}) should be removed before the computation proceeds. Defaults to \code{TRUE}.}
 }
 \value{
 An object of class \code{simsum}.
@@ -59,4 +56,6 @@ s = simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "m
 }
 \references{
 White, I.R. 2010. simsum: Analyses of simulation studies including Monte Carlo error. The Stata Journal 10(3): 369-385
+
+Morris, T.P, White, I.R. and Crowther, M.J. 2017. Using simulation studies to evaluate statistical methods. \url{arXiv:1712.03198}
 }

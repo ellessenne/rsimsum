@@ -15,11 +15,11 @@
 #' @param level Specifies the confidence level for coverage and power. Defaults to `0.95`.
 #' @param by A vector of variable names to compute performance measures by a list of factors. Can be `NULL`.
 #' @param mcse Reports Monte Carlo standard errors for all performance measures. Defaults to `TRUE`.
-#' @param robust Specifies that robust Monte Carlo standard errors for the performance measures empirical standard error, relative gain in precision, relative error should be returned. More details in White (2010). Only useful when `mcse = TRUE`. Not yet implemented.
 #' @param sanitise Sanitise column names passed to `simsum` by removing all dot characters (`.`), which could cause problems. Defaults to `TRUE`.
-#' @param na.rm A logical value indicating whether `NA` values should be removed before the computation proceeds. Defaults to `TRUE`.
+#' @param na.rm A logical value indicating whether missing values (`NA`) should be removed before the computation proceeds. Defaults to `TRUE`.
 #' @return An object of class `simsum`.
 #' @references White, I.R. 2010. simsum: Analyses of simulation studies including Monte Carlo error. The Stata Journal 10(3): 369-385
+#' @references Morris, T.P, White, I.R. and Crowther, M.J. 2017. Using simulation studies to evaluate statistical methods. <arXiv:1712.03198>
 #' @export
 #'
 #' @examples
@@ -42,7 +42,6 @@ simsum <-
            level = 0.95,
            by = NULL,
            mcse = TRUE,
-           robust = FALSE,
            sanitise = TRUE,
            na.rm = TRUE) {
     ### Check arguments
@@ -70,10 +69,9 @@ simsum <-
       add = arg_checks
     )
 
-    # `dropbig`, `mcse`, `robust`, `sanitise`, `na.rm` must be single logical value
+    # `dropbig`, `mcse`, `sanitise`, `na.rm` must be single logical value
     checkmate::assert_logical(dropbig, len = 1, add = arg_checks)
     checkmate::assert_logical(mcse, len = 1, add = arg_checks)
-    checkmate::assert_logical(robust, len = 1, add = arg_checks)
     checkmate::assert_logical(sanitise, len = 1, add = arg_checks)
     checkmate::assert_logical(na.rm, len = 1, add = arg_checks)
 
@@ -183,7 +181,6 @@ simsum <-
           level = level,
           df = df,
           mcse = mcse,
-          robust = robust,
           na.rm = na.rm
         )
       } else {
@@ -221,7 +218,6 @@ simsum <-
               level = level,
               df = df,
               mcse = mcse,
-              robust = robust,
               na.rm = na.rm,
               esd_ref = sqrt(stats::var(methodvar_split[[ref]][[estvarname]])),
               rho = rho[x],
@@ -250,7 +246,6 @@ simsum <-
             level = level,
             df = df,
             mcse = mcse,
-            robust = robust,
             na.rm = na.rm,
             by = by,
             byvalues = names(by_split)[i]
@@ -292,7 +287,6 @@ simsum <-
                 level = level,
                 df = df,
                 mcse = mcse,
-                robust = robust,
                 na.rm = na.rm,
                 esd_ref = sqrt(stats::var(methodvar_split[[ref]][[estvarname]])),
                 rho = rho[x],
@@ -328,7 +322,6 @@ simsum <-
     obj$level <- level
     obj$by <- by
     obj$mcse <- mcse
-    obj$robust <- robust
     obj$sanitise <- sanitise
     obj$na.rm <- na.rm
 
@@ -348,7 +341,6 @@ perfms <-
            level,
            df,
            mcse,
-           robust,
            esd_ref = NULL,
            rho = NULL,
            ncorr = NULL,
