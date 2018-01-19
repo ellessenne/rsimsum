@@ -14,10 +14,9 @@
 \item{sstat}{Summary statistics to print; can be a scalar of a vector (for printing multiple summary statistics at once). Possible choices are:
 \itemize{
 \item \code{all}, all the summary statistics are printed. This is the default option.
-\item \code{bsims}, the number of non-missing point estimates.
-\item \code{sesims}, the number of non-missing standard errors.
-\item \code{bmean}, average point estimate.
-\item \code{bmedian}, median point estimate.
+\item \code{nsim}, the number of replications with non-missing point estimates and standard error.
+\item \code{thetamean}, average point estimate.
+\item \code{thetamedian}, median point estimate.
 \item \code{se2mean}, average standard error.
 \item \code{se2median}, median standard error.
 \item \code{bias}, bias in point estimate.
@@ -27,6 +26,7 @@
 \item \code{modelse}, model-based standard error.
 \item \code{relerror}, relative percentage error in standard error.
 \item \code{cover}, coverage of a nominal \code{level}\% confidence interval.
+\item \code{bccover}, bias corrected coverage of a nominal \code{level}\% confidence interval.
 \item \code{power}, power of a (1 - \code{level})\% level test.
 }}
 

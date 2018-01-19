@@ -5,10 +5,9 @@
 #' @param digits Number of significant digits used for printing. Defaults to 4.
 #' @param sstat Summary statistics to print; can be a scalar of a vector (for printing multiple summary statistics at once). Possible choices are:
 #' * `all`, all the summary statistics are printed. This is the default option.
-#' * `bsims`, the number of non-missing point estimates.
-#' * `sesims`, the number of non-missing standard errors.
-#' * `bmean`, average point estimate.
-#' * `bmedian`, median point estimate.
+#' * `nsim`, the number of replications with non-missing point estimates and standard error.
+#' * `thetamean`, average point estimate.
+#' * `thetamedian`, median point estimate.
 #' * `se2mean`, average standard error.
 #' * `se2median`, median standard error.
 #' * `bias`, bias in point estimate.
@@ -18,6 +17,7 @@
 #' * `modelse`, model-based standard error.
 #' * `relerror`, relative percentage error in standard error.
 #' * `cover`, coverage of a nominal `level`\% confidence interval.
+#' * `bccover`, bias corrected coverage of a nominal `level`\% confidence interval.
 #' * `power`, power of a (1 - `level`)\% level test.
 #' @param ... Ignored.
 #' @note If `sstat` is a vector that contains `all`, all summary statistics are printed by default.
@@ -37,7 +37,7 @@ print.summary.simsum <- function(x, digits = 4, sstat = "all", ...) {
   checkmate::assert_int(digits, lower = 0, upper = Inf, add = arg_checks)
 
   # `sstat` must be one of the possible choices
-  checkmate::assert_subset(sstat, choices = c("all", "bsims", "sesims", "bmean", "bmedian", "se2mean", "se2median", "bias", "esd", "mse", "relprec", "modelse", "relerror", "cover", "power"), add = arg_checks)
+  checkmate::assert_subset(sstat, choices = c("all", "nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "bccover", "power"), add = arg_checks)
 
   ### Report if there are any errors
   if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
