@@ -8,6 +8,9 @@ test_that("dropbig works ok and prints fine", {
   # when dropbig = FALSE
   x <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", mcse = TRUE, dropbig = FALSE)
   print(dropbig(x))
+  # with huuuuge limits
+  x <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", mcse = TRUE, dropbig = TRUE, max = 10, semax = 10)
+  print(dropbig(x))
 })
 
 test_that("dropbig returns a data.frame when dropbig = TRUE", {

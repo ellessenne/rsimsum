@@ -2,9 +2,11 @@ context("simsum")
 
 test_that("simsum prints ok", {
   data("MIsim")
-	print(simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method"))
-	print(simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se"))
-	print(simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", by = "method"))
+  data("relhaz")
+  print(simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method"))
+  print(simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se"))
+  print(simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", mcse = FALSE))
+  print(simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = c("n", "baseline")))
 })
 
 test_that("simsum returns an object of class simsum", {
