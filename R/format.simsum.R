@@ -16,7 +16,7 @@ format.simsum <- function(x, digits) {
       x$summ$upper <- sprintf(paste0("%.", digits, "f"), x$summ$upper)
     }
   }
-  x$summ$stat[x$summ$stat == "nsim"] <- "Simulations with non-missing point estimates and standard errors"
+  x$summ$stat[x$summ$stat == "nsim"] <- "Simulations with non-missing estimates/SEs"
   x$summ$stat[x$summ$stat == "thetamean"] <- "Average point estimate"
   x$summ$stat[x$summ$stat == "thetamedian"] <- "Median point estimate"
   x$summ$stat[x$summ$stat == "se2mean"] <- "Average standard error"
@@ -25,10 +25,10 @@ format.simsum <- function(x, digits) {
   x$summ$stat[x$summ$stat == "empse"] <- "Empirical standard error"
   x$summ$stat[x$summ$stat == "mse"] <- "Mean squared error"
   x$summ$stat[x$summ$stat == "relprec"] <- paste("% gain in precision relative to method", x$ref)
-  x$summ$stat[x$summ$stat == "modelse"] <- paste(ifelse(x$modelsemethod == "rmse", "RMS", "Mean"), "model-based standard error")
+  x$summ$stat[x$summ$stat == "modelse"] <- "Model-based standard error"
   x$summ$stat[x$summ$stat == "relerror"] <- "Relative % error in standard error"
-  x$summ$stat[x$summ$stat == "cover"] <- paste("Coverage of nominal", sprintf("%.0f%%", 100 * (x$level)), "confidence interval")
-  x$summ$stat[x$summ$stat == "bccover"] <- paste("Bias corrected coverage of nominal", sprintf("%.0f%%", 100 * (x$level)), "confidence interval")
+  x$summ$stat[x$summ$stat == "cover"] <- paste("Coverage of nominal", sprintf("%.0f%%", 100 * (x$level)), "CI")
+  x$summ$stat[x$summ$stat == "bccover"] <- paste("Bias corrected coverage of nominal", sprintf("%.0f%%", 100 * (x$level)), "CI")
   x$summ$stat[x$summ$stat == "power"] <- paste("Power of", sprintf("%.0f%%", 100 * (1 - x$level)), "level test")
   rownames(x$summ) <- NULL
   return(x)

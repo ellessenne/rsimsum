@@ -49,7 +49,7 @@ print.summary.simsum <- function(x, digits = 4, sstat = "all", ...) {
   ### Print `methodvar` (if any), possible methods, and reference method
   if (!is.null(x$methodvar)) {
     cat("\nMethod variable:", x$methodvar, "\n")
-    methods <- unique(x$summ$method)
+    methods <- unique(x$summ[[x$methodvar]])
     cat("\tUnique methods:", paste(methods, collapse = ", "), "\n")
     cat("\tReference method:", x$ref, "\n")
   } else {
