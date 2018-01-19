@@ -1,0 +1,313 @@
+---
+title: "Simulating a simulation study"
+author: "Alessandro Gasparini"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Simulating a simulation study}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.align = "center", fig.height = 6, fig.width = 6,
+  out.width = "66.66%"
+)
+```
+
+# Introduction
+
+In this vignette, we show how the simulated data included as an example dataset in `simsum` has been generated.
+
+# Motivation
+
+Say we want to run a simulation study in which we want to compare the sensitivity of parametric and semiparametric survival models on relative risk estimates.
+
+# Data generating mechanisms
+
+We simulate an hypotetical trial with a binary treatment. We fix the log-treatment effect to $-0.50$, and we generate a treatment indicator variable for each simulated individual via a $Binom(1, 0.5)$ random variable. We simulate two different sample sizes (100 individuals and 500 individuals) and we assume two different baseline hazard functions: exponential with scale parameter $\lambda = 0.5$, and Weibull with scale parameter $\lambda = 0.5$ and shape parameter $\gamma = 1.5$. Finally, we apply administrative censoring at time $t = 5$.
+
+```{r baseline-hazards}
+exp_basehaz <- function(t, lambda = 0.5) lambda * 1 * t ^ 0
+exp_weibull <- function(t, lambda = 0.5, gamma = 1.5) lambda * gamma * t ^ (gamma - 1)
+curve(exp_basehaz, from = 0, to = 5, lty = 1, ylim = c(0, 2), ylab = expression(h[0](t)), xlab = "Follow-up time t")
+curve(exp_weibull, from = 0, to = 5, lty = 2, add = TRUE)
+legend(x = "topleft", lty = 1:2, legend = c("Exponential baseline hazard", "Weibull baseline hazard"), bty = "n")
+```
+
+The survival times are estimated using the approach of Bender _et al_. (2005), based on drawing from a $U(0, 1)$ random variable and applying the following transformations:
+
+1. for an exponential baseline hazard, the survival time $t$ is simulated as:
+$$t = -\frac{log(U)}{\lambda \exp(\beta ^ T X)}$$
+
+2. for a Weibull baseline hazard, the survival time $t$ is simulated as:
+$$t = \left(-\frac{log(U)}{\lambda \exp(\beta ^ T X)}\right) ^ {1 / \gamma}$$
+
+The R function to simulate a dataset for our simulation study is defined as follows:
+
+```{r dgfun}
+simulate_data <- function(dataset, n, baseline, params = list(), coveff = -0.50) {
+  # Simulate treatment indicator variable
+  x <- rbinom(n = n, size = 1, prob = 0.5)
+  # Draw from a U(0,1) random variable
+  u <- runif(n)
+  # Simulate survival times depending on the baseline hazard
+  if (baseline == "Exponential") {
+    t <- -log(u) / (params$lambda * exp(x * coveff))
+  } else {
+    t <- (-log(u) / (params$lambda * exp(x * coveff))) ^ (1 / params$gamma)
+  }
+  # Make event indicator variable applying administrative censoring at t = 5
+  d <- as.numeric(t < 5)
+  t <- pmin(t, 5)
+  # Return a data.frame
+  data.frame(dataset = dataset, x = x, t = t, d = d, n = n, baseline = baseline, stringsAsFactors = FALSE)
+}
+```
+
+# Methods
+
+We compare the the performance of different parametric survival models in estimating 
+
+# Performance measures
+
+Say we are interested in the following performance measures:
+
+* Bias in the estimated log-treatment effect, and corresponding $95\%$ Monte Carlo confidence
+intervals
+* Coverage of confidence intervals for the log-treatment effect, defined as the proportion of simulated data sets for which the true log-treatment effect of $-0.50$ lies within the $95\%$ confidence intervals obtained from the model
+
+# Sample size
+
+We are primarily interested in bias, and assume that the variance of the estimated log-treatment effect is $0.1$. The Monte Carlo standard error for the bias is:
+
+$$\text{MCSE} = \sqrt{\frac{\text{variance}}{\# \text{simulations}}}$$
+
+Aiming for a Monte Carlo standard error of 0.01 on the estimated bias, we would require $1,000$ replications. 
+
+The Monte Carlo standard error for converage is:
+
+$$\text{MCSE} = \sqrt{\frac{\text{coverage} \times (1 - \text{coverage})}{\# \text{simulations}}}$$
+
+This Monte Carlo standard error is maximised for a coverage = $0.5$. In that setting, the Monte Carlo standard error with $1,000$ replications would be $0.01581139$, which is deemed to be acceptable.
+
+Therefore, we will run $1,000$ replications of this simulation study.
+
+# Running the simulation study
+
+## Generate data
+
+We generate $1,00$ datasets for each data-generating mechanism.
+
+First, we set a random seed for reproducibility:
+
+```{r set-seed}
+set.seed(755353002)
+```
+
+Then, we simulate the data:
+```{r generate-data}
+data <- list()
+data[["n = 100, baseline = Exp"]] <- lapply(
+  X = 1:1000,
+  FUN = simulate_data,
+  n = 100,
+  baseline = "Exponential",
+  params = list(lambda = 0.5)
+)
+data[["n = 500, baseline = Exp"]] <- lapply(
+  X = 1:1000,
+  FUN = simulate_data,
+  n = 500,
+  baseline = "Exponential",
+  params = list(lambda = 0.5)
+)
+data[["n = 100, baseline = Wei"]] <- lapply(
+  X = 1:1000,
+  FUN = simulate_data,
+  n = 100,
+  baseline = "Weibull",
+  params = list(lambda = 0.5, gamma = 1.5)
+)
+data[["n = 500, baseline = Wei"]] <- lapply(
+  X = 1:1000,
+  FUN = simulate_data,
+  n = 500,
+  baseline = "Weibull",
+  params = list(lambda = 0.5, gamma = 1.5)
+)
+```
+
+## Run models
+
+We define a function to fit the models of interest:
+
+```{r fitting-function}
+fit_models <- function(data, model) {
+  # Fit model
+  if (model == "Cox") {
+    fit <- coxph(Surv(t, d) ~ x, data = data)
+  } else if (model == "Exponential") {
+    fit <- survreg(Surv(t, d) ~ x, data = data, dist = "exponential")
+  } else if (model == "Weibull") {
+    fit <- survreg(Surv(t, d) ~ x, data = data, dist = "weibull")
+  }
+  # Return relevant coefficients
+  data.frame(
+    dataset = unique(data$dataset),
+    n = unique(data$n),
+    baseline = unique(data$baseline),
+    theta = fit$coefficients["x"],
+    se = sqrt(c(vcov(fit)["x", "x"])),
+    model = model,
+    stringsAsFactors = FALSE,
+    row.names = NULL
+  )
+}
+```
+
+We now run the models for each simulated dataset:
+
+```{r run-models}
+library(survival)
+results <- list()
+results[["n = 100, baseline = Exp, model = Cox"]] <- do.call(
+  rbind.data.frame,
+  lapply(
+    X = data[["n = 100, baseline = Exp"]],
+    FUN = fit_models,
+    model = "Cox"
+  )
+)
+results[["n = 500, baseline = Exp, model = Cox"]] <- do.call(
+  rbind.data.frame,
+  lapply(
+    X = data[["n = 500, baseline = Exp"]],
+    FUN = fit_models,
+    model = "Cox"
+  )
+)
+results[["n = 100, baseline = Wei, model = Cox"]] <- do.call(
+  rbind.data.frame,
+  lapply(
+    X = data[["n = 100, baseline = Wei"]],
+    FUN = fit_models,
+    model = "Cox"
+  )
+)
+results[["n = 500, baseline = Wei, model = Cox"]] <- do.call(
+  rbind.data.frame,
+  lapply(
+    X = data[["n = 500, baseline = Wei"]],
+    FUN = fit_models,
+    model = "Cox"
+  )
+)
+
+results[["n = 100, baseline = Exp, model = Exponential"]] <- do.call(
+  rbind.data.frame,
+  lapply(
+    X = data[["n = 100, baseline = Exp"]],
+    FUN = fit_models,
+    model = "Exponential"
+  )
+)
+results[["n = 500, baseline = Exp, model = Exponential"]] <- do.call(
+  rbind.data.frame,
+  lapply(
+    X = data[["n = 500, baseline = Exp"]],
+    FUN = fit_models,
+    model = "Exponential"
+  )
+)
+results[["n = 100, baseline = Wei, model = Exponential"]] <- do.call(
+  rbind.data.frame,
+  lapply(
+    X = data[["n = 100, baseline = Wei"]],
+    FUN = fit_models,
+    model = "Exponential"
+  )
+)
+results[["n = 500, baseline = Wei, model = Exponential"]] <- do.call(
+  rbind.data.frame,
+  lapply(
+    X = data[["n = 500, baseline = Wei"]],
+    FUN = fit_models,
+    model = "Exponential"
+  )
+)
+
+results[["n = 100, baseline = Exp, model = Weibull"]] <- do.call(
+  rbind.data.frame,
+  lapply(
+    X = data[["n = 100, baseline = Exp"]],
+    FUN = fit_models,
+    model = "Weibull"
+  )
+)
+results[["n = 500, baseline = Exp, model = Weibull"]] <- do.call(
+  rbind.data.frame,
+  lapply(
+    X = data[["n = 500, baseline = Exp"]],
+    FUN = fit_models,
+    model = "Weibull"
+  )
+)
+results[["n = 100, baseline = Wei, model = Weibull"]] <- do.call(
+  rbind.data.frame,
+  lapply(
+    X = data[["n = 100, baseline = Wei"]],
+    FUN = fit_models,
+    model = "Weibull"
+  )
+)
+results[["n = 500, baseline = Wei, model = Weibull"]] <- do.call(
+  rbind.data.frame,
+  lapply(
+    X = data[["n = 500, baseline = Wei"]],
+    FUN = fit_models,
+    model = "Weibull"
+  )
+)
+```
+
+## Aggregating results
+
+```{r aggregate-results}
+relhaz <- do.call(
+  rbind.data.frame,
+  results
+)
+row.names(relhaz) <- NULL
+```
+
+We save the final results, that will be included as an example in the R package `rsimsum`.
+
+```{r saving, eval = FALSE}
+library(devtools)
+use_data(relhaz, overwrite = TRUE)
+```
+
+## Summarising results
+
+Finally, we obtain summary statistics by calling the `simsum` function:
+
+```{r compute-summaries}
+library(rsimsum)
+s <- simsum(data = relhaz, estvarname = "theta", se = "se", true = -0.50, methodvar = "model", ref = "Cox", mcse = TRUE)
+s
+```
+
+```{r print-summaries}
+summary(s)
+```
+
+# Conclusions
+
+With this vignette we showed how to simulate survival data and run a small, simple simulation study.
+
+# References
+
+* Bender R., Augustin T., and Blettner M. _Generating survival times to simulate Cox proportional hazards models_. Statistics in Medicine, 2005, 24(11):1713-1723
