@@ -24,9 +24,9 @@
 #'
 #' @examples
 #' data("MIsim")
-#' s = simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", ref = "CC")
+#' s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", ref = "CC")
 #' # If `ref` is not specified, the reference method is inferred
-#' s = simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
+#' s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
 
 simsum <-
   function(data,

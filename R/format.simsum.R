@@ -16,7 +16,7 @@ format.simsum <- function(x, digits) {
       x$summ$upper <- sprintf(paste0("%.", digits, "f"), x$summ$upper)
     }
   }
-  x$summ$stat[x$summ$stat == "nsims"] <- "Simulations with non-missing point estimates and standard errors"
+  x$summ$stat[x$summ$stat == "nsim"] <- "Simulations with non-missing point estimates and standard errors"
   x$summ$stat[x$summ$stat == "thetamean"] <- "Average point estimate"
   x$summ$stat[x$summ$stat == "thetamedian"] <- "Median point estimate"
   x$summ$stat[x$summ$stat == "se2mean"] <- "Average standard error"
