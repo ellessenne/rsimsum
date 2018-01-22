@@ -112,5 +112,5 @@ summary(s)
 References
 ==========
 
--   White, I.R. 2010. *simsum: Analyses of simulation studies including Monte Carlo error*. The Stata Journal 10(3): 369-385, [](http://www.stata-journal.com/article.html?article=st0200)
+-   White, I.R. 2010. *simsum: Analyses of simulation studies including Monte Carlo error*. The Stata Journal 10(3): 369-385 &lt;<http://www.stata-journal.com/article.html?article=st0200>&gt;
 -   Morris, T.P, White, I.R. and Crowther, M.J. 2017. *Using simulation studies to evaluate statistical methods*. &lt;[arXiv:1712.03198](https://arxiv.org/abs/1712.03198)&gt;
