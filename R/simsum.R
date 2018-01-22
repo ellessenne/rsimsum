@@ -193,7 +193,7 @@ simsum <-
         rho <- vapply(
           X = methods,
           FUN = function(x)
-            stats::cor(methodvar_split[[ref]][[estvarname]], methodvar_split[[x]][[estvarname]]),
+            stats::cor(methodvar_split[[ref]][[estvarname]], methodvar_split[[x]][[estvarname]], use = ifelse(na.rm, "na.or.complete", "everything")),
           FUN.VALUE = numeric(1)
         )
         # Compute n. of observations used in computing correlations
@@ -212,7 +212,7 @@ simsum <-
               df = df,
               mcse = mcse,
               na.rm = na.rm,
-              empse_ref = sqrt(stats::var(methodvar_split[[ref]][[estvarname]])),
+              empse_ref = sqrt(stats::var(methodvar_split[[ref]][[estvarname]], na.rm = na.rm)),
               rho = rho[x]
             )
         )
@@ -253,7 +253,7 @@ simsum <-
           rho <- vapply(
             X = methods,
             FUN = function(x)
-              stats::cor(methodvar_split[[ref]][[estvarname]], methodvar_split[[x]][[estvarname]]),
+              stats::cor(methodvar_split[[ref]][[estvarname]], methodvar_split[[x]][[estvarname]], use = ifelse(na.rm, "na.or.complete", "everything")),
             FUN.VALUE = numeric(1)
           )
           summ <- lapply(
@@ -271,7 +271,7 @@ simsum <-
                 df = df,
                 mcse = mcse,
                 na.rm = na.rm,
-                empse_ref = sqrt(stats::var(methodvar_split[[ref]][[estvarname]])),
+                empse_ref = sqrt(stats::var(methodvar_split[[ref]][[estvarname]], na.rm = na.rm)),
                 rho = rho[x],
                 by = by,
                 byvalues = names(by_split)[i]
@@ -346,7 +346,7 @@ perfms <-
     # Bias
     bias <- 1 / nsim * sum(data[[estvarname]] - true, na.rm = na.rm)
     # Empirical standard error
-    empse <- sqrt(1 / (nsim - 1) * sum((data[[estvarname]] - mean(data[[estvarname]])) ^ 2, na.rm = na.rm))
+    empse <- sqrt(1 / (nsim - 1) * sum((data[[estvarname]] - mean(data[[estvarname]], na.rm = na.rm)) ^ 2, na.rm = na.rm))
     # Mean squared error
     mse <- 1 / nsim * sum((data[[estvarname]] - true) ^ 2, na.rm = na.rm)
     # Relative change in precision
@@ -365,13 +365,13 @@ perfms <-
     # Coverage of a nominal (1 - level)% confidence interval
     cover <- 1 / nsim * sum(true >= data[[estvarname]] - crit * data[[se]] & true <= data[[estvarname]] + crit * data[[se]], na.rm = na.rm)
     # Bias-corrected coverage of a nominal (1 - level)% confidence interval
-    bccover <- 1 / nsim * sum(mean(data[[estvarname]]) >= data[[estvarname]] - crit * data[[se]] & mean(data[[estvarname]]) <= data[[estvarname]] + crit * data[[se]], na.rm = na.rm)
+    bccover <- 1 / nsim * sum(mean(data[[estvarname]], na.rm = na.rm) >= data[[estvarname]] - crit * data[[se]] & mean(data[[estvarname]], na.rm = na.rm) <= data[[estvarname]] + crit * data[[se]], na.rm = na.rm)
     # Power of a significance test at the `level` level
     power <- 1 / nsim * sum(abs(data[[estvarname]]) >= crit * data[[se]], na.rm = na.rm)
 
     ### Compute Monte Carlo SEs if requested:
     if (mcse) {
-      bias_mcse <- sqrt(1 / (nsim * (nsim - 1)) * sum((data[[estvarname]] - mean(data[[estvarname]])) ^ 2, na.rm = na.rm))
+      bias_mcse <- sqrt(1 / (nsim * (nsim - 1)) * sum((data[[estvarname]] - mean(data[[estvarname]], na.rm = na.rm)) ^ 2, na.rm = na.rm))
       empse_mcse <- empse / sqrt(2 * (nsim - 1))
       mse_mcse <- sqrt(sum(((data[[estvarname]] - true) ^ 2 - mse) ^ 2, na.rm = na.rm) / (nsim * (nsim - 1)))
       if (!is.null(empse_ref) & !is.null(rho)) {
