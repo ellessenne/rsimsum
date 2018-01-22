@@ -3,7 +3,7 @@
 #' @title Print method for summary.simsum objects
 #' @param x An object of class `summary.simsum`.
 #' @param digits Number of significant digits used for printing. Defaults to 4.
-#' @param sstat Summary statistics to print; can be a scalar of a vector (for printing multiple summary statistics at once). Possible choices are:
+#' @param sstat Summary statistics to print; can be a scalar value or a vector (for printing multiple summary statistics at once). Possible choices are:
 #' * `all`, all the summary statistics are printed. This is the default option.
 #' * `nsim`, the number of replications with non-missing point estimates and standard error.
 #' * `thetamean`, average point estimate.
@@ -29,7 +29,9 @@
 #'             methodvar = "method", mcse = TRUE)
 #' xs <- summary(x)
 #' xs
-
+#'
+#' # Printing only bias and coverage:
+#' print(xs, sstat = c("bias", "cover"))
 print.summary.simsum <- function(x, digits = 4, sstat = "all", ...) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()

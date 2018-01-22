@@ -11,7 +11,7 @@
 
 \item{digits}{Number of significant digits used for printing. Defaults to 4.}
 
-\item{sstat}{Summary statistics to print; can be a scalar of a vector (for printing multiple summary statistics at once). Possible choices are:
+\item{sstat}{Summary statistics to print; can be a scalar value or a vector (for printing multiple summary statistics at once). Possible choices are:
 \itemize{
 \item \code{all}, all the summary statistics are printed. This is the default option.
 \item \code{nsim}, the number of replications with non-missing point estimates and standard error.
@@ -44,4 +44,7 @@ x <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se",
             methodvar = "method", mcse = TRUE)
 xs <- summary(x)
 xs
+
+# Printing only bias and coverage:
+print(xs, sstat = c("bias", "cover"))
 }
