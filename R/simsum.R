@@ -17,6 +17,7 @@
 #' @param mcse Reports Monte Carlo standard errors for all performance measures. Defaults to `TRUE`.
 #' @param sanitise Sanitise column names passed to `simsum` by removing all dot characters (`.`), which could cause problems. Defaults to `TRUE`.
 #' @param na.rm A logical value indicating whether missing values (`NA`) should be removed before the computation proceeds. Defaults to `TRUE`.
+#' @param na.pair Removes estimates that have a missing standard error (and viceversa). Defaults to `TRUE`.
 #' @return An object of class `simsum`.
 #' @references White, I.R. 2010. simsum: Analyses of simulation studies including Monte Carlo error. The Stata Journal 10(3): 369-385
 #' @references Morris, T.P, White, I.R. and Crowther, M.J. 2017. Using simulation studies to evaluate statistical methods. <arXiv:1712.03198>
@@ -43,7 +44,8 @@ simsum <-
            by = NULL,
            mcse = TRUE,
            sanitise = TRUE,
-           na.rm = TRUE) {
+           na.rm = TRUE,
+           na.pair = TRUE) {
     ### Check arguments
     arg_checks <- checkmate::makeAssertCollection()
 
@@ -69,11 +71,12 @@ simsum <-
       add = arg_checks
     )
 
-    # `dropbig`, `mcse`, `sanitise`, `na.rm` must be single logical value
+    # `dropbig`, `mcse`, `sanitise`, `na.rm` , `na.pair` must be single logical value
     checkmate::assert_logical(dropbig, len = 1, add = arg_checks)
     checkmate::assert_logical(mcse, len = 1, add = arg_checks)
     checkmate::assert_logical(sanitise, len = 1, add = arg_checks)
     checkmate::assert_logical(na.rm, len = 1, add = arg_checks)
+    checkmate::assert_logical(na.pair, len = 1, add = arg_checks)
 
     # `by` must be a vector of strings; can be NULL
     checkmate::assert_character(by, null.ok = TRUE, add = arg_checks)
@@ -153,18 +156,24 @@ simsum <-
 
     ### Identify and drop (if required) point estimates and standard errors that are too big
     if (dropbig) {
-      # Save observations which one are too big
+      # Save observations that are too large
       big_estvarname <- data.frame(
-        rownumber = which((data[[estvarname]] - mean(data[[estvarname]])) / sqrt(stats::var(data[[estvarname]])) >= max),
-        value = data[[estvarname]][(data[[estvarname]] - mean(data[[estvarname]])) / sqrt(stats::var(data[[estvarname]])) >= max]
+        rownumber = which(abs((data[[estvarname]] - mean(data[[estvarname]])) / sqrt(stats::var(data[[estvarname]]))) >= max),
+        value = data[[estvarname]][abs((data[[estvarname]] - mean(data[[estvarname]])) / sqrt(stats::var(data[[estvarname]]))) >= max]
       )
       big_se <- data.frame(
         rownumber = which(data[[se]] >= mean(data[[se]]) * semax),
         value = data[[se]][data[[se]] >= mean(data[[se]]) * semax]
       )
       # Drop 'em
-      data[[estvarname]][(data[[estvarname]] - mean(data[[estvarname]])) / sqrt(stats::var(data[[estvarname]])) >= max] <- NA
+      data[[estvarname]][abs((data[[estvarname]] - mean(data[[estvarname]])) / sqrt(stats::var(data[[estvarname]]))) >= max] <- NA
       data[[se]][data[[se]] >= mean(data[[se]]) * semax] <- NA
+    }
+
+    ### Drop estimates if SE is missing, and vice-versa
+    if (na.pair) {
+      data[[estvarname]][is.na(data[[se]])] <- NA
+      data[[se]][is.na(data[[estvarname]])] <- NA
     }
 
     ### Compute summary statistics

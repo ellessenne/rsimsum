@@ -6,7 +6,8 @@
 \usage{
 simsum(data, estvarname, true, se, methodvar = NULL, ref = NULL,
   df = NULL, dropbig = FALSE, max = 10, semax = 100, level = 0.95,
-  by = NULL, mcse = TRUE, sanitise = TRUE, na.rm = TRUE)
+  by = NULL, mcse = TRUE, sanitise = TRUE, na.rm = TRUE,
+  na.pair = TRUE)
 }
 \arguments{
 \item{data}{A \code{data.frame} in which variable names are interpreted. It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.}
@@ -38,6 +39,8 @@ simsum(data, estvarname, true, se, methodvar = NULL, ref = NULL,
 \item{sanitise}{Sanitise column names passed to \code{simsum} by removing all dot characters (\code{.}), which could cause problems. Defaults to \code{TRUE}.}
 
 \item{na.rm}{A logical value indicating whether missing values (\code{NA}) should be removed before the computation proceeds. Defaults to \code{TRUE}.}
+
+\item{na.pair}{Removes estimates that have a missing standard error (and viceversa). Defaults to \code{TRUE}.}
 }
 \value{
 An object of class \code{simsum}.
