@@ -4,10 +4,29 @@
 \alias{get_data.simsum}
 \title{Extract data from a simsum object}
 \usage{
-\method{get_data}{simsum}(x, ...)
+\method{get_data}{simsum}(x, sstat = "all", ...)
 }
 \arguments{
 \item{x}{An object of class \code{simsum}.}
+
+\item{sstat}{Summary statistics to include; can be a scalar value or a vector. Possible choices are:
+\itemize{
+\item \code{all}, all the summary statistics are returned This is the default option.
+\item \code{nsim}, the number of replications with non-missing point estimates and standard error.
+\item \code{thetamean}, average point estimate.
+\item \code{thetamedian}, median point estimate.
+\item \code{se2mean}, average standard error.
+\item \code{se2median}, median standard error.
+\item \code{bias}, bias in point estimate.
+\item \code{esd}, empirical standard error.
+\item \code{mse}, mean squared error.
+\item \code{relprec}, percentage gain in precision relative to the reference method.
+\item \code{modelse}, model-based standard error.
+\item \code{relerror}, relative percentage error in standard error.
+\item \code{cover}, coverage of a nominal \code{level}\% confidence interval.
+\item \code{bccover}, bias corrected coverage of a nominal \code{level}\% confidence interval.
+\item \code{power}, power of a (1 - \code{level})\% level test.#'
+}}
 
 \item{...}{Ignored.}
 }
@@ -22,6 +41,9 @@ data(MIsim)
 x <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se",
             methodvar = "method", mcse = TRUE)
 get_data(x)
+
+# Exporting only bias and coverage:
+get_data(x, ssta = c("bias", "cover"))
 }
 \seealso{
 \code{\link[=simsum]{simsum()}}, \code{\link[=get_data]{get_data()}}
