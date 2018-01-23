@@ -184,7 +184,7 @@ kable(get_data(ss1))
 
 Using `get_data()` in combination with R packages such as [xtable](https://cran.r-project.org/package=xtable), [kableExtra](https://cran.r-project.org/package=kableExtra), [tables](https://cran.r-project.org/package=tables) can yield a variety of tables that should suit most purposes.
 
-More information on producing tables directly from R can be found in the [CRAN Task View on Reproducible Research](https://cran.r-project.org/web/views/ReproducibleResearch.html).
+More information on producing tables directly from R can be found in the [CRAN Task View on Reproducible Research](https://CRAN.R-project.org/view=ReproducibleResearch).
 
 ## Plotting summary statistics
 

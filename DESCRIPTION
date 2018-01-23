@@ -1,7 +1,10 @@
 Package: rsimsum
-Version: 0.0.6.9004
-Title: Analysis of simulation studies including Monte Carlo error
-Description: This package is a port of the user-written command simsum in Stata.
+Version: 0.0.7
+Title: Analysis of Simulation Studies Including Monte Carlo Error
+Description: Summarise results from simulation studies and compute Monte Carlo
+  standard errors of commonly used summary statistics. This package is modelled 
+  on the 'simsum' user-written command in 'Stata' (See White I.R., 2010 
+  <www.stata-journal.com/article.html?article=st0200>).
 Authors@R: c(person("Alessandro", "Gasparini", role = c("aut", "cre"), email = "ag475@leicester.ac.uk"),
 	person("Ian R.", "White", role = "aut"))
 License: GPL (>= 3)

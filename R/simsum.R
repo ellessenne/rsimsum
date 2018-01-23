@@ -19,8 +19,8 @@
 #' @param na.rm A logical value indicating whether missing values (`NA`) should be removed before the computation proceeds. Defaults to `TRUE`.
 #' @param na.pair Removes estimates that have a missing standard error (and viceversa). Defaults to `TRUE`.
 #' @return An object of class `simsum`.
-#' @references White, I.R. 2010. simsum: Analyses of simulation studies including Monte Carlo error. The Stata Journal 10(3): 369-385
-#' @references Morris, T.P, White, I.R. and Crowther, M.J. 2017. Using simulation studies to evaluate statistical methods. <arXiv:1712.03198>
+#' @references White, I.R. 2010. simsum: Analyses of simulation studies including Monte Carlo error. The Stata Journal 10(3): 369-385. [www.stata-journal.com/article.html?article=st0200](www.stata-journal.com/article.html?article=st0200)
+#' @references Morris, T.P, White, I.R. and Crowther, M.J. 2017. Using simulation studies to evaluate statistical methods. [arXiv:1712.03198](https://arxiv.org/abs/1712.03198)
 #' @export
 #'
 #' @examples
