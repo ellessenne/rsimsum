@@ -1,0 +1,312 @@
+---
+title: "Introduction to rsimsum"
+author: "Alessandro Gasparini"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to rsimsum}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include = FALSE}
+options(width = 150)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.align = "center", fig.height = 6, fig.width = 6,
+  out.width = "66.66%"
+)
+```
+
+# rsimsum
+
+`rsimsum` is an R package that can compute summary statistics from simulation studies. It is a port to R of the user-written command `simsum` in Stata (White I.R., 2010).
+
+The aim of `rsimsum` is helping reporting of simulation studies, including understanding the role of chance in results of simulation studies. Specifically, `rsimsum` can compute Monte Carlo standard errors of summary statistics, defined as the standard deviation of the estimated summary statistic.
+
+Formula for summary statistics and Monte Carlo standard errors are presented in the next section.
+
+# Notation
+
+We will use th following notation throughout this vignette:
+
+* $\theta$: an estimand, and its true value
+* $n_{\text{sim}}$: number of simulations
+* $i = 1, \dots, n_{\text{sim}}$: indexes a given simulation
+* $\hat{\theta}_i$: the estimated value of $\theta$ for the $i^{\text{th}}$ replication
+* $\widehat{\text{Var}}(\hat{\theta}_i)$: the estimated variance $\text{Var}(\hat{\theta}_i)$ of $\hat{\theta}_i$ for the $i^{\text{th}}$ replication
+* $\text{Var}(\hat{\theta})$: the empirical variance of $\hat{\theta}$
+* $\alpha$: the nominal significance level
+
+# Summary statistics
+
+The first summary statistic of interest is **bias**, which quantifies whether the estimator targets the true value $\theta$ on average. Bias is calculated as:
+
+$$\text{Bias} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} \hat{\theta}_i - \theta$$
+
+The Monte Carlo standard error of bias is calculated as:
+
+$$\text{MCSE(Bias)} = \sqrt{\frac{\frac{1}{n_{\text{sim}} - 1} \sum_{i = 1} ^ {n_{\text{sim}}} (\hat{\theta}_i - \bar{\theta}) ^ 2}{n_{\text{sim}}}}$$
+
+The **empirical standard error** of $\theta$ depends only on $\hat{\theta}$ and does not require any knowledge of $\theta$. It estimates the standard deviation of $\hat{\theta}$ over the $n_{\text{sim}}$ replications:
+
+$$\text{Empirical SE} = \sqrt{\frac{1}{n_{\text{sim}} - 1} \sum_{i = 1} ^ {n_{\text{sim}}} (\hat{\theta}_i - \bar{\theta}) ^ 2}$$
+
+The Monte Carlo standard error is calculated as:
+
+$$\text{MCSE(Emp. SE)} = \frac{\text{Emp. SE}}{\sqrt{2 (n_{\text{sim}} - 1)}}$$
+
+When comparing different methods, the **relative precision of a given method B against a reference method A** is computed as:
+
+$$\text{Relative % increase in precision} = \left( \frac{\text{Emp. SE}_A}{\text{Emp. SE}_B} \right) ^ 2$$
+
+Its (approximated) Monte Carlo standard error is:
+
+$$\text{MCSE(Relative % increase in precision)} \simeq 2 \frac{\text{Var}(\hat{\theta}_A)}{\text{Var}(\hat{\theta}_B)} \sqrt{\frac{1 - \rho^2_{AB}}{n_{\text{sim}} - 1}}$$
+
+$\rho^2_{AB}$ is the correlation of $\hat{\theta}_A$ and $\hat{\theta}_B$.
+
+
+A measure that takes into account both precision and accuracy of a method is the **mean squared error**, which is the sum of the squared bias and variance of $\hat{\theta}$:
+
+$$\text{MSE} = \frac{1}{n_{\text{sim}}} = \sum_{i = 1} ^ {n_{\text{sim}}} (\hat{\theta}_i - \theta) ^ 2$$
+
+The Monte Carlo standard error is:
+
+$$\text{MCSE(MSE)} = \sqrt{\frac{\sum_{i = 1} ^ {n_{\text{sim}}} \left[ (\hat{\theta}_i - \theta) ^2 - \text{MSE} \right] ^ 2}{n_{\text{sim}} (n_{\text{sim}} - 1)}}$$
+
+The **model based standard error** is computed by averaging the estimated standard errors for each replication:
+
+$$\text{Model SE} = \sqrt{\frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} \widehat{\text{Var}}(\hat{\theta}_i))}$$
+
+Its (approximated) Monte Carlo standard error is computed as:
+
+$$\text{MCSE(Model SE)} \simeq \sqrt{\frac{\text{Var}[\widehat{\text{Var}}(\hat{\theta}_i)]}{4 n_{\text{sim}} \widehat{\text{Model SE}}}}$$
+
+The model standard error targets the empirical standard error. Hence, the **relative error in the model standard error** is an informative performance measure:
+
+$$\text{Relative % error in model SE} = 100 \left( \frac{\text{Model SE}}{\text{Empirical SE}} - 1\right)$$
+
+Its Monte Carlo standard error is computed as:
+
+$$\text{MCSE(Relative % error in model SE)} = 100 \left( \frac{\text{Model SE}}{\text{Empirical SE}} \right) \sqrt{\frac{\text{Var}[\widehat{\text{Var}}(\hat{\theta}_i)]}{4 n_{\text{sim}} \widehat{\text{Model SE}} ^ 4} + \frac{1}{2(n_{\text{sim}} - 1)}}$$
+
+**Coverage** is another key property of an estimator. It is defined as the probability that a confidence interval contains the true value $\theta$, and computed as:
+
+$$\text{Coverage} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} I(\hat{\theta}_{i, \text{low}} \le \theta \le \hat{\theta}_{i, \text{upp}})$$
+
+where $I(\cdot)$ is the indicator function. The Monte Carlo standard error is computed as:
+
+$$\text{MCSE(Coverage)} = \sqrt{\frac{\text{Coverage} \times (1 - \text{Coverage})}{n_{\text{sim}}}}$$
+
+Under coverage is to be expected if:
+
+1. $\text{Bias} \ne 0$, or
+2. $\text{Models SE} < \text{Empirical SE}$, or
+3. the distribution of $\hat{\theta}$ is not normal and intervals have been constructed assuming normality, or
+4. $\widehat{\text{Var}}(\hat{\theta}_i)$ is too variable
+
+Over coverage occurs as a result of $\text{Models SE} > \text{Empirical SE}$.
+
+As under coverage may be a result of bias, another useful summary statistic is **bias corrected coverage**:
+
+$$\text{Bias corrected coverage} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} I(\hat{\theta}_{i, \text{low}} \le \bar{\theta} \le \hat{\theta}_{i, \text{upp}}) $$
+
+The Monte Carlo standard error is analogously as coverage:
+
+$$\text{MCSE(Bias corrected coverage)} = \sqrt{\frac{\text{Bias corrected coverage} \times (1 - \text{Bias corrected coverage})}{n_{\text{sim}}}}$$
+
+Finally, **power** of a significance test at the $\alpha$ level is defined as:
+
+$$\text{Power} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} I \left[ |\hat{\theta}_i| \ge z_{\alpha/2} * \sqrt{\widehat{\text{Var}}(\hat{\theta_i})} \right]$$
+
+The Monte Carlo standard error is analogously as coverage:
+
+$$\text{MCSE(Power)} = \sqrt{\frac{\text{Power} \times (1 - \text{Power})}{n_{\text{sim}}}}$$
+
+Further information on summary statistics for simulation studies can be found in White (2010) and Morris, White, and Crowther (2017).
+
+# Example 1: Simulation study on missing data
+
+With this example dataset included in `rsimsum` we aim to summarise a simulation study comparing different ways to handle missing covariates when fitting a Cox model (White and Royston, 2009). One thousand datasets were simulated, each containing normally distributed covariates $x$ and $z$ and time-to-event outcome. Both covariates has $20\%$ of their values deleted independently of all other variables so the data became missing completely at random (Little and Rubin, 2002). Each simulated dataset was analysed in three ways. A Cox model was fit to the complete cases (`CC`). Then two methods of multiple imputation using chained equations (van Buuren, Boshuizen, and Knook, 1999) were used. The `MI_LOGT` method multiply imputes the missing values of $x$ and $z$ with the outcome included as $\log(t)$ and $d$, where $t$ is the survival time and $d$ is the event indicator. The `MI_T` method is the same except that $\log(t)$ is replaced by $t$ in the imputation model.
+
+We load the data in the usual way:
+
+```{r ex1-load-data}
+library(rsimsum)
+data("MIsim", package = "rsimsum")
+```
+
+Let's have a look at the first 10 rows of the dataset:
+
+```{r ex1-inspect-data}
+head(MIsim, n = 10)
+```
+
+The included variables are:
+
+```{r ex1-included-variables}
+str(MIsim)
+```
+
+* `dataset`, the number of the simulated dataset;
+
+* `method`, the method used (`CC`, `MI_LOGT` or `MI_T`);
+
+* `b`, the point estimate;
+
+* `se`, the standard error of the point estimate.
+
+We summarise the results of the simulation study by method using the `simsum` function:
+
+```{r ex1-simsum}
+s1 <- simsum(data = MIsim, estvarname = "b", true = 0.50, se = "se", methodvar = "method", ref = "CC")
+```
+
+Using the default settings, Monte Carlo standard errors are computed and returned. 
+
+```{r ex1-summary-simsum}
+ss1 <- summary(s1)
+ss1
+```
+
+## Tabulating summary statistics
+
+It is straightforward to produce a table of summary statistics for use in an R Markdown document:
+
+```{r ex1-table}
+library(knitr)
+kable(get_data(ss1))
+```
+
+Using `get_data()` in combination with R packages such as [xtable](https://cran.r-project.org/package=xtable), [kableExtra](https://cran.r-project.org/package=kableExtra), [tables](https://cran.r-project.org/package=tables) can yield a variety of tables that should suit most purposes.
+
+More information on producing tables directly from R can be found in the [CRAN Task View on Reproducible Research](https://cran.r-project.org/web/views/ReproducibleResearch.html).
+
+## Plotting summary statistics
+
+In this section, we show how to plot and compare summary statistics using the popular R package [ggplot](https://CRAN.R-project.org/package=ggplot2).
+
+Plotting bias by method with $95\%$ confidence intervals based on Monte Carlo standard errors:
+
+```{r ex1-plot-bias}
+library(ggplot2)
+ggplot(get_data(ss1, sstat = "bias"), aes(x = method, y = coef, ymin = lower, ymax = upper)) +
+  geom_hline(yintercept = 0, color = "red", lty = "dashed") +
+  geom_point() +
+  geom_errorbar(width = 1 / 3) +
+  theme_bw() +
+  labs(x = "Method", y = "Bias")
+```
+
+Conversely, say we want to visually compare coverage for the three methods compared with this simulation study:
+
+```{r ex1-plot-cov}
+ggplot(get_data(ss1, sstat = "cover"), aes(x = method, y = coef, ymin = lower, ymax = upper)) +
+  geom_hline(yintercept = 0.95, color = "red", lty = "dashed") +
+  geom_point() +
+  geom_errorbar(width = 1 / 3) +
+  coord_cartesian(ylim = c(0, 1)) +
+  theme_bw() +
+  labs(x = "Method", y = "Coverage")
+```
+
+## Dropping large estimates and standard errors
+
+`rsimsum` allows to automatically drop estimates and standard errors that are larger than a predefined value. Specifically, the argument of `simsum` that control this behaviour are `dropbig`, `max` and `semax`. 
+
+Set `dropbig` to `TRUE`, and then standardised estimates larger than `max` in absolute value will be dropped; standard errors larger than `semax` times the average standard error will be dropped too.
+
+For instance, say we want to drop standardised estimates larger than $4$ in absolute value and standard errors larger than $1.5$ times the average standard error:
+
+```{r ex1-dropbig-simsum}
+s1.2 <- simsum(data = MIsim, estvarname = "b", true = 0.50, se = "se", methodvar = "method", ref = "CC", dropbig = TRUE, max = 4, semax = 1.5)
+```
+
+Were any estimates dropped?
+
+```{r ex1-dropbig-dropbig}
+dropbig(s1.2)
+```
+
+Yes they were!
+
+Everything else works analogously as before; for instance, to summarise the results:
+
+```{r ex1-dropbig-summary-simsum}
+summary(s1.2)
+```
+
+# Example 2: Simulation study on survival modelling
+
+```{r ex2-load-data}
+data("relhaz", package = "rsimsum")
+```
+
+Let's have a look at the first 10 rows of the dataset:
+
+```{r ex2-inspect-data}
+head(relhaz, n = 10)
+```
+
+The included variables are:
+
+```{r ex2-included-variables}
+str(relhaz)
+```
+
+* `dataset`, simulated dataset number;
+
+* `n`, sample size of the simulate dataset;
+
+* `baseline`, baseline hazard function of the simulated dataset;
+
+* `model`, method used (Cox model or Royston-Parmar model with 2 degrees of freedom);
+
+* `theta`, point estimate for the log-hazard ratio;
+
+* `se`, standard error of the point estimate.
+
+`rsimsum` can summarise results from simulation studies with plenty of data-generating mechanisms. For instance, with this example we show how to compute summary statistics by baseline hazard function and sample size.
+
+In order to summarise results by data-generating factors, it is sufficient to define the "by" factors in the call to `simsum`:
+
+```{r ex2-simsum}
+s2 <- simsum(data = relhaz, estvarname = "theta", true = -0.50, se = "se", methodvar = "model", by = c("baseline", "n"))
+s2
+```
+
+Summarising the results will be printed out for each method and combination of data-generating factors:
+
+```{r ex2-summary-simsum}
+ss2 <- summary(s2)
+ss2
+```
+
+## Plotting summary statistics
+
+Tables could get cumbersome when there are many different data-generating mechanisms. Plots are generally easier to interpret, and can be generated as easily as before.
+
+Say we want to compare bias for each method by baseline hazard function and sample size using faceting:
+
+```{r ex2-plot-bias}
+ggplot(get_data(ss2, sstat = "bias"), aes(x = model, y = coef, ymin = lower, ymax = upper)) +
+  geom_hline(yintercept = 0, color = "red", lty = "dashed") +
+  geom_point() +
+  geom_errorbar(width = 1 / 3) +
+  facet_grid(baseline ~ n) +
+  theme_bw() +
+  labs(x = "Method", y = "Bias")
+```
+
+# References
+
+* White, I.R. 2010. _simsum: Analyses of simulation studies including Monte Carlo error_. The Stata Journal 10(3): 369-385 <[http://www.stata-journal.com/article.html?article=st0200](http://www.stata-journal.com/article.html?article=st0200)>
+* Morris, T.P, White, I.R., and Crowther, M.J. 2017. _Using simulation studies to evaluate statistical methods_. <[arXiv:1712.03198](https://arxiv.org/abs/1712.03198)>
+* White, I.R., and P. Royston. 2009. _Imputing missing covariate values for the Cox model_. Statistics in Medicine 28(15):1982-1998 <[doi:10.1002/sim.3618](https://doi.org/10.1002/sim.3618)>
+* Little, R.J.A., and D.B. Rubin. 2002. _Statistical analysis with missing data_. 2nd ed. Hoboken, NJ: Wiley <[doi:10.1002/9781119013563](https://doi.org/10.1002/9781119013563)>
+* van Buuren, S., H.C. Boshuizen, and D.L. Knook. 1999. _Multiple imputation of missing blood pressure covariates in survival analysis_. Statistics in Medicine 18(6):681-694 <[doi:10.1002/(SICI)1097-0258(19990330)18:6<681::AID-SIM71>3.0.CO;2-R](https://doi.org/10.1002/(SICI)1097-0258(19990330)18:6<681::AID-SIM71>3.0.CO;2-R)>
+
