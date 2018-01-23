@@ -5,8 +5,10 @@ date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Simulating a simulation study}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
 ```{r setup, include = FALSE}
 options(width = 150)
@@ -76,7 +78,7 @@ simulate_data <- function(dataset, n, baseline, params = list(), coveff = -0.50)
 
 # Methods
 
-We compare the Cox model with a flexible parametric model with 2 degrees of freedom for modelling the baseline hazard (Royston and Parmar, 2002). The Cox model can be fit via the `coxph` function from the `survival` package, while the Royston-Parmar model can be fixed via the `stpm2` function from the `rstpm2` package.
+We compare the Cox model (Cox, 1972) with a fully parametric survival model assuming an exponential baseline hazard and a flexible parametric model with 2 degrees of freedom for modelling the baseline hazard (Royston and Parmar, 2002). The Cox model can be fit via the `coxph` function from the `survival` package, the exponential model can be fit via the `phreg` function from the `eha` package, and the Royston-Parmar model can be fixed via the `stpm2` function from the `rstpm2` package.
 
 # Performance measures
 
@@ -106,7 +108,7 @@ Therefore, we will run $1,000$ replications of this simulation study.
 
 ## Generate data
 
-We generate $1,00$ datasets for each data-generating mechanism.
+We generate $1,000$ datasets for each data-generating mechanism.
 
 First, we set a random seed for reproducibility:
 
@@ -115,6 +117,7 @@ set.seed(755353002)
 ```
 
 Then, we simulate the data:
+
 ```{r generate-data}
 data <- list()
 data[["n = 50, baseline = Exp"]] <- lapply(
@@ -154,13 +157,16 @@ We define a function to fit the models of interest:
 ```{r fitting-function}
 library(survival)
 library(rstpm2)
+library(eha)
 
 fit_models <- function(data, model) {
   # Fit model
   if (model == "Cox") {
     fit <- survival::coxph(Surv(t, d) ~ x, data = data)
-  } else {
+  } else if (model == "RP(2)") {
     fit <- rstpm2::stpm2(Surv(t, d) ~ x, data = data, df = 2)
+  } else {
+    fit <- eha::phreg(Surv(t, d) ~ x, data = data, dist = "weibull", shape = 1)
   }
   # Return relevant coefficients
   data.frame(
@@ -168,7 +174,7 @@ fit_models <- function(data, model) {
     n = unique(data$n),
     baseline = unique(data$baseline),
     theta = coef(fit)["x"],
-    se = sqrt(vcov(fit)["x", "x"]),
+    se = sqrt(ifelse(model == "Exp", fit$var["x", "x"], vcov(fit)["x", "x"])),
     model = model,
     stringsAsFactors = FALSE,
     row.names = NULL
@@ -210,6 +216,39 @@ results[["n = 250, baseline = Wei, model = Cox"]] <- do.call(
     X = data[["n = 250, baseline = Wei"]],
     FUN = fit_models,
     model = "Cox"
+  )
+)
+
+results[["n = 50, baseline = Exp, model = Exp"]] <- do.call(
+  rbind.data.frame,
+  lapply(
+    X = data[["n = 50, baseline = Exp"]],
+    FUN = fit_models,
+    model = "Exp"
+  )
+)
+results[["n = 250, baseline = Exp, model = Exp"]] <- do.call(
+  rbind.data.frame,
+  lapply(
+    X = data[["n = 250, baseline = Exp"]],
+    FUN = fit_models,
+    model = "Exp"
+  )
+)
+results[["n = 50, baseline = Wei, model = Exp"]] <- do.call(
+  rbind.data.frame,
+  lapply(
+    X = data[["n = 50, baseline = Wei"]],
+    FUN = fit_models,
+    model = "Exp"
+  )
+)
+results[["n = 250, baseline = Wei, model = Exp"]] <- do.call(
+  rbind.data.frame,
+  lapply(
+    X = data[["n = 250, baseline = Wei"]],
+    FUN = fit_models,
+    model = "Exp"
   )
 )
 
@@ -283,6 +322,8 @@ summary(s)
 With this vignette we showed how to simulate survival data and run a small, simple simulation study.
 
 # References
+
+* Cox D.R. _Regression models and life-tables_. Journal of the Royal Statistical Society, Series B (Methodological), 1972, 34(2):187-220
 
 * Royston P. and Parmar M.K. _Flexible parametric proportional-hazards and proportional-odds models for censored survival data, with application to prognostic modelling and estimation of treatment effects_. Statistics in Medicine, 2002, 21(15):2175-2197 
 

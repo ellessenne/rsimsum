@@ -16,6 +16,7 @@ Imports:
 Suggests:
  covr,
  devtools,
+ eha,
  ggplot2,
  knitr,
  rmarkdown,
