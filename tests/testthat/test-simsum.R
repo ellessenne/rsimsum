@@ -108,3 +108,31 @@ test_that("simsum with by factors returns a data.frame with results", {
   s <- simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = c("n", "baseline"))
   expect_s3_class(object = s$summ, class = "data.frame")
 })
+
+test_that("na.pair argument accepts only scalar boolean values", {
+  data("MIsim")
+  expect_error(object = simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", na.pair = "Yes"))
+  expect_error(object = simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", na.pair = 1))
+  expect_error(object = simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", na.pair = c(TRUE, TRUE)))
+})
+
+test_that("na.pair argument works as expected", {
+  data("MIsim")
+  x1 <- MIsim
+  x1[1, "b"] <- NA
+  s1 <- simsum(data = x1, estvarname = "b", true = 0.5, se = "se", methodvar = "method", na.pair = TRUE)
+  x2 <- MIsim
+  x2[1, "b"] <- NA
+  x2[1, "se"] <- NA
+  s2 <- simsum(data = x2, estvarname = "b", true = 0.5, se = "se", methodvar = "method", na.pair = FALSE)
+  expect_equal(object = get_data(s1), expected = get_data(s2))
+})
+
+test_that("simsum works with missing data and default arguments", {
+  data("MIsim")
+  x <- MIsim
+  set.seed(180123)
+  x[which(rnorm(nrow(x)) > 2), "b"] <- NA
+  x[which(rnorm(nrow(x)) > 2), "se"] <- NA
+  simsum(data = x, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
+})
