@@ -27,9 +27,9 @@ print.simsum <- function(x, ...) {
 
   ### Print `by` factors (if any)
   if (!is.null(x$by)) {
-    cat("By factors:", paste(x$by, collapse = ", "), "\n")
+    cat("\nBy factors:", paste(x$by, collapse = ", "), "\n")
   } else {
-    cat("By factors: none\n")
+    cat("\nBy factors: none\n")
   }
 
   ### Print whether Monte Carlo SEs were computed or not
