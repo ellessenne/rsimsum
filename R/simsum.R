@@ -92,6 +92,11 @@ simsum <-
       checkmate::assert_subset(ref, choices = as.character(unique(data[[methodvar]])), add = arg_checks)
     }
 
+    # `estvarname`, `se`, `methodvar` must not be any in (`stat`, `coef`, `mcse`, `lower`, `upper`)
+    checkmate::assert_false(x = (estvarname %in% c("stat", "coef", "mcse", "lower", "upper")))
+    checkmate::assert_false(x = (se %in% c("stat", "coef", "mcse", "lower", "upper")))
+    if (!is.null(methodvar)) checkmate::assert_false(x = (methodvar %in% c("stat", "coef", "mcse", "lower", "upper")))
+
     ### Report if there are any errors
     if (!arg_checks$isEmpty()) {
       checkmate::reportAssertions(arg_checks)
@@ -156,18 +161,33 @@ simsum <-
 
     ### Identify and drop (if required) point estimates and standard errors that are too big
     if (dropbig) {
-      # Save observations that are too large
-      big_estvarname <- data.frame(
-        rownumber = which(abs((data[[estvarname]] - mean(data[[estvarname]])) / sqrt(stats::var(data[[estvarname]]))) >= max),
-        value = data[[estvarname]][abs((data[[estvarname]] - mean(data[[estvarname]])) / sqrt(stats::var(data[[estvarname]]))) >= max]
-      )
-      big_se <- data.frame(
-        rownumber = which(data[[se]] >= mean(data[[se]]) * semax),
-        value = data[[se]][data[[se]] >= mean(data[[se]]) * semax]
-      )
-      # Drop 'em
-      data[[estvarname]][abs((data[[estvarname]] - mean(data[[estvarname]])) / sqrt(stats::var(data[[estvarname]]))) >= max] <- NA
-      data[[se]][data[[se]] >= mean(data[[se]]) * semax] <- NA
+      # Split if `by` factors are defined
+      if (is.null(by)) {
+        dropbig_split <- list(data)
+      } else {
+        dropbig_split <- split(data, f = lapply(by, function(f) data[[f]]))
+      }
+      # Identify big `estvarname`
+      big_estvarname <- lapply(dropbig_split, function(d) {
+        d[which(abs((d[[estvarname]] - mean(d[[estvarname]])) / sqrt(stats::var(d[[estvarname]]))) >= max), ]
+      })
+      names(big_estvarname) <- NULL
+      big_estvarname <- do.call(rbind.data.frame, big_estvarname)
+      # Identify big `se`
+      big_se <- lapply(dropbig_split, function(d) {
+        d[which(d[[se]] >= mean(d[[se]]) * semax), ]
+      })
+      names(big_se) <- NULL
+      big_se <- do.call(rbind.data.frame, big_se)
+
+      # Create new dataset with NA's instead of large `estvarname` and `se`
+      data <- lapply(dropbig_split, function(d) {
+        d[[estvarname]][which(abs((d[[estvarname]] - mean(d[[estvarname]])) / sqrt(stats::var(d[[estvarname]]))) >= max)] <- NA
+        d[[se]][which(d[[se]] >= mean(d[[se]]) * semax)] <- NA
+        d
+      })
+      names(data) <- NULL
+      data <- do.call(rbind.data.frame, data)
     }
 
     ### Drop estimates if SE is missing, and vice-versa
@@ -315,6 +335,7 @@ simsum <-
     obj$mcse <- mcse
     obj$sanitise <- sanitise
     obj$na.rm <- na.rm
+    obj$na.pair <- na.pair
 
     ### Return object of class simsum
     class(obj) <- c("list", "simsum")
