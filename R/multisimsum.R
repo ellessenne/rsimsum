@@ -42,6 +42,21 @@ multisimsum <- function(data,
     checkmate::reportAssertions(arg_checks)
   }
 
+  ### Set reference method if `ref` is not specified
+  if (!is.null(methodvar)) {
+  	methods <- sort(unique(data[[methodvar]]))
+  	if (is.null(ref)) {
+  		message(paste("`ref` was not specified,", methods[1], "set as the reference"))
+  		ref <- methods[1]
+  	}
+  }
+
+  ### Throw a warning if `ref` is specified and `methodvar` is not
+  if (is.null(methodvar) & !is.null(ref)) {
+  	warning("`ref` is specified while `methodvar` is not; `ref` will be ignored")
+  	ref <- NULL
+  }
+
   ### Sanitise `par`` if required
   if (sanitise) {
     if (!is.null(par)) {
@@ -87,7 +102,7 @@ multisimsum <- function(data,
   par_split <- split(x = data, f = lapply(par, function(p) data[[p]]))
 
   ### Call `simsum` on each element of `par_split`
-  par_simsum <- lapply(par_split, function(d) suppressMessages(simsum(data = d, true = true, estvarname = estvarname, se = se, methodvar = methodvar, ref = ref, df = df, dropbig = dropbig, max = max, semax = semax, level = level, by = by, mcse = mcse, sanitise = sanitise, na.rm = na.rm, na.pair = na.pair)))
+  par_simsum <- lapply(par_split, function(d) simsum(data = d, true = true, estvarname = estvarname, se = se, methodvar = methodvar, ref = ref, df = df, dropbig = dropbig, max = max, semax = semax, level = level, by = by, mcse = mcse, sanitise = sanitise, na.rm = na.rm, na.pair = na.pair))
 
   ### Bind summ slot from each object
   out <- lapply(seq_along(par_simsum), function(i) {
