@@ -34,3 +34,20 @@
 #' @references Cox D.R. 1972. Regression models and life-tables. Journal of the Royal Statistical Society, Series B (Methodological) 34(2):187-220. [http://www.jstor.org/stable/2985181](http://www.jstor.org/stable/2985181)
 #' @references Royston, P. and Parmar, M.K. 2002. Flexible parametric proportional-hazards and proportional-odds models for censored survival data, with application to prognostic modelling and estimation of treatment effects. Statistics in Medicine 21(15):2175-2197 [doi:10.1002/sim.1203](https://doi.org/10.1002/sim.1203)
 "relhaz"
+
+#' frailty
+#'
+#' @title Example of a simulation study on frailty survival models
+#' @description A dataset from a simulation study comparing frailty flexible parametric models fitted using penalised likelihood to semiparametric frailty models. Both models are fitted assuming a Gamma and a log-Normal frailty. One thousand datasets were simulated, each containing a binary treatment variable with a log-hazard ratio of -0.50. Clustered survival data was simulated assuming 50 clusters of 50 individuals each, with a mixture Weibull baseline hazard function and a true Gamma frailty. The comparison involves estimates of the log-treatment effect, and estimates of heterogeneity (i.e. the estimated frailty variance).
+#' @format A data frame with 24,000 rows and 7 variables:
+#' * `i` Simulated dataset number.
+#' * `b` Point estimate.
+#' * `se` Standard error of the point estimate.
+#' * `par` The estimand. `trt` is the log-treatment effect, `fv` is the variance of the frailty.
+#' * `model` Method used (`Cox, Gamma`, `Cox, Log-Normal`, `RP(P), Gamma`, or `RP(P), Log-Normal`).
+#' * `fv` The true frailty variance.
+#' * `true` The true value of the estimands.
+#'
+#' @examples
+#' data("frailty", package = "rsimsum")
+"frailty"
