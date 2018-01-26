@@ -8,6 +8,11 @@
 #' @export
 #'
 #' @examples
+#' data(frailty)
+#' ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50,
+#'    fv = 0.75), estvarname = "b", se = "se", methodvar = "model",
+#'    by = "fv_dist")
+#' ms
 multisimsum <- function(data,
                         par,
                         true,
@@ -25,36 +30,43 @@ multisimsum <- function(data,
                         sanitise = TRUE,
                         na.rm = TRUE,
                         na.pair = TRUE) {
-  ### Check new arguments not checked in 'simsim'
+	### Check new arguments not checked in 'simsim'
   arg_checks <- checkmate::makeAssertCollection()
 
   # `par` must be a single string value
-  checkmate::assert_string(par, add = arg_checks)
+  checkmate::assert_string(x = par, add = arg_checks)
 
   # `par` must be in `data`
-  checkmate::assert_subset(par, choices = names(data), add = arg_checks)
+  checkmate::assert_subset(x = par, choices = names(data), add = arg_checks)
 
   # `par` must not be any in (`stat`, `coef`, `mcse`, `lower`, `upper`)
-  checkmate::assert_false(x = (par %in% c("stat", "coef", "mcse", "lower", "upper")))
+  checkmate::assert_false(x = (par %in% c("stat", "coef", "mcse", "lower", "upper")), add = arg_checks)
+
+  # `true` must a named vector
+  # its length must be equal to the number of unique elements in `par`
+  # the names must be the same unique values in `par`
+  checkmate::assert_named(x = true, add = arg_checks)
+  checkmate::assert_true(x = (length(unique(data[[par]])) == length(true)), add = arg_checks)
+  checkmate::assert_true(x = all(sort(names(true)) == sort(unique(data[[par]]))), add = arg_checks)
 
   ### Report if there are any errors
   if (!arg_checks$isEmpty()) {
-    checkmate::reportAssertions(arg_checks)
+    checkmate::reportAssertions(collection = arg_checks)
   }
 
   ### Set reference method if `ref` is not specified
   if (!is.null(methodvar)) {
-  	methods <- sort(unique(data[[methodvar]]))
-  	if (is.null(ref)) {
-  		message(paste("`ref` was not specified,", methods[1], "set as the reference"))
-  		ref <- methods[1]
-  	}
+    methods <- sort(unique(data[[methodvar]]))
+    if (is.null(ref)) {
+      message(paste("`ref` was not specified,", methods[1], "set as the reference"))
+      ref <- methods[1]
+    }
   }
 
   ### Throw a warning if `ref` is specified and `methodvar` is not
   if (is.null(methodvar) & !is.null(ref)) {
-  	warning("`ref` is specified while `methodvar` is not; `ref` will be ignored")
-  	ref <- NULL
+    warning("`ref` is specified while `methodvar` is not; `ref` will be ignored")
+    ref <- NULL
   }
 
   ### Sanitise `par`` if required
@@ -77,21 +89,21 @@ multisimsum <- function(data,
     dropbig_split <- split(data, f = lapply(dropbig_factors, function(f) data[[f]]))
     # Identify big `estvarname`
     big_estvarname <- lapply(dropbig_split, function(d) {
-      d[which(abs((d[[estvarname]] - mean(d[[estvarname]])) / sqrt(stats::var(d[[estvarname]]))) >= max), ]
+      d[which(abs((d[[estvarname]] - mean(d[[estvarname]], na.rm = TRUE)) / sqrt(stats::var(d[[estvarname]], na.rm = TRUE))) >= max), ]
     })
     names(big_estvarname) <- NULL
     big_estvarname <- do.call(rbind.data.frame, big_estvarname)
     # Identify big `se`
     big_se <- lapply(dropbig_split, function(d) {
-      d[which(d[[se]] >= mean(d[[se]]) * semax), ]
+      d[which(d[[se]] >= mean(d[[se]], na.rm = TRUE) * semax), ]
     })
     names(big_se) <- NULL
     big_se <- do.call(rbind.data.frame, big_se)
 
     # Create new dataset with NA's instead of large `estvarname` and `se`
     data <- lapply(dropbig_split, function(d) {
-      d[[estvarname]][which(abs((d[[estvarname]] - mean(d[[estvarname]])) / sqrt(stats::var(d[[estvarname]]))) >= max)] <- NA
-      d[[se]][which(d[[se]] >= mean(d[[se]]) * semax)] <- NA
+      d[[estvarname]][which(abs((d[[estvarname]] - mean(d[[estvarname]], na.rm = TRUE)) / sqrt(stats::var(d[[estvarname]], na.rm = TRUE))) >= max)] <- NA
+      d[[se]][which(d[[se]] >= mean(d[[se]], na.rm = TRUE) * semax)] <- NA
       d
     })
     names(data) <- NULL
@@ -102,7 +114,8 @@ multisimsum <- function(data,
   par_split <- split(x = data, f = lapply(par, function(p) data[[p]]))
 
   ### Call `simsum` on each element of `par_split`
-  par_simsum <- lapply(par_split, function(d) simsum(data = d, true = true, estvarname = estvarname, se = se, methodvar = methodvar, ref = ref, df = df, dropbig = dropbig, max = max, semax = semax, level = level, by = by, mcse = mcse, sanitise = sanitise, na.rm = na.rm, na.pair = na.pair))
+  par_simsum <- lapply(seq_along(par_split), function(i) simsum(data = par_split[[i]], true = true[names(par_split)[i]], estvarname = estvarname, se = se, methodvar = methodvar, ref = ref, df = df, dropbig = dropbig, max = max, semax = semax, level = level, by = by, mcse = mcse, sanitise = sanitise, na.rm = na.rm, na.pair = na.pair))
+  names(par_simsum) = names(par_split)
 
   ### Bind summ slot from each object
   out <- lapply(seq_along(par_simsum), function(i) {
