@@ -15,11 +15,11 @@ print.multisimsum <- function(x, ...) {
   ### Print call to `simsum`
   cat("\nCall:\n\t", paste(deparse(x$call), sep = "\n", collapse = "\n"), "\n", sep = "")
 
-	### Print `par`, possible estimands
-	cat("\nEstimands variable:", x$par, "\n")
-	estimands <- unique(x$summ[[x$par]])
-	cat("\tUnique estimands:", paste(estimands, collapse = ", "), "\n")
-	cat("\tTrue values:", paste(estimands, "=", x$true[estimands], collapse = ", "), "\n")
+  ### Print `par`, possible estimands
+  cat("\nEstimands variable:", x$par, "\n")
+  estimands <- unique(x$summ[[x$par]])
+  cat("\tUnique estimands:", paste(estimands, collapse = ", "), "\n")
+  cat("\tTrue values:", paste(estimands, "=", x$true[estimands], collapse = ", "), "\n")
 
   ### Print `methodvar` (if any), possible methods, and reference method
   if (!is.null(x$methodvar)) {

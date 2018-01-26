@@ -30,7 +30,7 @@ multisimsum <- function(data,
                         sanitise = TRUE,
                         na.rm = TRUE,
                         na.pair = TRUE) {
-	### Check new arguments not checked in 'simsim'
+  ### Check new arguments not checked in 'simsim'
   arg_checks <- checkmate::makeAssertCollection()
 
   # `par` must be a single string value
@@ -121,8 +121,8 @@ multisimsum <- function(data,
 
   ### Drop estimates if SE is missing, and vice-versa
   if (na.pair) {
-  	data[[estvarname]][is.na(data[[se]])] <- NA
-  	data[[se]][is.na(data[[estvarname]])] <- NA
+    data[[estvarname]][is.na(data[[se]])] <- NA
+    data[[se]][is.na(data[[estvarname]])] <- NA
   }
 
   ### Split data by `par`
@@ -130,7 +130,7 @@ multisimsum <- function(data,
 
   ### Call `simsum` on each element of `par_split`
   par_simsum <- lapply(seq_along(par_split), function(i) simsum(data = par_split[[i]], true = true[names(par_split)[i]], estvarname = estvarname, se = se, methodvar = methodvar, ref = ref, df = df, dropbig = FALSE, max = max, semax = semax, level = level, by = by, mcse = mcse, sanitise = sanitise, na.rm = na.rm, na.pair = FALSE))
-  names(par_simsum) = names(par_split)
+  names(par_simsum) <- names(par_split)
 
   ### Bind summ slot from each object
   out <- lapply(seq_along(par_simsum), function(i) {
