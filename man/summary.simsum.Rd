@@ -9,7 +9,7 @@
 \arguments{
 \item{object}{An object of class \code{simsum}.}
 
-\item{ci_level}{Significance level for confidence intervals based on Monte Carlo standard errors. Ignored if a \code{simsum} object is obtained with \code{mcse = FALSE}.}
+\item{ci_level}{Significance level for confidence intervals based on Monte Carlo standard errors. Ignored if a \code{simsum} object with \code{mcse = FALSE} is passed.}
 
 \item{...}{Ignored.}
 }

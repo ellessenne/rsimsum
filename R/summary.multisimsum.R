@@ -1,24 +1,23 @@
-#' summary.simsum
+#' summary.multisimsum
 #'
-#' @title Summarising simsum objects
-#' @description The `summary()` method for objects of class `simsum` returns confidence intervals for performance measures based on Monte Carlo standard errors.
-#' @param object An object of class `simsum`.
-#' @param ci_level Significance level for confidence intervals based on Monte Carlo standard errors. Ignored if a `simsum` object with `mcse = FALSE` is passed.
+#' @title Summarising multisimsum objects
+#' @description The `summary()` method for objects of class `multisimsum` returns confidence intervals for performance measures based on Monte Carlo standard errors.
+#' @param object An object of class `multisimsum`.
+#' @param ci_level Significance level for confidence intervals based on Monte Carlo standard errors. Ignored if a `multisimsum` object is obtained with `mcse = FALSE`.
 #' @param ... Ignored.
-#' @return An object of class `summary.simsum`.
-#' @seealso [simsum()], [print.summary.simsum()]
+#' @return An object of class `summary.multisimsum`.
+#' @seealso [multisimsum()], [print.summary.multisimsum()]
 #' @note Confidence intervals are constructed using quantiles from a normal distribution with the specified `ci_level` confidence level, and are therefore symmetric by definition.
 #' @export
 #'
 #' @examples
-#' data("MIsim")
-#' object <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se",
-#' methodvar = "method", mcse = TRUE)
-#' xs <- summary(object)
-#' xs
-
-
-summary.simsum <- function(object, ci_level = 0.95, ...) {
+#' data(frailty)
+#' ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50,
+#'    fv = 0.75), estvarname = "b", se = "se", methodvar = "model",
+#'    by = "fv_dist")
+#' sms <- summary(ms)
+#' sms
+summary.multisimsum <- function(object, ci_level = 0.95, ...) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
 
@@ -38,6 +37,6 @@ summary.simsum <- function(object, ci_level = 0.95, ...) {
   if (object$mcse) object$ci_level <- ci_level
 
   ### Return object of class summary.simsum
-  class(object) <- c("list", "summary.simsum")
+  class(object) <- c("list", "summary.multisimsum")
   return(object)
 }

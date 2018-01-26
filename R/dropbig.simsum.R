@@ -4,7 +4,7 @@
 #' @description `dropbig.simsum` returns observations dropped by simsum while computing summary statistics for a simulation study.
 #' @param x An object of class `simsum`.
 #' @param ... Ignored.
-#' @return An object of class `dropbig.simsum` if `dropbig` was set to `TRUE` when calling `simsum`, `NULL` otherwise. It contains two slots: `big_estvarname` and `big_se`. Both slots contain a `data.frame` with two columns: `rownumber` representing the row number of `data` (passed to `simsum`) that was dropped, and  `value` representing the value of the point estimate (or SE) that exceeded the limits defined by `max` (or `semax`).
+#' @return An object of class `dropbig.simsum` if `dropbig` was set to `TRUE` when calling `simsum`, `NULL` otherwise. It contains two slots: `big_estvarname` and `big_se`. Both slots consist in the portion of the original data that was identified to have estimated values or standard errors exceeding the limits defined by `max` and `semax`.
 #' @seealso [simsum()], [print.dropbig.simsum()]
 #' @export
 #'

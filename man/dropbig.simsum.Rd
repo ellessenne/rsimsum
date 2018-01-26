@@ -12,7 +12,7 @@
 \item{...}{Ignored.}
 }
 \value{
-An object of class \code{dropbig.simsum} if \code{dropbig} was set to \code{TRUE} when calling \code{simsum}, \code{NULL} otherwise. It contains two slots: \code{big_estvarname} and \code{big_se}. Both slots contain a \code{data.frame} with two columns: \code{rownumber} representing the row number of \code{data} (passed to \code{simsum}) that was dropped, and  \code{value} representing the value of the point estimate (or SE) that exceeded the limits defined by \code{max} (or \code{semax}).
+An object of class \code{dropbig.simsum} if \code{dropbig} was set to \code{TRUE} when calling \code{simsum}, \code{NULL} otherwise. It contains two slots: \code{big_estvarname} and \code{big_se}. Both slots consist in the portion of the original data that was identified to have estimated values or standard errors exceeding the limits defined by \code{max} and \code{semax}.
 }
 \description{
 \code{dropbig.simsum} returns observations dropped by simsum while computing summary statistics for a simulation study.
