@@ -30,7 +30,7 @@ multisimsum <- function(data,
                         sanitise = TRUE,
                         na.rm = TRUE,
                         na.pair = TRUE) {
-  ### Check new arguments not checked in 'simsim'
+  ### Check new arguments not checked in 'simsum'
   arg_checks <- checkmate::makeAssertCollection()
 
   # `par` must be a single string value
