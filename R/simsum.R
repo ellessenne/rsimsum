@@ -169,21 +169,21 @@ simsum <-
       }
       # Identify big `estvarname`
       big_estvarname <- lapply(dropbig_split, function(d) {
-        d[which(abs((d[[estvarname]] - mean(d[[estvarname]])) / sqrt(stats::var(d[[estvarname]]))) >= max), ]
+        d[which(abs((d[[estvarname]] - mean(d[[estvarname]], na.rm = TRUE)) / sqrt(stats::var(d[[estvarname]], na.rm = TRUE))) >= max), ]
       })
       names(big_estvarname) <- NULL
       big_estvarname <- do.call(rbind.data.frame, big_estvarname)
       # Identify big `se`
       big_se <- lapply(dropbig_split, function(d) {
-        d[which(d[[se]] >= mean(d[[se]]) * semax), ]
+        d[which(d[[se]] >= mean(d[[se]], na.rm = TRUE) * semax), ]
       })
       names(big_se) <- NULL
       big_se <- do.call(rbind.data.frame, big_se)
 
       # Create new dataset with NA's instead of large `estvarname` and `se`
       data <- lapply(dropbig_split, function(d) {
-        d[[estvarname]][which(abs((d[[estvarname]] - mean(d[[estvarname]])) / sqrt(stats::var(d[[estvarname]]))) >= max)] <- NA
-        d[[se]][which(d[[se]] >= mean(d[[se]]) * semax)] <- NA
+        d[[estvarname]][which(abs((d[[estvarname]] - mean(d[[estvarname]], na.rm = TRUE)) / sqrt(stats::var(d[[estvarname]], na.rm = TRUE))) >= max)] <- NA
+        d[[se]][which(d[[se]] >= mean(d[[se]], na.rm = TRUE) * semax)] <- NA
         d
       })
       names(data) <- NULL
