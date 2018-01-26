@@ -49,6 +49,15 @@ multisimsum <- function(data,
   checkmate::assert_true(x = (length(unique(data[[par]])) == length(true)), add = arg_checks)
   checkmate::assert_true(x = all(sort(names(true)) == sort(unique(data[[par]]))), add = arg_checks)
 
+  # `max`, `semax`
+  checkmate::assert_number(max, add = arg_checks)
+  checkmate::assert_number(semax, add = arg_checks)
+
+  # `dropbig`, `sanitise`, `na.pair` must be single logical value
+  checkmate::assert_logical(dropbig, len = 1, add = arg_checks)
+  checkmate::assert_logical(sanitise, len = 1, add = arg_checks)
+  checkmate::assert_logical(na.pair, len = 1, add = arg_checks)
+
   ### Report if there are any errors
   if (!arg_checks$isEmpty()) {
     checkmate::reportAssertions(collection = arg_checks)
@@ -110,11 +119,17 @@ multisimsum <- function(data,
     data <- do.call(rbind.data.frame, data)
   }
 
+  ### Drop estimates if SE is missing, and vice-versa
+  if (na.pair) {
+  	data[[estvarname]][is.na(data[[se]])] <- NA
+  	data[[se]][is.na(data[[estvarname]])] <- NA
+  }
+
   ### Split data by `par`
   par_split <- split(x = data, f = lapply(par, function(p) data[[p]]))
 
   ### Call `simsum` on each element of `par_split`
-  par_simsum <- lapply(seq_along(par_split), function(i) simsum(data = par_split[[i]], true = true[names(par_split)[i]], estvarname = estvarname, se = se, methodvar = methodvar, ref = ref, df = df, dropbig = dropbig, max = max, semax = semax, level = level, by = by, mcse = mcse, sanitise = sanitise, na.rm = na.rm, na.pair = na.pair))
+  par_simsum <- lapply(seq_along(par_split), function(i) simsum(data = par_split[[i]], true = true[names(par_split)[i]], estvarname = estvarname, se = se, methodvar = methodvar, ref = ref, df = df, dropbig = FALSE, max = max, semax = semax, level = level, by = by, mcse = mcse, sanitise = sanitise, na.rm = na.rm, na.pair = FALSE))
   names(par_simsum) = names(par_split)
 
   ### Bind summ slot from each object
