@@ -4,21 +4,20 @@
 \name{frailty}
 \alias{frailty}
 \title{Example of a simulation study on frailty survival models}
-\format{A data frame with 24,000 rows and 7 variables:
+\format{A data frame with 16,000 rows and 6 variables:
 \itemize{
 \item \code{i} Simulated dataset number.
 \item \code{b} Point estimate.
 \item \code{se} Standard error of the point estimate.
 \item \code{par} The estimand. \code{trt} is the log-treatment effect, \code{fv} is the variance of the frailty.
+\item \code{fv_dist} The true frailty distribution.
 \item \code{model} Method used (\code{Cox, Gamma}, \code{Cox, Log-Normal}, \code{RP(P), Gamma}, or \code{RP(P), Log-Normal}).
-\item \code{fv} The true frailty variance.
-\item \code{true} The true value of the estimands.
 }}
 \usage{
 frailty
 }
 \description{
-A dataset from a simulation study comparing frailty flexible parametric models fitted using penalised likelihood to semiparametric frailty models. Both models are fitted assuming a Gamma and a log-Normal frailty. One thousand datasets were simulated, each containing a binary treatment variable with a log-hazard ratio of -0.50. Clustered survival data was simulated assuming 50 clusters of 50 individuals each, with a mixture Weibull baseline hazard function and a true Gamma frailty. The comparison involves estimates of the log-treatment effect, and estimates of heterogeneity (i.e. the estimated frailty variance).
+A dataset from a simulation study comparing frailty flexible parametric models fitted using penalised likelihood to semiparametric frailty models. Both models are fitted assuming a Gamma and a log-Normal frailty. One thousand datasets were simulated, each containing a binary treatment variable with a log-hazard ratio of -0.50. Clustered survival data was simulated assuming 50 clusters of 50 individuals each, with a mixture Weibull baseline hazard function and a frailty following either a Gamma or a Log-Normal distribution. The comparison involves estimates of the log-treatment effect, and estimates of heterogeneity (i.e. the estimated frailty variance).
 }
 \details{
 frailty
