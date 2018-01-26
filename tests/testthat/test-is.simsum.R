@@ -5,4 +5,5 @@ test_that("is.simsum works as expected", {
   x <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
   expect_true(object = is.simsum(x))
   expect_false(object = is.simsum(MIsim))
+  expect_false(object = is.multisimsum(x))
 })
