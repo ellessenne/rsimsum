@@ -10,3 +10,6 @@ TODO.md
 ^.*\.dta$
 ^README\.Rmd$
 ^README-.*\.png$
+figure$
+cache$
+^.*\.md$
