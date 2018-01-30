@@ -23,6 +23,6 @@ dropbig.multisimsum <- function(x, ...) {
     message("`dropbig = FALSE`, no point estimate / standard error was dropped. ")
     return(NULL)
   }
-  class(obj) <- c("dropbig.simsum")
+  class(obj) <- c("dropbig.multisimsum")
   return(obj)
 }
