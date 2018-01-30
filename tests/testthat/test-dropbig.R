@@ -11,6 +11,10 @@ test_that("dropbig works ok and prints fine", {
   # with huuuuge limits
   x <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", mcse = TRUE, dropbig = TRUE, max = 10, semax = 10)
   print(dropbig(x))
+  # with by factors
+  data("relhaz")
+  x <- simsum(data = relhaz, estvarname = "theta", true = -0.50, se = "se", methodvar = "model", by = c("baseline", "n"), dropbig = TRUE, max = 3, semax = 1.5)
+  print(dropbig(x))
   # for multisimsum
   data("frailty")
   ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist", dropbig = FALSE)
