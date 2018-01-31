@@ -119,7 +119,7 @@ multisimsum <- function(data,
     data <- do.call(rbind.data.frame, data)
   }
 
-  ### Drop estimates if SE is missing, and vice-versa
+  ### Drop estimates if SE is missing, and vice versa
   if (na.pair) {
     data[[estvarname]][is.na(data[[se]])] <- NA
     data[[se]][is.na(data[[estvarname]])] <- NA

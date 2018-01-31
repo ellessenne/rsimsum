@@ -22,7 +22,7 @@ multisimsum(data, par, true, estvarname, se, methodvar = NULL, ref = NULL,
 
 \item{methodvar}{The name of the variable containing the methods to compare. Can be \code{NULL}.}
 
-\item{ref}{Specifies the reference method against which relative precisions will be calculated. Only useful if \code{methodvar} is specified.}
+\item{ref}{Specifies the reference method against which relative precision will be calculated. Only useful if \code{methodvar} is specified.}
 
 \item{df}{If specified, a t distribution with \code{df} degrees of freedom is used when calculating coverage and power.}
 
@@ -42,7 +42,7 @@ multisimsum(data, par, true, estvarname, se, methodvar = NULL, ref = NULL,
 
 \item{na.rm}{A logical value indicating whether missing values (\code{NA}) should be removed before the computation proceeds. Defaults to \code{TRUE}.}
 
-\item{na.pair}{Removes estimates that have a missing standard error (and viceversa). Defaults to \code{TRUE}.}
+\item{na.pair}{Removes estimates that have a missing standard error (and vice versa). Defaults to \code{TRUE}.}
 }
 \value{
 An object of class \code{multisimsum}.
