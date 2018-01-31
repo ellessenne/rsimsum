@@ -1,10 +1,14 @@
 # Test environments
 * local macOS (High Sierra) install, R 3.4.3
+* local Windows 7 install, R 3.4.3
 * ubuntu (via travis-ci), R-oldrel, R-release, and R-devel
 * windows (via appveyor)
 * win-builder
 
 # R CMD check results on local macOS
+0 errors | 0 warnings | 0 notes
+
+# R CMD check results on local Windows 7
 0 errors | 0 warnings | 0 notes
 
 # Reverse dependencies
@@ -21,4 +25,4 @@ Found the following (possibly) invalid URLs:
     From: man/MIsim.Rd
     Message: Invalid URI scheme
     
-The DOI looks weird, but it is correct.
+The DOI from the URL above looks weird, but it is correct.

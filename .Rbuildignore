@@ -6,7 +6,7 @@
 R/test.R
 cran-comments.md
 NEWS.md
-TODO.md
+^NEWS\.md$
 ^.*\.dta$
 ^README\.Rmd$
 ^README-.*\.png$
