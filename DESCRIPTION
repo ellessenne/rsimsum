@@ -4,7 +4,7 @@ Title: Analysis of Simulation Studies Including Monte Carlo Error
 Description: Summarise results from simulation studies and compute Monte Carlo
   standard errors of commonly used summary statistics. This package is modelled 
   on the 'simsum' user-written command in 'Stata' (See White I.R., 2010 
-  <www.stata-journal.com/article.html?article=st0200>).
+  <http://www.stata-journal.com/article.html?article=st0200>).
 Authors@R: c(person("Alessandro", "Gasparini", role = c("aut", "cre"), email = "ag475@leicester.ac.uk"),
 	person("Ian R.", "White", role = "aut"))
 License: GPL (>= 3)
