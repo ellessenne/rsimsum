@@ -10,7 +10,7 @@
 #' @param power Power to detect a specific difference from the true value as significant. Must be a value between 0 and 1. Defaults to 0.5, e.g. a power of 50\%.
 #' @return A scalar value \eqn{B}{B} representing the number of simulations to perform based on the accuracy required.
 #' @export
-#' @references Burton, A., Douglas G. Altman, P. Royston. et al. 2006. The design of simulation studies in medical statistics. Statistics in Medicine 25: 4279-4292 [https://doi.org/10.1002/sim.2673](https://doi.org/10.1002/sim.2673)
+#' @references Burton, A., Douglas G. Altman, P. Royston. et al. 2006. The design of simulation studies in medical statistics. Statistics in Medicine 25: 4279-4292 \doi{10.1002/sim.2673}
 #'
 #' @examples
 #' # Number of simulations required to produce an estimate to within 5%
