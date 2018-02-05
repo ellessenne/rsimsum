@@ -3,7 +3,7 @@
 rsimsum
 =======
 
-[![Travis-CI Build Status](https://travis-ci.org/ellessenne/rsimsum.svg?branch=master)](https://travis-ci.org/ellessenne/rsimsum) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/rsimsum?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/rsimsum) [![Coverage Status](https://img.shields.io/codecov/c/github/ellessenne/rsimsum/master.svg)](https://codecov.io/github/ellessenne/rsimsum?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/rsimsum)](https://cran.r-project.org/package=rsimsum) [![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/rsimsum)](https://cran.r-project.org/package=rsimsum)
+[![Travis-CI Build Status](https://travis-ci.org/ellessenne/rsimsum.svg?branch=master)](https://travis-ci.org/ellessenne/rsimsum) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/rsimsum?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/rsimsum) [![Coverage Status](https://img.shields.io/codecov/c/github/ellessenne/rsimsum/master.svg)](https://codecov.io/github/ellessenne/rsimsum?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/rsimsum)](https://cran.r-project.org/package=rsimsum) [![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/rsimsum)](https://cran.r-project.org/package=rsimsum) [![CRAN\_Logs\_Badge\_Total](http://cranlogs.r-pkg.org/badges/grand-total/rsimsum)](https://cran.r-project.org/package=rsimsum)
 
 `rsimsum` is an R package for summarising results from simulation studies and computing Monte Carlo standard errors of commonly used summary statistics.
 
@@ -38,6 +38,7 @@ s
 #> Method variable: method 
 #>  Unique methods: CC, MI_LOGT, MI_T 
 #>  Reference method: CC 
+#> 
 #> By factors: none
 #> 
 #> Monte Carlo standard errors were computed.
