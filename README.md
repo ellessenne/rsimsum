@@ -1,28 +1,46 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-rsimsum
-=======
 
-[![Travis-CI Build Status](https://travis-ci.org/ellessenne/rsimsum.svg?branch=master)](https://travis-ci.org/ellessenne/rsimsum) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/rsimsum?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/rsimsum) [![Coverage Status](https://img.shields.io/codecov/c/github/ellessenne/rsimsum/master.svg)](https://codecov.io/github/ellessenne/rsimsum?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/rsimsum)](https://cran.r-project.org/package=rsimsum) [![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/rsimsum)](https://cran.r-project.org/package=rsimsum) [![CRAN\_Logs\_Badge\_Total](http://cranlogs.r-pkg.org/badges/grand-total/rsimsum)](https://cran.r-project.org/package=rsimsum)
+# rsimsum
 
-`rsimsum` is an R package for summarising results from simulation studies and computing Monte Carlo standard errors of commonly used summary statistics.
+[![Travis-CI Build
+Status](https://travis-ci.org/ellessenne/rsimsum.svg?branch=master)](https://travis-ci.org/ellessenne/rsimsum)
+[![AppVeyor Build
+Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/rsimsum?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/rsimsum)
+[![Coverage
+Status](https://img.shields.io/codecov/c/github/ellessenne/rsimsum/master.svg)](https://codecov.io/github/ellessenne/rsimsum?branch=master)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/rsimsum)](https://cran.r-project.org/package=rsimsum)
+[![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/rsimsum)](https://cran.r-project.org/package=rsimsum)
+[![CRAN\_Logs\_Badge\_Total](http://cranlogs.r-pkg.org/badges/grand-total/rsimsum)](https://cran.r-project.org/package=rsimsum)
 
-This package is modelled on the `simsum` user-written command in `Stata` (White I.R., 2010).
+`rsimsum` is an R package for summarising results from simulation
+studies and computing Monte Carlo standard errors of commonly used
+summary statistics.
 
-Installation
-------------
+This package is modelled on the `simsum` user-written command in `Stata`
+(White I.R., 2010).
 
-You can install `rsimsum` from GitHub with:
+## Installation
+
+You can install `rsimsum` from CRAN:
+
+``` r
+install.packages("rsimsum")
+```
+
+Alternatively, it is possible to install the development version from
+GitHub via:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("ellessenne/rsimsum")
 ```
 
-Example
--------
+## Example
 
-This is a basic example using data from a simulation study on missing data (type `help("MIsim", package = "rsimsum")` in the R console for more information):
+This is a basic example using data from a simulation study on missing
+data (type `help("MIsim", package = "rsimsum")` in the R console for
+more information):
 
 ``` r
 library(rsimsum)
@@ -112,8 +130,20 @@ summary(s)
 #>                      Power of 5% level test    0.9630 0.0060    0.9513    0.9747
 ```
 
-References
-==========
+## Vignettes
 
--   White, I.R. 2010. *simsum: Analyses of simulation studies including Monte Carlo error*. The Stata Journal 10(3): 369-385 &lt;<http://www.stata-journal.com/article.html?article=st0200>&gt;
--   Morris, T.P, White, I.R. and Crowther, M.J. 2017. *Using simulation studies to evaluate statistical methods*. &lt;[arXiv:1712.03198](https://arxiv.org/abs/1712.03198)&gt;
+`rsimsum` comes with 3 vignettes. In particular, check out the
+introductory one:
+
+``` r
+vignette(topic = "introduction", package = "rsimsum")
+```
+
+# References
+
+  - White, I.R. 2010. *simsum: Analyses of simulation studies including
+    Monte Carlo error*. The Stata Journal 10(3): 369-385
+    \<<http://www.stata-journal.com/article.html?article=st0200>\>
+  - Morris, T.P, White, I.R. and Crowther, M.J. 2017. *Using simulation
+    studies to evaluate statistical methods*.
+    \<[arXiv:1712.03198](https://arxiv.org/abs/1712.03198)\>
