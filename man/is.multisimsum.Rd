@@ -2,7 +2,7 @@
 % Please edit documentation in R/is.multisimsum.R
 \name{is.multisimsum}
 \alias{is.multisimsum}
-\title{Reports whether x is a multisimsum object}
+\title{is.multisimsum}
 \usage{
 is.multisimsum(x)
 }

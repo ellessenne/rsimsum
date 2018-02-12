@@ -2,7 +2,7 @@
 % Please edit documentation in R/is.simsum.R
 \name{is.simsum}
 \alias{is.simsum}
-\title{Reports whether x is a simsum object}
+\title{is.simsum}
 \usage{
 is.simsum(x)
 }

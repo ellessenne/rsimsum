@@ -2,7 +2,7 @@
 % Please edit documentation in R/print.summary.simsum.R
 \name{print.summary.simsum}
 \alias{print.summary.simsum}
-\title{Print method for summary.simsum objects}
+\title{print.summary.simsum}
 \usage{
 \method{print}{summary.simsum}(x, digits = 4, sstat = "all", ...)
 }
@@ -33,7 +33,7 @@
 \item{...}{Ignored.}
 }
 \description{
-print.summary.simsum
+Print method for summary.simsum objects
 }
 \note{
 If \code{sstat} is a vector that contains \code{all}, all summary statistics are printed by default.

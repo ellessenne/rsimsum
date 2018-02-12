@@ -1,6 +1,5 @@
-#' print.simsum
-#'
-#' @title Print method for simsum objects
+#' @title print.simsum
+#' @description Print method for simsum objects
 #' @param x An object of class `simsum`.
 #' @param ... Ignored.
 #' @export

@@ -90,7 +90,7 @@ perfms <-
       "bccover",
       "power"
     )
-    obj$coef <- c(
+    obj$est <- c(
       nsim,
       theta_mean,
       theta_median,

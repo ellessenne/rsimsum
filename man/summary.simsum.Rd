@@ -19,9 +19,6 @@ An object of class \code{summary.simsum}.
 \description{
 The \code{summary()} method for objects of class \code{simsum} returns confidence intervals for performance measures based on Monte Carlo standard errors.
 }
-\details{
-summary.simsum
-}
 \note{
 Confidence intervals are constructed using quantiles from a normal distribution with the specified \code{ci_level} confidence level, and are therefore symmetric by definition.
 }

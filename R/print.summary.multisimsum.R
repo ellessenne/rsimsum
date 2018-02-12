@@ -1,6 +1,5 @@
-#' print.summary.multisimsum
-#'
-#' @title Print method for summary.multisimsum objects
+#' @title print.summary.multisimsum
+#' @description Print method for summary.multisimsum objects
 #' @param x An object of class `summary.multisimsum`.
 #' @param digits Number of significant digits used for printing. Defaults to 4.
 #' @param sstat Summary statistics to print; can be a scalar value or a vector (for printing multiple summary statistics at once). Possible choices are:
@@ -79,7 +78,7 @@ print.summary.multisimsum <- function(x, digits = 4, sstat = "all", ...) {
 
   ### Make names of the summary table
   names(x$summ)[names(x$summ) == "stat"] <- " "
-  names(x$summ)[names(x$summ) == "coef"] <- "Coef"
+  names(x$summ)[names(x$summ) == "est"] <- "Estimate"
   if (x$mcse) {
     names(x$summ)[names(x$summ) == "mcse"] <- "MCSE"
     names(x$summ)[names(x$summ) == "lower"] <- paste("Lower", sprintf("%.0f%%", 100 * (x$ci_level)))

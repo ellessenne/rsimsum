@@ -51,10 +51,10 @@ An object of class \code{multisimsum}.
 \code{multisimsum} is an extension of \code{\link[=simsum]{simsum()}} that can handle multiple estimated parameters at once. \code{multisimsum} calls \code{\link[=simsum]{simsum()}} internally, each estimands at once. There is only one new argument that must be set when calling \code{multisimsum}: \code{par}, a string representing the column of \code{data} that identifies the different estimands.
 }
 \details{
-multisimsum
+The following names are not allowed for \code{estvarname}, \code{se}, \code{methodvar}, \code{by}, \code{par}: \code{stat}, \code{est}, \code{mcse}, \code{lower}, \code{upper}.
 }
 \examples{
-data(frailty)
+data("frailty", package = "rsimsum")
 ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50,
    fv = 0.75), estvarname = "b", se = "se", methodvar = "model",
    by = "fv_dist")

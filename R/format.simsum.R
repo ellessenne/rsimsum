@@ -1,5 +1,3 @@
-#' format.simsum
-#'
 #' @title Format simsum objects
 #' @description Format an object of class `simsum` for pretty printing.
 #' @param x An object of class `simsum`.
@@ -8,7 +6,7 @@
 #' @return An object of class `simsum` with its `summ` slot formatted for pretty printing.
 
 format.simsum <- function(x, digits) {
-  x$summ$coef <- sprintf(paste0("%.", digits, "f"), x$summ$coef)
+  x$summ$est <- sprintf(paste0("%.", digits, "f"), x$summ$est)
   if (x$mcse) {
     x$summ$mcse <- sprintf(paste0("%.", digits, "f"), x$summ$mcse)
     if ("summary.simsum" %in% class(x)) {
@@ -34,8 +32,6 @@ format.simsum <- function(x, digits) {
   return(x)
 }
 
-#' format.summary.simsum
-#'
 #' @title Format summary.simsum objects
 #'
 #' @description Format an object of class `summary.simsum` for pretty printing.

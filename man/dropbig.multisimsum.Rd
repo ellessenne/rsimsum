@@ -17,9 +17,6 @@ An object of class \code{dropbig.multisimsum} if \code{dropbig} was set to \code
 \description{
 \code{dropbig.multisimsum} returns observations dropped by simsum while computing summary statistics for a simulation study.
 }
-\details{
-dropbig.multisimsum
-}
 \examples{
 data(frailty)
 ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50,

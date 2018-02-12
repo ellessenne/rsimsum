@@ -2,7 +2,7 @@
 % Please edit documentation in R/print.multisimsum.R
 \name{print.multisimsum}
 \alias{print.multisimsum}
-\title{Print method for multisimsum objects}
+\title{print.multisimsum}
 \usage{
 \method{print}{multisimsum}(x, ...)
 }
@@ -12,7 +12,7 @@
 \item{...}{Ignored.}
 }
 \description{
-print.multisimsum
+Print method for multisimsum objects
 }
 \examples{
 data(frailty)

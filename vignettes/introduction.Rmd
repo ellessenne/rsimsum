@@ -194,7 +194,7 @@ Plotting bias by method with $95\%$ confidence intervals based on Monte Carlo st
 
 ```{r ex1-plot-bias}
 library(ggplot2)
-ggplot(get_data(ss1, sstat = "bias"), aes(x = method, y = coef, ymin = lower, ymax = upper)) +
+ggplot(get_data(ss1, sstat = "bias"), aes(x = method, y = est, ymin = lower, ymax = upper)) +
   geom_hline(yintercept = 0, color = "red", lty = "dashed") +
   geom_point() +
   geom_errorbar(width = 1 / 3) +
@@ -205,7 +205,7 @@ ggplot(get_data(ss1, sstat = "bias"), aes(x = method, y = coef, ymin = lower, ym
 Conversely, say we want to visually compare coverage for the three methods compared with this simulation study:
 
 ```{r ex1-plot-cov}
-ggplot(get_data(ss1, sstat = "cover"), aes(x = method, y = coef, ymin = lower, ymax = upper)) +
+ggplot(get_data(ss1, sstat = "cover"), aes(x = method, y = est, ymin = lower, ymax = upper)) +
   geom_hline(yintercept = 0.95, color = "red", lty = "dashed") +
   geom_point() +
   geom_errorbar(width = 1 / 3) +
@@ -293,7 +293,7 @@ Tables could get cumbersome when there are many different data-generating mechan
 Say we want to compare bias for each method by baseline hazard function and sample size using faceting:
 
 ```{r ex2-plot-bias}
-ggplot(get_data(ss2, sstat = "bias"), aes(x = model, y = coef, ymin = lower, ymax = upper)) +
+ggplot(get_data(ss2, sstat = "bias"), aes(x = model, y = est, ymin = lower, ymax = upper)) +
   geom_hline(yintercept = 0, color = "red", lty = "dashed") +
   geom_point() +
   geom_errorbar(width = 1 / 3) +

@@ -17,9 +17,6 @@ An object of class \code{summary.simsum} with its \code{summ} slot formatted for
 \description{
 Format an object of class \code{summary.simsum} for pretty printing.
 }
-\details{
-format.summary.simsum
-}
 \seealso{
 \code{\link[=simsum]{simsum()}}, \code{\link[=format.simsum]{format.simsum()}}
 }

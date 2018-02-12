@@ -1,5 +1,3 @@
-#' simsum
-#'
 #' @title Analyses of simulation studies including Monte Carlo error
 #' @description `simsum` computes performance measures for simulation studies in which each simulated data set yields point estimates by one or more analysis methods. Bias, empirical standard error and precision relative to a reference method can be computed for each method.  If, in addition, model-based standard errors are available then `simsum` can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, and the power to reject a null hypothesis. Monte Carlo errors are available for all estimated quantities.
 #' @param data A `data.frame` in which variable names are interpreted. It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.
@@ -22,6 +20,7 @@
 #' @references White, I.R. 2010. simsum: Analyses of simulation studies including Monte Carlo error. The Stata Journal 10(3): 369-385. \url{http://www.stata-journal.com/article.html?article=st0200}
 #' @references Morris, T.P, White, I.R. and Crowther, M.J. 2017. Using simulation studies to evaluate statistical methods. [arXiv:1712.03198](https://arxiv.org/abs/1712.03198)
 #' @export
+#' @details The following names are not allowed for `estvarname`, `se`, `methodvar`, `by`: `stat`, `est`, `mcse`, `lower`, `upper`.
 #'
 #' @examples
 #' data("MIsim")
@@ -92,10 +91,11 @@ simsum <-
       checkmate::assert_subset(ref, choices = as.character(unique(data[[methodvar]])), add = arg_checks)
     }
 
-    # `estvarname`, `se`, `methodvar` must not be any in (`stat`, `coef`, `mcse`, `lower`, `upper`)
-    checkmate::assert_false(x = (estvarname %in% c("stat", "coef", "mcse", "lower", "upper")))
-    checkmate::assert_false(x = (se %in% c("stat", "coef", "mcse", "lower", "upper")))
-    if (!is.null(methodvar)) checkmate::assert_false(x = (methodvar %in% c("stat", "coef", "mcse", "lower", "upper")))
+    # `estvarname`, `se`, `methodvar`, `by` must not be any in (`stat`, `est`, `mcse`, `lower`, `upper`)
+    checkmate::assert_false(x = (estvarname %in% c("stat", "est", "mcse", "lower", "upper")))
+    checkmate::assert_false(x = (se %in% c("stat", "est", "mcse", "lower", "upper")))
+    if (!is.null(methodvar)) checkmate::assert_false(x = (methodvar %in% c("stat", "est", "mcse", "lower", "upper")))
+    if (!is.null(by)) checkmate::assert_false(x = any(by %in% c("stat", "est", "mcse", "lower", "upper")))
 
     ### Report if there are any errors
     if (!arg_checks$isEmpty()) {

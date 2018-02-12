@@ -1,5 +1,3 @@
-#' summary.multisimsum
-#'
 #' @title Summarising multisimsum objects
 #' @description The `summary()` method for objects of class `multisimsum` returns confidence intervals for performance measures based on Monte Carlo standard errors.
 #' @param object An object of class `multisimsum`.
@@ -29,8 +27,8 @@ summary.multisimsum <- function(object, ci_level = 0.95, ...) {
 
   ### Compute confidence intervals if Monte Carlo standard errors are available
   if (object$mcse) {
-    object$summ$lower <- object$summ$coef - stats::qnorm(1 - (1 - ci_level) / 2) * object$summ$mcse
-    object$summ$upper <- object$summ$coef + stats::qnorm(1 - (1 - ci_level) / 2) * object$summ$mcse
+    object$summ$lower <- object$summ$est - stats::qnorm(1 - (1 - ci_level) / 2) * object$summ$mcse
+    object$summ$upper <- object$summ$est + stats::qnorm(1 - (1 - ci_level) / 2) * object$summ$mcse
   }
 
   ### Add ci_level slot

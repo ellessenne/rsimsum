@@ -2,7 +2,7 @@
 % Please edit documentation in R/print.dropbig.multisimsum.R
 \name{print.dropbig.multisimsum}
 \alias{print.dropbig.multisimsum}
-\title{Print method for dropbig.simsum objects}
+\title{print.dropbig.multisimsum}
 \usage{
 \method{print}{dropbig.multisimsum}(x, ...)
 }
@@ -12,7 +12,7 @@
 \item{...}{Ignored.}
 }
 \description{
-print.dropbig.multisimsum
+Print method for dropbig.simsum objects
 }
 \seealso{
 \code{\link[=dropbig.multisimsum]{dropbig.multisimsum()}}

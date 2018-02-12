@@ -1,6 +1,5 @@
-#' print.multisimsum
-#'
-#' @title Print method for multisimsum objects
+#' @title print.multisimsum
+#' @description Print method for multisimsum objects
 #' @param x An object of class `multisimsum`.
 #' @param ... Ignored.
 #' @export

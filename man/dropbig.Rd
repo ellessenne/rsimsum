@@ -14,6 +14,3 @@ dropbig(x, ...)
 \description{
 \code{dropbig} returns observations dropped by a function while performing some calculation - for any reason.
 }
-\details{
-dropbig
-}

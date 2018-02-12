@@ -49,7 +49,7 @@ An object of class \code{simsum}.
 \code{simsum} computes performance measures for simulation studies in which each simulated data set yields point estimates by one or more analysis methods. Bias, empirical standard error and precision relative to a reference method can be computed for each method.  If, in addition, model-based standard errors are available then \code{simsum} can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, and the power to reject a null hypothesis. Monte Carlo errors are available for all estimated quantities.
 }
 \details{
-simsum
+The following names are not allowed for \code{estvarname}, \code{se}, \code{methodvar}, \code{by}: \code{stat}, \code{est}, \code{mcse}, \code{lower}, \code{upper}.
 }
 \examples{
 data("MIsim")

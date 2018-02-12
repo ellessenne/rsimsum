@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_data.simsum.R
 \name{get_data.simsum}
 \alias{get_data.simsum}
-\title{Extract data from a simsum object}
+\title{get_data.simsum}
 \usage{
 \method{get_data}{simsum}(x, sstat = "all", ...)
 }
@@ -34,7 +34,7 @@
 A \code{data.frame} containing summary statistics from a simulation study.
 }
 \description{
-get_data.simsum
+Extract data from a simsum object
 }
 \examples{
 data(MIsim)

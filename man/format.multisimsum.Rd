@@ -17,9 +17,6 @@ An object of class \code{multisimsum} with its \code{summ} slot formatted for pr
 \description{
 Format an object of class \code{multisimsum} for pretty printing.
 }
-\details{
-format.multisimsum
-}
 \seealso{
 \code{\link[=multisimsum]{multisimsum()}}, \code{\link[=format.summary.multisimsum]{format.summary.multisimsum()}}
 }

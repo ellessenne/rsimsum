@@ -1,5 +1,3 @@
-#' dropbig.simsum
-#'
 #' @title Return observations dropped by simsum
 #' @description `dropbig.simsum` returns observations dropped by simsum while computing summary statistics for a simulation study.
 #' @param x An object of class `simsum`.

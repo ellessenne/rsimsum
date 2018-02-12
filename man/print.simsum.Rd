@@ -2,7 +2,7 @@
 % Please edit documentation in R/print.simsum.R
 \name{print.simsum}
 \alias{print.simsum}
-\title{Print method for simsum objects}
+\title{print.simsum}
 \usage{
 \method{print}{simsum}(x, ...)
 }
@@ -12,7 +12,7 @@
 \item{...}{Ignored.}
 }
 \description{
-print.simsum
+Print method for simsum objects
 }
 \examples{
 data("MIsim")

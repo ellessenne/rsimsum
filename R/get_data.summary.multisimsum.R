@@ -1,6 +1,5 @@
-#' get_data.summary.multisimsum
-#'
-#' @title Extract data from a summary.simsum object
+#' @title get_data.summary.multisimsum
+#' @description Extract data from a summary.simsum object
 #' @param x An object of class `summary.multisimsum`.
 #' @param sstat Summary statistics to include; can be a scalar value or a vector. Possible choices are:
 #' * `all`, all the summary statistics are returned This is the default option.

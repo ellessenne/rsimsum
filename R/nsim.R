@@ -1,5 +1,3 @@
-#' nsim
-#'
 #' @title Compute number of simulations required
 #' @description The function `nsim` computes the number of simulations \eqn{B}{B} to perform based on the accuracy of an estimate of interest, using the following equation:
 #' \deqn{B = \left( \frac{(Z_{1 - \alpha / 2} + Z_{1 - theta}) \sigma}{\delta} \right) ^ 2,}{B = [((Z(1 - \alpha / 2) + Z(1 - \theta)) \sigma) / \delta] ^ 2 }

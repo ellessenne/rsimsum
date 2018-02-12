@@ -2,7 +2,7 @@
 % Please edit documentation in R/print.summary.multisimsum.R
 \name{print.summary.multisimsum}
 \alias{print.summary.multisimsum}
-\title{Print method for summary.multisimsum objects}
+\title{print.summary.multisimsum}
 \usage{
 \method{print}{summary.multisimsum}(x, digits = 4, sstat = "all", ...)
 }
@@ -33,7 +33,7 @@
 \item{...}{Ignored.}
 }
 \description{
-print.summary.multisimsum
+Print method for summary.multisimsum objects
 }
 \note{
 If \code{sstat} is a vector that contains \code{all}, all summary statistics are printed by default.

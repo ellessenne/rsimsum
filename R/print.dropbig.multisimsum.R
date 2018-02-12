@@ -1,6 +1,5 @@
-#' print.dropbig.multisimsum
-#'
-#' @title Print method for dropbig.simsum objects
+#' @title print.dropbig.multisimsum
+#' @description Print method for dropbig.simsum objects
 #' @param x An object of class `dropbig.multisimsum`.
 #' @param ... Ignored.
 #' @export

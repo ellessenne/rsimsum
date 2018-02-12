@@ -14,6 +14,3 @@ get_data(x, ...)
 \description{
 \code{get_data} returns a data set contained in an S3 object.
 }
-\details{
-get_data
-}

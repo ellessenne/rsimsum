@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_data.multisimsum.R
 \name{get_data.multisimsum}
 \alias{get_data.multisimsum}
-\title{Extract data from a multisimsum object}
+\title{get_data.multisimsum}
 \usage{
 \method{get_data}{multisimsum}(x, sstat = "all", ...)
 }
@@ -34,7 +34,7 @@
 A \code{data.frame} containing summary statistics from a simulation study.
 }
 \description{
-get_data.multisimsum
+Extract data from a multisimsum object
 }
 \examples{
 data(frailty)

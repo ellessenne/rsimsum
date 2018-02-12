@@ -2,7 +2,7 @@
 % Please edit documentation in R/print.dropbig.simsum.R
 \name{print.dropbig.simsum}
 \alias{print.dropbig.simsum}
-\title{Print method for dropbig.simsum objects}
+\title{print.dropbig.simsum}
 \usage{
 \method{print}{dropbig.simsum}(x, ...)
 }
@@ -12,7 +12,7 @@
 \item{...}{Ignored.}
 }
 \description{
-print.dropbig.simsum
+Print method for dropbig.simsum objects
 }
 \seealso{
 \code{\link[=dropbig.simsum]{dropbig.simsum()}}

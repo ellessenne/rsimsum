@@ -1,5 +1,3 @@
-#' get_data
-#'
 #' @title Extract data slot from objects
 #' @description `get_data` returns a data set contained in an S3 object.
 #' @param x An object used to select a method.

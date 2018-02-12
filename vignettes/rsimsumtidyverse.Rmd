@@ -43,7 +43,7 @@ MIsim %>%
   simsum(estvarname = "b", se = "se", methodvar = "method", true = 0.5) %>%
   summary() %>%
   get_data(sstat = "bias") %>%
-  ggplot(aes(x = method, y = coef, ymin = lower, ymax = upper)) +
+  ggplot(aes(x = method, y = est, ymin = lower, ymax = upper)) +
   geom_hline(yintercept = 0, color = "red", lty = "dashed") +
   geom_point() +
   geom_errorbar(width = 1 / 3) +

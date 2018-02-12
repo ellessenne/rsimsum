@@ -1,5 +1,3 @@
-#' format.multisimsum
-#'
 #' @title Format multisimsum objects
 #' @description Format an object of class `multisimsum` for pretty printing.
 #' @param x An object of class `multisimsum`.
@@ -8,7 +6,7 @@
 #' @return An object of class `multisimsum` with its `summ` slot formatted for pretty printing.
 
 format.multisimsum <- function(x, digits) {
-  x$summ$coef <- sprintf(paste0("%.", digits, "f"), x$summ$coef)
+  x$summ$est <- sprintf(paste0("%.", digits, "f"), x$summ$est)
   if (x$mcse) {
     x$summ$mcse <- sprintf(paste0("%.", digits, "f"), x$summ$mcse)
     if ("summary.multisimsum" %in% class(x)) {
