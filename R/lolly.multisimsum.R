@@ -72,14 +72,16 @@ lolly.multisimsum <- function(obj, sstat, par, by = NULL, target = NULL, level =
 
   ### Identify target if target = NULL
   if (is.null(target)) {
-    if (sstat == "nsim") stop("'target' is required when sstat is 'nsim'")
-    target <- if (sstat %in% c("thetamean", "thetamedian")) {
-      obj[["true"]][par]
-    } else if (sstat %in% c("se2mean", "se2median", "bias", "empse", "mse", "relprec", "modelse", "relerror")) {
-      0
-    } else if (sstat %in% c("cover", "bccover", "power")) {
-      obj[["level"]]
-    }
+  	if (sstat == "nsim") stop("'target' is required when sstat is 'nsim'")
+  	target <- if (sstat %in% c("thetamean", "thetamedian")) {
+  		obj[["true"]]
+  	} else if (sstat %in% c("se2mean", "se2median", "bias", "empse", "mse", "modelse", "relerror")) {
+  		0
+  	} else if (sstat == "relprec") {
+  		1
+  	} else if (sstat %in% c("cover", "bccover", "power")) {
+  		obj[["level"]]
+  	}
   }
 
   ### Build a ggplot object

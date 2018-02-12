@@ -69,8 +69,10 @@ lolly.simsum <- function(obj, sstat, by = NULL, target = NULL, level = 0.95, gpa
     if (sstat == "nsim") stop("'target' is required when sstat is 'nsim'")
     target <- if (sstat %in% c("thetamean", "thetamedian")) {
       obj[["true"]]
-    } else if (sstat %in% c("se2mean", "se2median", "bias", "empse", "mse", "relprec", "modelse", "relerror")) {
-      0
+    } else if (sstat %in% c("se2mean", "se2median", "bias", "empse", "mse", "modelse", "relerror")) {
+    	0
+    } else if (sstat == "relprec") {
+    	1
     } else if (sstat %in% c("cover", "bccover", "power")) {
       obj[["level"]]
     }
