@@ -74,7 +74,7 @@ lolly.multisimsum <- function(obj, sstat, par, by = NULL, target = NULL, level =
   if (is.null(target)) {
   	if (sstat == "nsim") stop("'target' is required when sstat is 'nsim'")
   	target <- if (sstat %in% c("thetamean", "thetamedian")) {
-  		obj[["true"]]
+  		obj[["true"]][par]
   	} else if (sstat %in% c("se2mean", "se2median", "bias", "empse", "mse", "modelse", "relerror")) {
   		0
   	} else if (sstat == "relprec") {
