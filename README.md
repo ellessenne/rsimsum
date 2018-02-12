@@ -32,7 +32,7 @@ This is a basic example using data from a simulation study on missing data (type
 
 ``` r
 library(rsimsum)
-data(MIsim)
+data("MIsim", package = "rsimsum")
 s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
 #> `ref` was not specified, CC set as the reference
 s
@@ -67,7 +67,7 @@ summary(s)
 #> Summary statistics:
 #> 
 #>  Method = CC 
-#>                                                  Coef   MCSE Lower 95% Upper 95%
+#>                                              Estimate   MCSE Lower 95% Upper 95%
 #>  Simulations with non-missing estimates/SEs 1000.0000     NA        NA        NA
 #>                      Average point estimate    0.5168     NA        NA        NA
 #>                       Median point estimate    0.5070     NA        NA        NA
@@ -84,7 +84,7 @@ summary(s)
 #>                      Power of 5% level test    0.9460 0.0071    0.9320    0.9600
 #> 
 #>  Method = MI_LOGT 
-#>                                                  Coef   MCSE Lower 95% Upper 95%
+#>                                              Estimate   MCSE Lower 95% Upper 95%
 #>  Simulations with non-missing estimates/SEs 1000.0000     NA        NA        NA
 #>                      Average point estimate    0.5009     NA        NA        NA
 #>                       Median point estimate    0.4969     NA        NA        NA
@@ -101,7 +101,7 @@ summary(s)
 #>                      Power of 5% level test    0.9690 0.0055    0.9583    0.9797
 #> 
 #>  Method = MI_T 
-#>                                                  Coef   MCSE Lower 95% Upper 95%
+#>                                              Estimate   MCSE Lower 95% Upper 95%
 #>  Simulations with non-missing estimates/SEs 1000.0000     NA        NA        NA
 #>                      Average point estimate    0.4988     NA        NA        NA
 #>                       Median point estimate    0.4939     NA        NA        NA

@@ -47,7 +47,7 @@ This is a basic example using data from a simulation study on missing data (type
 
 ```{r simsum}
 library(rsimsum)
-data(MIsim)
+data("MIsim", package = "rsimsum")
 s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
 s
 ```
