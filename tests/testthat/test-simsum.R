@@ -147,5 +147,5 @@ test_that("simsum with x = TRUE returns the original dataset (setting all data p
   data("MIsim")
   s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", x = TRUE, dropbig = FALSE, na.rm = FALSE, na.pair = FALSE)
   expect_s3_class(object = s$data, class = "data.frame")
-  expect_equal(object = s$data, expected = MIsim)
+  expect_equal(object = s$data, expected = na.omit(MIsim))
 })

@@ -23,7 +23,7 @@
 #' @export
 #' @details
 #' The following names are not allowed for `estvarname`, `se`, `methodvar`, `by`: `stat`, `est`, `mcse`, `lower`, `upper`.
-#' Calling the function with `x = TRUE` is required to produce zip plots (e.g. via the [zip()] method). The downside is that the size of the returned object increases considerably, therefore it is set to `FALSE` by default. Please note that the `data` slot returned when `x = TRUE` is known to equal the dataset passed as the `data` argument only when `dropbig = FALSE`, `na.rm = FALSE`, and `na.pair = FALSE`.
+#' Calling the function with `x = TRUE` is required to produce zip plots (e.g. via the [zip()] method). The downside is that the size of the returned object increases considerably, therefore it is set to `FALSE` by default. Please note that the `data` slot returned when `x = TRUE` is obtained according to the value of the arguments `dropbig`, `na.rm`, `na.pair`; all rows with missing values are removed via a call to [stats::na.omit()].
 #'
 #' @examples
 #' data("MIsim")
@@ -342,7 +342,7 @@ simsum <-
     obj$na.rm <- na.rm
     obj$na.pair <- na.pair
     if (x) {
-      obj$data <- data
+      obj$data <- stats::na.omit(data)
     }
 
     ### Return object of class simsum

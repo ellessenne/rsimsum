@@ -143,5 +143,5 @@ test_that("multisimsum with x = TRUE returns the original dataset (setting all d
   data("frailty")
   s <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist", x = TRUE, dropbig = FALSE, na.rm = FALSE, na.pair = FALSE)
   expect_s3_class(object = s$data, class = "data.frame")
-  expect_equal(object = s$data, expected = frailty)
+  expect_equal(object = s$data, expected = na.omit(frailty))
 })

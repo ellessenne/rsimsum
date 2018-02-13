@@ -167,7 +167,7 @@ multisimsum <- function(data,
   obj$na.rm <- na.rm
   obj$na.pair <- na.pair
   if (x) {
-    obj$data <- data
+    obj$data <- stats::na.omit(data)
   }
 
   ### Return object of class simsum

@@ -52,7 +52,7 @@ An object of class \code{simsum}.
 }
 \details{
 The following names are not allowed for \code{estvarname}, \code{se}, \code{methodvar}, \code{by}: \code{stat}, \code{est}, \code{mcse}, \code{lower}, \code{upper}.
-Calling the function with \code{x = TRUE} is required to produce zip plots (e.g. via the \code{\link[=zip]{zip()}} method). The downside is that the size of the returned object increases considerably, therefore it is set to \code{FALSE} by default. Please note that the \code{data} slot returned when \code{x = TRUE} is known to equal the dataset passed as the \code{data} argument only when \code{dropbig = FALSE}, \code{na.rm = FALSE}, and \code{na.pair = FALSE}.
+Calling the function with \code{x = TRUE} is required to produce zip plots (e.g. via the \code{\link[=zip]{zip()}} method). The downside is that the size of the returned object increases considerably, therefore it is set to \code{FALSE} by default. Please note that the \code{data} slot returned when \code{x = TRUE} is obtained according to the value of the arguments \code{dropbig}, \code{na.rm}, \code{na.pair}; all rows with missing values are removed via a call to \code{\link[stats:na.omit]{stats::na.omit()}}.
 }
 \examples{
 data("MIsim")
