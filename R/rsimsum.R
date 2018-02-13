@@ -4,6 +4,7 @@
 #' @name rsimsum
 NULL
 
-# Quiets concerns of R CMD check re: variables utilised by using
+# Quiets concerns of R CMD check re: variables used with
 # non-standard evaluation within ggplot2's 'aes'
-if (getRversion() >= "2.15.1") utils::globalVariables(c("est", "mcse"))
+# e.g.: lolly(), zip()
+if (getRversion() >= "2.15.1") utils::globalVariables(c("est", "mcse", "lower", "upper", "pr", "colour", "cupper", "clower"))
