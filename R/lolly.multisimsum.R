@@ -38,7 +38,7 @@ lolly.multisimsum <- function(obj, sstat, par, by = NULL, target = NULL, level =
   checkmate::assert_subset(by, choices = obj[["by"]], empty.ok = TRUE, add = arg_checks)
 
   # `par` must be in unique(obj[[obj$par]])
-  checkmate::assert_choice(par, choices = unique(get_data(obj)[[obj$par]]), add = arg_checks)
+  checkmate::assert_choice(par, choices = unique(get_data(obj)[[obj[["par"]]]]), add = arg_checks)
 
   # `target` must be a numeric value, can be NULL
   checkmate::assert_number(target, null.ok = TRUE, add = arg_checks)
@@ -72,20 +72,20 @@ lolly.multisimsum <- function(obj, sstat, par, by = NULL, target = NULL, level =
 
   ### Identify target if target = NULL
   if (is.null(target)) {
-  	if (sstat == "nsim") stop("'target' is required when sstat is 'nsim'")
-  	target <- if (sstat %in% c("thetamean", "thetamedian")) {
-  		obj[["true"]][par]
-  	} else if (sstat %in% c("se2mean", "se2median", "bias", "empse", "mse", "modelse", "relerror")) {
-  		0
-  	} else if (sstat == "relprec") {
-  		1
-  	} else if (sstat %in% c("cover", "bccover", "power")) {
-  		obj[["level"]]
-  	}
+    if (sstat == "nsim") stop("'target' is required when sstat is 'nsim'")
+    target <- if (sstat %in% c("thetamean", "thetamedian")) {
+      obj[["true"]][par]
+    } else if (sstat %in% c("se2mean", "se2median", "bias", "empse", "mse", "modelse", "relerror")) {
+      0
+    } else if (sstat == "relprec") {
+      1
+    } else if (sstat %in% c("cover", "bccover", "power")) {
+      obj[["level"]]
+    }
   }
 
   ### Build a ggplot object
-  gg <- ggplot2::ggplot(get_data(obj)[get_data(obj)[["stat"]] == sstat & get_data(obj)[[obj$par]] == par, ], ggplot2::aes_string(x = "est", y = obj[["methodvar"]], xend = target, yend = obj[["methodvar"]])) +
+  gg <- ggplot2::ggplot(get_data(obj)[get_data(obj)[["stat"]] == sstat & get_data(obj)[[obj[["par"]]]] == par, ], ggplot2::aes_string(x = "est", y = obj[["methodvar"]], xend = target, yend = obj[["methodvar"]])) +
     ggplot2::geom_vline(xintercept = target, linetype = gpars.ok$target.shape, colour = gpars.ok$target.colour) +
     ggplot2::geom_segment(linetype = gpars.ok$segment.shape, colour = gpars.ok$segment.colour) +
     ggplot2::geom_point() +
