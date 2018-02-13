@@ -136,3 +136,16 @@ test_that("simsum works with missing data and default arguments", {
   x[which(rnorm(nrow(x)) > 2), "se"] <- NA
   simsum(data = x, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
 })
+
+test_that("simsum with x = FALSE does not return data", {
+  data("MIsim")
+  s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", x = FALSE)
+  expect_null(object = s$data)
+})
+
+test_that("simsum with x = TRUE returns the original dataset (setting all data processing arguments to FALSE is required)", {
+  data("MIsim")
+  s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", x = TRUE, dropbig = FALSE, na.rm = FALSE, na.pair = FALSE)
+  expect_s3_class(object = s$data, class = "data.frame")
+  expect_equal(object = s$data, expected = MIsim)
+})

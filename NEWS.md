@@ -5,6 +5,8 @@ Internal housekeeping.
 Added S3 methods for `simsum` and `multisimsum` objects to visualise results:
 * `lolly()`, for lolly plots;
 
+Added `x` argument to `simsum` and `multisimsum` to include original dataset as a slot of the returned object.
+
 # rsimsum 0.1.0
 
 First submission to CRAN. `rsimsum` can handle:

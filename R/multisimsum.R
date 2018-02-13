@@ -4,8 +4,7 @@
 #' @inheritParams simsum
 #' @return An object of class `multisimsum`.
 #' @export
-#' @details The following names are not allowed for `estvarname`, `se`, `methodvar`, `by`, `par`: `stat`, `est`, `mcse`, `lower`, `upper`.
-
+#' @inherit simsum details
 #' @examples
 #' data("frailty", package = "rsimsum")
 #' ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50,
@@ -28,7 +27,8 @@ multisimsum <- function(data,
                         mcse = TRUE,
                         sanitise = TRUE,
                         na.rm = TRUE,
-                        na.pair = TRUE) {
+                        na.pair = TRUE,
+                        x = FALSE) {
   ### Check new arguments not checked in 'simsum'
   arg_checks <- checkmate::makeAssertCollection()
 
@@ -52,10 +52,11 @@ multisimsum <- function(data,
   checkmate::assert_number(max, add = arg_checks)
   checkmate::assert_number(semax, add = arg_checks)
 
-  # `dropbig`, `sanitise`, `na.pair` must be single logical value
+  # `dropbig`, `sanitise`, `na.pair`, `x` must be single logical value
   checkmate::assert_logical(dropbig, len = 1, add = arg_checks)
   checkmate::assert_logical(sanitise, len = 1, add = arg_checks)
   checkmate::assert_logical(na.pair, len = 1, add = arg_checks)
+  checkmate::assert_logical(x, len = 1, add = arg_checks)
 
   ### Report if there are any errors
   if (!arg_checks$isEmpty()) {
@@ -165,6 +166,9 @@ multisimsum <- function(data,
   obj$sanitise <- sanitise
   obj$na.rm <- na.rm
   obj$na.pair <- na.pair
+  if (x) {
+    obj$data <- data
+  }
 
   ### Return object of class simsum
   class(obj) <- c("list", "multisimsum")

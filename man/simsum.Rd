@@ -7,7 +7,7 @@
 simsum(data, estvarname, true, se, methodvar = NULL, ref = NULL,
   df = NULL, dropbig = FALSE, max = 10, semax = 100, level = 0.95,
   by = NULL, mcse = TRUE, sanitise = TRUE, na.rm = TRUE,
-  na.pair = TRUE)
+  na.pair = TRUE, x = FALSE)
 }
 \arguments{
 \item{data}{A \code{data.frame} in which variable names are interpreted. It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.}
@@ -41,6 +41,8 @@ simsum(data, estvarname, true, se, methodvar = NULL, ref = NULL,
 \item{na.rm}{A logical value indicating whether missing values (\code{NA}) should be removed before the computation proceeds. Defaults to \code{TRUE}.}
 
 \item{na.pair}{Removes estimates that have a missing standard error (and vice versa). Defaults to \code{TRUE}.}
+
+\item{x}{Set to \code{TRUE} to include the \code{data} argument (as utilised to compute summary statistics, i.e. applying \code{dropbig}, \code{na.rm}, \code{na.pair}) as a slot. Defaults to \code{FALSE}.}
 }
 \value{
 An object of class \code{simsum}.
@@ -50,6 +52,7 @@ An object of class \code{simsum}.
 }
 \details{
 The following names are not allowed for \code{estvarname}, \code{se}, \code{methodvar}, \code{by}: \code{stat}, \code{est}, \code{mcse}, \code{lower}, \code{upper}.
+Calling the function with \code{x = TRUE} is required to produce zip plots (e.g. via the \code{\link[=zip]{zip()}} method). The downside is that the size of the returned object increases considerably, therefore it is set to \code{FALSE} by default. Please note that the \code{data} slot returned when \code{x = TRUE} is known to equal the dataset passed as the \code{data} argument only when \code{dropbig = FALSE}, \code{na.rm = FALSE}, and \code{na.pair = FALSE}.
 }
 \examples{
 data("MIsim")

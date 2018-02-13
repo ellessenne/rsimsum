@@ -16,11 +16,14 @@
 #' @param sanitise Sanitise column names passed to `simsum` by removing all dot characters (`.`), which could cause problems. Defaults to `TRUE`.
 #' @param na.rm A logical value indicating whether missing values (`NA`) should be removed before the computation proceeds. Defaults to `TRUE`.
 #' @param na.pair Removes estimates that have a missing standard error (and vice versa). Defaults to `TRUE`.
+#' @param x Set to `TRUE` to include the `data` argument (as utilised to compute summary statistics, i.e. applying `dropbig`, `na.rm`, `na.pair`) as a slot. Defaults to `FALSE`.
 #' @return An object of class `simsum`.
 #' @references White, I.R. 2010. simsum: Analyses of simulation studies including Monte Carlo error. The Stata Journal 10(3): 369-385. \url{http://www.stata-journal.com/article.html?article=st0200}
 #' @references Morris, T.P, White, I.R. and Crowther, M.J. 2017. Using simulation studies to evaluate statistical methods. [arXiv:1712.03198](https://arxiv.org/abs/1712.03198)
 #' @export
-#' @details The following names are not allowed for `estvarname`, `se`, `methodvar`, `by`: `stat`, `est`, `mcse`, `lower`, `upper`.
+#' @details
+#' The following names are not allowed for `estvarname`, `se`, `methodvar`, `by`: `stat`, `est`, `mcse`, `lower`, `upper`.
+#' Calling the function with `x = TRUE` is required to produce zip plots (e.g. via the [zip()] method). The downside is that the size of the returned object increases considerably, therefore it is set to `FALSE` by default. Please note that the `data` slot returned when `x = TRUE` is known to equal the dataset passed as the `data` argument only when `dropbig = FALSE`, `na.rm = FALSE`, and `na.pair = FALSE`.
 #'
 #' @examples
 #' data("MIsim")
@@ -44,7 +47,8 @@ simsum <-
            mcse = TRUE,
            sanitise = TRUE,
            na.rm = TRUE,
-           na.pair = TRUE) {
+           na.pair = TRUE,
+           x = FALSE) {
     ### Check arguments
     arg_checks <- checkmate::makeAssertCollection()
 
@@ -70,12 +74,13 @@ simsum <-
       add = arg_checks
     )
 
-    # `dropbig`, `mcse`, `sanitise`, `na.rm` , `na.pair` must be single logical value
+    # `dropbig`, `mcse`, `sanitise`, `na.rm` , `na.pair`, `x` must be single logical value
     checkmate::assert_logical(dropbig, len = 1, add = arg_checks)
     checkmate::assert_logical(mcse, len = 1, add = arg_checks)
     checkmate::assert_logical(sanitise, len = 1, add = arg_checks)
     checkmate::assert_logical(na.rm, len = 1, add = arg_checks)
     checkmate::assert_logical(na.pair, len = 1, add = arg_checks)
+    checkmate::assert_logical(x, len = 1, add = arg_checks)
 
     # `by` must be a vector of strings; can be NULL
     checkmate::assert_character(by, null.ok = TRUE, add = arg_checks)
@@ -336,6 +341,9 @@ simsum <-
     obj$sanitise <- sanitise
     obj$na.rm <- na.rm
     obj$na.pair <- na.pair
+    if (x) {
+      obj$data <- data
+    }
 
     ### Return object of class simsum
     class(obj) <- c("list", "simsum")
