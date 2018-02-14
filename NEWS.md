@@ -5,7 +5,8 @@ Internal housekeeping.
 Added S3 methods for `simsum` and `multisimsum` objects to visualise results:
 * `lolly()`, for lolly plots;
 * `zip()`, for zip plots;
-* `heat()`, for heat plots.
+* `heat()`, for heat plots;
+* `pattern()`, for scatter plots of estimates vs SEs.
 
 Added `x` argument to `simsum` and `multisimsum` to include original dataset as a slot of the returned object.
 
