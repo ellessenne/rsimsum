@@ -144,7 +144,8 @@ zip.simsum <- function(obj, wald.level = 0.95, gpars = list(), ...) {
     ggplot2::geom_hline(ggplot2::aes(yintercept = clower), linetype = gpars.ok$ci.shape, colour = gpars.ok$ci.colour) +
     ggplot2::geom_vline(xintercept = obj[["true"]], linetype = gpars.ok$true.shape, colour = gpars.ok$true.colour) +
     ggplot2::labs(x = paste0(100 * obj[["level"]], "% confidence intervals"), y = bquote("Centile of ranked p-values for null" ~ theta == .(obj[["true"]])), colour = "") +
-    ggplot2::theme(legend.position = "bottom")
+    ggplot2::theme(legend.position = "bottom") +
+  	ggplot2::scale_colour_manual(values = c("#56B4E9", "#D55E00"))
 
   ### Add faceting if `by` or `methovar` are specified
   if (!is.null(obj[["methodvar"]]) & !is.null(obj[["by"]])) {
