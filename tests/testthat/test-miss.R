@@ -1,13 +1,13 @@
 context("miss")
 
 test_that("miss and print.miss fail with incorrect arguments", {
-	data("frailty", package = "rsimsum")
-	expect_error(miss(data = frailty))
-	expect_error(miss(estvarname = "b"))
-	expect_error(miss(se = "se"))
-	expect_error(miss(data = frailty, estvarname = "b", se = "wrongname"))
-	m <- miss(data = frailty, estvarname = "b", se = "se", par = "par", methodvar = "model", by = "fv_dist")
-	expect_error(print(m, fmt = 1))
+  data("frailty", package = "rsimsum")
+  expect_error(miss(data = frailty))
+  expect_error(miss(estvarname = "b"))
+  expect_error(miss(se = "se"))
+  expect_error(miss(data = frailty, estvarname = "b", se = "wrongname"))
+  m <- miss(data = frailty, estvarname = "b", se = "se", par = "par", methodvar = "model", by = "fv_dist")
+  expect_error(print(m, fmt = 1))
 })
 
 test_that("miss prints ok", {

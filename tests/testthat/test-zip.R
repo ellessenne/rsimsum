@@ -8,10 +8,10 @@ test_that("zip checks arguments properly", {
   sm <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", x = TRUE)
   expect_error(zip(obj = MIsim))
   expect_error(zip(obj = s, wald.level = 101))
-  expect_error(zip(obj = s, gpars(wrong.parameter = 1)))
+  expect_error(zip(obj = s, gpars = list(wrong.parameter = 1)))
   expect_error(zip(obj = sm, wald.level = 101))
   expect_error(zip(obj = sm, par = "hello"))
-  expect_error(zip(obj = sm, gpars(wrong.parameter = 1)))
+  expect_error(zip(obj = sm, gpars = list(wrong.parameter = 1)))
 })
 
 test_that("zip fails when simsum/multisimsum are called with x = FALSE", {
