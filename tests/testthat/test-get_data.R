@@ -85,3 +85,9 @@ test_that("get_data.summary.multisimsum asking for bias returns only bias", {
   s <- summary(x)
   expect_true(object = all(get_data(x, sstat = "bias")$stat == "bias"))
 })
+
+test_that("get_data for miss objects works as expected", {
+  data("frailty", package = "rsimsum")
+  m <- miss(data = frailty, estvarname = "b", se = "se", par = "par", methodvar = "model", by = "fv_dist")
+  expect_s3_class(object = get_data(m), class = "data.frame")
+})
