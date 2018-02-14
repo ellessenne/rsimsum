@@ -56,7 +56,7 @@ heat.multisimsum <- function(obj, par, sstat, y, target = NULL, text = FALSE, gp
 
 	# `gpars` must be a list, with well defined components
 	checkmate::assert_list(gpars, add = arg_checks)
-	checkmate::assert_subset(names(gpars), choices = c("target.colour", "low.colour", "high.colour", "fmt"), empty.ok = TRUE, add = arg_checks)
+	checkmate::assert_subset(names(gpars), choices = c("target.colour", "low.colour", "high.colour", "fmt", "text.size", "text.hjust", "text.vjust"), empty.ok = TRUE, add = arg_checks)
 
 	### Report if there are any errors
 	if (!arg_checks$isEmpty()) {
@@ -72,7 +72,7 @@ heat.multisimsum <- function(obj, par, sstat, y, target = NULL, text = FALSE, gp
 	hobj[["data"]][, obj[["par"]]] <- NULL
 	class(hobj) <- c("list", "simsum")
 
-	### Make a zip plot via zip.simsum
+	### Make a heat plot via heat.simsum
 	gg <- heat.simsum(obj = hobj, sstat = sstat, y = y, target = target, text = text, gpars = gpars)
 
 	# Add a subtitle with the current parameter estimated

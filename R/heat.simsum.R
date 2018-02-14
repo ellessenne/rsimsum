@@ -44,7 +44,7 @@ heat.simsum <- function(obj, sstat, y, target = NULL, text = FALSE, gpars = list
 
   # `gpars` must be a list, with well defined components
   checkmate::assert_list(gpars, add = arg_checks)
-  checkmate::assert_subset(names(gpars), choices = c("target.colour", "low.colour", "high.colour", "fmt"), empty.ok = TRUE, add = arg_checks)
+  checkmate::assert_subset(names(gpars), choices = c("target.colour", "low.colour", "high.colour", "fmt", "text.size", "text.hjust", "text.vjust"), empty.ok = TRUE, add = arg_checks)
 
   ### Report if there are any errors
   if (!arg_checks$isEmpty()) {
