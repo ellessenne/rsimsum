@@ -35,50 +35,50 @@
 
 
 heat.multisimsum <- function(obj, par, sstat, y, target = NULL, text = FALSE, gpars = list(), ...) {
-	### Check arguments
-	arg_checks <- checkmate::makeAssertCollection()
+  ### Check arguments
+  arg_checks <- checkmate::makeAssertCollection()
 
-	# `par` must be in unique(obj[[obj$par]])
-	checkmate::assert_choice(par, choices = unique(get_data(obj)[[obj[["par"]]]]), add = arg_checks)
+  # `par` must be in unique(obj[[obj$par]])
+  checkmate::assert_choice(par, choices = unique(get_data(obj)[[obj[["par"]]]]), add = arg_checks)
 
-	# `sstat` must be a single string value, among a set of possible names
-	checkmate::assert_string(sstat, add = arg_checks)
-	checkmate::assert_subset(sstat, choices = c("nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "bccover", "power"), add = arg_checks)
+  # `sstat` must be a single string value, among a set of possible names
+  checkmate::assert_string(sstat, add = arg_checks)
+  checkmate::assert_subset(sstat, choices = c("nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "bccover", "power"), add = arg_checks)
 
-	# `y` must be a single value in obj$by
-	checkmate::assert_choice(y, choices = obj[["by"]], add = arg_checks)
+  # `y` must be a single value in obj$by
+  checkmate::assert_choice(y, choices = obj[["by"]], add = arg_checks)
 
-	# `target` must be a numeric value, can be NULL
-	checkmate::assert_number(target, null.ok = TRUE, add = arg_checks)
+  # `target` must be a numeric value, can be NULL
+  checkmate::assert_number(target, null.ok = TRUE, add = arg_checks)
 
-	# `text` must be single logical value
-	checkmate::assert_logical(text, len = 1, add = arg_checks)
+  # `text` must be single logical value
+  checkmate::assert_logical(text, len = 1, add = arg_checks)
 
-	# `gpars` must be a list, with well defined components
-	checkmate::assert_list(gpars, add = arg_checks)
-	checkmate::assert_subset(names(gpars), choices = c("target.colour", "low.colour", "high.colour", "fmt", "text.size", "text.hjust", "text.vjust"), empty.ok = TRUE, add = arg_checks)
+  # `gpars` must be a list, with well defined components
+  checkmate::assert_list(gpars, add = arg_checks)
+  checkmate::assert_subset(names(gpars), choices = c("target.colour", "low.colour", "high.colour", "fmt", "text.size", "text.hjust", "text.vjust"), empty.ok = TRUE, add = arg_checks)
 
-	### Report if there are any errors
-	if (!arg_checks$isEmpty()) {
-		checkmate::reportAssertions(arg_checks)
-	}
+  ### Report if there are any errors
+  if (!arg_checks$isEmpty()) {
+    checkmate::reportAssertions(arg_checks)
+  }
 
-	### Hack obj to make it resemble a simsum object
-	hobj <- obj
-	hobj[["true"]] <- obj[["true"]][par]
-	hobj[["summ"]] <- obj[["summ"]][obj[["summ"]][["par"]] == par, ]
-	hobj[["summ"]][, "par"] <- NULL
-	hobj[["data"]] <- obj[["data"]][obj[["data"]][[obj[["par"]]]] == par, ]
-	hobj[["data"]][, obj[["par"]]] <- NULL
-	class(hobj) <- c("list", "simsum")
+  ### Hack obj to make it resemble a simsum object
+  hobj <- obj
+  hobj[["true"]] <- obj[["true"]][par]
+  hobj[["summ"]] <- obj[["summ"]][obj[["summ"]][["par"]] == par, ]
+  hobj[["summ"]][, "par"] <- NULL
+  hobj[["data"]] <- obj[["data"]][obj[["data"]][[obj[["par"]]]] == par, ]
+  hobj[["data"]][, obj[["par"]]] <- NULL
+  class(hobj) <- c("list", "simsum")
 
-	### Make a heat plot via heat.simsum
-	gg <- heat.simsum(obj = hobj, sstat = sstat, y = y, target = target, text = text, gpars = gpars)
+  ### Make a heat plot via heat.simsum
+  gg <- heat.simsum(obj = hobj, sstat = sstat, y = y, target = target, text = text, gpars = gpars)
 
-	# Add a subtitle with the current parameter estimated
-	gg <- gg +
-		ggplot2::labs(caption = paste("Parameter:", par))
+  # Add a subtitle with the current parameter estimated
+  gg <- gg +
+    ggplot2::labs(caption = paste("Parameter:", par))
 
-	### Return gg
-	return(gg)
+  ### Return gg
+  return(gg)
 }
