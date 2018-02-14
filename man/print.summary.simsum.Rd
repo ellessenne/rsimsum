@@ -33,7 +33,7 @@
 \item{...}{Ignored.}
 }
 \description{
-Print method for summary.simsum objects
+Print method for \code{summary.simsum} objects
 }
 \note{
 If \code{sstat} is a vector that contains \code{all}, all summary statistics are printed by default.

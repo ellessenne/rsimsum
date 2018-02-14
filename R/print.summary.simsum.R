@@ -1,5 +1,5 @@
 #' @title print.summary.simsum
-#' @description Print method for summary.simsum objects
+#' @description Print method for `summary.simsum` objects
 #' @param x An object of class `summary.simsum`.
 #' @param digits Number of significant digits used for printing. Defaults to 4.
 #' @param sstat Summary statistics to print; can be a scalar value or a vector (for printing multiple summary statistics at once). Possible choices are:

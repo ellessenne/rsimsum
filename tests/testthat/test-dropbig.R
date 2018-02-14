@@ -4,25 +4,25 @@ test_that("dropbig works ok and prints fine", {
   data("MIsim")
   # when dropbig = TRUE
   x <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", mcse = TRUE, dropbig = TRUE, max = 3, semax = 1.5)
-  print(dropbig(x))
+  expect_output(print(dropbig(x)))
   # when dropbig = FALSE
   x <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", mcse = TRUE, dropbig = FALSE)
-  print(dropbig(x))
+  expect_output(print(dropbig(x)))
   # with huuuuge limits
   x <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", mcse = TRUE, dropbig = TRUE, max = 10, semax = 10)
-  print(dropbig(x))
+  expect_output(print(dropbig(x)))
   # with by factors
   data("relhaz")
   x <- simsum(data = relhaz, estvarname = "theta", true = -0.50, se = "se", methodvar = "model", by = c("baseline", "n"), dropbig = TRUE, max = 3, semax = 1.5)
-  print(dropbig(x))
+  expect_output(print(dropbig(x)))
   # for multisimsum
   data("frailty")
   ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist", dropbig = FALSE)
-  print(dropbig(ms))
+  expect_output(print(dropbig(ms)))
   ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist", dropbig = TRUE)
-  print(dropbig(ms))
+  expect_output(print(dropbig(ms)))
   ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist", dropbig = TRUE, max = 6, semax = 3)
-  print(dropbig(ms))
+  expect_output(print(dropbig(ms)))
 })
 
 test_that("dropbig returns a data.frame when dropbig = TRUE", {
