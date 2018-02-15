@@ -1,4 +1,4 @@
-# rsimsum 0.1.0-9000
+# rsimsum 0.2.0
 
 Internal housekeeping.
 
