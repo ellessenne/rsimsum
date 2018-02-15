@@ -8,7 +8,10 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "README-",
+  fig.align = "center",
+  dpi = 300,
+  out.width = "75%"
 )
 options(width = 100)
 ```
@@ -60,10 +63,33 @@ summary(s)
 
 ## Vignettes
 
-`rsimsum` comes with 3 vignettes. In particular, check out the introductory one:
+`rsimsum` comes with 4 vignettes. In particular, check out the introductory one:
 
-```{r vignette, eval = FALSE}
+```{r vignette-intro, eval = FALSE}
 vignette(topic = "introduction", package = "rsimsum")
+```
+
+## Visualising results
+
+As of version `0.2.0`, `rsimsum` can produce a variety of plots:
+
+```{r pattern}
+s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", x = TRUE)
+pattern(s)
+```
+
+```{r lolly}
+lolly(s, sstat = "bias")
+```
+
+```{r zip}
+zip(s)
+```
+
+More info on the vignette dedicated to plotting:
+
+```{r vignette-plotting, eval = FALSE}
+vignette(topic = "plotting", package = "rsimsum")
 ```
 
 # References
