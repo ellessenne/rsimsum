@@ -46,11 +46,11 @@ test_that("pattern works when changing graphical parameters", {
 })
 
 test_that("pattern with `by` factors", {
-	data("relhaz", package = "rsimsum")
-	s <- simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = c("n", "baseline"), x = TRUE)
-	pattern(s)
-	pattern(s, gpars = list(scales = "free_x"))
-	data("frailty", package = "rsimsum")
-	sm <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist", x = TRUE)
-	pattern(sm)
+  data("relhaz", package = "rsimsum")
+  s <- simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = c("n", "baseline"), x = TRUE)
+  pattern(s)
+  pattern(s, gpars = list(scales = "free_x"))
+  data("frailty", package = "rsimsum")
+  sm <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist", x = TRUE)
+  pattern(sm)
 })

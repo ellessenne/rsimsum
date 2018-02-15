@@ -12,12 +12,12 @@ Depends:
  R (>= 2.10)
 Imports:
  checkmate,
+ ggplot2,
  stats
 Suggests:
  covr,
  devtools,
  eha,
- ggplot2,
  knitr,
  rmarkdown,
  rstpm2,
