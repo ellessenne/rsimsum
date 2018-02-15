@@ -1,0 +1,231 @@
+---
+title: "Visualising results from rsimsum"
+author: "Alessandro Gasparini"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Visualising results from rsimsum}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include = FALSE}
+options(width = 150)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.align = "center", fig.height = 6, fig.width = 6,
+  out.width = "66.66%"
+)
+```
+
+This vignette requires the following R packages:
+
+```{r packages}
+library(rsimsum)
+library(ggplot2)
+```
+
+# Simulation study with a single estimand
+
+We use data from a simulation study on misspecification of the baseline hazard in survival models. This dataset is included in `rsimsum` and can be loaded with:
+
+```{r data-1}
+data("relhaz", package = "rsimsum")
+```
+
+Inspecting the structure of the dataset and the first 15 rows of data:
+
+```{r inspect-1}
+str(relhaz)
+head(relhaz, n = 15)
+```
+
+## Summarise results
+
+We use the `simsum` function to summarise results:
+
+```{r summarise-1}
+s1 <- simsum(data = relhaz, estvarname = "theta", se = "se", true = -0.50, methodvar = "model", by = c("n", "baseline"), x = TRUE)
+s1
+```
+
+We call `simsum` with `x = TRUE` as we want to produce pattern plots and zip plots later on.
+
+```{r summary-summarise-1}
+summary(s1)
+```
+
+## Pattern plots
+
+Pattern plots allow to assess serial trends in estimates and standard errors:
+
+```{r pattern-1}
+pattern(s1)
+```
+
+Estimates and standard errors mostly overlap, in this settings.
+
+## Lolly plots
+
+Lolly plots are used to present estimates for a given summary statistic with confidence intervals based on Monte Carlo standard errors. They allow to easily compare methods.
+
+Say we are interest in bias:
+
+```{r lolly-bias-1}
+lolly(s1, sstat = "bias", by = c("n", "baseline"))
+```
+
+It is straightforward to identify the exponential model as yielding biased results when the true baseline hazard is Weibull, irrespectively of the sample size. All the methods also yield biased results with an exponential baseline hazard and a sample size of 50 individuals.
+
+Analogously, for coverage:
+
+```{r lolly-coverage-1}
+lolly(s1, sstat = "cover", by = c("n", "baseline"))
+```
+
+## Zip plots
+
+Zip plots, introduced in Morris _et al_. (2017), help understand coverage by visualising the confidence intervals directly. For each data-generating mechanism and method, the confidence intervals are centile-ranked according to their significance agains the null hypotesis \(H_0: \theta = -0.50\), assessed via a Wald-type test. This ranking is used for the vertical axis and is plotted against the intervals themselves.  
+
+When a method has \(95\%\) coverage, the colour of the intervals switches at 95 on the vertical axis. Finally, the horizontal lines represent confidence intervals for the estimated coverage based on Monte Carlo standard errors. 
+
+```{r zip-1}
+zip(s1)
+```
+
+The zip plot for the exponential model with \(n = 50\) and a true Weibull baseline hazard shows that coverage is approximately \(95\%\); however, there are more intervals to the right of \(\theta = -0.50\) than to the left: this indicates that the model standard errors must be overestimating the empirical standard error, because coverage is appropriate despite bias.
+
+## Heat plots
+
+Heat plots are a new visualisation that we suggest and include here for the first time. With heat plots, we produce a heat-map-like plot where the filling of each tile represents a given summary statistic, say bias:
+
+```{r heat-bias-1}
+heat(s1, sstat = "bias", y = "baseline")
+```
+
+`heat()` requires a factor to be put on the `y`-axis; by default, the methods are included on the `x` axis, and all the remaining by-factors will be used for faceting. Therefore, this plot is appropriate when a simulation study includes different methods to be compared and many data-generating mechanisms. Using a heat plot, it is immediate to identify visually which method performs better and under which data-generating mechanisms.
+
+By default, white colour represent the optimal, target value. Using summary statistics with zero as the lower bound (e.g. mean squared error, empirical standard error, etc.), red represents largest (e.g.) worse values. Finally, with summary statistics that can have lower and upper values (e.g. bias), blue colour represents values below the target and red colour represents values above the target. These colors, which are colourblind-safe by default, can be easily changed to taste:
+
+```{r heat-bias-coloured-1}
+heat(s1, sstat = "bias", y = "baseline", gpars = list(target.colour = "green", low.colour = "yellow", high.colour = "purple"))
+```
+
+It is also possible to add the actual value of each summary statistic and Monte Carlo standard error:
+
+```{r heat-bias-text-1}
+heat(s1, sstat = "bias", y = "baseline", text = TRUE)
+```
+
+# Simulation study with multiple estimands
+
+This second example is using data from a simulation study on misspecification in frailty survival models. This dataset is included in `rsimsum` and can be loaded with:
+
+```{r data-2}
+data("frailty", package = "rsimsum")
+```
+
+Inspecting the structure of the dataset and the first 15 rows of data:
+
+```{r inspect-2}
+str(frailty)
+head(frailty, n = 15)
+```
+
+This dataset has two estimands:
+
+```{r estimands-2}
+unique(frailty[["par"]])
+```
+
+## Summarise results
+
+We use the `simsum` function to summarise results:
+
+```{r summarise-2}
+s2 <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist", x = TRUE)
+s2
+```
+
+We call `multisimsum` with `x = TRUE` as we want to produce pattern plots and zip plots later on.
+
+```{r summary-summarise-2}
+summary(s2)
+```
+
+## Patterns
+
+Plotting pattern plots for a given estimand:
+
+```{r pattern-single-2}
+pattern(s2, par = "trt")
+```
+
+Alternatively, plotting pattern plots for all estimands:
+
+```{r pattern-multiple-2}
+pattern(s2)
+```
+
+Estimates and standard errors mostly overlap, in this settings.
+
+## Lolly plots
+
+Lolly plot for bias of treatment effect:
+
+```{r lolly-bias-2}
+lolly(s2, sstat = "bias", par = "trt", by = "fv_dist")
+```
+
+Lolly plot for coverage of frailty variance:
+
+```{r lolly-coverage-2}
+lolly(s2, sstat = "cover", par = "fv", by = "fv_dist")
+```
+
+## Zip plots
+
+Say we want to further investigate coverage of the frailty variance after seeing the lolly plot:
+
+```{r zip-2}
+zip(s2, par = "fv")
+```
+
+## Heat plots
+
+Finally, we also plot coverage of the frailty variance using a heat plot:
+
+```{r heat-cover-2}
+heat(s2, par = "fv", sstat = "cover", y = "fv_dist")
+```
+
+```{r heat-cover-text-2}
+heat(s2, par = "fv", sstat = "cover", y = "fv_dist", text = TRUE)
+```
+
+# Combining plots with additional `geom_*`, `theme_*`, etc.
+
+Each method introduced with this vignette returns `ggplot` objects that can be easily combined with any other `geom_*`, `theme_*`, `scale_*`.
+
+For instance:
+
+1. Adding a method-specific smoother to each panel of a pattern plot, to better visualise trends:
+```{r add-geom}
+pattern(s1) +
+  geom_smooth()
+```
+
+2. Adding a theme:
+```{r add-theme}
+heat(s1, sstat = "bias", y = "baseline") +
+  theme_bw()
+```
+
+3. Using a different colour scale:
+```{r add-scale}
+heat(s1, sstat = "bias", y = "baseline") +
+  scale_fill_gradientn(colours = rainbow(n = 3))
+```

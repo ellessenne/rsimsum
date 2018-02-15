@@ -8,6 +8,8 @@ Added S3 methods for `simsum` and `multisimsum` objects to visualise results:
 * `heat()`, for heat plots;
 * `pattern()`, for scatter plots of estimates vs SEs.
 
+Added a new vignette _Visualising results from rsimsum_ to introduce the abovementioned plots.
+
 Added `x` argument to `simsum` and `multisimsum` to include original dataset as a slot of the returned object.
 
 Added a `miss` function for obtaining basic information on missingness in simulation results. `miss` has methods `print` and `get_data`.
