@@ -12,3 +12,6 @@ figure$
 cache$
 ^.*\.md$
 LICENSE
+^.*\.html$
+^.*\.htm$
+figures$
