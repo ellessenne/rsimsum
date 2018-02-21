@@ -7,6 +7,7 @@
 #' It is possible to redefine all the graphical parameters or a subset only; if not specified, sensible default values will be utilised. Good practice would be adding a colorblind-safe palette, e.g. using [ggthemes::scale_color_colorblind()].
 #' @param ... Ignored.
 #' @inherit pattern return details
+#' @note `pattern()` automatically factorises the variable representing methods if present and if not already a factor; this allows `ggplot2` to appropriately pick a discrete colour scale rather than a continuous one.
 #' @export
 #' @examples
 #' library(rsimsum)
@@ -38,6 +39,13 @@ pattern.simsum <- function(obj, gpars = list(), ...) {
     gpars[names(gpars) %in% names(gpars.default)],
     gpars.default[!(names(gpars.default) %in% names(gpars))]
   ), recursive = FALSE)
+
+  ### Factorise `methodvar` if defined and if it is not already a factor to obtain a proper colour scale
+  if (!is.null(obj[["methodvar"]])) {
+  	if (!("factor" %in% class(obj[["data"]][[obj[["methodvar"]]]]))) {
+  	obj[["data"]][[obj[["methodvar"]]]] <- relevel(factor(obj[["data"]][[obj[["methodvar"]]]]), ref = obj[["ref"]])
+  	}
+  }
 
   ### Create plot to return
   gg <- ggplot2::ggplot(obj[["data"]], ggplot2::aes_string(x = obj[["se"]], y = obj[["estvarname"]], color = obj[["methodvar"]])) +

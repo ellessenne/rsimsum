@@ -1,3 +1,8 @@
+# rsimsum 0.2.0-9000
+
+Bug fixes:
+* `pattern()` now appropriately pick a discrete colour scale for methods (if defined) when the method variable is numeric
+
 # rsimsum 0.2.0
 
 Internal housekeeping.

@@ -27,6 +27,9 @@ A \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} object that can be combined wi
 \details{
 \code{pattern()} requires \code{simsum} and \code{multisimsum} objects top be fit with the \code{x = TRUE} option.
 }
+\note{
+\code{pattern()} automatically factorises the variable representing methods if present and if not already a factor; this allows \code{ggplot2} to appropriately pick a discrete colour scale rather than a continuous one.
+}
 \examples{
 library(rsimsum)
 library(ggplot2)
