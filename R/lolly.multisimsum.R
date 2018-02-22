@@ -2,7 +2,7 @@
 #' @description [lolly()] method for objects of class `multisimsum`.
 #' @param obj An object of class `multisimsum`.
 #' @param sstat Summary statistic to plot. Possible choices are: `nsim`, number of replications without missing estimates / standard errors; `thetamean`, average estimated value; `thetamedian`, median estimated value; `se2mean`, average estimated standard error; `se2median`, median estimated standard error; `bias`, bias in point estimate; `empse`, empirical standard error; `mse`, mean squared error; `relprec`, percentage gain in precision relative to the reference method; `modelse`, model-based standard error; `relerror`, relative percentage error in standard error; `cover`, coverage of nominal \eqn{(1 - \alpha)}\% CI; `bccover`, bias corrected coverage of nominal \eqn{(1 - \alpha)}\% CI; `power`, power of \eqn{\alpha}\% level test.
-#' @param par Estimand to plot.
+#' @param par Estimand to plot. Defaults to `NULL`, in which case the `par` variable from `multisimsum` will be used for faceting.
 #' @param by Faceting factors passed to [ggplot2::facet_wrap()]. Defaults to `NULL`, i.e. no faceting.
 #' @param target Target value for the summary statistic of interest. If `NULL` (the default), the target value is inferred (except for `sstat = nsim`).
 #' @param level Specifies the confidence level for confidence intervals based on Monte Carlo standard errors, produced by default if the `simsum` or `summary.simsum` object passed to `lolly` estimated Monte Carlo standard errors (e.g. with `mcse = TRUE`).
@@ -26,7 +26,7 @@
 #'    by = "fv_dist")
 #' lolly(ms, sstat = "bias", par = "trt", by = "fv_dist")
 
-lolly.multisimsum <- function(obj, sstat, par, by = NULL, target = NULL, level = 0.95, gpars = list(), ...) {
+lolly.multisimsum <- function(obj, sstat, par = NULL, by = NULL, target = NULL, level = 0.95, gpars = list(), ...) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
 
@@ -38,7 +38,7 @@ lolly.multisimsum <- function(obj, sstat, par, by = NULL, target = NULL, level =
   checkmate::assert_subset(by, choices = obj[["by"]], empty.ok = TRUE, add = arg_checks)
 
   # `par` must be in unique(obj[[obj$par]])
-  checkmate::assert_choice(par, choices = unique(get_data(obj)[[obj[["par"]]]]), add = arg_checks)
+  checkmate::assert_choice(par, choices = unique(get_data(obj)[[obj[["par"]]]]), null.ok = TRUE, add = arg_checks)
 
   # `target` must be a numeric value, can be NULL
   checkmate::assert_number(target, null.ok = TRUE, add = arg_checks)
@@ -85,7 +85,12 @@ lolly.multisimsum <- function(obj, sstat, par, by = NULL, target = NULL, level =
   }
 
   ### Build a ggplot object
-  gg <- ggplot2::ggplot(get_data(obj)[get_data(obj)[["stat"]] == sstat & get_data(obj)[[obj[["par"]]]] == par, ], ggplot2::aes_string(x = "est", y = obj[["methodvar"]], xend = target, yend = obj[["methodvar"]])) +
+  if (is.null(par)) {
+    gg <- ggplot2::ggplot(get_data(obj)[get_data(obj)[["stat"]] == sstat, ], ggplot2::aes_string(x = "est", y = obj[["methodvar"]], xend = target, yend = obj[["methodvar"]]))
+  } else {
+    gg <- ggplot2::ggplot(get_data(obj)[get_data(obj)[["stat"]] == sstat & get_data(obj)[[obj[["par"]]]] == par, ], ggplot2::aes_string(x = "est", y = obj[["methodvar"]], xend = target, yend = obj[["methodvar"]]))
+  }
+  gg <- gg +
     ggplot2::geom_vline(xintercept = target, linetype = gpars.ok$target.shape, colour = gpars.ok$target.colour) +
     ggplot2::geom_segment(linetype = gpars.ok$segment.shape, colour = gpars.ok$segment.colour) +
     ggplot2::geom_point() +
@@ -97,11 +102,14 @@ lolly.multisimsum <- function(obj, sstat, par, by = NULL, target = NULL, level =
   }
   # Facet if `by` is specified
   if (!is.null(by)) {
-    gg <- gg + ggplot2::facet_wrap(facets = by, labeller = ggplot2::label_both)
+    if (!is.null(par)) {
+      gg <- gg + ggplot2::facet_wrap(facets = by, labeller = ggplot2::label_both)
+    } else {
+      gg <- gg + ggplot2::facet_grid(stats::reformulate(obj[["par"]], by), labeller = ggplot2::label_both)
+    }
   }
   # Add a subtitle with the current parameter estimated
-  gg <- gg +
-    ggplot2::labs(caption = paste("Parameter:", par))
+  if (!is.null(par)) gg <- gg + ggplot2::labs(caption = paste("Parameter:", par))
 
   ### Return gg object
   return(gg)

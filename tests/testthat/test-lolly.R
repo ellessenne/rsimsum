@@ -13,7 +13,7 @@ test_that("lolly checks arguments properly", {
   sm <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
   expect_error(lolly(obj = sm))
   expect_error(lolly(obj = sm, sstat = "BIAS"))
-  expect_error(lolly(obj = sm, sstat = "nsim"))
+  expect_warning(expect_error(lolly(obj = sm, sstat = "nsim")))
   expect_error(lolly(obj = sm, sstat = "bias", level = 101))
 })
 
@@ -126,4 +126,10 @@ test_that("lolly with all 'sstat' options, with and without 'target'", {
   lolly(sm, par = "trt", by = "fv_dist", sstat = "bccover", target = 0.95)
   lolly(sm, par = "trt", by = "fv_dist", sstat = "power")
   lolly(sm, par = "trt", by = "fv_dist", sstat = "power", target = 0.95)
+})
+
+test_that("lolly works for multisimsum object even without specifying par", {
+  data("frailty", package = "rsimsum")
+  sm <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
+  lolly(sm, by = "fv_dist", sstat = "bias")
 })

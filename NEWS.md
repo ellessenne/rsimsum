@@ -7,6 +7,9 @@ New plots are supported:
 * `forest()`, for forest plots;
 * `bar()`, for bar plots.
 
+Changes to existing functionality:
+* the `par` argument of `lolly.multisimsum` is not required anymore; if not provided, plots will be faceted by estimand (as well as any other `by` factor).
+
 # rsimsum 0.2.0
 
 Internal housekeeping.

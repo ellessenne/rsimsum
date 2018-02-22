@@ -4,15 +4,15 @@
 \alias{lolly.multisimsum}
 \title{lolly method for multisimsum objects}
 \usage{
-\method{lolly}{multisimsum}(obj, sstat, par, by = NULL, target = NULL,
-  level = 0.95, gpars = list(), ...)
+\method{lolly}{multisimsum}(obj, sstat, par = NULL, by = NULL,
+  target = NULL, level = 0.95, gpars = list(), ...)
 }
 \arguments{
 \item{obj}{An object of class \code{multisimsum}.}
 
 \item{sstat}{Summary statistic to plot. Possible choices are: \code{nsim}, number of replications without missing estimates / standard errors; \code{thetamean}, average estimated value; \code{thetamedian}, median estimated value; \code{se2mean}, average estimated standard error; \code{se2median}, median estimated standard error; \code{bias}, bias in point estimate; \code{empse}, empirical standard error; \code{mse}, mean squared error; \code{relprec}, percentage gain in precision relative to the reference method; \code{modelse}, model-based standard error; \code{relerror}, relative percentage error in standard error; \code{cover}, coverage of nominal \eqn{(1 - \alpha)}\% CI; \code{bccover}, bias corrected coverage of nominal \eqn{(1 - \alpha)}\% CI; \code{power}, power of \eqn{\alpha}\% level test.}
 
-\item{par}{Estimand to plot.}
+\item{par}{Estimand to plot. Defaults to \code{NULL}, in which case the \code{par} variable from \code{multisimsum} will be used for faceting.}
 
 \item{by}{Faceting factors passed to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap()}}. Defaults to \code{NULL}, i.e. no faceting.}
 
