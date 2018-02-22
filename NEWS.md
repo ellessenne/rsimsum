@@ -8,7 +8,8 @@ New plots are supported:
 * `bar()`, for bar plots.
 
 Changes to existing functionality:
-* the `par` argument of `lolly.multisimsum` is not required anymore; if not provided, plots will be faceted by estimand (as well as any other `by` factor).
+* the `par` argument of `lolly.multisimsum` is not required anymore; if not provided, plots will be faceted by estimand (as well as any other `by` factor);
+* updated _Visualising results from rsimsum_ vignette.
 
 # rsimsum 0.2.0
 

@@ -86,6 +86,27 @@ Analogously, for coverage:
 lolly(s1, sstat = "cover", by = c("n", "baseline"))
 ```
 
+## Forest plots and bar plots
+
+Forest plots and bar plots could be an alternative to lolly plots, with similar interpretation:
+
+```{r forest-bias-1}
+forest(s1, sstat = "bias", by = c("n", "baseline"))
+```
+
+```{r forest-coverage-1}
+forest(s1, sstat = "cover", by = c("n", "baseline"))
+```
+
+```{r bar-bias-1}
+bar(s1, sstat = "bias", by = c("n", "baseline"))
+```
+
+```{r bar-coverage-1}
+bar(s1, sstat = "cover", by = c("n", "baseline"))
+```
+
+
 ## Zip plots
 
 Zip plots, introduced in Morris _et al_. (2017), help understand coverage by visualising the confidence intervals directly. For each data-generating mechanism and method, the confidence intervals are centile-ranked according to their significance agains the null hypotesis \(H_0: \theta = -0.50\), assessed via a Wald-type test. This ranking is used for the vertical axis and is plotted against the intervals themselves.  
@@ -184,6 +205,34 @@ Lolly plot for coverage of frailty variance:
 
 ```{r lolly-coverage-2}
 lolly(s2, sstat = "cover", par = "fv", by = "fv_dist")
+```
+
+It is also possible to not select a single estimand and plot them both, say for bias:
+
+```{r lolly-bias-both-2}
+lolly(s2, sstat = "bias", by = "fv_dist")
+```
+
+## Forest plots and bar plots
+
+Forest plots for bias and coverage of treatment effect:
+
+```{r forest-bias-2}
+forest(s2, sstat = "bias", par = "trt", by = "fv_dist")
+```
+
+```{r forest-coverage-2}
+forest(s2, sstat = "cover", par = "fv", by = "fv_dist")
+```
+
+Bar plots for bias and coverage of treatment effect:
+
+```{r bar-bias-2}
+bar(s2, sstat = "bias", par = "trt", by = "fv_dist")
+```
+
+```{r bar-coverage-2}
+bar(s2, sstat = "cover", par = "fv", by = "fv_dist")
 ```
 
 ## Zip plots
