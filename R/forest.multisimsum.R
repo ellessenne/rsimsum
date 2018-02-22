@@ -2,13 +2,13 @@
 #' @description [forest()] method for objects of class `multisimsum`.
 #' @param obj An object of class `multisimsum`.
 #' @param sstat Summary statistic to plot. Possible choices are: `nsim`, number of replications without missing estimates / standard errors; `thetamean`, average estimated value; `thetamedian`, median estimated value; `se2mean`, average estimated standard error; `se2median`, median estimated standard error; `bias`, bias in point estimate; `empse`, empirical standard error; `mse`, mean squared error; `relprec`, percentage gain in precision relative to the reference method; `modelse`, model-based standard error; `relerror`, relative percentage error in standard error; `cover`, coverage of nominal \eqn{(1 - \alpha)}\% CI; `bccover`, bias corrected coverage of nominal \eqn{(1 - \alpha)}\% CI; `power`, power of \eqn{\alpha}\% level test.
-#' @param par Estimand to plot. Defaults to `NULL`, in which case
+#' @param par Estimand to plot. Defaults to `NULL`, in which case the `par` variable from `multisimsum` will be used for faceting.
 #' @param by Faceting factors passed to [ggplot2::facet_wrap()]. Defaults to `NULL`, i.e. no faceting.
 #' @param target Target value for the summary statistic of interest. If `NULL` (the default), the target value is inferred (except for `sstat = nsim`).
 #' @param level Specifies the confidence level for confidence intervals based on Monte Carlo standard errors, produced by default if the `simsum` or `summary.simsum` object passed to `forest` estimated Monte Carlo standard errors (e.g. with `mcse = TRUE`).
 #' @param gpars Graphical parameters. Must be a named list, with possible parameters:
-#' * `target.shape`, shape of the vertical line at `target` value;
-#' * `target.colour`, colour of the vertical line at `target` value;
+#' * `target.shape`, shape of the horizontal line at `target` value;
+#' * `target.colour`, colour of the horizontal line at `target` value;
 #' * `width`, the width of the end of each confidence interval.
 #' It is possible to redefine all the graphical parameters of a subset only; if not specified, sensible default values will be utilised.
 #' @inherit forest return details
@@ -57,14 +57,14 @@ forest.multisimsum <- function(obj, sstat, par = NULL, by = NULL, target = NULL,
     checkmate::reportAssertions(arg_checks)
   }
 
-  ### Throw a warning if no `by` specified when calling `factors`, but there is a `by` factor in obj
+  ### Throw a warning if no `by` specified when calling `forest`, but there is a `by` factor in obj
   if (is.null(by) & !is.null(obj[["by"]])) warning("'obj' contains `by` factors, the resulting plot **may** not be correct.\n\tAlternatively, manually apply faceting.")
 
   ### Graphics control parameters
   gpars.default <- list(target.shape = 2, target.colour = 2, width = 1 / 3)
   gpars.ok <- unlist(list(
-  	gpars[names(gpars) %in% names(gpars.default)],
-  	gpars.default[!(names(gpars.default) %in% names(gpars))]
+    gpars[names(gpars) %in% names(gpars.default)],
+    gpars.default[!(names(gpars.default) %in% names(gpars))]
   ), recursive = FALSE)
 
   ### Identify target if target = NULL
@@ -83,25 +83,25 @@ forest.multisimsum <- function(obj, sstat, par = NULL, by = NULL, target = NULL,
 
   ### Build a ggplot object
   if (is.null(par)) {
-  	gg <- ggplot2::ggplot(get_data(summary(obj))[get_data(obj)[["stat"]] == sstat, ], ggplot2::aes_string(x = obj[["methodvar"]], y = "est"))
+    gg <- ggplot2::ggplot(get_data(summary(obj))[get_data(obj)[["stat"]] == sstat, ], ggplot2::aes_string(x = obj[["methodvar"]], y = "est"))
   } else {
-  	gg <- ggplot2::ggplot(get_data(summary(obj))[get_data(obj)[["stat"]] == sstat & get_data(summary(obj))[[obj[["par"]]]] == par, ], ggplot2::aes_string(x = obj[["methodvar"]], y = "est", ymin = "lower", ymax = "upper"))
+    gg <- ggplot2::ggplot(get_data(summary(obj))[get_data(obj)[["stat"]] == sstat & get_data(summary(obj))[[obj[["par"]]]] == par, ], ggplot2::aes_string(x = obj[["methodvar"]], y = "est", ymin = "lower", ymax = "upper"))
   }
   gg <- gg +
-  	ggplot2::geom_hline(yintercept = target, linetype = gpars.ok$target.shape, colour = gpars.ok$target.colour) +
-  	ggplot2::geom_point() +
-  	ggplot2::labs(x = sstat)
+    ggplot2::geom_hline(yintercept = target, linetype = gpars.ok$target.shape, colour = gpars.ok$target.colour) +
+    ggplot2::geom_point() +
+    ggplot2::labs(x = sstat)
   # Add 'confidence intervals' if mcse are available
   if (obj[["mcse"]] & sstat %in% c("bias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "bccover", "power")) {
-  	gg <- gg + ggplot2::geom_errorbar(ggplot2::aes_string(ymin = "lower", ymax = "upper"), width = gpars.ok$width)
+    gg <- gg + ggplot2::geom_errorbar(ggplot2::aes_string(ymin = "lower", ymax = "upper"), width = gpars.ok$width)
   }
   # Facet if `by` is specified
   if (!is.null(by)) {
-  	if (!is.null(par)) {
-  		gg <- gg + ggplot2::facet_wrap(facets = by, labeller = ggplot2::label_both)
-  	} else {
-  		gg <- gg + ggplot2::facet_grid(reformulate(obj[["par"]], by), labeller = ggplot2::label_both)
-  	}
+    if (!is.null(par)) {
+      gg <- gg + ggplot2::facet_wrap(facets = by, labeller = ggplot2::label_both)
+    } else {
+      gg <- gg + ggplot2::facet_grid(stats::reformulate(obj[["par"]], by), labeller = ggplot2::label_both)
+    }
   }
 
   # Add a subtitle with the current parameter estimated if `par` is defined

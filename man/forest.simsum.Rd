@@ -20,8 +20,8 @@
 
 \item{gpars}{Graphical parameters. Must be a named list, with possible parameters:
 \itemize{
-\item \code{target.shape}, shape of the vertical line at \code{target} value;
-\item \code{target.colour}, colour of the vertical line at \code{target} value;
+\item \code{target.shape}, shape of the horizontal line at \code{target} value;
+\item \code{target.colour}, colour of the horizontal line at \code{target} value;
 \item \code{width}, the width of the end of each confidence interval.
 It is possible to redefine all the graphical parameters of a subset only; if not specified, sensible default values will be utilised.
 }}

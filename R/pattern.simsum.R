@@ -42,9 +42,9 @@ pattern.simsum <- function(obj, gpars = list(), ...) {
 
   ### Factorise `methodvar` if defined and if it is not already a factor to obtain a proper colour scale
   if (!is.null(obj[["methodvar"]])) {
-  	if (!("factor" %in% class(obj[["data"]][[obj[["methodvar"]]]]))) {
-  	obj[["data"]][[obj[["methodvar"]]]] <- relevel(factor(obj[["data"]][[obj[["methodvar"]]]]), ref = obj[["ref"]])
-  	}
+    if (!("factor" %in% class(obj[["data"]][[obj[["methodvar"]]]]))) {
+      obj[["data"]][[obj[["methodvar"]]]] <- stats::relevel(factor(obj[["data"]][[obj[["methodvar"]]]]), ref = obj[["ref"]])
+    }
   }
 
   ### Create plot to return

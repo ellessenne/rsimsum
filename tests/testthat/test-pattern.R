@@ -56,8 +56,8 @@ test_that("pattern with `by` factors", {
 })
 
 test_that("pattern produces a proper colour scale when methodvar is not a factor", {
-	data("MIsim", package = "rsimsum")
-	MIsim$method <- as.numeric(as.factor(MIsim$method))
-	s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", x = TRUE)
-	pattern(s)
+  data("MIsim", package = "rsimsum")
+  MIsim$method <- as.numeric(as.factor(MIsim$method))
+  s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", x = TRUE)
+  pattern(s)
 })

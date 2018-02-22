@@ -6,8 +6,8 @@
 #' @param target Target value for the summary statistic of interest. If `NULL` (the default), the target value is inferred (except for `sstat = nsim`).
 #' @param level Specifies the confidence level for confidence intervals based on Monte Carlo standard errors, produced by default if the `simsum` or `summary.simsum` object passed to `forest` estimated Monte Carlo standard errors (e.g. with `mcse = TRUE`).
 #' @param gpars Graphical parameters. Must be a named list, with possible parameters:
-#' * `target.shape`, shape of the vertical line at `target` value;
-#' * `target.colour`, colour of the vertical line at `target` value;
+#' * `target.shape`, shape of the horizontal line at `target` value;
+#' * `target.colour`, colour of the horizontal line at `target` value;
 #' * `width`, the width of the end of each confidence interval.
 #' It is possible to redefine all the graphical parameters of a subset only; if not specified, sensible default values will be utilised.
 #' @param ... Ignored.
