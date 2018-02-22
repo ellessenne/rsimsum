@@ -24,6 +24,7 @@ options(width = 100)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rsimsum)](https://cran.r-project.org/package=rsimsum)
 [![CRAN_Logs_Badge](http://cranlogs.r-pkg.org/badges/rsimsum)](https://cran.r-project.org/package=rsimsum)
 [![CRAN_Logs_Badge_Total](http://cranlogs.r-pkg.org/badges/grand-total/rsimsum)](https://cran.r-project.org/package=rsimsum)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 `rsimsum` is an R package for summarising results from simulation studies and computing Monte Carlo standard errors of commonly used summary statistics. 
 
@@ -86,7 +87,7 @@ lolly(s, sstat = "bias")
 zip(s)
 ```
 
-As of version `0.2.1`, forest plots and bar plots are supported too as alternatives to lolly plots:
+As of version `0.3.0`, forest plots and bar plots are supported too as alternatives to lolly plots:
 
 ```{r forest}
 forest(s, sstat = "bias")

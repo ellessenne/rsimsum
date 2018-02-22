@@ -12,3 +12,5 @@ figure$
 cache$
 ^.*\.md$
 LICENSE
+^CONDUCT\.md$
+^CONTRIBUTING\.md$
