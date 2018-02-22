@@ -86,6 +86,16 @@ lolly(s, sstat = "bias")
 zip(s)
 ```
 
+As of version `0.2.1`, forest plots and bar plots are supported too as alternatives to lolly plots:
+
+```{r forest}
+forest(s, sstat = "bias")
+```
+
+```{r bar}
+bar(s, sstat = "bias")
+```
+
 More info on the vignette dedicated to plotting:
 
 ```{r vignette-plotting, eval = FALSE}
