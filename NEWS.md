@@ -3,6 +3,9 @@
 Bug fixes:
 * `pattern()` now appropriately pick a discrete colour scale for methods (if defined) when the method variable is numeric
 
+New plots are supported:
+* `forest()`, for forest plots.
+
 # rsimsum 0.2.0
 
 Internal housekeeping.
