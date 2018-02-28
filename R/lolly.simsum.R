@@ -78,6 +78,13 @@ lolly.simsum <- function(obj, sstat, by = NULL, target = NULL, level = 0.95, gpa
     }
   }
 
+  ### Factorise `methodvar` if defined and if it is not already a factor to obtain a proper colour scale
+  if (!is.null(obj[["methodvar"]])) {
+  	if (!("factor" %in% class(obj[["summ"]][[obj[["methodvar"]]]]))) {
+  		obj[["summ"]][[obj[["methodvar"]]]] <- stats::relevel(factor(obj[["summ"]][[obj[["methodvar"]]]]), ref = obj[["ref"]])
+  	}
+  }
+
   ### Build a ggplot object
   gg <- ggplot2::ggplot(get_data(obj)[get_data(obj)[["stat"]] == sstat, ], ggplot2::aes_string(x = "est", y = obj[["methodvar"]], xend = target, yend = obj[["methodvar"]])) +
     ggplot2::geom_vline(xintercept = target, linetype = gpars.ok$target.shape, colour = gpars.ok$target.colour) +

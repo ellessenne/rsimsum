@@ -79,6 +79,13 @@ heat.simsum <- function(obj, sstat, y, target = NULL, text = FALSE, gpars = list
   minest <- min(get_data(obj)[get_data(obj)[["stat"]] == sstat, "est"])
   maxest <- max(get_data(obj)[get_data(obj)[["stat"]] == sstat, "est"])
 
+  ### Factorise `methodvar` if defined and if it is not already a factor to obtain a proper colour scale
+  if (!is.null(obj[["methodvar"]])) {
+  	if (!("factor" %in% class(obj[["summ"]][[obj[["methodvar"]]]]))) {
+  		obj[["summ"]][[obj[["methodvar"]]]] <- stats::relevel(factor(obj[["summ"]][[obj[["methodvar"]]]]), ref = obj[["ref"]])
+  	}
+  }
+
   ### Build a ggplot object
   gg <- ggplot2::ggplot(get_data(obj)[get_data(obj)[["stat"]] == sstat, ], ggplot2::aes_string(x = obj[["methodvar"]], y = y, fill = "est")) +
     ggplot2::geom_tile() +

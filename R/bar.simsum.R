@@ -72,6 +72,13 @@ bar.simsum <- function(obj, sstat, by = NULL, target = NULL, level = 0.95, gpars
     }
   }
 
+  ### Factorise `methodvar` if defined and if it is not already a factor to obtain a proper colour scale
+  if (!is.null(obj[["methodvar"]])) {
+  	if (!("factor" %in% class(obj[["summ"]][[obj[["methodvar"]]]]))) {
+  		obj[["summ"]][[obj[["methodvar"]]]] <- stats::relevel(factor(obj[["summ"]][[obj[["methodvar"]]]]), ref = obj[["ref"]])
+  	}
+  }
+
   ### Build a ggplot object
   gg <- ggplot2::ggplot(get_data(summary(obj))[get_data(obj)[["stat"]] == sstat, ], ggplot2::aes_string(x = obj[["methodvar"]], y = "est")) +
     ggplot2::geom_bar(stat = "identity", colour = gpars.ok$bar.colour, fill = gpars.ok$bar.fill) +
