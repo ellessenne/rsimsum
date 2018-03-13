@@ -46,7 +46,7 @@ multisimsum <- function(data,
   # the names must be the same unique values in `par`
   checkmate::assert_named(x = true, add = arg_checks)
   checkmate::assert_true(x = (length(unique(data[[par]])) == length(true)), add = arg_checks)
-  checkmate::assert_true(x = all(sort(names(true)) == sort(unique(data[[par]]))), add = arg_checks)
+  checkmate::assert_true(x = all(names(true) %in% unique(data[[par]])), add = arg_checks)
 
   # `max`, `semax`
   checkmate::assert_number(max, add = arg_checks)
