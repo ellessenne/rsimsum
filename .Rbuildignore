@@ -11,6 +11,6 @@ cran-comments.md
 figure$
 cache$
 ^.*\.md$
-LICENSE
+^LICENSE\.md$
 ^CONDUCT\.md$
 ^CONTRIBUTING\.md$

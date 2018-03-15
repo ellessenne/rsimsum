@@ -33,22 +33,22 @@
 
 simsum <-
   function(data,
-           estvarname,
-           true,
-           se,
-           methodvar = NULL,
-           ref = NULL,
-           df = NULL,
-           dropbig = FALSE,
-           max = 10,
-           semax = 100,
-           level = 0.95,
-           by = NULL,
-           mcse = TRUE,
-           sanitise = TRUE,
-           na.rm = TRUE,
-           na.pair = TRUE,
-           x = FALSE) {
+             estvarname,
+             true,
+             se,
+             methodvar = NULL,
+             ref = NULL,
+             df = NULL,
+             dropbig = FALSE,
+             max = 10,
+             semax = 100,
+             level = 0.95,
+             by = NULL,
+             mcse = TRUE,
+             sanitise = TRUE,
+             na.rm = TRUE,
+             na.pair = TRUE,
+             x = FALSE) {
     ### Check arguments
     arg_checks <- checkmate::makeAssertCollection()
 
@@ -109,9 +109,9 @@ simsum <-
 
     ### Coerce `methodvar` to character (if specified and not already string)
     if (!is.null(methodvar)) {
-    	if (class(data[[methodvar]]) != "character") {
-    		data[[methodvar]] = as.character(data[[methodvar]])
-    	}
+      if (class(data[[methodvar]]) != "character") {
+        data[[methodvar]] <- as.character(data[[methodvar]])
+      }
     }
 
     ### Set reference method if `ref` is not specified

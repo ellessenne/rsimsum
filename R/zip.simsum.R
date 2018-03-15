@@ -67,7 +67,7 @@ zip.simsum <- function(obj, wald.level = 0.95, gpars = list(), ...) {
           b = methodsplit[[x]][[obj[["estvarname"]]]],
           se = methodsplit[[x]][[obj[["se"]]]]
         )
-        d$w <- (d$b - obj[["true"]]) ^ 2 / d$se ^ 2
+        d$w <- (d$b - obj[["true"]])^2 / d$se^2
         d$p <- stats::pchisq(d$w, df = 1, lower.tail = FALSE)
         d$order <- rank(-d$p)
         d[[obj[["methodvar"]]]] <- names(methodsplit)[x]
@@ -87,7 +87,7 @@ zip.simsum <- function(obj, wald.level = 0.95, gpars = list(), ...) {
         b = methodsplit[[x]][[obj[["estvarname"]]]],
         se = methodsplit[[x]][[obj[["se"]]]]
       )
-      d$w <- (d$b - obj[["true"]]) ^ 2 / d$se ^ 2
+      d$w <- (d$b - obj[["true"]])^2 / d$se^2
       d$p <- stats::pchisq(d$w, df = 1, lower.tail = FALSE)
       d$order <- rank(-d$p)
       d[[obj[["methodvar"]]]] <- names(methodsplit)[x]
@@ -100,7 +100,7 @@ zip.simsum <- function(obj, wald.level = 0.95, gpars = list(), ...) {
         b = bysplit[[x]][[obj[["estvarname"]]]],
         se = bysplit[[x]][[obj[["se"]]]]
       )
-      d$w <- (d$b - obj[["true"]]) ^ 2 / d$se ^ 2
+      d$w <- (d$b - obj[["true"]])^2 / d$se^2
       d$p <- stats::pchisq(d$w, df = 1, lower.tail = FALSE)
       d$order <- rank(-d$p)
       byvalues <- unlist(strsplit(names(bysplit)[x], ".", fixed = TRUE))
@@ -115,7 +115,7 @@ zip.simsum <- function(obj, wald.level = 0.95, gpars = list(), ...) {
       b = obj[["data"]][[obj[["estvarname"]]]],
       se = obj[["data"]][[obj[["se"]]]]
     )
-    res$w <- (res$b - obj[["true"]]) ^ 2 / res$se ^ 2
+    res$w <- (res$b - obj[["true"]])^2 / res$se^2
     res$p <- stats::pchisq(res$w, df = 1, lower.tail = FALSE)
     res$order <- rank(-res$p)
   }

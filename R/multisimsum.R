@@ -65,9 +65,9 @@ multisimsum <- function(data,
 
   ### Coerce `methodvar` to character (if specified and not already string)
   if (!is.null(methodvar)) {
-  	if (class(data[[methodvar]]) != "character") {
-  		data[[methodvar]] = as.character(data[[methodvar]])
-  	}
+    if (class(data[[methodvar]]) != "character") {
+      data[[methodvar]] <- as.character(data[[methodvar]])
+    }
   }
 
   ### Set reference method if `ref` is not specified

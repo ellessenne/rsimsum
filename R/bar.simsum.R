@@ -74,9 +74,9 @@ bar.simsum <- function(obj, sstat, by = NULL, target = NULL, level = 0.95, gpars
 
   ### Factorise `methodvar` if defined and if it is not already a factor to obtain a proper colour scale
   if (!is.null(obj[["methodvar"]])) {
-  	if (!("factor" %in% class(obj[["summ"]][[obj[["methodvar"]]]]))) {
-  		obj[["summ"]][[obj[["methodvar"]]]] <- stats::relevel(factor(obj[["summ"]][[obj[["methodvar"]]]]), ref = obj[["ref"]])
-  	}
+    if (!("factor" %in% class(obj[["summ"]][[obj[["methodvar"]]]]))) {
+      obj[["summ"]][[obj[["methodvar"]]]] <- stats::relevel(factor(obj[["summ"]][[obj[["methodvar"]]]]), ref = obj[["ref"]])
+    }
   }
 
   ### Build a ggplot object
