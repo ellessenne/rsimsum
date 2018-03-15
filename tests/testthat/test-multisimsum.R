@@ -152,5 +152,5 @@ test_that("multisimsum with a methodvar not in string format coerce it to string
   frailty[["model"]] <- as.numeric(factor(frailty[["model"]]))
   s2 <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
   expect_true(all(get_data(s1)[["est"]] == get_data(s2)[["est"]]))
-  expect_true(all(get_data(s1)[["mcse"]] == get_data(s2)[["mcse"]]))
+  expect_true(all(na.omit(get_data(s1)[["mcse"]]) == na.omit(get_data(s2)[["mcse"]])))
 })
