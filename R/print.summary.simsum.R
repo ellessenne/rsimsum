@@ -39,7 +39,7 @@ print.summary.simsum <- function(x, digits = 4, sstat = "all", ...) {
   checkmate::assert_int(digits, lower = 0, upper = Inf, add = arg_checks)
 
   # `sstat` must be one of the possible choices
-  checkmate::assert_subset(sstat, choices = c("all", "nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "bccover", "power"), add = arg_checks)
+  checkmate::assert_subset(sstat, choices = c("all", "nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "esd", "mse", "relprec", "modelse", "relerror", "cover", "bccover", "power"), add = arg_checks)
 
   ### Report if there are any errors
   if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
