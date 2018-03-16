@@ -2,7 +2,8 @@
 
 Bug fixes:
 * `bar()`, `forest()`, `lolly()`, `heat()` now appropriately pick a discrete X (or Y) axis scale for methods (if defined) when the method variable is numeric;
-* `simsum()` and `multisimsum()` coerce `methodvar` variable to string format (if specified and not already string).
+* `simsum()` and `multisimsum()` coerce `methodvar` variable to string format (if specified and not already string);
+* fixed typos for empirical standard errors in documentation here and there.
 
 # rsimsum 0.3.0
 

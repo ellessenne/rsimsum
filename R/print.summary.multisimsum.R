@@ -10,7 +10,7 @@
 #' * `se2mean`, average standard error.
 #' * `se2median`, median standard error.
 #' * `bias`, bias in point estimate.
-#' * `esd`, empirical standard error.
+#' * `empse`, empirical standard error.
 #' * `mse`, mean squared error.
 #' * `relprec`, percentage gain in precision relative to the reference method.
 #' * `modelse`, model-based standard error.

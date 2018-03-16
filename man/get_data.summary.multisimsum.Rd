@@ -18,7 +18,7 @@
 \item \code{se2mean}, average standard error.
 \item \code{se2median}, median standard error.
 \item \code{bias}, bias in point estimate.
-\item \code{esd}, empirical standard error.
+\item \code{empse}, empirical standard error.
 \item \code{mse}, mean squared error.
 \item \code{relprec}, percentage gain in precision relative to the reference method.
 \item \code{modelse}, model-based standard error.
