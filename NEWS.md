@@ -1,4 +1,4 @@
-# rsimsum 0.3.0-9000
+# rsimsum 0.3.1
 
 Bug fixes:
 * `bar()`, `forest()`, `lolly()`, `heat()` now appropriately pick a discrete X (or Y) axis scale for methods (if defined) when the method variable is numeric;
