@@ -6,8 +6,16 @@ Description: Summarise results from simulation studies and compute Monte Carlo
   standard errors of commonly used summary statistics. This package is modelled 
   on the 'simsum' user-written command in 'Stata' (See White I.R., 2010 
   <http://www.stata-journal.com/article.html?article=st0200>).
-Authors@R: c(person("Alessandro", "Gasparini", role = c("aut", "cre"), email = "ag475@leicester.ac.uk"),
-	person("Ian R.", "White", role = "aut"))
+Authors@R: c(
+  person(given = "Alessandro", 
+         family = "Gasparini", 
+         role = c("aut", "cre"), 
+         email = "ag475@leicester.ac.uk",
+         comment = c(ORCID = "0000-0002-8319-7624")),
+  person(given = "Ian R.", 
+         family = "White", 
+         role = "aut")
+  )
 License: GPL (>= 3)
 Depends:
  R (>= 2.10)
