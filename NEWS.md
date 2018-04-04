@@ -7,7 +7,7 @@ Bug fixes:
 
 Updated code of conduct (`CONDUCT.md`) and contributing guidelines (`CONTRIBUTING.md`).
 
-Removed dependency on the `tidyverse` package (thanks @dataandme).
+Removed dependency on the `tidyverse` package (thanks Mara Averick).
 
 # rsimsum 0.3.0
 
