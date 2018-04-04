@@ -5,6 +5,8 @@ Bug fixes:
 * `simsum()` and `multisimsum()` coerce `methodvar` variable to string format (if specified and not already string);
 * fixed typos for empirical standard errors in documentation here and there.
 
+Updated code of conduct (`CONDUCT.md`) and contributing guidelines (`CONTRIBUTING.md`).
+
 # rsimsum 0.3.0
 
 Bug fixes:
