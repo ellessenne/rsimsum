@@ -17,13 +17,13 @@ Imports:
 Suggests:
  covr,
  devtools,
+ dplyr,
  eha,
  knitr,
  rmarkdown,
  rstpm2,
  survival,
- testthat,
- tidyverse
+ testthat
 URL: https://github.com/ellessenne/rsimsum
 BugReports: https://github.com/ellessenne/rsimsum/issues
 VignetteBuilder: knitr

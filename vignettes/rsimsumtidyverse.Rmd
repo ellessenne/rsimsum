@@ -23,7 +23,8 @@ knitr::opts_chunk$set(
 
 ```{r packages}
 library(rsimsum)
-library(tidyverse)
+library(dplyr)
+library(ggplot2)
 library(knitr)
 ```
 
