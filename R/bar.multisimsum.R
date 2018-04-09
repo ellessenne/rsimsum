@@ -99,7 +99,7 @@ bar.multisimsum <- function(obj, sstat, par = NULL, by = NULL, target = NULL, le
   gg <- gg +
     ggplot2::geom_bar(stat = "identity", colour = gpars.ok$bar.colour, fill = gpars.ok$bar.fill) +
     ggplot2::geom_hline(yintercept = target, linetype = gpars.ok$target.shape, colour = gpars.ok$target.colour) +
-    ggplot2::labs(x = sstat)
+    ggplot2::labs(y = sstat)
   # Add 'confidence intervals' if mcse are available
   if (obj[["mcse"]] & sstat %in% c("bias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "bccover", "power")) {
     gg <- gg + ggplot2::geom_errorbar(ggplot2::aes_string(ymin = "lower", ymax = "upper"), width = gpars.ok$width)

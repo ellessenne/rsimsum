@@ -2,6 +2,9 @@
 
 Merged pull request #1 from @mllg adapting to new version of checkmate.
 
+Bug fixes:
+* automatic labels in `bar()` and `forest()` now are picked up properly.
+
 # rsimsum 0.3.1
 
 Bug fixes:

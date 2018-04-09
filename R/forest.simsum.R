@@ -86,7 +86,7 @@ forest.simsum <- function(obj, sstat, by = NULL, target = NULL, level = 0.95, gp
   gg <- ggplot2::ggplot(get_data(summary(obj))[get_data(obj)[["stat"]] == sstat, ], ggplot2::aes_string(x = obj[["methodvar"]], y = "est")) +
     ggplot2::geom_hline(yintercept = target, linetype = gpars.ok$target.shape, colour = gpars.ok$target.colour) +
     ggplot2::geom_point() +
-    ggplot2::labs(x = sstat)
+    ggplot2::labs(y = sstat)
   # Add 'confidence intervals' if mcse are available
   if (obj[["mcse"]] & sstat %in% c("bias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "bccover", "power")) {
     gg <- gg + ggplot2::geom_errorbar(ggplot2::aes_string(ymin = "lower", ymax = "upper"), width = gpars.ok$width)
