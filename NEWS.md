@@ -1,3 +1,7 @@
+# rsimsum 0.3.1-9000
+
+Merged pull request #1 from @mllg adapting to new version of checkmate.
+
 # rsimsum 0.3.1
 
 Bug fixes:
