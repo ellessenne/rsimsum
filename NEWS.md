@@ -1,9 +1,8 @@
-# rsimsum 0.3.1-9000
+# rsimsum 0.3.2
 
-Merged pull request #1 from @mllg adapting to new version of checkmate.
-
-Bug fixes:
-* automatic labels in `bar()` and `forest()` now are picked up properly.
+`rsimsum` is a small maintenance release:
+* Merged pull request #1 from @mllg adapting to new version of the `checkmate` package;
+* Fixed a bug where automatic labels in `bar()` and `forest()` were not selected properly.
 
 # rsimsum 0.3.1
 
