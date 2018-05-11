@@ -13,5 +13,5 @@ s <- simsum(
 )
 
 # Plot
-plot <- heat(s, sstat = "bias", y = "baseline", text = TRUE)
-ggsave(plot, filename = "inst/JOSS/plot.png", dpi = 600, width = 6, height = 4)
+plot <- heat(s, sstat = "bias", y = "baseline", text = TRUE, gpars = list(fmt = "%.2f"))
+ggsave(plot, filename = "inst/JOSS/plot.png", dpi = 600, width = 6, height = 3)
