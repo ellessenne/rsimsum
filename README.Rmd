@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 options(width = 100)
 ```
 
-# rsimsum
+# rsimsum <img src="man/figures/hex.png" width = "150" align="right" />
 
 [![Travis-CI Build Status](https://travis-ci.org/ellessenne/rsimsum.svg?branch=master)](https://travis-ci.org/ellessenne/rsimsum)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/rsimsum?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/rsimsum)
@@ -107,3 +107,7 @@ vignette(topic = "plotting", package = "rsimsum")
 
 * White, I.R. 2010. _simsum: Analyses of simulation studies including Monte Carlo error_. The Stata Journal 10(3): 369-385 <[http://www.stata-journal.com/article.html?article=st0200](http://www.stata-journal.com/article.html?article=st0200)>
 * Morris, T.P, White, I.R. and Crowther, M.J. 2017. _Using simulation studies to evaluate statistical methods_. <[arXiv:1712.03198](https://arxiv.org/abs/1712.03198)>
+
+# Copyright
+
+The icon for the hex sticker was made by [Freepik](http://www.freepik.com) from [Flaticon](https://www.flaticon.com) and is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).

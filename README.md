@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-rsimsum
-=======
+rsimsum <img src="man/figures/hex.png" width = "150" align="right" />
+=====================================================================
 
 [![Travis-CI Build Status](https://travis-ci.org/ellessenne/rsimsum.svg?branch=master)](https://travis-ci.org/ellessenne/rsimsum) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/rsimsum?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/rsimsum) [![Coverage Status](https://img.shields.io/codecov/c/github/ellessenne/rsimsum/master.svg)](https://codecov.io/github/ellessenne/rsimsum?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/rsimsum)](https://cran.r-project.org/package=rsimsum) [![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/rsimsum)](https://cran.r-project.org/package=rsimsum) [![CRAN\_Logs\_Badge\_Total](http://cranlogs.r-pkg.org/badges/grand-total/rsimsum)](https://cran.r-project.org/package=rsimsum) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
@@ -182,3 +182,8 @@ References
 
 -   White, I.R. 2010. *simsum: Analyses of simulation studies including Monte Carlo error*. The Stata Journal 10(3): 369-385 &lt;<http://www.stata-journal.com/article.html?article=st0200>&gt;
 -   Morris, T.P, White, I.R. and Crowther, M.J. 2017. *Using simulation studies to evaluate statistical methods*. &lt;[arXiv:1712.03198](https://arxiv.org/abs/1712.03198)&gt;
+
+Copyright
+=========
+
+The icon for the hex sticker was made by [Freepik](http://www.freepik.com) from [Flaticon](https://www.flaticon.com) and is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
