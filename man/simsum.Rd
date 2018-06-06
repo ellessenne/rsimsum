@@ -18,7 +18,7 @@ simsum(data, estvarname, true, se, methodvar = NULL, ref = NULL,
 
 \item{se}{The name of the variable containing the standard errors of the point estimates.}
 
-\item{methodvar}{The name of the variable containing the methods to compare. Can be \code{NULL}.}
+\item{methodvar}{The name of the variable containing the methods to compare. For instance, methods could be the models compared within a simulation study. Can be \code{NULL}.}
 
 \item{ref}{Specifies the reference method against which relative precision will be calculated. Only useful if \code{methodvar} is specified.}
 
@@ -32,7 +32,7 @@ simsum(data, estvarname, true, se, methodvar = NULL, ref = NULL,
 
 \item{level}{Specifies the confidence level for coverage and power. Defaults to \code{0.95}.}
 
-\item{by}{A vector of variable names to compute performance measures by a list of factors. Can be \code{NULL}.}
+\item{by}{A vector of variable names to compute performance measures by a list of factors. Factors listed here are the (potentially several) data-generating mechanisms used to simulate data under different scenarios (e.g. sample size, true distribution of a variable, etc.). Can be \code{NULL}.}
 
 \item{mcse}{Reports Monte Carlo standard errors for all performance measures. Defaults to \code{TRUE}.}
 

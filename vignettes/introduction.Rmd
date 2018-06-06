@@ -166,12 +166,33 @@ We summarise the results of the simulation study by method using the `simsum` fu
 s1 <- simsum(data = MIsim, estvarname = "b", true = 0.50, se = "se", methodvar = "method", ref = "CC")
 ```
 
+We set `true = 0.50` as the true value of the point estimate `b` - under which the data was simulated - is 0.50. We select `CC` as the reference method as we consider the complete cases analysis the reference method to benchmark against; if we do not set a reference method, `simsum` picks one automatically.
+
 Using the default settings, Monte Carlo standard errors are computed and returned. 
+
+Summarising a `simsum` object, we obtain the following output:
 
 ```{r ex1-summary-simsum}
 ss1 <- summary(s1)
 ss1
 ```
+
+The output begins with a brief overview of the setting of the simulation study (e.g. the method variable, unique methods, etc.), and continues with a table of summary statistics for each method compared with this simulation study. The table contains the following columns:
+
+* `Estimate`: the point estimate of each summary statistics;
+
+* `MCSE`: the Monte Carlo standard error of each point estimate;
+
+* `Lower (1 - (1 - X) / 2)%` and `Upper ((1 - X) / 2)%`: bounds of a \(X\%\) confidence interval for the point estimate based on the Monte Carlo standard error.
+
+Highlighting some points of interest from the summary results above:
+
+1. The `CC` method has small-sample bias away from the null (point estimate 0.0168, with 95% confidence interval: 0.0074 - 0.0261);
+2. `CC` is inefficient compared with `MI_LOGT` and `MI_T`: the relative gain in precision for these two methods is 1.3105% and 1.2637% compared to `CC`, respectively;
+3. Model-based standard errors are close to empirical standard errors;
+4. Coverage of nominal 95% confidence intervals also seems fine, which is not surprising in view of the generally low (or lack of) bias and good model-based standard errors;
+5. `CC` has lower power compared with `MI_LOGT` and `MI_T`, which is not surprising
+in view of its inefficiency.
 
 ## Tabulating summary statistics
 
@@ -270,7 +291,7 @@ str(relhaz)
 
 * `se`, standard error of the point estimate.
 
-`rsimsum` can summarise results from simulation studies with plenty of data-generating mechanisms. For instance, with this example we show how to compute summary statistics by baseline hazard function and sample size.
+`rsimsum` can summarise results from simulation studies with several data-generating mechanisms. For instance, with this example we show how to compute summary statistics by baseline hazard function and sample size.
 
 In order to summarise results by data-generating factors, it is sufficient to define the "by" factors in the call to `simsum`:
 
@@ -278,6 +299,8 @@ In order to summarise results by data-generating factors, it is sufficient to de
 s2 <- simsum(data = relhaz, estvarname = "theta", true = -0.50, se = "se", methodvar = "model", by = c("baseline", "n"))
 s2
 ```
+
+The difference between `methodvar` and `by` is as follows: `methodvar` represents methods (e.g. the two models, in this example) compared with this simulation study, while `by` represents all possible data-generating factors that varied when simulating data (in this case, sample size and the true baseline hazard function).
 
 Summarising the results will be printed out for each method and combination of data-generating factors:
 

@@ -4,14 +4,14 @@
 #' @param estvarname The name of the variable containing the point estimates.
 #' @param true The true value of the parameter. This is used in calculations of bias and coverage.
 #' @param se The name of the variable containing the standard errors of the point estimates.
-#' @param methodvar The name of the variable containing the methods to compare. Can be `NULL`.
+#' @param methodvar The name of the variable containing the methods to compare. For instance, methods could be the models compared within a simulation study. Can be `NULL`.
 #' @param ref Specifies the reference method against which relative precision will be calculated. Only useful if `methodvar` is specified.
 #' @param df If specified, a t distribution with `df` degrees of freedom is used when calculating coverage and power.
 #' @param dropbig Specifies that point estimates or standard errors beyond the maximum acceptable values should be dropped.
 #' @param max Specifies the maximum acceptable absolute value of the point estimates, standardised to mean 0 and SD 1. Defaults to `10`.
 #' @param semax Specifies the maximum acceptable value of the standard error, as a multiple of the mean standard error. Defaults to `100`.
 #' @param level Specifies the confidence level for coverage and power. Defaults to `0.95`.
-#' @param by A vector of variable names to compute performance measures by a list of factors. Can be `NULL`.
+#' @param by A vector of variable names to compute performance measures by a list of factors. Factors listed here are the (potentially several) data-generating mechanisms used to simulate data under different scenarios (e.g. sample size, true distribution of a variable, etc.). Can be `NULL`.
 #' @param mcse Reports Monte Carlo standard errors for all performance measures. Defaults to `TRUE`.
 #' @param sanitise Sanitise column names passed to `simsum` by removing all dot characters (`.`), which could cause problems. Defaults to `TRUE`.
 #' @param na.rm A logical value indicating whether missing values (`NA`) should be removed before the computation proceeds. Defaults to `TRUE`.
