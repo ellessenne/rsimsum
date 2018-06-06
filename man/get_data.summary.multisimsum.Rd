@@ -4,7 +4,8 @@
 \alias{get_data.summary.multisimsum}
 \title{get_data.summary.multisimsum}
 \usage{
-\method{get_data}{summary.multisimsum}(x, sstat = "all", ...)
+\method{get_data}{summary.multisimsum}(x, sstat = "all",
+  description = FALSE, ...)
 }
 \arguments{
 \item{x}{An object of class \code{summary.multisimsum}.}
@@ -28,6 +29,8 @@
 \item \code{power}, power of a (1 - \code{level})\% level test.#'
 }}
 
+\item{description}{Append a column to the returned \code{data.frame} with a description of each summary statistic? Defaults to \code{FALSE}.}
+
 \item{...}{Ignored.}
 }
 \value{
@@ -43,6 +46,7 @@ ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50,
    by = "fv_dist")
 sms <- summary(ms)
 get_data(sms)
+get_data(sms, description = TRUE)
 }
 \seealso{
 \code{\link[=summary.multisimsum]{summary.multisimsum()}}, \code{\link[=get_data]{get_data()}}

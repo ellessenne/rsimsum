@@ -1,5 +1,9 @@
 # rsimsum 0.3.2-9000
 
+Improvements:
+* Improved printing of confidence intervals for summary statistics based on Monte Carlo standard errors;
+* Added a `description` argument to each `get_data` method, to append a column with a description of each summary statistics exported; defaults to `FALSE`.
+
 # rsimsum 0.3.2
 
 `rsimsum` is a small maintenance release:

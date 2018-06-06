@@ -4,7 +4,8 @@
 \alias{get_data.summary.simsum}
 \title{get_data.summary.simsum}
 \usage{
-\method{get_data}{summary.simsum}(x, sstat = "all", ...)
+\method{get_data}{summary.simsum}(x, sstat = "all", description = FALSE,
+  ...)
 }
 \arguments{
 \item{x}{An object of class \code{summary.simsum}.}
@@ -28,6 +29,8 @@
 \item \code{power}, power of a (1 - \code{level})\% level test.#'
 }}
 
+\item{description}{Append a column to the returned \code{data.frame} with a description of each summary statistic? Defaults to \code{FALSE}.}
+
 \item{...}{Ignored.}
 }
 \value{
@@ -44,7 +47,10 @@ xs <- summary(x)
 get_data(xs)
 
 # Exporting only bias and coverage:
-get_data(xs, ssta = c("bias", "cover"))
+get_data(xs, sstat = c("bias", "cover"))
+
+# Append a column with a description of each summary statistic exported:
+get_data(xs, sstat = c("bias", "cover"), description = TRUE)
 }
 \seealso{
 \code{\link[=summary.simsum]{summary.simsum()}}, \code{\link[=get_data]{get_data()}}
