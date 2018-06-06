@@ -81,8 +81,8 @@ print.summary.multisimsum <- function(x, digits = 4, sstat = "all", ...) {
   names(x$summ)[names(x$summ) == "est"] <- "Estimate"
   if (x$mcse) {
     names(x$summ)[names(x$summ) == "mcse"] <- "MCSE"
-    names(x$summ)[names(x$summ) == "lower"] <- paste("Lower", sprintf("%.0f%%", 100 * (x$ci_level)))
-    names(x$summ)[names(x$summ) == "upper"] <- paste("Upper", sprintf("%.0f%%", 100 * (x$ci_level)))
+    names(x$summ)[names(x$summ) == "lower"] <- paste("Lower", sprintf("%.0f%%", 100 * (1 - x$ci_level) / 2))
+    names(x$summ)[names(x$summ) == "upper"] <- paste("Upper", sprintf("%.0f%%", 100 - 100 * (1 - x$ci_level) / 2))
   }
 
   ### Print pretty summary
