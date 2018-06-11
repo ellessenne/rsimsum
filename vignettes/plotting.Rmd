@@ -66,7 +66,7 @@ Pattern plots allow to assess serial trends in estimates and standard errors:
 pattern(s1)
 ```
 
-Estimates and standard errors mostly overlap, in this settings.
+Estimates and standard errors from the three methods compared with this example mostly overlap, in this settings.
 
 ## Lolly plots
 
@@ -105,7 +105,6 @@ bar(s1, sstat = "bias", by = c("n", "baseline"))
 ```{r bar-coverage-1}
 bar(s1, sstat = "cover", by = c("n", "baseline"))
 ```
-
 
 ## Zip plots
 
@@ -255,7 +254,68 @@ heat(s2, par = "fv", sstat = "cover", y = "fv_dist")
 heat(s2, par = "fv", sstat = "cover", y = "fv_dist", text = TRUE)
 ```
 
-# Combining plots with additional `geom_*`, `theme_*`, etc.
+# Custom plotting
+
+All plots produced by `rsimsum` are meant to be quick explorations of results from Monte Carlo simulation studies: they are not meant to be final manuscript-like-quality plots (although they can be useful as a starting point).
+
+All plots can be reproduced with a higher degree of flexibility by combining the `get_data` method with `ggplot2` as follows.
+
+## Custom ordering of data-generating mechanisms and methods
+
+Let's reproduce a lolly plot from the simulation study with a single estimand and customise ordering of the data-generating factors:
+
+```{r custom-ordering}
+library(dplyr)
+s1 %>%
+  summary() %>%
+  get_data() %>%
+  mutate(
+    n = as.numeric(n),
+    baseline = factor(baseline, levels = c("Exponential", "Weibull")),
+    model = factor(model, levels = c("Exp", "RP(2)", "Cox"))
+  ) %>%
+  filter(stat == "bias") %>%
+  ggplot(aes(x = est, y = model, xend = 0, yend = model)) +
+  geom_vline(xintercept = 0, color = "red", linetype = "dashed") +
+  geom_segment(linetype = "dotted") +
+  geom_point(aes(x = est - 1.96 * mcse), pch = "(") +
+  geom_point(aes(x = est + 1.96 * mcse), pch = ")") +
+  geom_point() +
+  facet_wrap(~ n + baseline, labeller = label_both)
+```
+
+Compare with the default plot:
+
+```{r}
+lolly(s1, sstat = "bias", by = c("n", "baseline"))
+```
+
+By default all DGMs are stored as strings, hence the difference between the two plots - calling directly `lolly` will sort values in alphabetical order (where a value of `"250"` comes before a value of `"50"`).
+
+## Using `facet_grid` instead of `facet_wrap`
+
+Analogously, it is possible to use `facet_grid` instead of `facet_wrap`:
+
+```{r custom-facet}
+s1 %>%
+  summary() %>%
+  get_data() %>%
+  mutate(
+    n = as.numeric(n),
+    baseline = factor(baseline, levels = c("Exponential", "Weibull")),
+    model = factor(model, levels = c("Exp", "RP(2)", "Cox"))
+  ) %>%
+  filter(stat == "bias") %>%
+  ggplot(aes(x = est, y = model, xend = 0, yend = model)) +
+  geom_vline(xintercept = 0, color = "red", linetype = "dashed") +
+  geom_segment(linetype = "dotted") +
+  geom_point(aes(x = est - 1.96 * mcse), pch = "(") +
+  geom_point(aes(x = est + 1.96 * mcse), pch = ")") +
+  geom_point() +
+  facet_grid(n ~ baseline, labeller = label_both)
+```
+
+## Combining plots with additional `geom_*`, `theme_*`, etc.
 
 Each method introduced with this vignette returns `ggplot` objects that can be easily combined with any other `geom_*`, `theme_*`, `scale_*`.
 

@@ -3,7 +3,8 @@
 Improvements:
 * Improved printing of confidence intervals for summary statistics based on Monte Carlo standard errors;
 * Added a `description` argument to each `get_data` method, to append a column with a description of each summary statistics exported; defaults to `FALSE`;
-* Improved documentation and introductory vignette to clarify several points (#3, @lebebr01).
+* Improved documentation and introductory vignette to clarify several points (#3, @lebebr01);
+* Improved plotting vignette to document how to customise plots (#4, @lebebr01).
 
 # rsimsum 0.3.2
 
