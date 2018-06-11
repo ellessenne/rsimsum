@@ -1,16 +1,28 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-rsimsum <img src="man/figures/hex.png" width = "150" align="right" />
-=====================================================================
 
-[![Travis-CI Build Status](https://travis-ci.org/ellessenne/rsimsum.svg?branch=master)](https://travis-ci.org/ellessenne/rsimsum) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/rsimsum?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/rsimsum) [![Coverage Status](https://img.shields.io/codecov/c/github/ellessenne/rsimsum/master.svg)](https://codecov.io/github/ellessenne/rsimsum?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/rsimsum)](https://cran.r-project.org/package=rsimsum) [![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/rsimsum)](https://cran.r-project.org/package=rsimsum) [![CRAN\_Logs\_Badge\_Total](http://cranlogs.r-pkg.org/badges/grand-total/rsimsum)](https://cran.r-project.org/package=rsimsum) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+# rsimsum <img src="man/figures/hex.png" width = "150" align="right" />
 
-`rsimsum` is an R package for summarising results from simulation studies and computing Monte Carlo standard errors of commonly used summary statistics.
+[![Travis-CI Build
+Status](https://travis-ci.org/ellessenne/rsimsum.svg?branch=master)](https://travis-ci.org/ellessenne/rsimsum)
+[![AppVeyor Build
+Status](https://ci.appveyor.com/api/projects/status/github/ellessenne/rsimsum?branch=master&svg=true)](https://ci.appveyor.com/project/ellessenne/rsimsum)
+[![Coverage
+Status](https://img.shields.io/codecov/c/github/ellessenne/rsimsum/master.svg)](https://codecov.io/github/ellessenne/rsimsum?branch=master)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/rsimsum)](https://cran.r-project.org/package=rsimsum)
+[![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/rsimsum)](https://cran.r-project.org/package=rsimsum)
+[![CRAN\_Logs\_Badge\_Total](http://cranlogs.r-pkg.org/badges/grand-total/rsimsum)](https://cran.r-project.org/package=rsimsum)
+[![PRs
+Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
-This package is modelled on the `simsum` user-written command in `Stata` (White I.R., 2010).
+`rsimsum` is an R package for summarising results from simulation
+studies and computing Monte Carlo standard errors of commonly used
+summary statistics.
 
-Installation
-------------
+This package is modelled on the `simsum` user-written command in `Stata`
+(White I.R., 2010).
+
+## Installation
 
 You can install `rsimsum` from CRAN:
 
@@ -18,17 +30,19 @@ You can install `rsimsum` from CRAN:
 install.packages("rsimsum")
 ```
 
-Alternatively, it is possible to install the development version from GitHub via:
+Alternatively, it is possible to install the development version from
+GitHub via:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("ellessenne/rsimsum")
 ```
 
-Example
--------
+## Example
 
-This is a basic example using data from a simulation study on missing data (type `help("MIsim", package = "rsimsum")` in the R console for more information):
+This is a basic example using data from a simulation study on missing
+data (type `help("MIsim", package = "rsimsum")` in the R console for
+more information):
 
 ``` r
 library(rsimsum)
@@ -72,70 +86,70 @@ summary(s)
 #> Summary statistics:
 #> 
 #>  Method = CC 
-#>                                              Estimate   MCSE Lower 95% Upper 95%
-#>  Simulations with non-missing estimates/SEs 1000.0000     NA        NA        NA
-#>                      Average point estimate    0.5168     NA        NA        NA
-#>                       Median point estimate    0.5070     NA        NA        NA
-#>                      Average standard error    0.0216     NA        NA        NA
-#>                       Median standard error    0.0211     NA        NA        NA
-#>                      Bias in point estimate    0.0168 0.0048    0.0074    0.0261
-#>                    Empirical standard error    0.1511 0.0034    0.1445    0.1577
-#>                          Mean squared error    0.0231 0.0011    0.0209    0.0253
-#>   % gain in precision relative to method CC    1.0000 0.0000    1.0000    1.0000
-#>                  Model-based standard error    0.1471 0.0005    0.1461    0.1481
-#>          Relative % error in standard error   -2.6594 2.2049   -6.9810    1.6622
-#>                  Coverage of nominal 95% CI    0.9430 0.0073    0.9286    0.9574
-#>   Bias corrected coverage of nominal 95% CI    0.9400 0.0075    0.9253    0.9547
-#>                      Power of 5% level test    0.9460 0.0071    0.9320    0.9600
+#>                                              Estimate   MCSE Lower 2.5% Upper 97.5%
+#>  Simulations with non-missing estimates/SEs 1000.0000     NA         NA          NA
+#>                      Average point estimate    0.5168     NA         NA          NA
+#>                       Median point estimate    0.5070     NA         NA          NA
+#>                      Average standard error    0.0216     NA         NA          NA
+#>                       Median standard error    0.0211     NA         NA          NA
+#>                      Bias in point estimate    0.0168 0.0048     0.0074      0.0261
+#>                    Empirical standard error    0.1511 0.0034     0.1445      0.1577
+#>                          Mean squared error    0.0231 0.0011     0.0209      0.0253
+#>   % gain in precision relative to method CC    1.0000 0.0000     1.0000      1.0000
+#>                  Model-based standard error    0.1471 0.0005     0.1461      0.1481
+#>          Relative % error in standard error   -2.6594 2.2049    -6.9810      1.6622
+#>                  Coverage of nominal 95% CI    0.9430 0.0073     0.9286      0.9574
+#>   Bias corrected coverage of nominal 95% CI    0.9400 0.0075     0.9253      0.9547
+#>                      Power of 5% level test    0.9460 0.0071     0.9320      0.9600
 #> 
 #>  Method = MI_LOGT 
-#>                                              Estimate   MCSE Lower 95% Upper 95%
-#>  Simulations with non-missing estimates/SEs 1000.0000     NA        NA        NA
-#>                      Average point estimate    0.5009     NA        NA        NA
-#>                       Median point estimate    0.4969     NA        NA        NA
-#>                      Average standard error    0.0182     NA        NA        NA
-#>                       Median standard error    0.0172     NA        NA        NA
-#>                      Bias in point estimate    0.0009 0.0042   -0.0073    0.0091
-#>                    Empirical standard error    0.1320 0.0030    0.1262    0.1378
-#>                          Mean squared error    0.0174 0.0009    0.0157    0.0191
-#>   % gain in precision relative to method CC    1.3105 0.0394    1.2333    1.3876
-#>                  Model-based standard error    0.1349 0.0006    0.1338    0.1361
-#>          Relative % error in standard error    2.2233 2.3318   -2.3469    6.7935
-#>                  Coverage of nominal 95% CI    0.9490 0.0070    0.9354    0.9626
-#>   Bias corrected coverage of nominal 95% CI    0.9490 0.0070    0.9354    0.9626
-#>                      Power of 5% level test    0.9690 0.0055    0.9583    0.9797
+#>                                              Estimate   MCSE Lower 2.5% Upper 97.5%
+#>  Simulations with non-missing estimates/SEs 1000.0000     NA         NA          NA
+#>                      Average point estimate    0.5009     NA         NA          NA
+#>                       Median point estimate    0.4969     NA         NA          NA
+#>                      Average standard error    0.0182     NA         NA          NA
+#>                       Median standard error    0.0172     NA         NA          NA
+#>                      Bias in point estimate    0.0009 0.0042    -0.0073      0.0091
+#>                    Empirical standard error    0.1320 0.0030     0.1262      0.1378
+#>                          Mean squared error    0.0174 0.0009     0.0157      0.0191
+#>   % gain in precision relative to method CC    1.3105 0.0394     1.2333      1.3876
+#>                  Model-based standard error    0.1349 0.0006     0.1338      0.1361
+#>          Relative % error in standard error    2.2233 2.3318    -2.3469      6.7935
+#>                  Coverage of nominal 95% CI    0.9490 0.0070     0.9354      0.9626
+#>   Bias corrected coverage of nominal 95% CI    0.9490 0.0070     0.9354      0.9626
+#>                      Power of 5% level test    0.9690 0.0055     0.9583      0.9797
 #> 
 #>  Method = MI_T 
-#>                                              Estimate   MCSE Lower 95% Upper 95%
-#>  Simulations with non-missing estimates/SEs 1000.0000     NA        NA        NA
-#>                      Average point estimate    0.4988     NA        NA        NA
-#>                       Median point estimate    0.4939     NA        NA        NA
-#>                      Average standard error    0.0179     NA        NA        NA
-#>                       Median standard error    0.0169     NA        NA        NA
-#>                      Bias in point estimate   -0.0012 0.0043   -0.0095    0.0071
-#>                    Empirical standard error    0.1344 0.0030    0.1285    0.1403
-#>                          Mean squared error    0.0181 0.0009    0.0163    0.0198
-#>   % gain in precision relative to method CC    1.2637 0.0384    1.1884    1.3390
-#>                  Model-based standard error    0.1338 0.0006    0.1327    0.1350
-#>          Relative % error in standard error   -0.4412 2.2690   -4.8883    4.0059
-#>                  Coverage of nominal 95% CI    0.9430 0.0073    0.9286    0.9574
-#>   Bias corrected coverage of nominal 95% CI    0.9430 0.0073    0.9286    0.9574
-#>                      Power of 5% level test    0.9630 0.0060    0.9513    0.9747
+#>                                              Estimate   MCSE Lower 2.5% Upper 97.5%
+#>  Simulations with non-missing estimates/SEs 1000.0000     NA         NA          NA
+#>                      Average point estimate    0.4988     NA         NA          NA
+#>                       Median point estimate    0.4939     NA         NA          NA
+#>                      Average standard error    0.0179     NA         NA          NA
+#>                       Median standard error    0.0169     NA         NA          NA
+#>                      Bias in point estimate   -0.0012 0.0043    -0.0095      0.0071
+#>                    Empirical standard error    0.1344 0.0030     0.1285      0.1403
+#>                          Mean squared error    0.0181 0.0009     0.0163      0.0198
+#>   % gain in precision relative to method CC    1.2637 0.0384     1.1884      1.3390
+#>                  Model-based standard error    0.1338 0.0006     0.1327      0.1350
+#>          Relative % error in standard error   -0.4412 2.2690    -4.8883      4.0059
+#>                  Coverage of nominal 95% CI    0.9430 0.0073     0.9286      0.9574
+#>   Bias corrected coverage of nominal 95% CI    0.9430 0.0073     0.9286      0.9574
+#>                      Power of 5% level test    0.9630 0.0060     0.9513      0.9747
 ```
 
-Vignettes
----------
+## Vignettes
 
-`rsimsum` comes with 4 vignettes. In particular, check out the introductory one:
+`rsimsum` comes with 4 vignettes. In particular, check out the
+introductory one:
 
 ``` r
 vignette(topic = "introduction", package = "rsimsum")
 ```
 
-Visualising results
--------------------
+## Visualising results
 
-As of version `0.2.0`, `rsimsum` can produce a variety of plots:
+As of version `0.2.0`, `rsimsum` can produce a variety of
+plots:
 
 ``` r
 s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", x = TRUE)
@@ -157,7 +171,9 @@ zip(s)
 
 <img src="README-zip-1.png" width="75%" style="display: block; margin: auto;" />
 
-As of version `0.3.0`, forest plots and bar plots are supported too as alternatives to lolly plots:
+As of version `0.3.0`, forest plots and bar plots are supported too as
+alternatives to lolly
+plots:
 
 ``` r
 forest(s, sstat = "bias")
@@ -177,13 +193,29 @@ More info on the vignette dedicated to plotting:
 vignette(topic = "plotting", package = "rsimsum")
 ```
 
-References
-==========
+# References
 
--   White, I.R. 2010. *simsum: Analyses of simulation studies including Monte Carlo error*. The Stata Journal 10(3): 369-385 &lt;<http://www.stata-journal.com/article.html?article=st0200>&gt;
--   Morris, T.P, White, I.R. and Crowther, M.J. 2017. *Using simulation studies to evaluate statistical methods*. &lt;[arXiv:1712.03198](https://arxiv.org/abs/1712.03198)&gt;
+  - White, I.R. 2010. *simsum: Analyses of simulation studies including
+    Monte Carlo error*. The Stata Journal 10(3): 369-385
+    \<<http://www.stata-journal.com/article.html?article=st0200>\>
+  - Morris, T.P, White, I.R. and Crowther, M.J. 2017. *Using simulation
+    studies to evaluate statistical methods*.
+    \<[arXiv:1712.03198](https://arxiv.org/abs/1712.03198)\>
 
-Copyright
-=========
+# Warning for RStudio users
 
-The icon for the hex sticker was made by [Freepik](http://www.freepik.com) from [Flaticon](https://www.flaticon.com) and is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
+If you use RStudio and equations are not displayed properly within the
+RStudio viewer window, please access the vignette from [the CRAN
+website](https://cran.rstudio.com/web/packages/rsimsum/) or directly
+from the R console with the command:
+
+``` r
+vignette(topic = "introduction", package = "rsimsum")
+```
+
+# Copyright
+
+The icon for the hex sticker was made by
+[Freepik](http://www.freepik.com) from
+[Flaticon](https://www.flaticon.com) and is licensed by [CC 3.0
+BY](http://creativecommons.org/licenses/by/3.0/).
