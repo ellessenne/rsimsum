@@ -52,7 +52,7 @@ get_data.summary.multisimsum <- function(x, sstat = "all", description = FALSE, 
 
   ### Add description column if requested
   if (description) {
-  	x$summ <- merge_description(x$summ, ref = x$ref, level = x$level)
+    x$summ <- merge_description(x$summ, ref = x$ref, level = x$level)
   }
 
   ### Return data
