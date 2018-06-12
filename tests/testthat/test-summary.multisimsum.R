@@ -14,6 +14,8 @@ test_that("summarising a simsum object works fine and prints ok", {
   x <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se")
   expect_output(print(summary(x)))
   expect_output(print(summary(x), sstat = c("bias", "bccover")))
+  expect_error(print(summary(x), sstat = "wrong"))
+  expect_error(print(summary(x), digits = -1))
 })
 
 test_that("summary.multisimsum returns an object of class summary.multisimsum", {

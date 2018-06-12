@@ -13,6 +13,8 @@ test_that("summarising a simsum object works fine and prints ok", {
   expect_output(print(summary(x), sstat = c("bias", "bccover")))
   x <- simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", by = c("n", "baseline"))
   expect_output(print(summary(x), sstat = c("bias", "bccover")))
+  expect_error(print(summary(x), sstat = "wrong"))
+  expect_error(print(summary(x), digits = -1))
 })
 
 test_that("summary.simsum returns an object of class summary.simsum", {
