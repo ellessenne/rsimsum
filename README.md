@@ -260,6 +260,9 @@ from the R console with the command:
 vignette(topic = "introduction", package = "rsimsum")
 ```
 
+This is a known issue with RStudio (see
+[\#2253](https://github.com/rstudio/rstudio/issues/2253)).
+
 # Copyright
 
 The icon for the hex sticker was made by

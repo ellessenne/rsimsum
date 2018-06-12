@@ -126,6 +126,8 @@ If you use RStudio and equations are not displayed properly within the RStudio v
 vignette(topic = "introduction", package = "rsimsum")
 ```
 
+This is a known issue with RStudio (see [#2253](https://github.com/rstudio/rstudio/issues/2253)).
+
 # Copyright
 
 The icon for the hex sticker was made by [Freepik](http://www.freepik.com) from [Flaticon](https://www.flaticon.com) and is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/).
