@@ -22,6 +22,53 @@ summary statistics.
 This package is modelled on the `simsum` user-written command in `Stata`
 (White I.R., 2010).
 
+`rsimsum` is an R package that can compute summary statistics from
+simulation studies. `rsimsum` is modelled upon a similar package
+available in Stata, the user-written command `simsum` (White I.R.,
+2010).
+
+The aim of `rsimsum` is to help to report simulation studies, including
+understanding the role of chance in results of simulation studies: Monte
+Carlo standard errors and confidence intervals based on them are
+computed and presented to the user by default. `rsimsum` can compute a
+wide variety of summary statistics: bias, empirical and model-based
+standard errors, relative precision, relative error in model standard
+error, mean squared error, coverage, bias. Further details on each
+summary statistic are presented elsewhere (White I.R., 2010; Morris *et
+al*, 2017).
+
+The main function of `rsimsum` is called `simsum` and can handle
+simulation studies with a single estimand of interest at a time. Missing
+values are excluded by default, and it is possible to define boundary
+values to drop estimated values or standard errors exceeding such
+limits. It is possible to define a variable representing methods
+compared with the simulation study, and it is possible to define *by*
+factors, that is, factors that vary between the different simulated
+scenarios (data-generating mechanisms, DGMs). However, methods and DGMs
+are not strictly required: in that case, a simulation study with a
+single scenario and a single method is assumed. Finally, `rsimsum`
+provides a function named `multisimsum` that allows summarising
+simulation studies with multiple estimands as well.
+
+An important step of reporting a simulation study consists in
+visualising the results; therefore, `rsimsum` exploits the R package
+[`ggplot2`](https://CRAN.R-project.org/package=ggplot2) to produce a
+portfolio of opinionated data visualisations for quick exploration of
+results, inferring colours and facetting by data-generating mechanisms.
+`rsimsum` includes methods to produce (1) plots of summary statistics
+with confidence intervals based on Monte Carlo standard errors (forest
+plots, bar plots, and lolly plots), (2) zip plots to graphically
+visualise coverage by directly plotting confidence intervals, and (3)
+heat plots. The latter is a visualisation type that has not been
+traditionally used to present results of simulation studies, and
+consists in a mosaic plot where the factor on the x-axis is the methods
+compared with the current simulation study and the factor on the y-axis
+is one of the data-generating factors, as selected by the user. Each
+tile of the mosaic plot is coloured according to the value of the
+summary statistic of interest, with a red colour representing values
+above the target value and a blue colour representing values below the
+target.
+
 ## Installation
 
 You can install `rsimsum` from CRAN:
