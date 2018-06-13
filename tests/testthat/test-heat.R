@@ -101,10 +101,10 @@ test_that("heat works with different summary statistics", {
 })
 
 test_that("heat throws an error if asking for nsim without target", {
-	data("relhaz", package = "rsimsum")
-	data("frailty", package = "rsimsum")
-	s <- simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = c("n", "baseline"))
-	expect_error(heat(s, sstat = "nsim", y = "n"))
-	sm <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
-	expect_error(heat(sm, sstat = "nsim", y = "n"))
+  data("relhaz", package = "rsimsum")
+  data("frailty", package = "rsimsum")
+  s <- simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = c("n", "baseline"))
+  expect_error(heat(s, sstat = "nsim", y = "n"))
+  sm <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
+  expect_error(heat(sm, sstat = "nsim", y = "n"))
 })
