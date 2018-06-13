@@ -18,7 +18,7 @@ test_that("all columns of a formatted object are string-type columns", {
   data("MIsim")
   x <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
   fx <- format(x, digits = 2)
-  classes <- sapply(X = names(fx$summ), FUN = function(x) class(fx$summ[[x]]))
+  classes <- vapply(X = names(fx$summ), FUN = function(x) class(fx$summ[[x]]), FUN.VALUE = character(length = 1L))
   expect_true(object = all(classes == "character"))
 })
 
@@ -42,7 +42,7 @@ test_that("all columns of a formatted object are string-type columns", {
   data("MIsim")
   x <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
   fx <- format(summary(x), digits = 2)
-  classes <- sapply(X = names(fx$summ), FUN = function(x) class(fx$summ[[x]]))
+  classes <- vapply(X = names(fx$summ), FUN = function(x) class(fx$summ[[x]]), FUN.VALUE = character(length = 1L))
   expect_true(object = all(classes == "character"))
 })
 
@@ -66,7 +66,7 @@ test_that("all columns of a formatted object are string-type columns", {
   data("frailty")
   x <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
   fx <- format(x, digits = 2)
-  classes <- sapply(X = names(fx$summ), FUN = function(x) class(fx$summ[[x]]))
+  classes <- vapply(X = names(fx$summ), FUN = function(x) class(fx$summ[[x]]), FUN.VALUE = character(length = 1L))
   expect_true(object = all(classes == "character"))
 })
 
@@ -90,6 +90,6 @@ test_that("all columns of a formatted object are string-type columns", {
   data("frailty")
   x <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
   fx <- format(summary(x), digits = 2)
-  classes <- sapply(X = names(fx$summ), FUN = function(x) class(fx$summ[[x]]))
+  classes <- vapply(X = names(fx$summ), FUN = function(x) class(fx$summ[[x]]), FUN.VALUE = character(length = 1L))
   expect_true(object = all(classes == "character"))
 })
