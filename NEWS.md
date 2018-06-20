@@ -1,10 +1,15 @@
-# rsimsum 0.3.2-9000
+# rsimsum 0.3.3
+
+`rsimsum` 0.3.3 focuses on improving the documentation of the package.
 
 Improvements:
 * Improved printing of confidence intervals for summary statistics based on Monte Carlo standard errors;
 * Added a `description` argument to each `get_data` method, to append a column with a description of each summary statistics exported; defaults to `FALSE`;
 * Improved documentation and introductory vignette to clarify several points (#3, @lebebr01);
 * Improved plotting vignette to document how to customise plots (#4, @lebebr01).
+
+New:
+* Added CITATION file with references to paper in JOSS.
 
 # rsimsum 0.3.2
 

@@ -1,5 +1,5 @@
 Package: rsimsum
-Version: 0.3.2-9000
+Version: 0.3.3
 Title: Analysis of Simulation Studies Including Monte Carlo Error
 Description: Summarise results from simulation studies and compute Monte Carlo
   standard errors of commonly used summary statistics. This package is modelled 
@@ -37,6 +37,5 @@ BugReports: https://github.com/ellessenne/rsimsum/issues
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
-Encoding: UTF-8
 LazyData: true
 ByteCompile: true
