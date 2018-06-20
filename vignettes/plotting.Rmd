@@ -155,11 +155,15 @@ str(frailty)
 head(frailty, n = 15)
 ```
 
-This dataset has two estimands:
+This dataset has two estimands (estimated parameters from the models):
 
 ```{r estimands-2}
 unique(frailty[["par"]])
 ```
+
+`trt` is the estimated log-treatment effect from the frailty survival model, while `fv` is the estimated variance of the frailty term. 
+
+To analyse this data, one could call `rsimsum` twice to each subset of data for each estimated parameter; `multisimsum` allows summarising this simulation study with a single command.
 
 ## Summarise results
 
