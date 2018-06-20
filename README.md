@@ -12,15 +12,11 @@ Status](https://img.shields.io/codecov/c/github/ellessenne/rsimsum/master.svg)](
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/rsimsum)](https://cran.r-project.org/package=rsimsum)
 [![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/rsimsum)](https://cran.r-project.org/package=rsimsum)
 [![CRAN\_Logs\_Badge\_Total](http://cranlogs.r-pkg.org/badges/grand-total/rsimsum)](https://cran.r-project.org/package=rsimsum)
+[![JOSS
+DOI](http://joss.theoj.org/papers/10.21105/joss.00739/status.svg)](https://doi.org/10.21105/joss.00739)[![Zenodo
+DOI](https://zenodo.org/badge/92379170.svg)](https://zenodo.org/badge/latestdoi/92379170)
 [![PRs
 Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
-
-`rsimsum` is an R package for summarising results from simulation
-studies and computing Monte Carlo standard errors of commonly used
-summary statistics.
-
-This package is modelled on the `simsum` user-written command in `Stata`
-(White I.R., 2010).
 
 `rsimsum` is an R package that can compute summary statistics from
 simulation studies. `rsimsum` is modelled upon a similar package
@@ -238,6 +234,34 @@ More info on the vignette dedicated to plotting:
 
 ``` r
 vignette(topic = "plotting", package = "rsimsum")
+```
+
+# Citation
+
+If you find `rsimsum` useful, please cite it in your publications:
+
+``` r
+citation("rsimsum")
+#> Warning: 'DESCRIPTION' file has an 'Encoding' field and re-encoding is not possible
+#> 
+#> To cite the rsimsum package in publications, please use:
+#> 
+#>   Gasparini, (2018). rsimsum: Summarise results from Monte Carlo simulation studies.
+#>   Journal of Open Source Software, 3(26), 739, https://doi.org/10.21105/joss.00739
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Article{,
+#>     author = {Alessandro Gasparini},
+#>     title = {rsimsum: Summarise results from Monte Carlo simulation studies},
+#>     journal = {Journal of Open Source Software},
+#>     year = {2018},
+#>     volume = {3},
+#>     issue = {26},
+#>     pages = {739},
+#>     doi = {10.21105/joss.00739},
+#>     url = {https://doi.org/10.21105/joss.00739},
+#>   }
 ```
 
 # References
