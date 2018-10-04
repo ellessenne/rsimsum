@@ -12,14 +12,6 @@ r:
   - release
   - devel
 
-install:
-  - Rscript -e "if (!require('devtools')) install.packages('devtools')"
-  - Rscript -e "devtools::install_deps(dep = TRUE)"
-
-cran: http://cran.rstudio.com
-repos:
-  CRAN: http://cran.rstudio.com
-
 r_packages:
   - covr
   - eha
