@@ -7,6 +7,7 @@ perfms <-
              method = NULL,
              methodvar = NULL,
              level,
+             ci.limits,
              df,
              mcse,
              empse_ref = NULL,
@@ -49,7 +50,13 @@ perfms <-
     # Compute critical value from either a normal or a t distribution
     crit <- ifelse(is.null(df), stats::qnorm(1 - (1 - level) / 2), stats::qt(1 - (1 - level) / 2, df = df))
     # Coverage of a nominal (1 - level)% confidence interval
-    cover <- 1 / nsim * sum(true >= data[[estvarname]] - crit * data[[se]] & true <= data[[estvarname]] + crit * data[[se]], na.rm = na.rm)
+    if (is.null(ci.limits)) {
+      cover <- 1 / nsim * sum(true >= data[[estvarname]] - crit * data[[se]] & true <= data[[estvarname]] + crit * data[[se]], na.rm = na.rm)
+    } else {
+    	data[["lower"]] = ci.limits[1]
+    	data[["upper"]] = ci.limits[2]
+    	cover <- 1 / nsim * sum(true >= data[["lower"]] & true <= data[["upper"]], na.rm = na.rm)
+    }
     # Bias-corrected coverage of a nominal (1 - level)% confidence interval
     bccover <- 1 / nsim * sum(mean(data[[estvarname]], na.rm = na.rm) >= data[[estvarname]] - crit * data[[se]] & mean(data[[estvarname]], na.rm = na.rm) <= data[[estvarname]] + crit * data[[se]], na.rm = na.rm)
     # Power of a significance test at the `level` level

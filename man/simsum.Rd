@@ -6,8 +6,8 @@
 \usage{
 simsum(data, estvarname, true, se, methodvar = NULL, ref = NULL,
   df = NULL, dropbig = FALSE, max = 10, semax = 100,
-  level = 0.95, by = NULL, mcse = TRUE, sanitise = TRUE,
-  na.rm = TRUE, na.pair = TRUE, x = FALSE)
+  level = 0.95, ci.limits = NULL, by = NULL, mcse = TRUE,
+  sanitise = TRUE, na.rm = TRUE, na.pair = TRUE, x = FALSE)
 }
 \arguments{
 \item{data}{A \code{data.frame} in which variable names are interpreted. It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.}
@@ -31,6 +31,8 @@ simsum(data, estvarname, true, se, methodvar = NULL, ref = NULL,
 \item{semax}{Specifies the maximum acceptable value of the standard error, as a multiple of the mean standard error. Defaults to \code{100}.}
 
 \item{level}{Specifies the confidence level for coverage and power. Defaults to \code{0.95}.}
+
+\item{ci.limits}{A numeric vector of length 2 specifying the limits (lower and upper) of confidence intervals used to calculate coverage. Useful for non-Wald type estimators (e.g. bootstrap). Defaults to \code{NULL}, where Wald-type confidence intervals based on the provided SEs are calculated for coverage.}
 
 \item{by}{A vector of variable names to compute performance measures by a list of factors. Factors listed here are the (potentially several) data-generating mechanisms used to simulate data under different scenarios (e.g. sample size, true distribution of a variable, etc.). Can be \code{NULL}.}
 

@@ -1,5 +1,7 @@
 # rsimsum 0.3.3-9000
 
+* Added ability to define custom confidence interval limits for calculating coverage via the `ci.limits` argument.
+
 # rsimsum 0.3.3
 
 `rsimsum` 0.3.3 focuses on improving the documentation of the package.

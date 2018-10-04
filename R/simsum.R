@@ -11,6 +11,7 @@
 #' @param max Specifies the maximum acceptable absolute value of the point estimates, standardised to mean 0 and SD 1. Defaults to `10`.
 #' @param semax Specifies the maximum acceptable value of the standard error, as a multiple of the mean standard error. Defaults to `100`.
 #' @param level Specifies the confidence level for coverage and power. Defaults to `0.95`.
+#' @param ci.limits A numeric vector of length 2 specifying the limits (lower and upper) of confidence intervals used to calculate coverage. Useful for non-Wald type estimators (e.g. bootstrap). Defaults to `NULL`, where Wald-type confidence intervals based on the provided SEs are calculated for coverage.
 #' @param by A vector of variable names to compute performance measures by a list of factors. Factors listed here are the (potentially several) data-generating mechanisms used to simulate data under different scenarios (e.g. sample size, true distribution of a variable, etc.). Can be `NULL`.
 #' @param mcse Reports Monte Carlo standard errors for all performance measures. Defaults to `TRUE`.
 #' @param sanitise Sanitise column names passed to `simsum` by removing all dot characters (`.`), which could cause problems. Defaults to `TRUE`.
@@ -42,6 +43,7 @@ simsum <-
              max = 10,
              semax = 100,
              level = 0.95,
+             ci.limits = NULL,
              by = NULL,
              mcse = TRUE,
              sanitise = TRUE,
@@ -96,10 +98,13 @@ simsum <-
     }
 
     # `estvarname`, `se`, `methodvar`, `by` must not be any in (`stat`, `est`, `mcse`, `lower`, `upper`)
-    checkmate::assert_false(x = (estvarname %in% c("stat", "est", "mcse", "lower", "upper")))
-    checkmate::assert_false(x = (se %in% c("stat", "est", "mcse", "lower", "upper")))
+    checkmate::assert_false(x = (estvarname %in% c("stat", "est", "mcse", "lower", "upper")), add = arg_checks)
+    checkmate::assert_false(x = (se %in% c("stat", "est", "mcse", "lower", "upper")), add = arg_checks)
     if (!is.null(methodvar)) checkmate::assert_false(x = (methodvar %in% c("stat", "est", "mcse", "lower", "upper")))
     if (!is.null(by)) checkmate::assert_false(x = any(by %in% c("stat", "est", "mcse", "lower", "upper")))
+
+    ### ci.limits must be a numeric vector of length 2
+    checkmate::assert_numeric(x = ci.limits, len = 2, null.ok = TRUE, add = arg_checks)
 
     ### Report if there are any errors
     if (!arg_checks$isEmpty()) {
@@ -219,6 +224,7 @@ simsum <-
           se = se,
           ref = ref,
           level = level,
+          ci.limits = ci.limits,
           df = df,
           mcse = mcse,
           na.rm = na.rm
@@ -249,6 +255,7 @@ simsum <-
               method = x,
               methodvar = methodvar,
               level = level,
+              ci.limits = ci.limits,
               df = df,
               mcse = mcse,
               na.rm = na.rm,
@@ -276,6 +283,7 @@ simsum <-
             se = se,
             ref = ref,
             level = level,
+            ci.limits = ci.limits,
             df = df,
             mcse = mcse,
             na.rm = na.rm,
@@ -308,6 +316,7 @@ simsum <-
                 method = x,
                 methodvar = methodvar,
                 level = level,
+                ci.limits = ci.limits,
                 df = df,
                 mcse = mcse,
                 na.rm = na.rm,
@@ -342,6 +351,7 @@ simsum <-
     obj$max <- max
     obj$semax <- semax
     obj$level <- level
+    obj$ci.limits <- ci.limits
     obj$by <- by
     obj$mcse <- mcse
     obj$sanitise <- sanitise

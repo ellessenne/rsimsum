@@ -149,3 +149,11 @@ test_that("simsum with x = TRUE returns the original dataset (setting all data p
   expect_s3_class(object = s$data, class = "data.frame")
   expect_equal(object = s$data, expected = na.omit(MIsim))
 })
+
+test_that("simsum with custom ci.limits works as expected", {
+	data("MIsim")
+	s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", ci.limits = c(-Inf, Inf))
+	expect_true(object = all(s$summ$est[s$summ$stat == "cover"] == 1))
+	s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", ci.limits = c(Inf, -Inf))
+	expect_true(object = all(s$summ$est[s$summ$stat == "cover"] == 0))
+})
