@@ -16,3 +16,4 @@ cache$
 ^CONTRIBUTING\.md$
 ^inst/JOSS$
 ^.*\.psd$
+^inst/Sticker$
