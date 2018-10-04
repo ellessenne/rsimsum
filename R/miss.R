@@ -11,8 +11,10 @@
 #' @examples
 #' library(rsimsum)
 #' data("frailty", package = "rsimsum")
-#' miss(data = frailty, estvarname = "b", se = "se", par = "par",
-#'        methodvar = "model", by = "fv_dist")
+#' miss(
+#'   data = frailty, estvarname = "b", se = "se", par = "par",
+#'   methodvar = "model", by = "fv_dist"
+#' )
 miss <- function(data, estvarname, se, par = NULL, methodvar = NULL, by = NULL) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()

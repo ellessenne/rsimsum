@@ -7,8 +7,10 @@
 #' @export
 #' @examples
 #' data("frailty", package = "rsimsum")
-#' m <- miss(data = frailty, estvarname = "b", se = "se", par = "par",
-#'             methodvar = "model", by = "fv_dist")
+#' m <- miss(
+#'   data = frailty, estvarname = "b", se = "se", par = "par",
+#'   methodvar = "model", by = "fv_dist"
+#' )
 #' get_data(m)
 get_data.miss <- function(x, ...) {
   ### Return data

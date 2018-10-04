@@ -4,7 +4,8 @@
 \alias{get_data.multisimsum}
 \title{get_data.multisimsum}
 \usage{
-\method{get_data}{multisimsum}(x, sstat = "all", description = FALSE, ...)
+\method{get_data}{multisimsum}(x, sstat = "all", description = FALSE,
+  ...)
 }
 \arguments{
 \item{x}{An object of class \code{multisimsum}.}
@@ -40,9 +41,13 @@ Extract data from a multisimsum object
 }
 \examples{
 data(frailty)
-ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50,
-   fv = 0.75), estvarname = "b", se = "se", methodvar = "model",
-   by = "fv_dist")
+ms <- multisimsum(
+  data = frailty, par = "par", true = c(
+    trt = -0.50,
+    fv = 0.75
+  ), estvarname = "b", se = "se", methodvar = "model",
+  by = "fv_dist"
+)
 get_data(ms)
 get_data(ms, description = TRUE)
 }

@@ -8,7 +8,6 @@
 #'
 #' @examples
 #' data("MIsim", package = "rsimsum")
-#'
 #' @references White, I.R., and P. Royston. 2009. Imputing missing covariate values for the Cox model. Statistics in Medicine 28(15):1982-1998 \doi{10.1002/sim.3618}
 #' @references Little, R.J.A., and D.B. Rubin. 2002. Statistical analysis with missing data. 2nd ed. Hoboken, NJ: Wiley \doi{10.1002/9781119013563}
 "MIsim"
@@ -25,7 +24,6 @@
 #'
 #' @examples
 #' data("relhaz", package = "rsimsum")
-#'
 #' @references Cox D.R. 1972. Regression models and life-tables. Journal of the Royal Statistical Society, Series B (Methodological) 34(2):187-220. \url{http://www.jstor.org/stable/2985181}
 #' @references Royston, P. and Parmar, M.K. 2002. Flexible parametric proportional-hazards and proportional-odds models for censored survival data, with application to prognostic modelling and estimation of treatment effects. Statistics in Medicine 21(15):2175-2197 \doi{10.1002/sim.1203}
 "relhaz"

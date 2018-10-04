@@ -25,17 +25,18 @@
 #'
 #' @examples
 #' data(MIsim)
-#' x <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se",
-#'             methodvar = "method", mcse = TRUE)
+#' x <- simsum(
+#'   data = MIsim, estvarname = "b", true = 0.5, se = "se",
+#'   methodvar = "method", mcse = TRUE
+#' )
 #' xs <- summary(x)
 #' get_data(xs)
-#'
+#' 
 #' # Exporting only bias and coverage:
 #' get_data(xs, sstat = c("bias", "cover"))
-#'
+#' 
 #' # Append a column with a description of each summary statistic exported:
 #' get_data(xs, sstat = c("bias", "cover"), description = TRUE)
-
 get_data.summary.simsum <- function(x, sstat = "all", description = FALSE, ...) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()

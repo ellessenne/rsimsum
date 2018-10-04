@@ -19,8 +19,10 @@ Extract data from a miss object
 }
 \examples{
 data("frailty", package = "rsimsum")
-m <- miss(data = frailty, estvarname = "b", se = "se", par = "par",
-            methodvar = "model", by = "fv_dist")
+m <- miss(
+  data = frailty, estvarname = "b", se = "se", par = "par",
+  methodvar = "model", by = "fv_dist"
+)
 get_data(m)
 }
 \seealso{

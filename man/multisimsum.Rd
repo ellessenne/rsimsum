@@ -4,10 +4,10 @@
 \alias{multisimsum}
 \title{Analyses of simulation studies with multiple estimands at once, including Monte Carlo error}
 \usage{
-multisimsum(data, par, true, estvarname, se, methodvar = NULL, ref = NULL,
-  df = NULL, dropbig = FALSE, max = 10, semax = 100, level = 0.95,
-  by = NULL, mcse = TRUE, sanitise = TRUE, na.rm = TRUE,
-  na.pair = TRUE, x = FALSE)
+multisimsum(data, par, true, estvarname, se, methodvar = NULL,
+  ref = NULL, df = NULL, dropbig = FALSE, max = 10, semax = 100,
+  level = 0.95, by = NULL, mcse = TRUE, sanitise = TRUE,
+  na.rm = TRUE, na.pair = TRUE, x = FALSE)
 }
 \arguments{
 \item{data}{A \code{data.frame} in which variable names are interpreted. It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.}
@@ -58,8 +58,12 @@ Calling the function with \code{x = TRUE} is required to produce zip plots (e.g.
 }
 \examples{
 data("frailty", package = "rsimsum")
-ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50,
-   fv = 0.75), estvarname = "b", se = "se", methodvar = "model",
-   by = "fv_dist")
+ms <- multisimsum(
+  data = frailty, par = "par", true = c(
+    trt = -0.50,
+    fv = 0.75
+  ), estvarname = "b", se = "se", methodvar = "model",
+  by = "fv_dist"
+)
 ms
 }

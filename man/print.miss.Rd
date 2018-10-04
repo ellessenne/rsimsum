@@ -19,8 +19,10 @@ Print method for \code{miss} objects
 \examples{
 library(rsimsum)
 data("frailty", package = "rsimsum")
-m <- miss(data = frailty, estvarname = "b", se = "se", par = "par",
-            methodvar = "model", by = "fv_dist")
+m <- miss(
+  data = frailty, estvarname = "b", se = "se", par = "par",
+  methodvar = "model", by = "fv_dist"
+)
 print(m)
 print(m, fmt = "\%.2f")
 }

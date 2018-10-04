@@ -4,7 +4,8 @@
 \alias{zip.multisimsum}
 \title{zip method for multisimsum objects}
 \usage{
-\method{zip}{multisimsum}(obj, par, wald.level = 0.95, gpars = list(), ...)
+\method{zip}{multisimsum}(obj, par, wald.level = 0.95, gpars = list(),
+  ...)
 }
 \arguments{
 \item{obj}{An object of class \code{multisimsum}.}
@@ -36,8 +37,12 @@ A \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} object that can be combined wi
 library(rsimsum)
 library(ggplot2)
 data("frailty", package = "rsimsum")
-ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50,
-   fv = 0.75), estvarname = "b", se = "se", methodvar = "model",
-   by = "fv_dist", x = TRUE)
+ms <- multisimsum(
+  data = frailty, par = "par", true = c(
+    trt = -0.50,
+    fv = 0.75
+  ), estvarname = "b", se = "se", methodvar = "model",
+  by = "fv_dist", x = TRUE
+)
 zip(ms, par = "trt")
 }

@@ -19,7 +19,6 @@ A dataset from a simulation study comparing different ways to handle missing cov
 }
 \examples{
 data("MIsim", package = "rsimsum")
-
 }
 \references{
 White, I.R., and P. Royston. 2009. Imputing missing covariate values for the Cox model. Statistics in Medicine 28(15):1982-1998 \doi{10.1002/sim.3618}

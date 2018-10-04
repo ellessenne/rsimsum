@@ -4,8 +4,8 @@
 \alias{get_data.summary.simsum}
 \title{get_data.summary.simsum}
 \usage{
-\method{get_data}{summary.simsum}(x, sstat = "all", description = FALSE,
-  ...)
+\method{get_data}{summary.simsum}(x, sstat = "all",
+  description = FALSE, ...)
 }
 \arguments{
 \item{x}{An object of class \code{summary.simsum}.}
@@ -41,8 +41,10 @@ Extract data from a summary.simsum object
 }
 \examples{
 data(MIsim)
-x <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se",
-            methodvar = "method", mcse = TRUE)
+x <- simsum(
+  data = MIsim, estvarname = "b", true = 0.5, se = "se",
+  methodvar = "method", mcse = TRUE
+)
 xs <- summary(x)
 get_data(xs)
 

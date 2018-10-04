@@ -10,12 +10,12 @@
 #'
 #' @examples
 #' data("MIsim")
-#' object <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se",
-#' methodvar = "method", mcse = TRUE)
+#' object <- simsum(
+#'   data = MIsim, estvarname = "b", true = 0.5, se = "se",
+#'   methodvar = "method", mcse = TRUE
+#' )
 #' xs <- summary(object)
 #' xs
-
-
 summary.simsum <- function(object, ci_level = 0.95, ...) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()

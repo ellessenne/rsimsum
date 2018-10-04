@@ -24,8 +24,10 @@ Confidence intervals are constructed using quantiles from a normal distribution 
 }
 \examples{
 data("MIsim")
-object <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se",
-methodvar = "method", mcse = TRUE)
+object <- simsum(
+  data = MIsim, estvarname = "b", true = 0.5, se = "se",
+  methodvar = "method", mcse = TRUE
+)
 xs <- summary(object)
 xs
 }

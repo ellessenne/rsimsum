@@ -24,9 +24,13 @@ Confidence intervals are constructed using quantiles from a normal distribution 
 }
 \examples{
 data(frailty)
-ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50,
-   fv = 0.75), estvarname = "b", se = "se", methodvar = "model",
-   by = "fv_dist")
+ms <- multisimsum(
+  data = frailty, par = "par", true = c(
+    trt = -0.50,
+    fv = 0.75
+  ), estvarname = "b", se = "se", methodvar = "model",
+  by = "fv_dist"
+)
 sms <- summary(ms)
 sms
 }

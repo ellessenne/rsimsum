@@ -4,8 +4,8 @@
 \alias{lolly.simsum}
 \title{lolly method for simsum objects}
 \usage{
-\method{lolly}{simsum}(obj, sstat, by = NULL, target = NULL, level = 0.95,
-  gpars = list(), ...)
+\method{lolly}{simsum}(obj, sstat, by = NULL, target = NULL,
+  level = 0.95, gpars = list(), ...)
 }
 \arguments{
 \item{obj}{An object of class \code{simsum}.}
@@ -44,7 +44,9 @@ Coverage, bias corrected coverage, and power will be based on the \eqn{\alpha} d
 library(rsimsum)
 library(ggplot2)
 data("relhaz", package = "rsimsum")
-s <- simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se",
-  methodvar = "model", by = c("n", "baseline"))
+s <- simsum(
+  data = relhaz, estvarname = "theta", true = -0.5, se = "se",
+  methodvar = "model", by = c("n", "baseline")
+)
 lolly(s, sstat = "bias", by = c("n", "baseline"))
 }

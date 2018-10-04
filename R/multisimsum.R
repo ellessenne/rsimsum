@@ -7,9 +7,13 @@
 #' @inherit simsum details
 #' @examples
 #' data("frailty", package = "rsimsum")
-#' ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50,
-#'    fv = 0.75), estvarname = "b", se = "se", methodvar = "model",
-#'    by = "fv_dist")
+#' ms <- multisimsum(
+#'   data = frailty, par = "par", true = c(
+#'     trt = -0.50,
+#'     fv = 0.75
+#'   ), estvarname = "b", se = "se", methodvar = "model",
+#'   by = "fv_dist"
+#' )
 #' ms
 multisimsum <- function(data,
                         par,

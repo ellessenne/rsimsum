@@ -19,7 +19,6 @@
 #' # accuracy of the true coefficient of 0.349 with a 5% significance level,
 #' # assuming the variance of the estimate is 0.0166 and 50% power:
 #' nsim(alpha = 0.05, sigma = sqrt(0.0166), delta = 0.349 * 1 / 100, power = 0.5)
-
 nsim <- function(alpha, sigma, delta, power = 0.5) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()

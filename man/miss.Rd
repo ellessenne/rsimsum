@@ -28,6 +28,8 @@ Obtain basic information on the proportion of missing data within the results of
 \examples{
 library(rsimsum)
 data("frailty", package = "rsimsum")
-miss(data = frailty, estvarname = "b", se = "se", par = "par",
-       methodvar = "model", by = "fv_dist")
+miss(
+  data = frailty, estvarname = "b", se = "se", par = "par",
+  methodvar = "model", by = "fv_dist"
+)
 }

@@ -4,8 +4,8 @@
 \alias{heat.multisimsum}
 \title{heat method for simsum objects}
 \usage{
-\method{heat}{multisimsum}(obj, par, sstat, y, target = NULL, text = FALSE,
-  gpars = list(), ...)
+\method{heat}{multisimsum}(obj, par, sstat, y, target = NULL,
+  text = FALSE, gpars = list(), ...)
 }
 \arguments{
 \item{obj}{An object of class \code{simsum}.}
@@ -53,8 +53,12 @@ heat(s, sstat = "bias", y = "baseline")
 library(rsimsum)
 library(ggplot2)
 data("frailty", package = "rsimsum")
-ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50,
-   fv = 0.75), estvarname = "b", se = "se", methodvar = "model",
-   by = "fv_dist")
+ms <- multisimsum(
+  data = frailty, par = "par", true = c(
+    trt = -0.50,
+    fv = 0.75
+  ), estvarname = "b", se = "se", methodvar = "model",
+  by = "fv_dist"
+)
 heat(ms, sstat = "bias", par = "trt", y = "fv_dist", x = TRUE)
 }

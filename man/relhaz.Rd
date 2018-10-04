@@ -21,7 +21,6 @@ A dataset from a simulation study assessing the impact of misspecifying the base
 }
 \examples{
 data("relhaz", package = "rsimsum")
-
 }
 \references{
 Cox D.R. 1972. Regression models and life-tables. Journal of the Royal Statistical Society, Series B (Methodological) 34(2):187-220. \url{http://www.jstor.org/stable/2985181}

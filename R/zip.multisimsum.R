@@ -18,11 +18,14 @@
 #' library(rsimsum)
 #' library(ggplot2)
 #' data("frailty", package = "rsimsum")
-#' ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50,
-#'    fv = 0.75), estvarname = "b", se = "se", methodvar = "model",
-#'    by = "fv_dist", x = TRUE)
+#' ms <- multisimsum(
+#'   data = frailty, par = "par", true = c(
+#'     trt = -0.50,
+#'     fv = 0.75
+#'   ), estvarname = "b", se = "se", methodvar = "model",
+#'   by = "fv_dist", x = TRUE
+#' )
 #' zip(ms, par = "trt")
-
 zip.multisimsum <- function(obj, par, wald.level = 0.95, gpars = list(), ...) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()

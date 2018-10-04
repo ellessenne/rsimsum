@@ -46,8 +46,12 @@ Coverage, bias corrected coverage, and power will be based on the \eqn{\alpha} d
 library(rsimsum)
 library(ggplot2)
 data("frailty", package = "rsimsum")
-ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50,
-   fv = 0.75), estvarname = "b", se = "se", methodvar = "model",
-   by = "fv_dist")
+ms <- multisimsum(
+  data = frailty, par = "par", true = c(
+    trt = -0.50,
+    fv = 0.75
+  ), estvarname = "b", se = "se", methodvar = "model",
+  by = "fv_dist"
+)
 lolly(ms, sstat = "bias", par = "trt", by = "fv_dist")
 }

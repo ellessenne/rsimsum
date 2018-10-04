@@ -14,9 +14,11 @@
 #' library(rsimsum)
 #' library(ggplot2)
 #' data("frailty", package = "rsimsum")
-#' ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75),
-#'                     estvarname = "b", se = "se", methodvar = "model",
-#'                     by = "fv_dist", x = TRUE)
+#' ms <- multisimsum(
+#'   data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75),
+#'   estvarname = "b", se = "se", methodvar = "model",
+#'   by = "fv_dist", x = TRUE
+#' )
 #' pattern(ms)
 #' pattern(ms, par = "trt")
 pattern.multisimsum <- function(obj, par = NULL, gpars = list(), ...) {

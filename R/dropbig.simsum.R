@@ -8,12 +8,13 @@
 #'
 #' @examples
 #' data("MIsim")
-#' x <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se",
-#'             methodvar = "method", mcse = TRUE,
-#' dropbig = TRUE, max = 3, semax = 1.5)
+#' x <- simsum(
+#'   data = MIsim, estvarname = "b", true = 0.5, se = "se",
+#'   methodvar = "method", mcse = TRUE,
+#'   dropbig = TRUE, max = 3, semax = 1.5
+#' )
 #' d <- dropbig(x)
 #' d
-
 dropbig.simsum <- function(x, ...) {
   obj <- list()
   if (x$dropbig) {

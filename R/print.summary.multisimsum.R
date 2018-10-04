@@ -24,9 +24,13 @@
 #'
 #' @examples
 #' data(frailty)
-#' ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50,
-#'    fv = 0.75), estvarname = "b", se = "se", methodvar = "model",
-#'    by = "fv_dist")
+#' ms <- multisimsum(
+#'   data = frailty, par = "par", true = c(
+#'     trt = -0.50,
+#'     fv = 0.75
+#'   ), estvarname = "b", se = "se", methodvar = "model",
+#'   by = "fv_dist"
+#' )
 #' sms <- summary(ms)
 #' sms
 print.summary.multisimsum <- function(x, digits = 4, sstat = "all", ...) {
