@@ -242,7 +242,6 @@ If you find `rsimsum` useful, please cite it in your publications:
 
 ``` r
 citation("rsimsum")
-#> Warning: 'DESCRIPTION' file has an 'Encoding' field and re-encoding is not possible
 #> 
 #> To cite the rsimsum package in publications, please use:
 #> 
@@ -269,9 +268,12 @@ citation("rsimsum")
   - White, I.R. 2010. *simsum: Analyses of simulation studies including
     Monte Carlo error*. The Stata Journal 10(3): 369-385
     \<<http://www.stata-journal.com/article.html?article=st0200>\>
-  - Morris, T.P, White, I.R. and Crowther, M.J. 2017. *Using simulation
+  - Morris, T.P., White, I.R. and Crowther, M.J. 2017. *Using simulation
     studies to evaluate statistical methods*.
     \<[arXiv:1712.03198](https://arxiv.org/abs/1712.03198)\>
+  - Gasparini, A. 2018. *rsimsum: Summarise results from Monte Carlo
+    simulation studies*. Journal of Open Source Software, 3(26):739
+    \<[10.21105/joss.00739](https://doi.org/10.21105/joss.00739)\>
 
 # Warning for RStudio users
 
