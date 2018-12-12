@@ -53,9 +53,9 @@ perfms <-
     if (is.null(ci.limits)) {
       cover <- 1 / nsim * sum(true >= data[[estvarname]] - crit * data[[se]] & true <= data[[estvarname]] + crit * data[[se]], na.rm = na.rm)
     } else {
-    	data[["lower"]] = ci.limits[1]
-    	data[["upper"]] = ci.limits[2]
-    	cover <- 1 / nsim * sum(true >= data[["lower"]] & true <= data[["upper"]], na.rm = na.rm)
+      data[["lower"]] <- ci.limits[1]
+      data[["upper"]] <- ci.limits[2]
+      cover <- 1 / nsim * sum(true >= data[["lower"]] & true <= data[["upper"]], na.rm = na.rm)
     }
     # Bias-corrected coverage of a nominal (1 - level)% confidence interval
     bccover <- 1 / nsim * sum(mean(data[[estvarname]], na.rm = na.rm) >= data[[estvarname]] - crit * data[[se]] & mean(data[[estvarname]], na.rm = na.rm) <= data[[estvarname]] + crit * data[[se]], na.rm = na.rm)
