@@ -12,10 +12,8 @@ cran-comments.md
 ^README-.*\.png$
 figure$
 cache$
-^.*\.md$
 ^LICENSE\.md$
 ^CONDUCT\.md$
 ^CONTRIBUTING\.md$
 ^inst/JOSS$
-^.*\.psd$
 ^inst/Sticker$
