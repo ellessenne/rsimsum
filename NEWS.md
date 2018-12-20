@@ -1,5 +1,8 @@
 # rsimsum 0.3.4-9000
 
+Breaking changes:
+* The `zip` method had been renamed to `zipper()` to avoid name collision with `utils::zip()`.
+
 # rsimsum 0.3.4
 
 * Added ability to define custom confidence interval limits for calculating coverage via the `ci.limits` argument (#6, @MvanSmeden). This functionality is to be considered experimental, hence feedback would be much appreciated;

@@ -13,5 +13,5 @@ NULL
 
 # Quiets concerns of R CMD check re: variables used with
 # non-standard evaluation within ggplot2's 'aes'
-# e.g.: lolly(), zip()
+# e.g.: lolly(), zipper()
 if (getRversion() >= "2.15.1") utils::globalVariables(c("est", "mcse", "lower", "upper", "pr", "colour", "cupper", "clower"))

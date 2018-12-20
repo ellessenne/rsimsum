@@ -7,7 +7,7 @@ vignette: >
   %\VignetteIndexEntry{Visualising results from rsimsum}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
-editor_options: 
+editor_options:
   chunk_output_type: console
 ---
 
@@ -52,7 +52,7 @@ s1 <- simsum(data = relhaz, estvarname = "theta", se = "se", true = -0.50, metho
 s1
 ```
 
-We call `simsum` with `x = TRUE` as we want to produce pattern plots and zip plots later on.
+We call `simsum` with `x = TRUE` as we want to produce pattern plots and zipper plots later on.
 
 ```{r summary-summarise-1}
 summary(s1)
@@ -106,17 +106,17 @@ bar(s1, sstat = "bias", by = c("n", "baseline"))
 bar(s1, sstat = "cover", by = c("n", "baseline"))
 ```
 
-## Zip plots
+## Zipper plots
 
-Zip plots, introduced in Morris _et al_. (2017), help understand coverage by visualising the confidence intervals directly. For each data-generating mechanism and method, the confidence intervals are centile-ranked according to their significance agains the null hypotesis \(H_0: \theta = -0.50\), assessed via a Wald-type test. This ranking is used for the vertical axis and is plotted against the intervals themselves.  
+Zipper plots (or zip plots), introduced in Morris _et al_. (2017), help understand coverage by visualising the confidence intervals directly. For each data-generating mechanism and method, the confidence intervals are centile-ranked according to their significance agains the null hypotesis \(H_0: \theta = -0.50\), assessed via a Wald-type test. This ranking is used for the vertical axis and is plotted against the intervals themselves.
 
-When a method has \(95\%\) coverage, the colour of the intervals switches at 95 on the vertical axis. Finally, the horizontal lines represent confidence intervals for the estimated coverage based on Monte Carlo standard errors. 
+When a method has \(95\%\) coverage, the colour of the intervals switches at 95 on the vertical axis. Finally, the horizontal lines represent confidence intervals for the estimated coverage based on Monte Carlo standard errors.
 
-```{r zip-1}
-zip(s1)
+```{r zipper-1}
+zipper(s1)
 ```
 
-The zip plot for the exponential model with \(n = 50\) and a true Weibull baseline hazard shows that coverage is approximately \(95\%\); however, there are more intervals to the right of \(\theta = -0.50\) than to the left: this indicates that the model standard errors must be overestimating the empirical standard error, because coverage is appropriate despite bias.
+The zipper plot for the exponential model with \(n = 50\) and a true Weibull baseline hazard shows that coverage is approximately \(95\%\); however, there are more intervals to the right of \(\theta = -0.50\) than to the left: this indicates that the model standard errors must be overestimating the empirical standard error, because coverage is appropriate despite bias.
 
 ## Heat plots
 
@@ -161,7 +161,7 @@ This dataset has two estimands (estimated parameters from the models):
 unique(frailty[["par"]])
 ```
 
-`trt` is the estimated log-treatment effect from the frailty survival model, while `fv` is the estimated variance of the frailty term. 
+`trt` is the estimated log-treatment effect from the frailty survival model, while `fv` is the estimated variance of the frailty term.
 
 To analyse this data, one could call `rsimsum` twice to each subset of data for each estimated parameter; `multisimsum` allows summarising this simulation study with a single command.
 
@@ -174,7 +174,7 @@ s2 <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75),
 s2
 ```
 
-We call `multisimsum` with `x = TRUE` as we want to produce pattern plots and zip plots later on.
+We call `multisimsum` with `x = TRUE` as we want to produce pattern plots and zipper plots later on.
 
 ```{r summary-summarise-2}
 summary(s2)
@@ -238,12 +238,12 @@ bar(s2, sstat = "bias", par = "trt", by = "fv_dist")
 bar(s2, sstat = "cover", par = "fv", by = "fv_dist")
 ```
 
-## Zip plots
+## Zipper plots
 
 Say we want to further investigate coverage of the frailty variance after seeing the lolly plot:
 
-```{r zip-2}
-zip(s2, par = "fv")
+```{r zipper-2}
+zipper(s2, par = "fv")
 ```
 
 ## Heat plots

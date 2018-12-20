@@ -1,5 +1,5 @@
-#' @title zip method for multisimsum objects
-#' @description [zip()] method for objects of class `multisimsum`.
+#' @title zipper method for multisimsum objects
+#' @description [zipper()] method for objects of class `multisimsum`.
 #' @param obj An object of class `multisimsum`.
 #' @param par Estimand to plot.
 #' @param gpars Graphical parameters. Must be a named list, with possible parameters:
@@ -12,7 +12,7 @@
 #' It is possible to redefine all the graphical parameters of a subset only; if not specified, sensible default values will be utilised.
 #' @param wald.level Confidence level of the Wald test used to compute p-values for sorting each confidence interval. Defaults to `0.95`.
 #' @param ... Ignored.
-#' @inherit zip return details
+#' @inherit zipper return details
 #' @export
 #' @examples
 #' library(rsimsum)
@@ -25,8 +25,8 @@
 #'   ), estvarname = "b", se = "se", methodvar = "model",
 #'   by = "fv_dist", x = TRUE
 #' )
-#' zip(ms, par = "trt")
-zip.multisimsum <- function(obj, par, wald.level = 0.95, gpars = list(), ...) {
+#' zipper(ms, par = "trt")
+zipper.multisimsum <- function(obj, par, wald.level = 0.95, gpars = list(), ...) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
 
@@ -69,8 +69,8 @@ zip.multisimsum <- function(obj, par, wald.level = 0.95, gpars = list(), ...) {
   hobj[["data"]][, obj[["par"]]] <- NULL
   class(hobj) <- c("list", "simsum")
 
-  ### Make a zip plot via zip.simsum
-  gg <- zip.simsum(hobj, wald.level = wald.level, gpars = gpars)
+  ### Make a zipper plot via zipper.simsum
+  gg <- zipper.simsum(hobj, wald.level = wald.level, gpars = gpars)
 
   # Add a subtitle with the current parameter estimated
   gg <- gg +

@@ -1,5 +1,5 @@
-#' @title zip method for simsum objects
-#' @description [zip()] method for objects of class `simsum`.
+#' @title zipper method for simsum objects
+#' @description [zipper()] method for objects of class `simsum`.
 #' @param obj An object of class `simsum`.
 #' @param gpars Graphical parameters. Must be a named list, with possible parameters:
 #' * `ci.alpha`, alpha value of each individual confidence interval;
@@ -11,7 +11,7 @@
 #' It is possible to redefine all the graphical parameters of a subset only; if not specified, sensible default values will be utilised.
 #' @param wald.level Confidence level of the Wald test used to compute p-values for sorting each confidence interval. Defaults to `0.95`.
 #' @param ... Ignored.
-#' @inherit zip return details
+#' @inherit zipper return details
 #' @export
 #' @examples
 #' library(rsimsum)
@@ -21,14 +21,14 @@
 #'   data = relhaz, estvarname = "theta", true = -0.5, se = "se",
 #'   methodvar = "model", by = c("n", "baseline"), x = TRUE
 #' )
-#' zip(s)
+#' zipper(s)
 #' data("MIsim", package = "rsimsum")
 #' s2 <- simsum(
 #'   data = MIsim, estvarname = "b", true = 0.5, se = "se",
 #'   methodvar = "method", x = TRUE
 #' )
-#' zip(s2)
-zip.simsum <- function(obj, wald.level = 0.95, gpars = list(), ...) {
+#' zipper(s2)
+zipper.simsum <- function(obj, wald.level = 0.95, gpars = list(), ...) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
 
@@ -60,7 +60,7 @@ zip.simsum <- function(obj, wald.level = 0.95, gpars = list(), ...) {
   ), recursive = FALSE)
 
 
-  ### Perform all calculations required for a zip plot
+  ### Perform all calculations required for a zipper plot
   ### Different splitting depending on whether methodvar, by are defined
   if (!is.null(obj[["methodvar"]]) & !is.null(obj[["by"]])) {
     bysplit <- split(obj[["data"]], f = lapply(X = obj[["by"]], FUN = function(f) obj[["data"]][[f]]))

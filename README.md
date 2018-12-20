@@ -53,7 +53,7 @@ portfolio of opinionated data visualisations for quick exploration of
 results, inferring colours and facetting by data-generating mechanisms.
 `rsimsum` includes methods to produce (1) plots of summary statistics
 with confidence intervals based on Monte Carlo standard errors (forest
-plots, bar plots, and lolly plots), (2) zip plots to graphically
+plots, bar plots, and lolly plots), (2) zipper plots to graphically
 visualise coverage by directly plotting confidence intervals, and (3)
 heat plots. The latter is a visualisation type that has not been
 traditionally used to present results of simulation studies, and
@@ -89,11 +89,6 @@ more information):
 
 ``` r
 library(rsimsum)
-#> 
-#> Attaching package: 'rsimsum'
-#> The following object is masked from 'package:utils':
-#> 
-#>     zip
 data("MIsim", package = "rsimsum")
 s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
 #> `ref` was not specified, CC set as the reference
@@ -209,10 +204,10 @@ lolly(s, sstat = "bias")
 <img src="README-lolly-1.png" width="75%" style="display: block; margin: auto;" />
 
 ``` r
-zip(s)
+zipper(s)
 ```
 
-<img src="README-zip-1.png" width="75%" style="display: block; margin: auto;" />
+<img src="README-zipper-1.png" width="75%" style="display: block; margin: auto;" />
 
 As of version `0.3.0`, forest plots and bar plots are supported too as
 alternatives to lolly

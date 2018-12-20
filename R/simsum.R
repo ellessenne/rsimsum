@@ -24,7 +24,7 @@
 #' @export
 #' @details
 #' The following names are not allowed for `estvarname`, `se`, `methodvar`, `by`: `stat`, `est`, `mcse`, `lower`, `upper`.
-#' Calling the function with `x = TRUE` is required to produce zip plots (e.g. via the [zip()] method). The downside is that the size of the returned object increases considerably, therefore it is set to `FALSE` by default. Please note that the `data` slot returned when `x = TRUE` is obtained according to the value of the arguments `dropbig`, `na.rm`, `na.pair`; all rows with missing values are removed via a call to [stats::na.omit()].
+#' Calling the function with `x = TRUE` is required to produce zipper plots (e.g. via the [zipper()] method). The downside is that the size of the returned object increases considerably, therefore it is set to `FALSE` by default. Please note that the `data` slot returned when `x = TRUE` is obtained according to the value of the arguments `dropbig`, `na.rm`, `na.pair`; all rows with missing values are removed via a call to [stats::na.omit()].
 #'
 #' @examples
 #' data("MIsim")
