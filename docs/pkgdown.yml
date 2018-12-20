@@ -6,4 +6,7 @@ articles:
   plotting: plotting.html
   relhaz: relhaz.html
   rsimsumtidyverse: rsimsumtidyverse.html
+urls:
+  reference: https://ellessenne.github.io/rsimsum/reference
+  article: https://ellessenne.github.io/rsimsum/articles
 
