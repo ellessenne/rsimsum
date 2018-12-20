@@ -34,7 +34,7 @@ Suggests:
  survival,
  testthat,
  usethis
-URL: https://github.com/ellessenne/rsimsum
+URL: https://ellessenne.github.io/rsimsum/
 BugReports: https://github.com/ellessenne/rsimsum/issues
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
