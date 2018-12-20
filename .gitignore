@@ -24,10 +24,6 @@ doc
 # Word documents
 *.doc
 *.docx
-# Html files
-*.html
 # Stata data files
 *.dta
 *.DTA
-# Vignette files
-inst/doc
