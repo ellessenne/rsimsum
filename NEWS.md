@@ -1,3 +1,5 @@
+# rsimsum 0.3.4-9000
+
 # rsimsum 0.3.4
 
 * Added ability to define custom confidence interval limits for calculating coverage via the `ci.limits` argument (#6, @MvanSmeden). This functionality is to be considered experimental, hence feedback would be much appreciated;
