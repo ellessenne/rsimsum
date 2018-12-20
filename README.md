@@ -195,19 +195,19 @@ s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "
 pattern(s)
 ```
 
-<img src="README-pattern-1.png" width="75%" style="display: block; margin: auto;" />
+<img src="man/figures/README-pattern-1.png" width="66%" style="display: block; margin: auto;" />
 
 ``` r
 lolly(s, sstat = "bias")
 ```
 
-<img src="README-lolly-1.png" width="75%" style="display: block; margin: auto;" />
+<img src="man/figures/README-lolly-1.png" width="66%" style="display: block; margin: auto;" />
 
 ``` r
 zipper(s)
 ```
 
-<img src="README-zipper-1.png" width="75%" style="display: block; margin: auto;" />
+<img src="man/figures/README-zipper-1.png" width="66%" style="display: block; margin: auto;" />
 
 As of version `0.3.0`, forest plots and bar plots are supported too as
 alternatives to lolly
@@ -217,13 +217,13 @@ plots:
 forest(s, sstat = "bias")
 ```
 
-<img src="README-forest-1.png" width="75%" style="display: block; margin: auto;" />
+<img src="man/figures/README-forest-1.png" width="66%" style="display: block; margin: auto;" />
 
 ``` r
 bar(s, sstat = "bias")
 ```
 
-<img src="README-bar-1.png" width="75%" style="display: block; margin: auto;" />
+<img src="man/figures/README-bar-1.png" width="66%" style="display: block; margin: auto;" />
 
 More info on the vignette dedicated to plotting:
 

@@ -8,10 +8,12 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-",
+  fig.path = "man/figures/README-",
   fig.align = "center",
+  fig.height = 3,
+  fig.width = 5,
   dpi = 300,
-  out.width = "75%"
+  out.width = "66%"
 )
 options(width = 100)
 ```
