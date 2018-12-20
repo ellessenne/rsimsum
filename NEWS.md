@@ -1,6 +1,7 @@
-# rsimsum 0.3.3-9000
+# rsimsum 0.3.4
 
-* Added ability to define custom confidence interval limits for calculating coverage via the `ci.limits` argument.
+* Added ability to define custom confidence interval limits for calculating coverage via the `ci.limits` argument (#6, @MvanSmeden). This functionality is to be considered experimental, hence feedback would be much appreciated;
+* Updated _Simulating a simulation study_ vignette and therefore the `relhaz` dataset bundled with `rsimsum`.
 
 # rsimsum 0.3.3
 
@@ -17,7 +18,7 @@ New:
 
 # rsimsum 0.3.2
 
-`rsimsum` is a small maintenance release:
+`rsimsum` 0.3.2 is a small maintenance release:
 * Merged pull request #1 from @mllg adapting to new version of the `checkmate` package;
 * Fixed a bug where automatic labels in `bar()` and `forest()` were not selected properly.
 

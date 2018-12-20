@@ -102,13 +102,14 @@ $$\text{MCSE} = \sqrt{\frac{\text{coverage} \times (1 - \text{coverage})}{\# \te
 
 This Monte Carlo standard error is maximised for a coverage = $0.5$. In that setting, the Monte Carlo standard error with $1,000$ replications would be $0.01581139$, which is deemed to be acceptable.
 
-Therefore, we will run $1,000$ replications of this simulation study.
+Therefore, we should run $1,000$ replications of this simulation study.
+However, for simplicity, we will run $100$ replications only to speed up the process.
 
 # Running the simulation study
 
 ## Generate data
 
-We generate $1,000$ datasets for each data-generating mechanism.
+We generate $100$ datasets for each data-generating mechanism.
 
 First, we set a random seed for reproducibility:
 
@@ -119,30 +120,31 @@ set.seed(755353002)
 Then, we simulate the data:
 
 ```{r generate-data}
+reps <- 1:100
 data <- list()
 data[["n = 50, baseline = Exp"]] <- lapply(
-  X = 1:1000,
+  X = reps,
   FUN = simulate_data,
   n = 50,
   baseline = "Exponential",
   params = list(lambda = 0.5)
 )
 data[["n = 250, baseline = Exp"]] <- lapply(
-  X = 1:1000,
+  X = reps,
   FUN = simulate_data,
   n = 250,
   baseline = "Exponential",
   params = list(lambda = 0.5)
 )
 data[["n = 50, baseline = Wei"]] <- lapply(
-  X = 1:1000,
+  X = reps,
   FUN = simulate_data,
   n = 50,
   baseline = "Weibull",
   params = list(lambda = 0.5, gamma = 1.5)
 )
 data[["n = 250, baseline = Wei"]] <- lapply(
-  X = 1:1000,
+  X = reps,
   FUN = simulate_data,
   n = 250,
   baseline = "Weibull",
@@ -299,8 +301,8 @@ row.names(relhaz) <- NULL
 We save the final results, that will be included as an example in the R package `rsimsum`.
 
 ```{r saving, eval = FALSE}
-library(devtools)
-devtools::use_data(relhaz, overwrite = TRUE)
+library(usethis)
+usethis::use_data(relhaz, overwrite = TRUE)
 ```
 
 ## Summarising results
