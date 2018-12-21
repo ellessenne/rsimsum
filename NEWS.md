@@ -2,8 +2,8 @@
 
 # rsimsum 0.3.5
 
-Breaking changes:
-* The `zip` method had been renamed to `zipper()` to avoid name collision with `utils::zip()`.
+**Breaking changes**:
+* The `zip` method has been renamed to `zipper()` to avoid name collision with `utils::zip()`.
 
 # rsimsum 0.3.4
 
