@@ -2,8 +2,6 @@
 
 S3method(bar,multisimsum)
 S3method(bar,simsum)
-S3method(dropbig,multisimsum)
-S3method(dropbig,simsum)
 S3method(forest,multisimsum)
 S3method(forest,simsum)
 S3method(get_data,miss)

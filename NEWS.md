@@ -1,5 +1,11 @@
 # rsimsum 0.3.5-9000
 
+**Improvements:**
+
+**Breaking changes:**
+* `dropbig` is no longer an S3 method for `simsum` and `multisimsum` objects. Now, `dropbig` is an exported function that can be used to identify rows of the input `data.frame` that would be dropped by `simsum` (or `multisimsum`);
+* Point estimates and standard errors dropped by `simsum` (or `multisimsum`) when `dropbig = TRUE)` are no longer included in the returned object.
+
 # rsimsum 0.3.5
 
 **Breaking changes**:

@@ -2,15 +2,39 @@
 % Please edit documentation in R/dropbig.R
 \name{dropbig}
 \alias{dropbig}
-\title{Return observations dropped by a function}
+\title{Detect potential outliers}
 \usage{
-dropbig(x, ...)
+dropbig(data, estvarname, se, methodvar = NULL, by = NULL, max = 10,
+  semax = 100, robust = TRUE)
 }
 \arguments{
-\item{x}{An object used to select a method.}
+\item{data}{The dataset;}
 
-\item{...}{Further arguments passed to or from other methods.}
+\item{estvarname}{The variable with the estimated value, as a string;}
+
+\item{se}{The variable with the estimates standard error, as a string;}
+
+\item{methodvar}{If defined, the standardisation will be stratified within levels of \code{methodvar};}
+
+\item{by}{If defined, the standardisation will be stratified within levels of \code{by};}
+
+\item{max}{Standardised values of \code{estvarname} above \code{max} will be detected as potential outliers. Defaults to 10;}
+
+\item{semax}{Standardised values of \code{se} above \code{semax} will be detected as potential outliers. Defaults to 100;}
+
+\item{robust}{Whether to use robust standardisation using median and inter-quartile range or regular standardisation using mean and standard deviation. Defaults to \code{TRUE}.}
+}
+\value{
+A \code{data.frame} of all potential outliers detected in \code{data}.
 }
 \description{
-\code{dropbig} returns observations dropped by a function while performing some calculation - for any reason.
+\code{dropbig} returns observations dropped by \code{simsum} or \code{multisimsum} before calculating summary statistics if \code{dropbig = TRUE} was set.
+The algorithm checks whether standardised values of \code{estvarname} of \code{se} are larger than \code{max} and \code{semax}, respectively.
+Robust standardisation using median and inter-quartile range is available and utilised by default.
+}
+\examples{
+data("relhaz", package = "rsimsum")
+dropbig(data = relhaz, estvarname = "theta", se = "se")
+dropbig(data = relhaz, estvarname = "theta", se = "se", methodvar = "model", by = c("n", "baseline"))
+dropbig(data = relhaz, estvarname = "theta", se = "se", methodvar = "model", by = c("n", "baseline"), max = 2)
 }
