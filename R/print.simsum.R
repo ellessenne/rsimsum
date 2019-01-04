@@ -8,12 +8,11 @@
 #' data("MIsim")
 #' x <- simsum(
 #'   data = MIsim, estvarname = "b", true = 0.5, se = "se",
-#'   methodvar = "method", mcse = TRUE
+#'   methodvar = "method"
 #' )
 #' x
 print.simsum <- function(x, ...) {
-  ### Print call to `simsum`
-  cat("\nCall:\n\t", paste(deparse(x$call), sep = "\n", collapse = "\n"), "\n", sep = "")
+  cat("Summary of a simulation study with a single estimand.\n")
 
   ### Print `methodvar` (if any), possible methods, and reference method
   if (!is.null(x$methodvar)) {
@@ -33,7 +32,7 @@ print.simsum <- function(x, ...) {
   }
 
   ### Print whether Monte Carlo SEs were computed or not
-  if (x$mcse) {
+  if (x$control$mcse) {
     cat("\nMonte Carlo standard errors were computed.\n")
   } else {
     cat("\nMonte Carlo standard errors were not computed.\n")

@@ -1,161 +1,115 @@
 #' @title Analyses of simulation studies with multiple estimands at once, including Monte Carlo error
-#' @description `multisimsum` is an extension of [simsum()] that can handle multiple estimated parameters at once. `multisimsum` calls [simsum()] internally, each estimands at once. There is only one new argument that must be set when calling `multisimsum`: `par`, a string representing the column of `data` that identifies the different estimands.
+#' @description `multisimsum` is an extension of [simsum()] that can handle multiple estimated parameters at once. `multisimsum` calls [simsum()] internally, each estimands at once. There is only one new argument that must be set when calling `multisimsum`: `par`, a string representing the column of `data` that identifies the different estimands. Additionally, with `multisimsum` the argument `true` must be a named vector, where names correspond to each estimand (see examples).
 #' @param par The name of the variable containing the methods to compare. Can be `NULL`.
 #' @inheritParams simsum
 #' @return An object of class `multisimsum`.
 #' @export
-#' @inherit simsum details
+#' @details
+#' The following names are not allowed for `estvarname`, `se`, `methodvar`, `by`, `par`: `stat`, `est`, `mcse`, `lower`, `upper`.
 #' @examples
 #' data("frailty", package = "rsimsum")
 #' ms <- multisimsum(
-#'   data = frailty, par = "par", true = c(
-#'     trt = -0.50,
-#'     fv = 0.75
-#'   ), estvarname = "b", se = "se", methodvar = "model",
+#'   data = frailty,
+#'   par = "par", true = c(trt = -0.50, fv = 0.75),
+#'   estvarname = "b", se = "se", methodvar = "model",
 #'   by = "fv_dist"
 #' )
 #' ms
 multisimsum <- function(data,
                         par,
-                        true,
                         estvarname,
+                        true,
                         se,
                         methodvar = NULL,
                         ref = NULL,
-                        df = NULL,
-                        dropbig = FALSE,
-                        max = 10,
-                        semax = 100,
-                        level = 0.95,
                         by = NULL,
-                        mcse = TRUE,
-                        sanitise = TRUE,
-                        na.rm = TRUE,
-                        na.pair = TRUE,
-                        x = FALSE) {
-  ### Check new arguments not checked in 'simsum'
+                        ci.limits = NULL,
+                        dropbig = FALSE,
+                        x = FALSE,
+                        control = list()) {
+  ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
-
-  # `par` must be a single string value
+  # 'methodvar', 'ref', 'par' must be a single string value
+  checkmate::assert_string(x = methodvar, null.ok = TRUE, add = arg_checks)
+  checkmate::assert_string(x = ref, null.ok = TRUE, add = arg_checks)
   checkmate::assert_string(x = par, add = arg_checks)
-
-  # `par` must be in `data`
+  # 'methodvar', 'par' must be in 'data'
+  checkmate::assert_subset(x = methodvar, choices = names(data), add = arg_checks)
   checkmate::assert_subset(x = par, choices = names(data), add = arg_checks)
-
-  # `par` must not be any in (`stat`, `est`, `mcse`, `lower`, `upper`)
+  # 'ref' must be one of the options in 'methodvar'
+  if (!is.null(methodvar)) {
+    checkmate::assert_subset(x = ref, choices = as.character(unique(data[[methodvar]])), add = arg_checks)
+  }
+  # 'methodvar', 'par' must not be any in ('stat', 'est', 'mcse', 'lower', 'upper')
+  if (!is.null(methodvar)) checkmate::assert_false(x = (methodvar %in% c("stat", "est", "mcse", "lower", "upper")))
   checkmate::assert_false(x = (par %in% c("stat", "est", "mcse", "lower", "upper")), add = arg_checks)
-
-  # `true` must a named vector
-  # its length must be equal to the number of unique elements in `par`
-  # the names must be the same unique values in `par`
+  # 'true' must a named vector
+  # its length must be equal to the number of unique elements in 'par'
+  # the names must be the same unique values in 'par'
   checkmate::assert_named(x = true, add = arg_checks)
   checkmate::assert_true(x = (length(unique(data[[par]])) == length(true)), add = arg_checks)
   checkmate::assert_true(x = all(names(true) %in% unique(data[[par]])), add = arg_checks)
+  # 'control' must be a list, with well defined components
+  checkmate::assert_list(x = control, add = arg_checks)
+  checkmate::assert_subset(x = names(control), choices = c("mcse", "level", "df", "na.rm", "char.sep", "dropbig.max", "dropbig.semax", "dropbig.robust"), empty.ok = TRUE, add = arg_checks)
+  checkmate::assert_logical(x = control$mcse, len = 1, null.ok = TRUE, add = arg_checks)
+  checkmate::assert_number(x = control$level, lower = 0, upper = 1, null.ok = TRUE, add = arg_checks)
+  checkmate::assert_number(x = control$df, null.ok = TRUE, add = arg_checks)
+  checkmate::assert_logical(x = control$na.rm, len = 1, null.ok = TRUE, add = arg_checks)
+  checkmate::assert_string(x = control$char.sep, null.ok = TRUE, add = arg_checks)
+  checkmate::assert_number(x = control$dropbig.max, null.ok = TRUE, add = arg_checks)
+  checkmate::assert_number(x = control$dropbig.semax, null.ok = TRUE, add = arg_checks)
+  checkmate::assert_logical(x = control$dropbig.robust, len = 1, null.ok = TRUE, add = arg_checks)
+  # Report
+  if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
 
-  # `max`, `semax`
-  checkmate::assert_number(max, add = arg_checks)
-  checkmate::assert_number(semax, add = arg_checks)
+  ### Set control parameters
+  control.default <- list(mcse = TRUE, level = 0.95, df = NULL, na.rm = TRUE, char.sep = "~", dropbig.max = 10, dropbig.semax = 100, dropbig.robust = TRUE)
+  control.tmp <- unlist(list(
+    control[names(control) %in% names(control.default)],
+    control.default[!(names(control.default) %in% names(control))]
+  ), recursive = FALSE)
+  control <- control.tmp
 
-  # `dropbig`, `sanitise`, `na.pair`, `x` must be single logical value
-  checkmate::assert_logical(dropbig, len = 1, add = arg_checks)
-  checkmate::assert_logical(sanitise, len = 1, add = arg_checks)
-  checkmate::assert_logical(na.pair, len = 1, add = arg_checks)
-  checkmate::assert_logical(x, len = 1, add = arg_checks)
+  ### Factorise 'par', 'methodvar'
+  data <- .factorise(data = data, cols = c(par, methodvar))
 
-  ### Report if there are any errors
-  if (!arg_checks$isEmpty()) {
-    checkmate::reportAssertions(collection = arg_checks)
-  }
+  ### Check that levels of factors are ok
+  .validate_levels(data = data, cols = c(par, methodvar), char = ifelse(!is.null(control$char.sep), control$char.sep, "~"))
 
-  ### Coerce `methodvar` to character (if specified and not already string)
+  ### Set reference method if 'ref' is not specified
   if (!is.null(methodvar)) {
-    if (class(data[[methodvar]]) != "character") {
-      data[[methodvar]] <- as.character(data[[methodvar]])
-    }
-  }
-
-  ### Set reference method if `ref` is not specified
-  if (!is.null(methodvar)) {
-    methods <- sort(unique(data[[methodvar]]))
+    methods <- levels(data[[methodvar]])
     if (is.null(ref)) {
-      message(paste("`ref` was not specified,", methods[1], "set as the reference"))
       ref <- methods[1]
+      message(paste("'ref' method was not specified,", ref, "set as the reference"))
     }
+    data[[methodvar]] <- relevel(data[[methodvar]], ref = ref)
   }
 
   ### Throw a warning if `ref` is specified and `methodvar` is not
   if (is.null(methodvar) & !is.null(ref)) {
-    warning("`ref` is specified while `methodvar` is not; `ref` will be ignored")
+    warning("'ref' method is specified while 'methodvar' is not: 'ref' will be ignored")
     ref <- NULL
   }
 
-  ### Sanitise `par`` if required
-  if (sanitise) {
-    if (!is.null(par)) {
-      estvarname <- gsub(
-        pattern = ".",
-        replacement = "",
-        x = estvarname,
-        fixed = TRUE
-      )
-    }
-  }
+  ### Split data by 'par'
+  par_split <- .split_by(data = data, by = par)
 
-  ### Identify and drop (if required) point estimates and standard errors that are too big
-  if (dropbig) {
-    # Splitting calculations by `by` factors and `par`
-    dropbig_factors <- ifelse(is.null(by), par, c(par, by))
-    # Split
-    dropbig_split <- split(data, f = lapply(dropbig_factors, function(f) data[[f]]))
-    # Identify big `estvarname`
-    big_estvarname <- lapply(dropbig_split, function(d) {
-      d[which(abs((d[[estvarname]] - mean(d[[estvarname]], na.rm = TRUE)) / sqrt(stats::var(d[[estvarname]], na.rm = TRUE))) >= max), ]
-    })
-    names(big_estvarname) <- NULL
-    big_estvarname <- do.call(rbind.data.frame, big_estvarname)
-    # Identify big `se`
-    big_se <- lapply(dropbig_split, function(d) {
-      d[which(d[[se]] >= mean(d[[se]], na.rm = TRUE) * semax), ]
-    })
-    names(big_se) <- NULL
-    big_se <- do.call(rbind.data.frame, big_se)
-
-    # Create new dataset with NA's instead of large `estvarname` and `se`
-    data <- lapply(dropbig_split, function(d) {
-      d[[estvarname]][which(abs((d[[estvarname]] - mean(d[[estvarname]], na.rm = TRUE)) / sqrt(stats::var(d[[estvarname]], na.rm = TRUE))) >= max)] <- NA
-      d[[se]][which(d[[se]] >= mean(d[[se]], na.rm = TRUE) * semax)] <- NA
-      d
-    })
-    names(data) <- NULL
-    data <- do.call(rbind.data.frame, data)
-  }
-
-  ### Drop estimates if SE is missing, and vice versa
-  if (na.pair) {
-    data[[estvarname]][is.na(data[[se]])] <- NA
-    data[[se]][is.na(data[[estvarname]])] <- NA
-  }
-
-  ### Split data by `par`
-  par_split <- split(x = data, f = lapply(par, function(p) data[[p]]))
-
-  ### Call `simsum` on each element of `par_split`
-  par_simsum <- lapply(seq_along(par_split), function(i) simsum(data = par_split[[i]], true = true[names(par_split)[i]], estvarname = estvarname, se = se, methodvar = methodvar, ref = ref, df = df, dropbig = FALSE, max = max, semax = semax, level = level, by = by, mcse = mcse, sanitise = sanitise, na.rm = na.rm, na.pair = FALSE))
+  ### Call 'simsum' on each element of 'par_split'
+  par_simsum <- lapply(seq_along(par_split), function(i) simsum(data = par_split[[i]], estvarname = estvarname, true = true[names(par_split)[i]], se = se, methodvar = methodvar, ref = ref, by = by, ci.limits = ci.limits, dropbig = dropbig, x = x, control = control)[["summ"]])
   names(par_simsum) <- names(par_split)
 
-  ### Bind summ slot from each object
-  out <- lapply(seq_along(par_simsum), function(i) {
-    x <- par_simsum[[i]]$summ
-    x[[par]] <- names(par_simsum)[i]
-    x
-  })
+  ### Add a column with the parameter to each slot, and turn it into factor
+  for (i in seq_along(par_simsum)) par_simsum[[i]][[par]] <- names(par_simsum)[i]
 
-  ### Bind summ results
-  summ <- do.call(rbind.data.frame, out)
+  ### Bind summ slots
+  summ <- .br(x = par_simsum)
+  summ <- .factorise(data = summ, cols = par)
+  row.names(summ) <- NULL
 
-  ### Include call and other info into object to return
+  ### Include stuff into object to return
   obj <- list()
-  obj$call <- match.call()
   obj$summ <- summ
   obj$par <- par
   obj$estvarname <- estvarname
@@ -163,22 +117,15 @@ multisimsum <- function(data,
   obj$se <- se
   obj$methodvar <- methodvar
   obj$ref <- ref
-  obj$df <- df
   obj$dropbig <- dropbig
-  if (dropbig) {
-    obj$big_estvarname <- big_estvarname
-    obj$big_se <- big_se
+  if (!is.null(ci.limits)) {
+    obj$ci.limits <- ci.limits
   }
-  obj$max <- max
-  obj$semax <- semax
-  obj$level <- level
   obj$by <- by
-  obj$mcse <- mcse
-  obj$sanitise <- sanitise
-  obj$na.rm <- na.rm
-  obj$na.pair <- na.pair
+  obj$control <- control
   if (x) {
-    obj$data <- stats::na.omit(data)
+    obj$x <- .br(lapply(data, .br))
+    rownames(obj$x) <- NULL
   }
 
   ### Return object of class simsum

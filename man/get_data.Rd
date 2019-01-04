@@ -2,15 +2,51 @@
 % Please edit documentation in R/get_data.R
 \name{get_data}
 \alias{get_data}
-\title{Extract data slot from objects}
+\title{get_data}
 \usage{
-get_data(x, ...)
+get_data(x, stats = NULL, ...)
 }
 \arguments{
-\item{x}{An object used to select a method.}
+\item{x}{An object of class \code{simsum}.}
 
-\item{...}{Further arguments passed to or from other methods.}
+\item{stats}{Summary statistics to include; can be a scalar value or a vector. Possible choices are:
+\itemize{
+\item \code{nsim}, the number of replications with non-missing point estimates and standard error.
+\item \code{thetamean}, average point estimate.
+\item \code{thetamedian}, median point estimate.
+\item \code{se2mean}, average standard error.
+\item \code{se2median}, median standard error.
+\item \code{bias}, bias in point estimate.
+\item \code{empse}, empirical standard error.
+\item \code{mse}, mean squared error.
+\item \code{relprec}, percentage gain in precision relative to the reference method.
+\item \code{modelse}, model-based standard error.
+\item \code{relerror}, relative percentage error in standard error.
+\item \code{cover}, coverage of a nominal \code{level}\% confidence interval.
+\item \code{becover}, bias-eliminated coverage of a nominal \code{level}\% confidence interval.
+\item \code{power}, power of a (1 - \code{level})\% level test.
+Defaults to \code{NULL}, in which case all summary statistics are returned.
+}}
+
+\item{...}{Ignored.}
+}
+\value{
+A \code{data.frame} containing summary statistics from a simulation study.
 }
 \description{
-\code{get_data} returns a data set contained in an S3 object.
+Extract data slots from an object of class \code{simsum}, \code{summary.simsum}, \code{multisimsum}, or \code{summary.multisimsum}.
+}
+\examples{
+data(MIsim)
+x <- simsum(
+  data = MIsim, estvarname = "b", true = 0.5, se = "se",
+  methodvar = "method"
+)
+get_data(x)
+
+# Extracting only bias and coverage:
+get_data(x, stats = c("bias", "cover"))
+
+xs <- summary(x)
+get_data(xs)
 }

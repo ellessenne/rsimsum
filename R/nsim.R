@@ -15,6 +15,7 @@
 #' # accuracy of the true coefficient of 0.349 with a 5% significance level,
 #' # assuming the variance of the estimate is 0.0166 and 50% power:
 #' nsim(alpha = 0.05, sigma = sqrt(0.0166), delta = 0.349 * 5 / 100, power = 0.5)
+#' 
 #' # Number of simulations required to produce an estimate to within 1%
 #' # accuracy of the true coefficient of 0.349 with a 5% significance level,
 #' # assuming the variance of the estimate is 0.0166 and 50% power:
@@ -23,11 +24,11 @@ nsim <- function(alpha, sigma, delta, power = 0.5) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
 
-  # `alpha` and `power` must be a numeric value between 0 and 1
+  # 'alpha' and 'power' must be a numeric value between 0 and 1
   checkmate::assert_number(alpha, lower = 0, upper = 1, add = arg_checks)
   checkmate::assert_number(power, lower = 0, upper = 1, add = arg_checks)
 
-  # `sigma` and `delta` must be a numeric value
+  # 'sigma' and 'delta' must be a numeric value
   checkmate::assert_number(sigma, lower = 0, add = arg_checks)
   checkmate::assert_number(delta, lower = 0, add = arg_checks)
 

@@ -1,48 +1,48 @@
-context("summary.multisimsum")
+testthat::context("summary.multisimsum")
 
-test_that("summarising a simsum object works fine and prints ok", {
+testthat::test_that("summarising a simsum object works fine and prints ok", {
   data("frailty")
   x <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
-  expect_output(print(summary(x)))
-  expect_output(print(summary(x, ci_level = 0.99)))
+  testthat::expect_output(print(summary(x)))
+  testthat::expect_output(print(summary(x, ci_level = 0.99)))
   x <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model")
-  expect_output(print(summary(x)))
+  testthat::expect_output(print(summary(x)))
   data("frailty")
   x <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", by = "fv_dist")
-  expect_output(print(summary(x)))
+  testthat::expect_output(print(summary(x)))
   data("frailty")
   x <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se")
-  expect_output(print(summary(x)))
-  expect_output(print(summary(x), sstat = c("bias", "bccover")))
-  expect_error(print(summary(x), sstat = "wrong"))
-  expect_error(print(summary(x), digits = -1))
+  testthat::expect_output(print(summary(x)))
+  testthat::expect_output(print(summary(x, stats = c("bias", "becover"))))
+  testthat::expect_error(print(summary(x, stats = "wrong")))
+  testthat::expect_error(print(summary(x), digits = -1))
 })
 
-test_that("summary.multisimsum returns an object of class summary.multisimsum", {
+testthat::test_that("summary.multisimsum returns an object of class summary.multisimsum", {
   data("frailty")
   x <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
   s <- summary(x)
-  expect_s3_class(object = s, class = "summary.multisimsum")
+  testthat::expect_s3_class(object = s, class = "summary.multisimsum")
 })
 
-test_that("summary.multisimsum returns confidence intervals when mcse = TRUE", {
+testthat::test_that("summary.multisimsum returns confidence intervals when mcse = TRUE", {
   data("frailty")
-  x <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist", mcse = TRUE)
+  x <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist", control = list(mcse = TRUE))
   s <- summary(x)
-  expect_true(object = all(c("lower", "upper") %in% names(s$summ)))
+  testthat::expect_true(object = all(c("lower", "upper") %in% names(s$summ)))
 })
 
-test_that("summary.multisimsum does not return confidence intervals when mcse = FALSE", {
+testthat::test_that("summary.multisimsum does not return confidence intervals when mcse = FALSE", {
   data("frailty")
-  x <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist", mcse = FALSE)
+  x <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist", control = list(mcse = FALSE))
   s <- summary(x)
-  expect_true(object = all(!(c("lower", "upper") %in% names(s$summ))))
+  testthat::expect_true(object = all(!(c("lower", "upper") %in% names(s$summ))))
 })
 
-test_that("summary.multisimsum with wrong arguments throws an error", {
+testthat::test_that("summary.multisimsum with wrong arguments throws an error", {
   data("frailty")
   x <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
-  expect_error(object = summary(x, ci_level = -1))
-  expect_error(object = summary(x, ci_level = 2))
-  expect_error(object = summary(x, ci_level = "0.05"))
+  testthat::expect_error(object = summary(x, ci_level = -1))
+  testthat::expect_error(object = summary(x, ci_level = 2))
+  testthat::expect_error(object = summary(x, ci_level = "0.05"))
 })

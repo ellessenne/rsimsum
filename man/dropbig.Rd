@@ -2,39 +2,47 @@
 % Please edit documentation in R/dropbig.R
 \name{dropbig}
 \alias{dropbig}
-\title{Detect potential outliers}
+\title{Identify replications with large point estimates, standard errors}
 \usage{
 dropbig(data, estvarname, se, methodvar = NULL, by = NULL, max = 10,
   semax = 100, robust = TRUE)
 }
 \arguments{
-\item{data}{The dataset;}
+\item{data}{A \code{data.frame} in which variable names are interpreted. It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.}
 
-\item{estvarname}{The variable with the estimated value, as a string;}
+\item{estvarname}{The name of the variable containing the point estimates.}
 
-\item{se}{The variable with the estimates standard error, as a string;}
+\item{se}{The name of the variable containing the standard errors of the point estimates.}
 
-\item{methodvar}{If defined, the standardisation will be stratified within levels of \code{methodvar};}
+\item{methodvar}{The name of the variable containing the methods to compare. For instance, methods could be the models compared within a simulation study. Can be \code{NULL}.}
 
-\item{by}{If defined, the standardisation will be stratified within levels of \code{by};}
+\item{by}{A vector of variable names to compute performance measures by a list of factors. Factors listed here are the (potentially several) data-generating mechanisms used to simulate data under different scenarios (e.g. sample size, true distribution of a variable, etc.). Can be \code{NULL}.}
 
-\item{max}{Standardised values of \code{estvarname} above \code{max} will be detected as potential outliers. Defaults to 10;}
+\item{max}{Specifies the maximum acceptable absolute value of the point estimates, after standardisation. Defaults to 10.}
 
-\item{semax}{Standardised values of \code{se} above \code{semax} will be detected as potential outliers. Defaults to 100;}
+\item{semax}{Specifies the maximum acceptable absolute value of the standard error, after standardisation. Defaults to 100.}
 
-\item{robust}{Whether to use robust standardisation using median and inter-quartile range or regular standardisation using mean and standard deviation. Defaults to \code{TRUE}.}
+\item{robust}{Specifies whether to use robust standardisation (using median and inter-quartile range) rather than normal standardisation (using mean and standard deviation). Defaults to \code{TRUE}.}
 }
 \value{
-A \code{data.frame} of all potential outliers detected in \code{data}.
+The same \code{data.frame} given as input with an additional column named \code{.dropbig} identifying rows that are classified as large (\code{.dropbig = TRUE}) according to the specified criterion.
 }
 \description{
-\code{dropbig} returns observations dropped by \code{simsum} or \code{multisimsum} before calculating summary statistics if \code{dropbig = TRUE} was set.
-The algorithm checks whether standardised values of \code{estvarname} of \code{se} are larger than \code{max} and \code{semax}, respectively.
-Robust standardisation using median and inter-quartile range is available and utilised by default.
+\code{dropbig} is useful to identify replications with large point estimates or standard errors. Large values are defined as standardised values above a given treshold, as defined when calling \code{dropbig}. Regular standardisation using mean and standard deviation is implemented, as well as robust standardisation using median and inter-quartile range. Further to that, the  standardisation process is stratified by data-generating mechanism if \code{by} factors are defined.
 }
 \examples{
-data("relhaz", package = "rsimsum")
-dropbig(data = relhaz, estvarname = "theta", se = "se")
-dropbig(data = relhaz, estvarname = "theta", se = "se", methodvar = "model", by = c("n", "baseline"))
-dropbig(data = relhaz, estvarname = "theta", se = "se", methodvar = "model", by = c("n", "baseline"), max = 2)
+data("frailty", package = "rsimsum")
+frailty2 <- subset(frailty, par == "fv")
+
+# Using low values of max, semax for illustration purposes:
+dropbig(
+  data = frailty2, estvarname = "b", se = "se",
+  methodvar = "model", by = "fv_dist", max = 2, semax = 2
+)
+
+# Using regular standardisation:
+dropbig(
+  data = frailty2, estvarname = "b", se = "se",
+  methodvar = "model", by = "fv_dist", max = 2, semax = 2, robust = FALSE
+)
 }

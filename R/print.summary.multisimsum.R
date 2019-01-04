@@ -1,25 +1,9 @@
 #' @title print.summary.multisimsum
-#' @description Print method for summary.multisimsum objects
+#' @description Print method for `summary.multisimsum` objects
 #' @param x An object of class `summary.multisimsum`.
 #' @param digits Number of significant digits used for printing. Defaults to 4.
-#' @param sstat Summary statistics to print; can be a scalar value or a vector (for printing multiple summary statistics at once). Possible choices are:
-#' * `all`, all the summary statistics are printed. This is the default option.
-#' * `nsim`, the number of replications with non-missing point estimates and standard error.
-#' * `thetamean`, average point estimate.
-#' * `thetamedian`, median point estimate.
-#' * `se2mean`, average standard error.
-#' * `se2median`, median standard error.
-#' * `bias`, bias in point estimate.
-#' * `empse`, empirical standard error.
-#' * `mse`, mean squared error.
-#' * `relprec`, percentage gain in precision relative to the reference method.
-#' * `modelse`, model-based standard error.
-#' * `relerror`, relative percentage error in standard error.
-#' * `cover`, coverage of a nominal `level`\% confidence interval.
-#' * `bccover`, bias corrected coverage of a nominal `level`\% confidence interval.
-#' * `power`, power of a (1 - `level`)\% level test.
+#' @param mcse Should Monte Carlo standard errors be reported? If `mcse = FALSE`, confidence intervals based on Monte Carlo standard errors will be reported instead, see [summary.multisimsum()]. If a `NULL` value is passed, only point estimates are printed regardless of whether Monte Carlo standard errors were computed or not. Defaults to `TRUE`.
 #' @param ... Ignored.
-#' @note If `sstat` is a vector that contains `all`, all summary statistics are printed by default.
 #' @export
 #'
 #' @examples
@@ -31,106 +15,68 @@
 #'   ), estvarname = "b", se = "se", methodvar = "model",
 #'   by = "fv_dist"
 #' )
-#' sms <- summary(ms)
+#' sms <- summary(ms, stats = c("bias", "cover", "mse"))
 #' sms
-print.summary.multisimsum <- function(x, digits = 4, sstat = "all", ...) {
+#' 
+#' # Printing less significant digits:
+#' print(sms, digits = 3)
+#' 
+#' # Printing confidence intervals:
+#' print(sms, digits = 3, mcse = FALSE)
+#' 
+#' # Printing values only:
+#' print(sms, mcse = NULL)
+print.summary.multisimsum <- function(x, digits = 4, mcse = TRUE, ...) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
-
   # `digits` must be an integer value greater than or equal to zero
-  checkmate::assert_int(digits, lower = 0, upper = Inf, add = arg_checks)
-
-  # `sstat` must be one of the possible choices
-  checkmate::assert_subset(sstat, choices = c("all", "nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "bccover", "power"), add = arg_checks)
-
+  checkmate::assert_int(x = digits, lower = 0, upper = Inf, add = arg_checks)
+  checkmate::assert_logical(x = mcse, len = 1, null.ok = TRUE, add = arg_checks)
   ### Report if there are any errors
   if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
 
-  ### Print call to `simsum`
-  cat("\nCall:\n\t", paste(deparse(x$call), sep = "\n", collapse = "\n"), "\n", sep = "")
-
-  ### Print `par`, possible estimands
-  cat("\nEstimands variable:", x$par, "\n")
-  estimands <- unique(x$summ[[x$par]])
-  cat("\tUnique estimands:", paste(estimands, collapse = ", "), "\n")
-  cat("\tTrue values:", paste(estimands, "=", x$true[estimands], collapse = ", "), "\n")
-
-  ### Print `methodvar` (if any), possible methods, and reference method
-  if (!is.null(x$methodvar)) {
-    cat("\nMethod variable:", x$methodvar, "\n")
-    methods <- unique(x$summ[[x$methodvar]])
-    cat("\tUnique methods:", paste(methods, collapse = ", "), "\n")
-    cat("\tReference method:", x$ref, "\n")
-  } else {
-    cat("\nMethod variable: none\n")
+  ### Make sure users are not asking for the moon
+  if (!x$control$mcse) {
+    mcse <- NULL
+    message("Monte Carlo Standard Errors were not computed!\nDisplaying point estimates only.")
   }
-
-  ### Print `by` factors (if any)
-  if (!is.null(x$by)) {
-    cat("\nBy factors:", paste(x$by, collapse = ", "), "\n")
+  if (is.null(mcse)) {
+    cat("Values are:\n\tPoint Estimate\n")
+  } else if (mcse) {
+    cat("Values are:\n\tPoint Estimate (Monte Carlo Standard Error)\n")
   } else {
-    cat("\nBy factors: none\n")
-  }
-
-  ### Select only summary statistics on interest
-  if (!("all" %in% sstat)) {
-    x$summ <- x$summ[x$summ$stat %in% sstat, ]
+    cat(paste0("Values are:\n\tPoint Estimate (", sprintf("%.0f%%", 100 * (x$ci_level)), " Confidence Interval based on Monte Carlo Standard Errors)\n"))
   }
 
   ### Format summary table
-  x <- format(x = x, digits = digits)
+  x <- .format(x = x, digits = digits, mcse = mcse)
 
   ### Make names of the summary table
-  names(x$summ)[names(x$summ) == "stat"] <- " "
+  names(x$summ)[names(x$summ) == "description"] <- "Performance Measure"
   names(x$summ)[names(x$summ) == "est"] <- "Estimate"
-  if (x$mcse) {
-    names(x$summ)[names(x$summ) == "mcse"] <- "MCSE"
-    names(x$summ)[names(x$summ) == "lower"] <- paste("Lower", sprintf("%.1f%%", 100 * (1 - x$ci_level) / 2))
-    names(x$summ)[names(x$summ) == "upper"] <- paste("Upper", sprintf("%.1f%%", 100 * (1 - (1 - x$ci_level) / 2)))
-  }
 
-  ### Print pretty summary
-  par_split <- split(x$summ, f = lapply(x$par, function(f) x$summ[[f]]))
+  ### Order data.frame with results
+  x$summ <- .order(data = x$summ, by = c("Performance Measure", x$par, x$methodvar, x$by))
+
+  ### Split summary table by parameter
+  par_split <- .split_by(data = x$summ, by = x$par)
+
+  ### Loop printing by parameter
   for (i in seq_along(par_split)) {
+    cat(paste("\n", ifelse(i > 1, paste(rep("-", times = options()$width), collapse = ""), ""), ifelse(i > 1, "\n", ""), "\nParameter:", names(par_split)[i], "\n"))
     par_split[[i]][[x$par]] <- NULL
-    cat("\n", paste(rep("-", options()$width), collapse = ""), "\n")
-    cat(paste0("\nSummary statistics for estimand '", names(par_split)[i], "':\n", collapse = ""))
-    if (is.null(x$by) & is.null(x$methodvar)) {
-      print(par_split[[i]], row.names = FALSE)
-    } else if (is.null(x$by) & !is.null(x$methodvar)) {
-      methodvar_split <- split(par_split[[i]], f = lapply(x$methodvar, function(f) par_split[[i]][[f]]))
-      methodvar_split <- lapply(methodvar_split, function(w) {
-        w[[x$methodvar]] <- NULL
-        w
-      })
-      names(methodvar_split) <- methods
-      for (i in methods) {
-        cat("\n\tMethod =", i, "\n")
-        print(methodvar_split[[i]], row.names = FALSE)
-      }
-    } else if (!is.null(x$by) & is.null(x$methodvar)) {
-      by_split <- split(par_split[[i]], f = lapply(x$by, function(f) par_split[[i]][[f]]))
-      for (i in seq_along(by_split)) {
-        cat("\n\t", paste(paste(x$by, unlist(strsplit(names(by_split)[i], ".", fixed = TRUE)), sep = " = "), collapse = ", "), "\n")
-        print(by_split[[i]], row.names = FALSE)
-      }
-    } else {
-      by_split <- split(par_split[[i]], f = lapply(x$by, function(f) par_split[[i]][[f]]))
-      for (i in seq_along(by_split)) {
-        for (w in x$by) {
-          by_split[[i]][[w]] <- NULL
-        }
-        methodvar_split <- split(by_split[[i]], f = lapply(x$methodvar, function(f) by_split[[i]][[f]]))
-        methodvar_split <- lapply(methodvar_split, function(w) {
-          w[[x$methodvar]] <- NULL
-          w
-        })
-        names(methodvar_split) <- methods
-        for (j in methods) {
-          cat(paste0("\n\tMethod = ", j, ","), paste(paste(x$by, unlist(strsplit(names(by_split)[i], ".", fixed = TRUE)), sep = " = "), collapse = ", "), "\n")
-          print(methodvar_split[[j]], row.names = FALSE)
-        }
-      }
+
+    ### If methodvar, put them side by side
+    if (!is.null(x$methodvar)) par_split[[i]] <- .bind_methods(data = par_split[[i]], by = x$by, methodvar = x$methodvar)
+
+    ### Split by summary statistics for printing
+    par_split[[i]][["Performance Measure"]] <- droplevels(par_split[[i]][["Performance Measure"]])
+    output <- .split_by(data = par_split[[i]], by = "Performance Measure")
+
+    for (i in seq_along(output)) {
+      cat(paste0("\n", names(output)[i], ":\n"))
+      output[[i]][["Performance Measure"]] <- NULL
+      print(output[[i]], row.names = FALSE)
     }
   }
 }

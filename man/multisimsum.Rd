@@ -4,19 +4,18 @@
 \alias{multisimsum}
 \title{Analyses of simulation studies with multiple estimands at once, including Monte Carlo error}
 \usage{
-multisimsum(data, par, true, estvarname, se, methodvar = NULL,
-  ref = NULL, df = NULL, dropbig = FALSE, max = 10, semax = 100,
-  level = 0.95, by = NULL, mcse = TRUE, sanitise = TRUE,
-  na.rm = TRUE, na.pair = TRUE, x = FALSE)
+multisimsum(data, par, estvarname, true, se, methodvar = NULL,
+  ref = NULL, by = NULL, ci.limits = NULL, dropbig = FALSE,
+  x = FALSE, control = list())
 }
 \arguments{
 \item{data}{A \code{data.frame} in which variable names are interpreted. It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.}
 
 \item{par}{The name of the variable containing the methods to compare. Can be \code{NULL}.}
 
-\item{true}{The true value of the parameter. This is used in calculations of bias and coverage.}
-
 \item{estvarname}{The name of the variable containing the point estimates.}
+
+\item{true}{The true value of the parameter. This is used in calculations of bias and coverage.}
 
 \item{se}{The name of the variable containing the standard errors of the point estimates.}
 
@@ -24,45 +23,41 @@ multisimsum(data, par, true, estvarname, se, methodvar = NULL,
 
 \item{ref}{Specifies the reference method against which relative precision will be calculated. Only useful if \code{methodvar} is specified.}
 
-\item{df}{If specified, a t distribution with \code{df} degrees of freedom is used when calculating coverage and power.}
-
-\item{dropbig}{Specifies that point estimates or standard errors beyond the maximum acceptable values should be dropped.}
-
-\item{max}{Specifies the maximum acceptable absolute value of the point estimates, standardised to mean 0 and SD 1. Defaults to \code{10}.}
-
-\item{semax}{Specifies the maximum acceptable value of the standard error, as a multiple of the mean standard error. Defaults to \code{100}.}
-
-\item{level}{Specifies the confidence level for coverage and power. Defaults to \code{0.95}.}
-
 \item{by}{A vector of variable names to compute performance measures by a list of factors. Factors listed here are the (potentially several) data-generating mechanisms used to simulate data under different scenarios (e.g. sample size, true distribution of a variable, etc.). Can be \code{NULL}.}
 
-\item{mcse}{Reports Monte Carlo standard errors for all performance measures. Defaults to \code{TRUE}.}
+\item{ci.limits}{A numeric vector of length 2 specifying the limits (lower and upper) of confidence intervals used to calculate coverage. Useful for non-Wald type estimators (e.g. bootstrap). Defaults to \code{NULL}, where Wald-type confidence intervals based on the provided SEs are calculated for coverage. This feature is experimental, use with caution.}
 
-\item{sanitise}{Sanitise column names passed to \code{simsum} by removing all dot characters (\code{.}), which could cause problems. Defaults to \code{TRUE}.}
+\item{dropbig}{Specifies that point estimates or standard errors beyond the maximum acceptable values should be dropped. Defaults to \code{FALSE}.}
 
-\item{na.rm}{A logical value indicating whether missing values (\code{NA}) should be removed before the computation proceeds. Defaults to \code{TRUE}.}
+\item{x}{Set to \code{TRUE} to include the \code{data} argument used to calculate summary statistics (i.e. after pre-processing the input dataset e.g. removing values deemed too large via the \code{dropbig} argument) as a slot. Calling \code{simsum} with \code{x = TRUE} is required to produce zipper plots. The downside is that the size of the returned object increases considerably, therefore it is set to \code{FALSE} by default.}
 
-\item{na.pair}{Removes estimates that have a missing standard error (and vice versa). Defaults to \code{TRUE}.}
-
-\item{x}{Set to \code{TRUE} to include the \code{data} argument (as utilised to compute summary statistics, i.e. applying \code{dropbig}, \code{na.rm}, \code{na.pair}) as a slot. Defaults to \code{FALSE}.}
+\item{control}{A list of parameters that control the behaviour of \code{simsum}. Possible values are:
+\itemize{
+\item \code{mcse}, whether to calculate Monte Carlo standard errors. Defaults to \code{TRUE};
+\item \code{level}, the significancy level used for coverage, bias-eliminated coverage, and power. Defaults to 0.95;
+\item \code{df}, whether to use robust critical values from a t distribution with \code{df} degrees of freedom when calculating coverage, bias-eliminated coverage, and power. Defaults to \code{NULL}, in which case a Gaussian distribution is used;
+\item \code{na.rm}, whether to remove point estimates or standard errors where either (or both) is missing. Defaults to \code{TRUE};
+\item \code{char.sep}, a character utilised when splitting the input dataset \code{data}. Generally, this should not be changed;
+\item \code{dropbig.max}, specifies the maximum acceptable absolute value of the point estimates, after standardisation. Defaults to 10;
+\item \code{dropbig.semax}, specifies the maximum acceptable absolute value of the standard error, after standardisation. Defaults to 100
+\item \code{dropbig.robust}, specifies whether to use robust standardisation (using median and inter-quartile range) rather than normal standardisation (using mean and standard deviation). Defaults to \code{TRUE}, in which case robust standardisation will be used for \code{dropbig}.
+}}
 }
 \value{
 An object of class \code{multisimsum}.
 }
 \description{
-\code{multisimsum} is an extension of \code{\link[=simsum]{simsum()}} that can handle multiple estimated parameters at once. \code{multisimsum} calls \code{\link[=simsum]{simsum()}} internally, each estimands at once. There is only one new argument that must be set when calling \code{multisimsum}: \code{par}, a string representing the column of \code{data} that identifies the different estimands.
+\code{multisimsum} is an extension of \code{\link[=simsum]{simsum()}} that can handle multiple estimated parameters at once. \code{multisimsum} calls \code{\link[=simsum]{simsum()}} internally, each estimands at once. There is only one new argument that must be set when calling \code{multisimsum}: \code{par}, a string representing the column of \code{data} that identifies the different estimands. Additionally, with \code{multisimsum} the argument \code{true} must be a named vector, where names correspond to each estimand (see examples).
 }
 \details{
-The following names are not allowed for \code{estvarname}, \code{se}, \code{methodvar}, \code{by}: \code{stat}, \code{est}, \code{mcse}, \code{lower}, \code{upper}.
-Calling the function with \code{x = TRUE} is required to produce zipper plots (e.g. via the \code{\link[=zipper]{zipper()}} method). The downside is that the size of the returned object increases considerably, therefore it is set to \code{FALSE} by default. Please note that the \code{data} slot returned when \code{x = TRUE} is obtained according to the value of the arguments \code{dropbig}, \code{na.rm}, \code{na.pair}; all rows with missing values are removed via a call to \code{\link[stats:na.omit]{stats::na.omit()}}.
+The following names are not allowed for \code{estvarname}, \code{se}, \code{methodvar}, \code{by}, \code{par}: \code{stat}, \code{est}, \code{mcse}, \code{lower}, \code{upper}.
 }
 \examples{
 data("frailty", package = "rsimsum")
 ms <- multisimsum(
-  data = frailty, par = "par", true = c(
-    trt = -0.50,
-    fv = 0.75
-  ), estvarname = "b", se = "se", methodvar = "model",
+  data = frailty,
+  par = "par", true = c(trt = -0.50, fv = 0.75),
+  estvarname = "b", se = "se", methodvar = "model",
   by = "fv_dist"
 )
 ms

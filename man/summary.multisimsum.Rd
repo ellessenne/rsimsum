@@ -4,12 +4,34 @@
 \alias{summary.multisimsum}
 \title{Summarising multisimsum objects}
 \usage{
-\method{summary}{multisimsum}(object, ci_level = 0.95, ...)
+\method{summary}{multisimsum}(object, ci_level = 0.95, df = NULL,
+  stats = NULL, ...)
 }
 \arguments{
 \item{object}{An object of class \code{multisimsum}.}
 
-\item{ci_level}{Significance level for confidence intervals based on Monte Carlo standard errors. Ignored if a \code{multisimsum} object is obtained with \code{mcse = FALSE}.}
+\item{ci_level}{Significance level for confidence intervals based on Monte Carlo standard errors. Ignored if a \code{multisimsum} object with control parameter \code{mcse = FALSE} is passed.}
+
+\item{df}{Degrees of freedom of a t distribution that will be used to calculate confidence intervals based on Monte Carlo standard errors. If \code{NULL} (the default), quantiles of a Normal distribution will be used instead.}
+
+\item{stats}{Summary statistics to include; can be a scalar value or a vector (for multiple summary statistics at once). Possible choices are:
+\itemize{
+\item \code{nsim}, the number of replications with non-missing point estimates and standard error.
+\item \code{thetamean}, average point estimate.
+\item \code{thetamedian}, median point estimate.
+\item \code{se2mean}, average standard error.
+\item \code{se2median}, median standard error.
+\item \code{bias}, bias in point estimate.
+\item \code{empse}, empirical standard error.
+\item \code{mse}, mean squared error.
+\item \code{relprec}, percentage gain in precision relative to the reference method.
+\item \code{modelse}, model-based standard error.
+\item \code{relerror}, relative percentage error in standard error.
+\item \code{cover}, coverage of a nominal \code{level}\% confidence interval.
+\item \code{becover}, bias corrected coverage of a nominal \code{level}\% confidence interval.
+\item \code{power}, power of a (1 - \code{level})\% level test.
+Defaults to \code{NULL}, in which case all possible summary statistics are included.
+}}
 
 \item{...}{Ignored.}
 }
@@ -18,9 +40,6 @@ An object of class \code{summary.multisimsum}.
 }
 \description{
 The \code{summary()} method for objects of class \code{multisimsum} returns confidence intervals for performance measures based on Monte Carlo standard errors.
-}
-\note{
-Confidence intervals are constructed using quantiles from a normal distribution with the specified \code{ci_level} confidence level, and are therefore symmetric by definition.
 }
 \examples{
 data(frailty)

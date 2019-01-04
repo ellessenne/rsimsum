@@ -15,9 +15,6 @@
 #' )
 #' ms
 print.multisimsum <- function(x, ...) {
-  ### Print call to `simsum`
-  cat("\nCall:\n\t", paste(deparse(x$call), sep = "\n", collapse = "\n"), "\n", sep = "")
-
   ### Print `par`, possible estimands
   cat("\nEstimands variable:", x$par, "\n")
   estimands <- unique(x$summ[[x$par]])
@@ -42,7 +39,7 @@ print.multisimsum <- function(x, ...) {
   }
 
   ### Print whether Monte Carlo SEs were computed or not
-  if (x$mcse) {
+  if (x$control$mcse) {
     cat("\nMonte Carlo standard errors were computed.\n")
   } else {
     cat("\nMonte Carlo standard errors were not computed.\n")
