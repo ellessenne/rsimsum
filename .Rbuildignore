@@ -20,3 +20,4 @@ cache$
 ^inst/JOSS$
 ^inst/Sticker$
 test-refactor.R
+^data-raw$
