@@ -38,5 +38,5 @@ testthat::test_that(".order actually orders a dataset", {
   iris2 <- iris[order(iris$Sepal.Length, iris$Sepal.Width, iris$Petal.Length, iris$Petal.Width), ]
   messyIris <- iris[sample(x = seq(nrow(iris)), size = nrow(iris), replace = FALSE), ]
   fixedIris <- .order(data = messyIris, by = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"))
-  testthat::expect_equivalent(object = fixedIris, expected = iris2, )
+  testthat::expect_equivalent(object = fixedIris, expected = iris2)
 })
