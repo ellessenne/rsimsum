@@ -1,24 +1,26 @@
-# rsimsum 0.3.5-9000
+# rsimsum 0.4.0
 
-`rsimsum` 0.4.0 is a large refactoring of `rsimsum`. There are several improvements and breaking changes:
+`rsimsum` 0.4.0 is a large refactoring of `rsimsum`. 
+There are several improvements and breaking changes, outlined below.
 
-**Improvements:**
+### Improvements
+
 * `rsimsum` is more robust to using factor variables (e.g. as `methodvar` or `by` factor), with ordering that will be preserved if defined in the dataset passed to `simsum` (or `multisimsum`);
-* Confidence intervals based on Monte Carlo standard errors can be now computed using quantiles from a t distribution; see `help(summary.simsum)` for more details.
+* Confidence intervals based on Monte Carlo standard errors can be now computed using quantiles from a t distribution; see `help(summary.simsum)` for more details;
+* Added comparison with results from Stata's `simsum` for testing purposes - differences are negligible, and there are some calculations in `simsum` that are wrong (already reported). Most differences can be attributed to calculations (and conversions, for comparison) on different scales.
 
-**Breaking changes:**
+### Breaking changes
+
 * The syntax of `simsum` and `multisimsum` has been slightly changed, with some arguments being removed and others being moved to a `control` list with several tuning parameters. Please check the updated examples for more details;
 * `dropbig` is no longer an S3 method for `simsum` and `multisimsum` objects. Now, `dropbig` is an exported function that can be used to identify rows of the input `data.frame` that would be dropped by `simsum` (or `multisimsum`);
 * Point estimates and standard errors dropped by `simsum` (or `multisimsum`) when `dropbig = TRUE)` are no longer included in the returned object; therefore, the S3 method `miss` has been removed;
 * `get_data` is no longer an S3 method, but still requires an object of class `simsum`, `summary.simsum`, `multisimsum`, or `summary.multisimsum` to be passed as input;
 * All plotting methods have been removed in preparation of a complete overhaul planned for `rsimsum` 0.5.0.
 
-TO DO:
-- Check maths and add formal testing for it (maybe comparison with Stata's simsum?).
-
 # rsimsum 0.3.5
 
-**Breaking changes**:
+### Breaking changes
+
 * The `zip` method has been renamed to `zipper()` to avoid name collision with `utils::zip()`.
 
 # rsimsum 0.3.4
