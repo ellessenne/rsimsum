@@ -14,11 +14,10 @@ editor_options:
 ```{r setup, include = FALSE}
 options(width = 150)
 knitr::opts_chunk$set(
-	eval = FALSE,
   collapse = TRUE,
   comment = "#>",
   fig.align = "center", fig.height = 6, fig.width = 6,
-  out.width = "66.66%"
+  out.width = "75%"
 )
 ```
 
@@ -112,13 +111,13 @@ Under coverage is to be expected if:
 
 Over coverage occurs as a result of $\text{Models SE} > \text{Empirical SE}$.
 
-As under coverage may be a result of bias, another useful summary statistic is **bias corrected coverage**:
+As under coverage may be a result of bias, another useful summary statistic is **bias-eliminated coverage**:
 
-$$\text{Bias corrected coverage} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} I(\hat{\theta}_{i, \text{low}} \le \bar{\theta} \le \hat{\theta}_{i, \text{upp}}) $$
+$$\text{Bias-eliminated coverage} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} I(\hat{\theta}_{i, \text{low}} \le \bar{\theta} \le \hat{\theta}_{i, \text{upp}}) $$
 
 The Monte Carlo standard error is analogously as coverage:
 
-$$\text{MCSE(Bias corrected coverage)} = \sqrt{\frac{\text{Bias corrected coverage} \times (1 - \text{Bias corrected coverage})}{n_{\text{sim}}}}$$
+$$\text{MCSE(Bias-eliminated coverage)} = \sqrt{\frac{\text{Bias-eliminated coverage} \times (1 - \text{Bias-eliminated coverage})}{n_{\text{sim}}}}$$
 
 Finally, **power** of a significance test at the $\alpha$ level is defined as:
 
@@ -178,13 +177,12 @@ ss1 <- summary(s1)
 ss1
 ```
 
-The output begins with a brief overview of the setting of the simulation study (e.g. the method variable, unique methods, etc.), and continues with a table of summary statistics for each method compared with this simulation study. The table contains the following columns:
+The output begins with a brief overview of the setting of the simulation study (e.g. the method variable, unique methods, etc.), and continues with each summary statistic by method (if defined, as in this case).
+The values that are reported are point estimates with Monte Carlo standard errors in brackets; however, it is also possible to require confidence intervals based on Monte Carlo standard errors to be reported instead:
 
-* `Estimate`: the point estimate of each summary statistics;
-
-* `MCSE`: the Monte Carlo standard error of each point estimate;
-
-* `Lower (1 - (1 - X) / 2)%` and `Upper ((1 - X) / 2)%`: bounds of a \(X\%\) confidence interval for the point estimate based on the Monte Carlo standard error.
+```{r ex1-summary-simsum-ci}
+print(ss1, mcse = FALSE)
+```
 
 Highlighting some points of interest from the summary results above:
 
@@ -216,7 +214,7 @@ Plotting bias by method with $95\%$ confidence intervals based on Monte Carlo st
 
 ```{r ex1-plot-bias}
 library(ggplot2)
-ggplot(get_data(ss1, sstat = "bias"), aes(x = method, y = est, ymin = lower, ymax = upper)) +
+ggplot(get_data(ss1, stats = "bias"), aes(x = method, y = est, ymin = lower, ymax = upper)) +
   geom_hline(yintercept = 0, color = "red", lty = "dashed") +
   geom_point() +
   geom_errorbar(width = 1 / 3) +
@@ -227,7 +225,7 @@ ggplot(get_data(ss1, sstat = "bias"), aes(x = method, y = est, ymin = lower, yma
 Conversely, say we want to visually compare coverage for the three methods compared with this simulation study:
 
 ```{r ex1-plot-cov}
-ggplot(get_data(ss1, sstat = "cover"), aes(x = method, y = est, ymin = lower, ymax = upper)) +
+ggplot(get_data(ss1, stats = "cover"), aes(x = method, y = est, ymin = lower, ymax = upper)) +
   geom_hline(yintercept = 0.95, color = "red", lty = "dashed") +
   geom_point() +
   geom_errorbar(width = 1 / 3) +
@@ -238,23 +236,22 @@ ggplot(get_data(ss1, sstat = "cover"), aes(x = method, y = est, ymin = lower, ym
 
 ## Dropping large estimates and standard errors
 
-`rsimsum` allows to automatically drop estimates and standard errors that are larger than a predefined value. Specifically, the argument of `simsum` that control this behaviour are `dropbig`, `max` and `semax`. 
+`rsimsum` allows to automatically drop estimates and standard errors that are larger than a predefined value. Specifically, the argument of `simsum` that control this behaviour is `dropbig`, with tuning parameters `dropbig.max` and `dropbig.semax` that can be passed via the `control` argument.
 
-Set `dropbig` to `TRUE`, and then standardised estimates larger than `max` in absolute value will be dropped; standard errors larger than `semax` times the average standard error will be dropped too.
+Set `dropbig` to `TRUE` and standardised estimates larger than `max` in absolute value will be dropped; standard errors larger than `semax` times the average standard error will be dropped too.
+By default, robust standardisation is used (based on median and inter-quartile range); however, it is also possible to request regular standardisation (based on mean and standard deviation) by setting the control parameter `dropbig.robust = FALSE`.
 
-For instance, say we want to drop standardised estimates larger than $4$ in absolute value and standard errors larger than $1.5$ times the average standard error:
+For instance, say we want to drop standardised estimates larger than $3$ in absolute value and standard errors larger than $1.5$ times the average standard error:
 
 ```{r ex1-dropbig-simsum}
-s1.2 <- simsum(data = MIsim, estvarname = "b", true = 0.50, se = "se", methodvar = "method", ref = "CC", dropbig = TRUE, max = 4, semax = 1.5)
+s1.2 <- simsum(data = MIsim, estvarname = "b", true = 0.50, se = "se", methodvar = "method", ref = "CC", dropbig = TRUE, control = list(dropbig.max = 4, dropbig.semax = 1.5))
 ```
 
-Were any estimates dropped?
+Some estimates were dropped, as we can see from the number of non-missing point estimates, standard errors:
 
-```{r ex1-dropbig-dropbig}
-dropbig(s1.2)
+```{r ex1-dropbig-nsim}
+summary(s1.2, stats = "nsim")
 ```
-
-Yes they were!
 
 Everything else works analogously as before; for instance, to summarise the results:
 
@@ -317,7 +314,7 @@ Tables could get cumbersome when there are many different data-generating mechan
 Say we want to compare bias for each method by baseline hazard function and sample size using faceting:
 
 ```{r ex2-plot-bias}
-ggplot(get_data(ss2, sstat = "bias"), aes(x = model, y = est, ymin = lower, ymax = upper)) +
+ggplot(get_data(ss2, stats = "bias"), aes(x = model, y = est, ymin = lower, ymax = upper)) +
   geom_hline(yintercept = 0, color = "red", lty = "dashed") +
   geom_point() +
   geom_errorbar(width = 1 / 3) +

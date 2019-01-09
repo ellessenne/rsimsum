@@ -10,6 +10,8 @@ TO DO:
 * rebuild pkgdown website
 --> targeting rsimsum 0.5.0 to go on CRAN ASAP
 
+* Updated vignettes (NEED TO DO THE PLOTTING ONE STILL) after refactoring.
+
 # rsimsum 0.4.1
 
 Fixed a bug in `dropbig` and related internal function that was returning standardised values instead of actual observed values.
