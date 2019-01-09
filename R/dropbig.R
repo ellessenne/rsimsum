@@ -53,8 +53,5 @@ dropbig <- function(data, estvarname, se, methodvar = NULL, by = NULL, max = 10,
   if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
 
   ### Uses the internal function .dropbig
-  data[[".dropbig"]] <- .dropbig(data = data, estvarname = estvarname, se = se, methodvar = methodvar, by = by, max = max, semax = semax, robust = robust, internal = FALSE)
-
-  ### Return augmented dataset
-  return(data)
+  return(.dropbig(data = data, estvarname = estvarname, se = se, methodvar = methodvar, by = by, max = max, semax = semax, robust = robust, internal = FALSE))
 }

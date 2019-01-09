@@ -1,14 +1,6 @@
-# rsimsum 0.4.0-9000
+# rsimsum 0.4.1
 
-TO DO:
-
-* revamp plotting methods (e.g. use autoplot and so on)
-* vignettes need to be updated to reflect all changes from the refactoring
-* code coverage, eventually, once all of the above is done
-* anything that comes up in the meanwhile
-* check docs
-* rebuild pkgdown website
---> targeting rsimsum 0.5.0 to go on CRAN ASAP
+Fixed a bug in `dropbig` and related internal function that was returning standardised values instead of actual observed values.
 
 # rsimsum 0.4.0
 

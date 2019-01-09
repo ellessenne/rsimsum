@@ -45,15 +45,16 @@
   })
   odata <- .br(odata)
   if (internal) {
-    odata[[estvarname]] <- ifelse(abs(odata[[paste0(".", estvarname, ".std")]]) > max, NA, odata[[paste0(".", estvarname, ".std")]])
-    odata[[se]] <- ifelse(abs(odata[[paste0(".", se, ".std")]]) > semax, NA, odata[[paste0(".", se, ".std")]])
+    odata[[estvarname]] <- ifelse(abs(odata[[paste0(".", estvarname, ".std")]]) > max, NA, odata[[estvarname]])
+    odata[[se]] <- ifelse(abs(odata[[paste0(".", se, ".std")]]) > semax, NA, odata[[se]])
     odata[[paste0(".", estvarname, ".std")]] <- NULL
     odata[[paste0(".", se, ".std")]] <- NULL
-    return(odata)
   } else {
-    .toNA <- ifelse(abs(odata[[paste0(".", estvarname, ".std")]]) > max | abs(odata[[paste0(".", se, ".std")]]) > semax, TRUE, FALSE)
-    return(.toNA)
+    odata[[".dropbig"]] <- ifelse(abs(odata[[paste0(".", estvarname, ".std")]]) > max | abs(odata[[paste0(".", se, ".std")]]) > semax, TRUE, FALSE)
+    odata[[paste0(".", estvarname, ".std")]] <- NULL
+    odata[[paste0(".", se, ".std")]] <- NULL
   }
+  return(odata)
 }
 
 ### Set both est, se to NA if any of the two is NA
