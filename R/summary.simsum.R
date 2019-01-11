@@ -2,7 +2,7 @@
 #' @description The `summary()` method for objects of class `simsum` returns confidence intervals for performance measures based on Monte Carlo standard errors.
 #' @param object An object of class `simsum`.
 #' @param ci_level Significance level for confidence intervals based on Monte Carlo standard errors. Ignored if a `simsum` object with control parameter `mcse = FALSE` is passed.
-#' @param df Degrees of freedom of a t distribution that will be used to calculate confidence intervals based on Monte Carlo standard errors. If `NULL` (the default), quantiles of a Normal distribution will be used instead.
+#' @param df Degrees of freedom of a t distribution that will be used to calculate confidence intervals based on Monte Carlo standard errors. If `NULL` (the default), quantiles of a Normal distribution will be used instead. However, using Z-based or t-based confidence intervals is valid only for summary statistics such a bias and coverage. Confidence intervals for other quantities may not be appropriate, therefore their usage is not recommended.
 #' @param stats Summary statistics to include; can be a scalar value or a vector (for multiple summary statistics at once). Possible choices are:
 #' * `nsim`, the number of replications with non-missing point estimates and standard error.
 #' * `thetamean`, average point estimate.

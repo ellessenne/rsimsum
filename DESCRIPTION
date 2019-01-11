@@ -1,6 +1,6 @@
 Package: rsimsum
 Version: 0.4.1-9000
-Date: 2019-01-09
+Date: 2019-01-11
 Title: Analysis of Simulation Studies Including Monte Carlo Error
 Description: Summarise results from simulation studies and compute Monte Carlo
   standard errors of commonly used summary statistics. This package is modelled 
