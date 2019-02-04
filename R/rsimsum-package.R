@@ -8,10 +8,8 @@
 #' @name rsimsum
 #' @docType package
 #' @author Alessandro Gasparini (ag475@@leicester.ac.uk)
-#' @import checkmate ggplot2 stats
+#' @import checkmate ggplot2 rlang stats
 NULL
 
-# Quiets concerns of R CMD check re: variables used with
-# non-standard evaluation within ggplot2's 'aes'
-# e.g.: lolly(), zipper()
-if (getRversion() >= "2.15.1") utils::globalVariables(c("est", "mcse", "lower", "upper", "pr", "colour", "cupper", "clower"))
+# Quiets concerns of R CMD check re: variable names used internally
+if (getRversion() >= "2.15.1") utils::globalVariables(c(".dgm", "X", "Y", "contrast", "cover_lower", "cover_upper", "covering", "est", "lower", "upper"))

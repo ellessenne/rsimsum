@@ -1,6 +1,13 @@
 ### Split 'data' by what is in 'by'
 #' @keywords internal
-.split_by <- function(data, by) split(x = data, f = lapply(X = by, FUN = function(f) data[[f]]), sep = "~")
+.split_by <- function(data, by) {
+  if (!is.null(by)) {
+    out <- split(x = data, f = lapply(X = by, FUN = function(f) data[[f]]), sep = "~")
+  } else {
+    out <- list(data)
+  }
+  return(out)
+}
 
 ### Bind rows of data.frame objects contained in 'x', with 'x' generally a list
 #' @keywords internal

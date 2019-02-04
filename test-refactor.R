@@ -1,27 +1,51 @@
-### working algorithm for refactoring
+data("MIsim", package = "rsimsum")
 data("relhaz", package = "rsimsum")
-relhaz2 = dplyr::bind_rows(relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz, relhaz)
-relhaz3 = dplyr::bind_rows(relhaz2, relhaz2, relhaz2, relhaz2, relhaz2, relhaz2, relhaz2, relhaz2, relhaz2, relhaz2, relhaz2, relhaz2, relhaz2, relhaz2, relhaz2, relhaz2, relhaz2, relhaz2, relhaz2, relhaz2, relhaz2)
-relhaz4 = dplyr::bind_rows(relhaz3, relhaz3, relhaz3, relhaz3, relhaz3)
+s <- rsimsum::simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", ref = "CC", x = T)
+a <- rsimsum::simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = c("n", "baseline"), x = TRUE)
+ss <- summary(s)
+aa <- summary(a)
 
-old = simsum(data = relhaz4, estvarname = "theta", se = "se", methodvar = "model", by = c("n", "baseline"), true = 0)
-new = simsum_ref(data = relhaz4, estvarname = "theta", se = "se", methodvar = "model", by = c("n", "baseline"), true = 0)
+# s
+autoplot(s, type = "forest")
+autoplot(s, type = "lolly")
+autoplot(s, type = "zip")
+autoplot(s, type = "est")
+autoplot(s, type = "se")
+autoplot(s, type = "est_ba")
+autoplot(s, type = "se_ba")
+autoplot(s, type = "est_ridge")
+autoplot(s, type = "se_ridge")
 
+# a
+autoplot(a, type = "forest")
+autoplot(a, type = "lolly")
+autoplot(a, type = "zip")
+autoplot(a, type = "est")
+autoplot(a, type = "se")
+autoplot(a, type = "est_ba")
+autoplot(a, type = "se_ba")
+autoplot(a, type = "est_ridge")
+autoplot(a, type = "se_ridge")
 
-all.equal(old$summ[,1:3], new$summ[,1:3])
+# ss
+autoplot(ss, type = "forest")
+autoplot(ss, type = "lolly")
+autoplot(ss, type = "zip")
+autoplot(ss, type = "est")
+autoplot(ss, type = "se")
+autoplot(ss, type = "est_ba")
+autoplot(ss, type = "se_ba")
+autoplot(ss, type = "est_ridge")
+autoplot(ss, type = "se_ridge")
 
-data("MIsim")
-x <- simsum(
-	data = MIsim, estvarname = "b", true = 0.5, se = "se",
-	methodvar = "method", control = list(mcse = F))
-xs <- summary(x, stats = c("bias", "cover", "mse"))
-xs
+# aa
+autoplot(aa, type = "forest")
+autoplot(aa, type = "lolly")
+autoplot(aa, type = "zip")
+autoplot(aa, type = "est")
+autoplot(aa, type = "se")
+autoplot(aa, type = "est_ba")
+autoplot(aa, type = "se_ba")
+autoplot(aa, type = "est_ridge")
+autoplot(aa, type = "se_ridge")
 
-
-data("relhaz", package = "rsimsum")
-x = simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = c("n", "baseline"))
-xs = summary(x)
-xs
-x = xs
-digits = 3
-mcse = T

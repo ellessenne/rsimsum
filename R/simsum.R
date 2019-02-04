@@ -129,17 +129,10 @@ simsum <- function(data,
 
   ### Compute summary statistics
   # Split by first
-  if (is.null(by)) {
-    data <- list(data)
-  } else {
-    data <- .split_by(data = data, by = by)
-  }
+  data <- .split_by(data = data, by = by)
+
   # Then, split methodvar
-  if (is.null(methodvar)) {
-    data <- list(data)
-  } else {
-    data <- lapply(X = seq_along(data), FUN = function(i) .split_by(data = data[[i]], by = methodvar))
-  }
+  data <- lapply(X = seq_along(data), FUN = function(i) .split_by(data = data[[i]], by = methodvar))
 
   # Then call .performance to compute all performance measures
   summ <- lapply(X = seq_along(data), FUN = function(i) {
