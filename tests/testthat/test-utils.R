@@ -40,3 +40,22 @@ testthat::test_that(".order actually orders a dataset", {
   fixedIris <- .order(data = messyIris, by = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"))
   testthat::expect_equivalent(object = fixedIris, expected = iris2)
 })
+
+testthat::test_that(".dropbig works if splitting by 'by' or 'methodvar'", {
+  df <- data.frame(
+    theta = rnorm(n),
+    se = rnorm(n),
+    group = rep(x = 1:3, each = n / 3)
+  )
+  df$theta[1] <- rnorm(1, mean = 1000)
+  ### Check standardised values:
+  # library(tidyverse)
+  # df %>%
+  # 	group_by(group) %>%
+  # 	mutate(std = (theta - mean(theta)) / sqrt(var(theta)),
+  # 				 std.r = (theta - median(theta)) / (fivenum(theta)[4] - fivenum(theta)[2]))
+  out <- .dropbig(data = df, estvarname = "theta", se = "se", methodvar = NULL, by = "group", max = 2, semax = 10, robust = FALSE)
+  testthat::expect_equal(object = is.na(out$theta[1]), expected = TRUE)
+  out <- .dropbig(data = df, estvarname = "theta", se = "se", methodvar = NULL, by = "group", max = 10, semax = 10, robust = TRUE)
+  testthat::expect_equal(object = is.na(out$theta[1]), expected = TRUE)
+})

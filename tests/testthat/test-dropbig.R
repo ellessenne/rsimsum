@@ -26,3 +26,24 @@ testthat::test_that("dropbig detects values above 'max'", {
   out <- dropbig(data = df, estvarname = "theta", se = "se", methodvar = NULL, by = NULL, robust = TRUE)
   testthat::expect_equal(object = out$.dropbig[1], expected = TRUE)
 })
+
+
+testthat::test_that("dropbig throws errors when appropriate", {
+  set.seed(238746)
+  n <- 1000
+  df <- data.frame(
+    theta = rnorm(n),
+    se = exp(rnorm(n, sd = 0.1))
+  )
+  df$theta[1] <- rnorm(1, mean = 1000)
+  testthat::expect_error(rsimsum::dropbig(data = df))
+  testthat::expect_error(object = rsimsum::dropbig(data = df, estvarname = 1, se = "se"))
+  testthat::expect_error(object = rsimsum::dropbig(data = df, estvarname = "theta", se = 1))
+  testthat::expect_error(object = rsimsum::dropbig(data = df, estvarname = TRUE, se = "se"))
+  testthat::expect_error(object = rsimsum::dropbig(data = df, estvarname = "theta", se = TRUE))
+  testthat::expect_error(object = rsimsum::dropbig(data = df, estvarname = "theta", se = "se", methodvar = 1))
+  testthat::expect_error(object = rsimsum::dropbig(data = df, estvarname = "theta", se = "se", methodvar = TRUE))
+  testthat::expect_error(object = rsimsum::dropbig(data = df, estvarname = "theta", se = "se", by = 1))
+  testthat::expect_error(object = rsimsum::dropbig(data = df, estvarname = "theta", se = "se", by = TRUE))
+  testthat::expect_error(object = rsimsum::dropbig(data = df, estvarname = "theta", se = "se", robust = "yeah!"))
+})

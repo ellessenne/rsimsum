@@ -12,3 +12,20 @@ testthat::test_that("get_data returns a data.frame", {
   sms <- summary(ms)
   testthat::expect_s3_class(object = get_data(sms), class = "data.frame")
 })
+
+testthat::test_that("get_data with 'stats' results only 'stats'", {
+  data("MIsim", package = "rsimsum")
+  x <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
+  out <- rsimsum::get_data(x, stats = "bias")
+  testthat::expect_true(object = all(out$stat == "bias"))
+  out <- rsimsum::get_data(x, stats = c("bias", "cover"))
+  testthat::expect_true(object = all(out$stat %in% c("bias", "cover")))
+})
+
+testthat::test_that("get_data with wrong 'stats' throws an error", {
+  data("MIsim", package = "rsimsum")
+  x <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
+  testthat::expect_error(object = rsimsum::get_data(x, stats = "42"))
+  testthat::expect_error(object = rsimsum::get_data(x, stats = TRUE))
+  testthat::expect_error(object = rsimsum::get_data(x, stats = 42))
+})
