@@ -96,8 +96,14 @@ multisimsum <- function(data,
   ### Split data by 'par'
   par_split <- .split_by(data = data, by = par)
 
-  ### Call 'simsum' on each element of 'par_split'
-  par_simsum <- lapply(seq_along(par_split), function(i) simsum(data = par_split[[i]], estvarname = estvarname, true = true[names(par_split)[i]], se = se, methodvar = methodvar, ref = ref, by = by, ci.limits = ci.limits, dropbig = dropbig, x = x, control = control)[["summ"]])
+  ### Call 'simsum' on each element of 'par_split'; save data if 'x = TRUE'
+  par_simsum <- vector(mode = "list", length = length(par_split))
+  if (x) par_data <- vector(mode = "list", length = length(par_split))
+  for (i in seq_along(par_split)) {
+    run <- simsum(data = par_split[[i]], estvarname = estvarname, true = true[names(par_split)[i]], se = se, methodvar = methodvar, ref = ref, by = by, ci.limits = ci.limits, dropbig = dropbig, x = x, control = control)
+    par_simsum[[i]] <- run[["summ"]]
+    if (x) par_data[[i]] <- run[["x"]]
+  }
   names(par_simsum) <- names(par_split)
 
   ### Add a column with the parameter to each slot, and turn it into factor
@@ -124,7 +130,7 @@ multisimsum <- function(data,
   obj$by <- by
   obj$control <- control
   if (x) {
-    obj$x <- .br(lapply(data, .br))
+    obj$x <- .br(par_data)
     rownames(obj$x) <- NULL
   }
 

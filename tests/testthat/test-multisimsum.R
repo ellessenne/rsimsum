@@ -95,5 +95,27 @@ testthat::test_that("multisimsum with by factors returns a data.frame with resul
 testthat::test_that("multisimsum with x = FALSE does not return data", {
   data("frailty")
   s <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist", x = FALSE)
-  testthat::expect_null(object = s$data)
+  testthat::expect_null(object = s$x)
+})
+
+testthat::test_that("multisimsum with x = TRUE does return data", {
+  data("frailty")
+  s <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist", x = TRUE)
+  testthat::expect_s3_class(object = s$x, class = "data.frame")
+  testthat::expect_equal(object = nrow(s$x), expected = nrow(frailty))
+})
+
+testthat::test_that("multisimsum adds ci.limits if requested", {
+  data("frailty")
+  s <- suppressWarnings(multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist", ci.limits = c(-0.55, -0.45)))
+  testthat::expect_equal(object = s$ci.limits, expected = c(-0.55, -0.45))
+})
+
+testthat::test_that("multisimsum argument checks", {
+  data("frailty")
+  testthat::expect_error(object = rsimsum::multisimsum(data = frailty, par = 1, true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist"))
+  testthat::expect_error(object = rsimsum::multisimsum(data = frailty, par = TRUE, true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist"))
+  testthat::expect_error(object = rsimsum::multisimsum(data = frailty, par = NULL, true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist"))
+  testthat::expect_error(object = rsimsum::multisimsum(data = frailty, par = "par", true = 1, estvarname = "b", se = "se", methodvar = "model", by = "fv_dist"))
+  testthat::expect_error(object = rsimsum::multisimsum(data = frailty, par = "par", true = TRUE, estvarname = "b", se = "se", methodvar = "model", by = "fv_dist"))
 })

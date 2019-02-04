@@ -1,5 +1,5 @@
 #' @title autoplot method for simsum objects
-#'
+#' @description `autoplot` can produce a series of plot to summarise results of simulation studies. See `vignette("plotting", package = "rsimsum")` for further details.
 #' @param object An object of class `simsum`.
 #' @param type The type of the plot to be produced. Possible choices are: `forest`, `lolly`, `zip`, `est`, `se`, `est_ba`, `se_ba`, `est_ridge`, `se_ridge`, with `forest` being the default.
 #' @param stats Summary statistics to plot, defaults to `bias`.

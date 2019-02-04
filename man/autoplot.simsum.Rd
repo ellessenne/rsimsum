@@ -26,7 +26,7 @@
 A \code{ggplot} object.
 }
 \description{
-autoplot method for simsum objects
+\code{autoplot} can produce a series of plot to summarise results of simulation studies. See \code{vignette("plotting", package = "rsimsum")} for further details.
 }
 \examples{
 data("MIsim", package = "rsimsum")

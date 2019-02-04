@@ -107,7 +107,7 @@ testthat::test_that("simsum works with missing data and default arguments", {
 testthat::test_that("simsum with x = FALSE does not return data", {
   data("MIsim", package = "rsimsum")
   s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", x = FALSE)
-  testthat::expect_null(object = s$data)
+  testthat::expect_null(object = s$x)
 })
 
 testthat::test_that("simsum with custom ci.limits works as expected", {
@@ -116,4 +116,20 @@ testthat::test_that("simsum with custom ci.limits works as expected", {
   testthat::expect_true(object = all(s$summ$est[s$summ$stat == "cover"] == 1))
   s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", ci.limits = c(Inf, -Inf))
   testthat::expect_true(object = all(s$summ$est[s$summ$stat == "cover"] == 0))
+})
+
+testthat::test_that("simsum with x = TRUE does return data", {
+  data("MIsim", package = "rsimsum")
+  s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", x = TRUE)
+  testthat::expect_s3_class(object = s$x, class = "data.frame")
+  testthat::expect_equal(object = nrow(s$x), expected = nrow(MIsim))
+})
+
+testthat::test_that("simsum with dropbig = TRUE does drop all the big stuff", {
+  data("MIsim", package = "rsimsum")
+  s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", x = TRUE, dropbig = TRUE, control = list(dropbig.max = 3, dropbig.semax = 10, dropbig.robust = FALSE))
+  expected <- .dropbig(data = MIsim, estvarname = "b", se = "se", methodvar = "method", by = NULL, robust = FALSE, max = 3, semax = 10)
+  expected <- .na_pair(data = expected, estvarname = "b", se = "se")
+  expected$method <- factor(expected$method)
+  testthat::expect_equivalent(object = s$x, expected = expected)
 })
