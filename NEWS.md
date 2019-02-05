@@ -1,8 +1,8 @@
-# rsimsum 0.4.1-9000
+# rsimsum 0.4.2-9000
 
 TO DO:
 
-* revamp plotting methods (e.g. use autoplot and so on)
+* autplot.multisimsum
 * vignettes need to be updated to reflect all changes from the refactoring
 * code coverage, eventually, once all of the above is done
 * check docs
@@ -12,6 +12,21 @@ TO DO:
 --> targeting rsimsum 0.5.0 to go on CRAN ASAP
 
 * Updated vignettes (NEED TO DO THE PLOTTING ONE STILL) after refactoring.
+
+# rsimsum 0.4.2
+
+Implemented `autoplot` method for `simsum` and `summary.simsum` objects; when calling `autoplot` on `summary.simsum` objects, confidence intervals based on Monte Carlo standard errors will be included as well (if sensible).
+
+Supported plot types are:
+
+* forest plot of estimated summary statistics;
+* lolly plot of summary statistics;
+* zip plot for coverage probability;
+* scatter plot of methods-wise comparison (e.g. X vs Y) of point estimates and standard errors, per replication;
+* same as the above, but implemented as a Bland-Altman type plot;
+* ridgelines plot of estimates, standard errors to compare the distribution of estimates, standard errors by method.
+
+Several options to customise the behaviour of `autoplot`, see `?autoplot.simsum` and `?autoplot.summary.simsum` for further details.
 
 # rsimsum 0.4.1
 
