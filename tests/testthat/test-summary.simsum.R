@@ -48,3 +48,27 @@ testthat::test_that("summary.simsum with wrong arguments throws an error", {
   testthat::expect_error(object = summary(x, stats = "42"))
   testthat::expect_error(object = summary(x, ci_level = "0.05"))
 })
+
+testthat::test_that("summary.simsum with t distribution, results differ with default settings", {
+  data("MIsim")
+  x <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
+  testthat::expect_false(object = all(get_data(summary(x))[["lower"]] == get_data(summary(x, df = 3))[["lower"]]))
+  testthat::expect_false(object = all(get_data(summary(x, df = 3))[["lower"]] == get_data(summary(x, df = 10))[["lower"]]))
+  testthat::expect_false(object = all(get_data(summary(x))[["upper"]] == get_data(summary(x, df = 3))[["upper"]]))
+  testthat::expect_false(object = all(get_data(summary(x, df = 3))[["upper"]] == get_data(summary(x, df = 10))[["upper"]]))
+})
+
+testthat::test_that("summary.simsum returns selected stats only", {
+  data("MIsim")
+  x <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
+  testthat::expect_true(object = all(get_data(summary(x, stats = "bias"))[["stat"]] == "bias"))
+  testthat::expect_true(object = all(get_data(summary(x, stats = c("bias", "cover")))[["stat"]] %in% c("bias", "cover")))
+})
+
+testthat::test_that("print.summary.simsum complains if users ask for the moon", {
+  data("MIsim")
+  x <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", control = list(mcse = FALSE))
+  testthat::expect_message(object = print(summary(x, mcse = TRUE)))
+  testthat::expect_message(object = print(summary(x, mcse = FALSE)))
+  testthat::expect_message(object = print(summary(x, mcse = NULL)))
+})

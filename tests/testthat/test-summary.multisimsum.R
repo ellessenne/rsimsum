@@ -13,6 +13,9 @@ testthat::test_that("summarising a simsum object works fine and prints ok", {
   data("frailty")
   x <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se")
   testthat::expect_output(print(summary(x)))
+  testthat::expect_output(print(summary(x), mcse = TRUE))
+  testthat::expect_output(print(summary(x), mcse = FALSE))
+  testthat::expect_output(print(summary(x), mcse = NULL))
   testthat::expect_output(print(summary(x, stats = c("bias", "becover"))))
   testthat::expect_error(print(summary(x, stats = "wrong")))
   testthat::expect_error(print(summary(x), digits = -1))
@@ -45,4 +48,28 @@ testthat::test_that("summary.multisimsum with wrong arguments throws an error", 
   testthat::expect_error(object = summary(x, ci_level = -1))
   testthat::expect_error(object = summary(x, ci_level = 2))
   testthat::expect_error(object = summary(x, ci_level = "0.05"))
+})
+
+testthat::test_that("summary.multisimsum with t distribution, results differ with default settings", {
+  data("frailty")
+  x <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
+  testthat::expect_false(object = all(get_data(summary(x))[["lower"]] == get_data(summary(x, df = 3))[["lower"]]))
+  testthat::expect_false(object = all(get_data(summary(x, df = 3))[["lower"]] == get_data(summary(x, df = 10))[["lower"]]))
+  testthat::expect_false(object = all(get_data(summary(x))[["upper"]] == get_data(summary(x, df = 3))[["upper"]]))
+  testthat::expect_false(object = all(get_data(summary(x, df = 3))[["upper"]] == get_data(summary(x, df = 10))[["upper"]]))
+})
+
+testthat::test_that("summary.multisimsum returns selected stats only", {
+  data("frailty")
+  x <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
+  testthat::expect_true(object = all(get_data(summary(x, stats = "bias"))[["stat"]] == "bias"))
+  testthat::expect_true(object = all(get_data(summary(x, stats = c("bias", "cover")))[["stat"]] %in% c("bias", "cover")))
+})
+
+testthat::test_that("print.summary.multisimsum complains if users ask for the moon", {
+  data("frailty")
+  x <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist", control = list(mcse = FALSE))
+  testthat::expect_message(object = print(summary(x, mcse = TRUE)))
+  testthat::expect_message(object = print(summary(x, mcse = FALSE)))
+  testthat::expect_message(object = print(summary(x, mcse = NULL)))
 })
