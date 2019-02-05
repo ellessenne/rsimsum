@@ -2,8 +2,8 @@
 #' @description `autoplot` can produce a series of plot to summarise results of simulation studies. See `vignette("plotting", package = "rsimsum")` for further details.
 #' @param object An object of class `simsum`.
 #' @param type The type of the plot to be produced. Possible choices are: `forest`, `lolly`, `zip`, `est`, `se`, `est_ba`, `se_ba`, `est_ridge`, `se_ridge`, with `forest` being the default.
-#' @param stats Summary statistics to plot, defaults to `bias`.
-#' @param target Target of summary statistics, e.g. 0 for `bias`. Defaults to `NULL`, in which case target will be inferred.
+#' @param stats Summary statistic to plot, defaults to `bias`. See [summary.simsum()] for further details on supported summary statistics.
+#' @param target Target of summary statistic, e.g. 0 for `bias`. Defaults to `NULL`, in which case target will be inferred.
 #' @param fitted Superimpose a fitted regression line, useful when `type` = (`est`, `se`, `est_ba`, `se_ba`). Defaults to `TRUE`.
 #' @param scales Should scales be fixed (`fixed`, the default), free (`free`), or free in one dimension (`free_x`, `free_y`)?
 #' @param ... Not used.
@@ -17,7 +17,7 @@
 #'   data = MIsim, estvarname = "b", true = 0.5, se = "se",
 #'   methodvar = "method", x = TRUE
 #' )
-#' 
+#'
 #' library(ggplot2)
 #' autoplot(s)
 #' autoplot(s, type = "lolly")
@@ -94,7 +94,7 @@ autoplot.simsum <- function(object, type = "forest", stats = "bias", target = NU
 #'   methodvar = "method", x = TRUE
 #' )
 #' ss <- summary(s)
-#' 
+#'
 #' library(ggplot2)
 #' autoplot(ss)
 #' autoplot(ss, type = "lolly")
