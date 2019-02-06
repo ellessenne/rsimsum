@@ -1,8 +1,11 @@
 # rsimsum 0.4.2-9000
 
+Implemented `autoplot` method for `multisimsum` and `summary.multisimsum` objects.
+
+All `autoplot` methods pick the value of `true` passed to `simsum`, `multisimsum` when inferring the target value if `stats = (thetamean, thetamedian)` and `target = NULL`. In plain English, the true value of the estimand is picked as target value when plotting the mean (or median) of the estimated value.
+
 TO DO:
 
-* autplot.multisimsum
 * vignettes need to be updated to reflect all changes from the refactoring
 * code coverage, eventually, once all of the above is done
 * check docs

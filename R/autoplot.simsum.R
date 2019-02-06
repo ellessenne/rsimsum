@@ -17,7 +17,7 @@
 #'   data = MIsim, estvarname = "b", true = 0.5, se = "se",
 #'   methodvar = "method", x = TRUE
 #' )
-#' 
+#'
 #' library(ggplot2)
 #' autoplot(s)
 #' autoplot(s, type = "lolly")
@@ -37,10 +37,8 @@ autoplot.simsum <- function(object, type = "forest", stats = "bias", target = NU
   # 'scales' must be a single string value, among those allowed
   checkmate::assert_string(x = scales, add = arg_checks)
   checkmate::assert_subset(x = scales, choices = c("fixed", "free", "free_x", "free_y"), empty.ok = FALSE, add = arg_checks)
-  # Report
-  if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
-  # If type = 'est', 'se', 'est_ba', 'se_ba', 'est_ridge', 'se_ridge' then object$x must be true
-  if (type %in% c("est", "se", "est_ba", "se_ba", "est_ridge", "se_ridge")) {
+  # If type = 'zip', 'est', 'se', 'est_ba', 'se_ba', 'est_ridge', 'se_ridge' then object$x must be true
+  if (type %in% c("zip", "est", "se", "est_ba", "se_ba", "est_ridge", "se_ridge")) {
     checkmate::assert_true(x = !is.null(object$x), add = arg_checks)
   }
   # Report
@@ -54,6 +52,8 @@ autoplot.simsum <- function(object, type = "forest", stats = "bias", target = NU
   if (is.null(target)) {
     if (stats %in% c("cover", "becover", "power")) {
       target <- 0.95
+    } else if (stats %in% c("thetamean", "thetamedian")) {
+      target <- object[["true"]]
     } else {
       target <- 0
     }
