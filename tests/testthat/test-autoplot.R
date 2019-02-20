@@ -191,3 +191,158 @@ testthat::test_that("autoplot with scales", {
   testthat::expect_s3_class(object = autoplot(multisum, scales = "free_x"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(multisum, scales = "free_y"), class = c("gg", "ggplot"))
 })
+
+testthat::test_that("inferring target", {
+  # simsum object, no 'by'
+  testthat::expect_s3_class(object = autoplot(single, stats = "bias"), class = c("gg", "ggplot"))
+  # simsum object, with 'by'
+  testthat::expect_s3_class(object = autoplot(multi, stats = "bias"), class = c("gg", "ggplot"))
+  # summary.simsum object, no 'by'
+  testthat::expect_s3_class(object = autoplot(singlesum, stats = "bias"), class = c("gg", "ggplot"))
+  # summary.simsum object, with 'by'
+  testthat::expect_s3_class(object = autoplot(multisum, stats = "bias"), class = c("gg", "ggplot"))
+  # simsum object, no 'by'
+  testthat::expect_s3_class(object = autoplot(single, stats = "cover"), class = c("gg", "ggplot"))
+  # simsum object, with 'by'
+  testthat::expect_s3_class(object = autoplot(multi, stats = "cover"), class = c("gg", "ggplot"))
+  # summary.simsum object, no 'by'
+  testthat::expect_s3_class(object = autoplot(singlesum, stats = "cover"), class = c("gg", "ggplot"))
+  # summary.simsum object, with 'by'
+  testthat::expect_s3_class(object = autoplot(multisum, stats = "cover"), class = c("gg", "ggplot"))
+  # simsum object, no 'by'
+  testthat::expect_s3_class(object = autoplot(single, stats = "becover"), class = c("gg", "ggplot"))
+  # simsum object, with 'by'
+  testthat::expect_s3_class(object = autoplot(multi, stats = "becover"), class = c("gg", "ggplot"))
+  # summary.simsum object, no 'by'
+  testthat::expect_s3_class(object = autoplot(singlesum, stats = "becover"), class = c("gg", "ggplot"))
+  # summary.simsum object, with 'by'
+  testthat::expect_s3_class(object = autoplot(multisum, stats = "becover"), class = c("gg", "ggplot"))
+  # simsum object, no 'by'
+  testthat::expect_s3_class(object = autoplot(single, stats = "power"), class = c("gg", "ggplot"))
+  # simsum object, with 'by'
+  testthat::expect_s3_class(object = autoplot(multi, stats = "power"), class = c("gg", "ggplot"))
+  # summary.simsum object, no 'by'
+  testthat::expect_s3_class(object = autoplot(singlesum, stats = "power"), class = c("gg", "ggplot"))
+  # summary.simsum object, with 'by'
+  testthat::expect_s3_class(object = autoplot(multisum, stats = "power"), class = c("gg", "ggplot"))
+  # simsum object, no 'by'
+  testthat::expect_s3_class(object = autoplot(single, stats = "thetamean"), class = c("gg", "ggplot"))
+  # simsum object, with 'by'
+  testthat::expect_s3_class(object = autoplot(multi, stats = "thetamean"), class = c("gg", "ggplot"))
+  # summary.simsum object, no 'by'
+  testthat::expect_s3_class(object = autoplot(singlesum, stats = "thetamean"), class = c("gg", "ggplot"))
+  # summary.simsum object, with 'by'
+  testthat::expect_s3_class(object = autoplot(multisum, stats = "thetamean"), class = c("gg", "ggplot"))
+  # simsum object, no 'by'
+  testthat::expect_s3_class(object = autoplot(single, stats = "thetamedian"), class = c("gg", "ggplot"))
+  # simsum object, with 'by'
+  testthat::expect_s3_class(object = autoplot(multi, stats = "thetamedian"), class = c("gg", "ggplot"))
+  # summary.simsum object, no 'by'
+  testthat::expect_s3_class(object = autoplot(singlesum, stats = "thetamedian"), class = c("gg", "ggplot"))
+  # summary.simsum object, with 'by'
+  testthat::expect_s3_class(object = autoplot(multisum, stats = "thetamedian"), class = c("gg", "ggplot"))
+})
+
+testthat::test_that("zip with t critical values", {
+  data("MIsim", package = "rsimsum")
+  data("relhaz", package = "rsimsum")
+  single <- rsimsum::simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", ref = "CC", x = TRUE, control = list(df = 10))
+  multi <- rsimsum::simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = c("n", "baseline"), x = TRUE, control = list(df = 10))
+  singlesum <- summary(single)
+  multisum <- summary(multi)
+  # simsum object, no 'by'
+  testthat::expect_s3_class(object = autoplot(single, type = "zip"), class = c("gg", "ggplot"))
+  # simsum object, with 'by'
+  testthat::expect_s3_class(object = autoplot(multi, type = "zip"), class = c("gg", "ggplot"))
+  # summary.simsum object, no 'by'
+  testthat::expect_s3_class(object = autoplot(singlesum, type = "zip"), class = c("gg", "ggplot"))
+  # summary.simsum object, with 'by'
+  testthat::expect_s3_class(object = autoplot(multisum, type = "zip"), class = c("gg", "ggplot"))
+})
+
+data("frailty", package = "rsimsum")
+ms <- rsimsum::multisimsum(
+  data = frailty,
+  par = "par", true = c(trt = -0.50, fv = 0.75),
+  estvarname = "b", se = "se", methodvar = "model",
+  x = TRUE
+)
+sms <- summary(ms)
+ms2 <- rsimsum::multisimsum(
+  data = frailty,
+  par = "par", true = c(trt = -0.50, fv = 0.75),
+  estvarname = "b", se = "se", methodvar = "model",
+  by = "fv_dist",
+  x = TRUE
+)
+sms2 <- summary(ms2)
+
+testthat::test_that("output from autoplot is of class gg, ggplot", {
+  # multisimsum object, no 'by'
+  testthat::expect_s3_class(object = autoplot(ms, par = "trt"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(ms, par = "trt", type = "forest"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(ms, par = "trt", type = "lolly"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(ms, par = "trt", type = "zip"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(ms, par = "trt", type = "est"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(ms, par = "trt", type = "se"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(ms, par = "trt", type = "est_ba"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(ms, par = "trt", type = "se_ba"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(ms, par = "trt", type = "est_ridge"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(ms, par = "trt", type = "se_ridge"), class = c("gg", "ggplot"))
+  # multisimsum object, with 'by'
+  testthat::expect_s3_class(object = autoplot(ms2, par = "trt"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(ms2, par = "trt", type = "forest"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(ms2, par = "trt", type = "lolly"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(ms2, par = "trt", type = "zip"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(ms2, par = "trt", type = "est"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(ms2, par = "trt", type = "se"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(ms2, par = "trt", type = "est_ba"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(ms2, par = "trt", type = "se_ba"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(ms2, par = "trt", type = "est_ridge"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(ms2, par = "trt", type = "se_ridge"), class = c("gg", "ggplot"))
+  # summary.multisimsum object, no 'by'
+  testthat::expect_s3_class(object = autoplot(sms, par = "trt"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(sms, par = "trt", type = "forest"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(sms, par = "trt", type = "lolly"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(sms, par = "trt", type = "zip"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(sms, par = "trt", type = "est"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(sms, par = "trt", type = "se"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(sms, par = "trt", type = "est_ba"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(sms, par = "trt", type = "se_ba"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(sms, par = "trt", type = "est_ridge"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(sms, par = "trt", type = "se_ridge"), class = c("gg", "ggplot"))
+  # summary.multisimsum object, with 'by'
+  testthat::expect_s3_class(object = autoplot(sms2, par = "trt"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(sms2, par = "trt", type = "forest"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(sms2, par = "trt", type = "lolly"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(sms2, par = "trt", type = "zip"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(sms2, par = "trt", type = "est"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(sms2, par = "trt", type = "se"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(sms2, par = "trt", type = "est_ba"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(sms2, par = "trt", type = "se_ba"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(sms2, par = "trt", type = "est_ridge"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(sms2, par = "trt", type = "se_ridge"), class = c("gg", "ggplot"))
+})
+
+testthat::test_that("putting wrong 'par' (or no 'par' at all) throws an error", {
+  # multisimsum object, no 'by'
+  testthat::expect_error(object = autoplot(ms))
+  testthat::expect_error(object = autoplot(ms, par = "42"))
+  testthat::expect_error(object = autoplot(ms, par = 42))
+  testthat::expect_error(object = autoplot(ms, par = TRUE))
+  # multisimsum object, with 'by'
+  testthat::expect_error(object = autoplot(ms2))
+  testthat::expect_error(object = autoplot(ms2, par = "42"))
+  testthat::expect_error(object = autoplot(ms2, par = 42))
+  testthat::expect_error(object = autoplot(ms2, par = TRUE))
+  # summary.multisimsum object, no 'by'
+  testthat::expect_error(object = autoplot(sms))
+  testthat::expect_error(object = autoplot(sms, par = "42"))
+  testthat::expect_error(object = autoplot(sms, par = 42))
+  testthat::expect_error(object = autoplot(sms, par = TRUE))
+  # summary.multisimsum object, with 'by'
+  testthat::expect_error(object = autoplot(sms2))
+  testthat::expect_error(object = autoplot(sms2, par = "42"))
+  testthat::expect_error(object = autoplot(sms2, par = 42))
+  testthat::expect_error(object = autoplot(sms2, par = TRUE))
+})
