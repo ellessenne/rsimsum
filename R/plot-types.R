@@ -110,12 +110,13 @@
     theme(legend.position = "bottom")
 
   ### If 'by', use facet_grid; facet_wrap otherwise
-  by <- rlang::syms(by)
-  methodvar <- rlang::sym(methodvar)
   if (!is.null(by)) {
+    by <- rlang::syms(by)
+    methodvar <- rlang::sym(methodvar)
     gg <- gg +
       ggplot2::facet_grid(cols = ggplot2::vars(!!!by), rows = ggplot2::vars(!!!methodvar))
   } else {
+    methodvar <- rlang::sym(methodvar)
     gg <- gg +
       ggplot2::facet_wrap(facets = vars(!!!methodvar))
   }
@@ -167,7 +168,6 @@
   }
 
   ### Build plot
-  by <- rlang::syms(by)
   caption <- paste0("Comparison of variable '", b, "'")
   if (ba) caption <- paste0(caption, "; Bland-Altman type plot")
   gg <- ggplot2::ggplot(data = internal_df, ggplot2::aes(x = X, y = Y)) +
@@ -191,6 +191,7 @@
 
   ### If 'by', use facet_grid; facet_wrap otherwise
   if (!is.null(by)) {
+  	by <- rlang::syms(by)
     gg <- gg +
       ggplot2::facet_grid(cols = ggplot2::vars(!!!by), rows = ggplot2::vars(contrast), scales = scales)
   } else {

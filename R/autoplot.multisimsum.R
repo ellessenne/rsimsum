@@ -20,7 +20,7 @@
 #'   estvarname = "b", se = "se", methodvar = "model",
 #'   by = "fv_dist", x = TRUE
 #' )
-#'
+#' 
 #' library(ggplot2)
 #' autoplot(ms, par = "trt")
 #' autoplot(ms, par = "trt", type = "lolly", stats = "cover")
