@@ -191,7 +191,7 @@
 
   ### If 'by', use facet_grid; facet_wrap otherwise
   if (!is.null(by)) {
-  	by <- rlang::syms(by)
+    by <- rlang::syms(by)
     gg <- gg +
       ggplot2::facet_grid(cols = ggplot2::vars(!!!by), rows = ggplot2::vars(contrast), scales = scales)
   } else {
