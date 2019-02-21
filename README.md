@@ -269,7 +269,7 @@ citation("rsimsum")
     \<<http://www.stata-journal.com/article.html?article=st0200>\>
   - Morris, T.P., White, I.R. and Crowther, M.J. 2019. *Using simulation
     studies to evaluate statistical methods*. Statistics in Medicine,
-    \<[doi:10.1002/sim.8086](https://doi.org/https://doi.org/10.1002/sim.8086)\>
+    \<[doi:10.1002/sim.8086](https://doi.org/10.1002/sim.8086)\>
   - Gasparini, A. 2018. *rsimsum: Summarise results from Monte Carlo
     simulation studies*. Journal of Open Source Software, 3(26):739
     \<[10.21105/joss.00739](https://doi.org/10.21105/joss.00739)\>
