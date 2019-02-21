@@ -278,7 +278,7 @@
 <div id="ridgeline-plots" class="section level2">
 <h2 class="hasAnchor">
 <a href="#ridgeline-plots" class="anchor"></a>Ridgeline plots</h2>
-<p>Another way of visually comparing estimates from different methods is given by ridgeline plots. According to the documentation of the <code>ggridges</code> package (<a href="https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html">source</a>),</p>
+<p>Another way of visually comparing estimates from different methods is given by ridgeline plots. According to the documentation of the <code>ggridges</code> package (<a href="https://cran.r-project.org/package=ggridges/vignettes/introduction.html">source</a>),</p>
 <blockquote>
 <p>Ridgeline plots are partially overlapping line plots that create the impression of a mountain range. They can be quite useful for visualizing changes in distributions over time or space.</p>
 </blockquote>
@@ -331,7 +331,7 @@
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"heat"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</a></code></pre></div>
 <p><img src="plotting_files/figure-html/heat-bias-1-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>This visualisation type automatically puts all data-generating mechanisms on the y-axis; by default, the methods are included on the <code>x</code> axis. Therefore, this plot is most useful when a simulation study includes different methods to be compared and many data-generating mechanisms. Using a heat plot, it is immediate to identify visually which method performs better and under which data-generating mechanisms.</p>
-<p>By default, heat plots use the default <code>ggplot</code> scale for the filling aesthetic. It is recommended to use a different colour palette with better characteristics, e.g. the viridis colour palette from <code>matplotlib</code>; see the next section for details on how to do this, and <a href="https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html">here</a> for details on the viridis colour palette.</p>
+<p>By default, heat plots use the default <code>ggplot</code> scale for the filling aesthetic. It is recommended to use a different colour palette with better characteristics, e.g. the viridis colour palette from <code>matplotlib</code>; see the next section for details on how to do this, and <a href="https://cran.r-project.org/package=viridis/vignettes/intro-to-viridis.html">here</a> for details on the viridis colour palette.</p>
 </div>
 <div id="custom-plotting" class="section level1">
 <h1 class="hasAnchor">
