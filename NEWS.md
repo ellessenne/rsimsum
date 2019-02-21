@@ -1,20 +1,17 @@
 # rsimsum 0.4.2-9000
 
-Implemented `autoplot` method for `multisimsum` and `summary.multisimsum` objects.
+### Improvements:
 
-All `autoplot` methods pick the value of `true` passed to `simsum`, `multisimsum` when inferring the target value if `stats = (thetamean, thetamedian)` and `target = NULL`. In plain English, the true value of the estimand is picked as target value when plotting the mean (or median) of the estimated value.
+* Implemented `autoplot` method for `multisimsum` and `summary.multisimsum` objects;
+* Implemented heat plot types for both `simsum` and `multisimsum` objects;
+* All `autoplot` methods pick the value of `true` passed to `simsum`, `multisimsum` when inferring the target value if `stats = (thetamean, thetamedian)` and `target = NULL`. In plain English, the true value of the estimand is picked as target value when plotting the mean (or median) of the estimated value;
+* Updated vignettes and references;
+* Updated `pkgdown` website, published at https://ellessenne.github.io/rsimsum/;
+* Improved code coverage.
 
-TO DO:
+### Bug fixes:
 
-* vignettes need to be updated to reflect all changes from the refactoring
-* code coverage, eventually, once all of the above is done
-* check docs
-* rebuild pkgdown website
-* anything that comes up in the meanwhile
-* how method to return call to create plots
---> targeting rsimsum 0.5.0 to go on CRAN ASAP
-
-* Updated vignettes (NEED TO DO THE PLOTTING ONE STILL) after refactoring.
+* Fixed a bug in `autoplot` caused by premature slicing of `by` arguments, where no `by` arguments were included.
 
 # rsimsum 0.4.2
 

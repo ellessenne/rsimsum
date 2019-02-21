@@ -1,5 +1,7 @@
 ---
 output: github_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -13,7 +15,7 @@ knitr::opts_chunk$set(
   fig.height = 3,
   fig.width = 5,
   dpi = 300,
-  out.width = "66%"
+  out.width = "75%"
 )
 options(width = 100)
 ```
@@ -35,7 +37,7 @@ The aim of `rsimsum` is to help to report simulation studies, including understa
 
 The main function of `rsimsum` is called `simsum` and can handle simulation studies with a single estimand of interest at a time. Missing values are excluded by default, and it is possible to define boundary values to drop estimated values or standard errors exceeding such limits. It is possible to define a variable representing methods compared with the simulation study, and it is possible to define _by_ factors, that is, factors that vary between the different simulated scenarios (data-generating mechanisms, DGMs). However, methods and DGMs are not strictly required: in that case, a simulation study with a single scenario and a single method is assumed. Finally, `rsimsum` provides a function named `multisimsum` that allows summarising simulation studies with multiple estimands as well.
 
-An important step of reporting a simulation study consists in visualising the results; therefore, `rsimsum` exploits the R package [`ggplot2`](https://CRAN.R-project.org/package=ggplot2) to produce a portfolio of opinionated data visualisations for quick exploration of results, inferring colours and facetting by data-generating mechanisms. `rsimsum` includes methods to produce (1) plots of summary statistics with confidence intervals based on Monte Carlo standard errors (forest plots, bar plots, and lolly plots), (2) zipper plots to graphically visualise coverage by directly plotting confidence intervals, and (3) heat plots. The latter is a visualisation type that has not been traditionally used to present results of simulation studies, and consists in a mosaic plot where the factor on the x-axis is the methods compared with the current simulation study and the factor on the y-axis is one of the data-generating factors, as selected by the user. Each tile of the mosaic plot is coloured according to the value of the summary statistic of interest, with a red colour representing values above the target value and a blue colour representing values below the target.
+An important step of reporting a simulation study consists in visualising the results; therefore, `rsimsum` exploits the R package [`ggplot2`](https://CRAN.R-project.org/package=ggplot2) to produce a portfolio of opinionated data visualisations for quick exploration of results, inferring colours and facetting by data-generating mechanisms. `rsimsum` includes methods to produce (1) plots of summary statistics with confidence intervals based on Monte Carlo standard errors (forest plots, lolly plots), (2) zipper plots to graphically visualise coverage by directly plotting confidence intervals, (3) plots for method-wise comparisons of estimates and standard errors (scatter plots, Bland-Altman plots, ridgelines plots), and (4) heat plots. The latter is a visualisation type that has not been traditionally used to present results of simulation studies, and consists in a mosaic plot where the factor on the x-axis is the methods compared with the current simulation study and the factor on the y-axis is the data-generating factors. Each tile of the mosaic plot is coloured according to the value of the summary statistic of interest, with a red colour representing values above the target value and a blue colour representing values below the target.
 
 ## Installation
 
@@ -59,9 +61,11 @@ This is a basic example using data from a simulation study on missing data (type
 ```{r simsum}
 library(rsimsum)
 data("MIsim", package = "rsimsum")
-s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
+s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", x = TRUE)
 s
 ```
+
+We set `x = TRUE` as it will be required for some plot types.
 
 Summarising the results:
 
@@ -79,32 +83,34 @@ vignette(topic = "introduction", package = "rsimsum")
 
 ## Visualising results
 
-As of version `0.2.0`, `rsimsum` can produce a variety of plots:
-
-```{r pattern}
-s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", x = TRUE)
-pattern(s)
-```
+As of version `0.2.0`, `rsimsum` can produce a variety of plots: among others, lolly plots, forest plots, zipper plots, etc.:
 
 ```{r lolly}
-lolly(s, sstat = "bias")
+library(ggplot2)
+autoplot(s, type = "lolly", stats = "bias")
 ```
 
 ```{r zipper}
-zipper(s)
+autoplot(s, type = "zip")
 ```
 
-As of version `0.3.0`, forest plots and bar plots are supported too as alternatives to lolly plots:
+With `rsimsum` `0.5.0` the plotting functionality has been completely rewritten, and new plot types have been implemented:
 
-```{r forest}
-forest(s, sstat = "bias")
+* Scatter plots for methodwise comparisons, including Bland-Altman type plots;
+
+```{r ba}
+autoplot(s, type = "est_ba")
 ```
 
-```{r bar}
-bar(s, sstat = "bias")
+* Ridgeline plots.
+
+```{r ridgeline}
+autoplot(s, type = "est_ridge")
 ```
 
-More info on the vignette dedicated to plotting:
+The plotting functionality now extend the S3 generic `autoplot`: see `?ggplot2::autoplot` and `?rsimsum::autoplot.simsum` for further details.
+
+More details and information can be found in the vignette dedicated to plotting:
 
 ```{r vignette-plotting, eval = FALSE}
 vignette(topic = "plotting", package = "rsimsum")
@@ -121,7 +127,7 @@ citation("rsimsum")
 # References
 
 * White, I.R. 2010. _simsum: Analyses of simulation studies including Monte Carlo error_. The Stata Journal 10(3): 369-385 <[http://www.stata-journal.com/article.html?article=st0200](http://www.stata-journal.com/article.html?article=st0200)>
-* Morris, T.P., White, I.R. and Crowther, M.J. 2017. _Using simulation studies to evaluate statistical methods_. <[arXiv:1712.03198](https://arxiv.org/abs/1712.03198)>
+* Morris, T.P., White, I.R. and Crowther, M.J. 2019. _Using simulation studies to evaluate statistical methods_. Statistics in Medicine, <[https://doi.org/10.1002/sim.8086](https://doi.org/https://doi.org/10.1002/sim.8086)>
 * Gasparini, A. 2018. _rsimsum: Summarise results from Monte Carlo simulation studies_. Journal of Open Source Software, 3(26):739 <[10.21105/joss.00739](https://doi.org/10.21105/joss.00739)>
 
 # Warning for RStudio users
