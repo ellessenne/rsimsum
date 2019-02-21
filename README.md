@@ -56,7 +56,7 @@ with confidence intervals based on Monte Carlo standard errors (forest
 plots, lolly plots), (2) zipper plots to graphically visualise coverage
 by directly plotting confidence intervals, (3) plots for method-wise
 comparisons of estimates and standard errors (scatter plots,
-Bland-Altman plots, ridgelines plots), and (4) heat plots. The latter is
+Bland-Altman plots, ridgeline plots), and (4) heat plots. The latter is
 a visualisation type that has not been traditionally used to present
 results of simulation studies, and consists in a mosaic plot where the
 factor on the x-axis is the methods compared with the current simulation
@@ -201,7 +201,7 @@ autoplot(s, type = "zip")
 With `rsimsum` `0.5.0` the plotting functionality has been completely
 rewritten, and new plot types have been implemented:
 
-  - Scatter plots for methodwise comparisons, including Bland-Altman
+  - Scatter plots for method-wise comparisons, including Bland-Altman
     type
 plots;
 

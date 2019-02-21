@@ -28,7 +28,7 @@ dropbig(data, estvarname, se, methodvar = NULL, by = NULL, max = 10,
 The same \code{data.frame} given as input with an additional column named \code{.dropbig} identifying rows that are classified as large (\code{.dropbig = TRUE}) according to the specified criterion.
 }
 \description{
-\code{dropbig} is useful to identify replications with large point estimates or standard errors. Large values are defined as standardised values above a given treshold, as defined when calling \code{dropbig}. Regular standardisation using mean and standard deviation is implemented, as well as robust standardisation using median and inter-quartile range. Further to that, the  standardisation process is stratified by data-generating mechanism if \code{by} factors are defined.
+\code{dropbig} is useful to identify replications with large point estimates or standard errors. Large values are defined as standardised values above a given threshold, as defined when calling \code{dropbig}. Regular standardisation using mean and standard deviation is implemented, as well as robust standardisation using median and inter-quartile range. Further to that, the  standardisation process is stratified by data-generating mechanism if \code{by} factors are defined.
 }
 \examples{
 data("frailty", package = "rsimsum")

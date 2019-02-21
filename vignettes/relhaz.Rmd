@@ -30,7 +30,7 @@ Say we want to run a simulation study in which we want to compare the sensitivit
 
 # Data generating mechanisms
 
-We simulate an hypotetical trial with a binary treatment. We fix the log-treatment effect to $-0.50$, and we generate a treatment indicator variable for each simulated individual via a $Binom(1, 0.5)$ random variable. We simulate two different sample sizes (50 and 250 individuals) and we assume two different baseline hazard functions: exponential with scale parameter $\lambda = 0.5$, and Weibull with scale parameter $\lambda = 0.5$ and shape parameter $\gamma = 1.5$. Finally, we apply administrative censoring at time $t = 5$.
+We simulate an hypothetical trial with a binary treatment. We fix the log-treatment effect to $-0.50$, and we generate a treatment indicator variable for each simulated individual via a $Binom(1, 0.5)$ random variable. We simulate two different sample sizes (50 and 250 individuals) and we assume two different baseline hazard functions: exponential with scale parameter $\lambda = 0.5$, and Weibull with scale parameter $\lambda = 0.5$ and shape parameter $\gamma = 1.5$. Finally, we apply administrative censoring at time $t = 5$.
 
 ```{r baseline-hazards}
 exp_basehaz <- function(t, lambda = 0.5) lambda * 1 * t^0
@@ -96,7 +96,7 @@ $$\text{MCSE} = \sqrt{\frac{\text{variance}}{\# \text{simulations}}}$$
 
 Aiming for a Monte Carlo standard error of 0.01 on the estimated bias, we would require $1,000$ replications. 
 
-The Monte Carlo standard error for converage is:
+The Monte Carlo standard error for coverage is:
 
 $$\text{MCSE} = \sqrt{\frac{\text{coverage} \times (1 - \text{coverage})}{\# \text{simulations}}}$$
 

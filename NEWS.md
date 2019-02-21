@@ -24,7 +24,7 @@ Supported plot types are:
 * zip plot for coverage probability;
 * scatter plot of methods-wise comparison (e.g. X vs Y) of point estimates and standard errors, per replication;
 * same as the above, but implemented as a Bland-Altman type plot;
-* ridgelines plot of estimates, standard errors to compare the distribution of estimates, standard errors by method.
+* ridgeline plot of estimates, standard errors to compare the distribution of estimates, standard errors by method.
 
 Several options to customise the behaviour of `autoplot`, see `?autoplot.simsum` and `?autoplot.summary.simsum` for further details.
 
@@ -102,7 +102,7 @@ New plots are supported:
 * `bar()`, for bar plots.
 
 Changes to existing functionality:
-* the `par` argument of `lolly.multisimsum` is not required anymore; if not provided, plots will be faceted by estimand (as well as any other `by` factor);
+* the `par` argument of `lolly.multisimsum` is now not required; if not provided, plots will be faceted by estimand (as well as any other `by` factor);
 * updated _Visualising results from rsimsum_ vignette.
 
 Added `CONTRIBUTING.md` and `CONDUCT.md`.
@@ -117,7 +117,7 @@ Added S3 methods for `simsum` and `multisimsum` objects to visualise results:
 * `heat()`, for heat plots;
 * `pattern()`, for scatter plots of estimates vs SEs.
 
-Added a new vignette _Visualising results from rsimsum_ to introduce the abovementioned plots.
+Added a new vignette _Visualising results from rsimsum_ to introduce the above-mentioned plots.
 
 Added `x` argument to `simsum` and `multisimsum` to include original dataset as a slot of the returned object.
 

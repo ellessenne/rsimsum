@@ -1,5 +1,5 @@
 #' @title Identify replications with large point estimates, standard errors
-#' @description `dropbig` is useful to identify replications with large point estimates or standard errors. Large values are defined as standardised values above a given treshold, as defined when calling `dropbig`. Regular standardisation using mean and standard deviation is implemented, as well as robust standardisation using median and inter-quartile range. Further to that, the  standardisation process is stratified by data-generating mechanism if `by` factors are defined.
+#' @description `dropbig` is useful to identify replications with large point estimates or standard errors. Large values are defined as standardised values above a given threshold, as defined when calling `dropbig`. Regular standardisation using mean and standard deviation is implemented, as well as robust standardisation using median and inter-quartile range. Further to that, the  standardisation process is stratified by data-generating mechanism if `by` factors are defined.
 #'
 #' @param data A `data.frame` in which variable names are interpreted. It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.
 #' @param estvarname The name of the variable containing the point estimates.
@@ -16,13 +16,13 @@
 #' @examples
 #' data("frailty", package = "rsimsum")
 #' frailty2 <- subset(frailty, par == "fv")
-#' 
+#'
 #' # Using low values of max, semax for illustration purposes:
 #' dropbig(
 #'   data = frailty2, estvarname = "b", se = "se",
 #'   methodvar = "model", by = "fv_dist", max = 2, semax = 2
 #' )
-#' 
+#'
 #' # Using regular standardisation:
 #' dropbig(
 #'   data = frailty2, estvarname = "b", se = "se",

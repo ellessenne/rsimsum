@@ -154,7 +154,7 @@ autoplot(summary(s1), type = "forest", stats = "bias")
 
 # Zipper plots
 
-Zipper plots (or zip plots), introduced in Morris _et al_. (2019), help understand coverage by visualising the confidence intervals directly. For each data-generating mechanism and method, the confidence intervals are centile-ranked according to their significance agains the null hypotesis \(H_0: \theta = \theta_{\text{true}}\), assessed via a Wald-type test. This ranking is used for the vertical axis and is plotted against the intervals themselves.
+Zipper plots (or zip plots), introduced in Morris _et al_. (2019), help understand coverage by visualising the confidence intervals directly. For each data-generating mechanism and method, the confidence intervals are centile-ranked according to their significance against the null hypothesis \(H_0: \theta = \theta_{\text{true}}\), assessed via a Wald-type test. This ranking is used for the vertical axis and is plotted against the intervals themselves.
 
 When a method has \(95\%\) coverage, the colour of the intervals switches at 95 on the vertical axis. Finally, the horizontal lines represent confidence intervals for the estimated coverage based on Monte Carlo standard errors.
 
