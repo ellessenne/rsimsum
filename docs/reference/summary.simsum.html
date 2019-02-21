@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2.9000</span>
       </span>
     </div>
 
@@ -115,12 +115,7 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/ellessenne/rsimsum">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -134,7 +129,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Summarising simsum objects</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ellessenne/rsimsum/blob/master/R/summary.simsum.R'><code>R/summary.simsum.R</code></a></small>
+    
     <div class="hidden name"><code>summary.simsum.Rd</code></div>
     </div>
 
@@ -145,7 +140,8 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for simsum</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>ci_level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>object</span>, <span class='kw'>ci_level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>stats</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -156,7 +152,31 @@
     </tr>
     <tr>
       <th>ci_level</th>
-      <td><p>Significance level for confidence intervals based on Monte Carlo standard errors. Ignored if a <code>simsum</code> object with <code>mcse = FALSE</code> is passed.</p></td>
+      <td><p>Significance level for confidence intervals based on Monte Carlo standard errors. Ignored if a <code>simsum</code> object with control parameter <code>mcse = FALSE</code> is passed.</p></td>
+    </tr>
+    <tr>
+      <th>df</th>
+      <td><p>Degrees of freedom of a t distribution that will be used to calculate confidence intervals based on Monte Carlo standard errors. If <code>NULL</code> (the default), quantiles of a Normal distribution will be used instead. However, using Z-based or t-based confidence intervals is valid only for summary statistics such a bias and coverage. Confidence intervals for other quantities may not be appropriate, therefore their usage is not recommended.</p></td>
+    </tr>
+    <tr>
+      <th>stats</th>
+      <td><p>Summary statistics to include; can be a scalar value or a vector (for multiple summary statistics at once). Possible choices are:</p><ul>
+<li><p><code>nsim</code>, the number of replications with non-missing point estimates and standard error.</p></li>
+<li><p><code>thetamean</code>, average point estimate.</p></li>
+<li><p><code>thetamedian</code>, median point estimate.</p></li>
+<li><p><code>se2mean</code>, average standard error.</p></li>
+<li><p><code>se2median</code>, median standard error.</p></li>
+<li><p><code>bias</code>, bias in point estimate.</p></li>
+<li><p><code>empse</code>, empirical standard error.</p></li>
+<li><p><code>mse</code>, mean squared error.</p></li>
+<li><p><code>relprec</code>, percentage gain in precision relative to the reference method.</p></li>
+<li><p><code>modelse</code>, model-based standard error.</p></li>
+<li><p><code>relerror</code>, relative percentage error in standard error.</p></li>
+<li><p><code>cover</code>, coverage of a nominal <code>level</code>% confidence interval.</p></li>
+<li><p><code>becover</code>, bias corrected coverage of a nominal <code>level</code>% confidence interval.</p></li>
+<li><p><code>power</code>, power of a (1 - <code>level</code>)% level test.
+Defaults to <code>NULL</code>, in which case all possible summary statistics are included.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>...</th>
@@ -168,10 +188,6 @@
 
     <p>An object of class <code>summary.simsum</code>.</p>
     
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>Confidence intervals are constructed using quantiles from a normal distribution with the specified <code>ci_level</code> confidence level, and are therefore symmetric by definition.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='simsum.html'>simsum()</a></code>, <code><a href='print.summary.simsum.html'>print.summary.simsum()</a></code></p></div>
@@ -181,115 +197,66 @@
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='st'>"MIsim"</span>)
 <span class='no'>object</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='simsum.html'>simsum</a></span>(
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>MIsim</span>, <span class='kw'>estvarname</span> <span class='kw'>=</span> <span class='st'>"b"</span>, <span class='kw'>true</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>se</span> <span class='kw'>=</span> <span class='st'>"se"</span>,
-  <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='st'>"method"</span>, <span class='kw'>mcse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</div><div class='output co'>#&gt; <span class='message'>`ref` was not specified, CC set as the reference</span></div><div class='input'><span class='no'>xs</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>object</span>)
-<span class='no'>xs</span></div><div class='output co'>#&gt; 
-#&gt; Call:
-#&gt; 	simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", 
-#&gt;     methodvar = "method", mcse = TRUE)
+  <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='st'>"method"</span>
+)</div><div class='output co'>#&gt; <span class='message'>'ref' method was not specified, CC set as the reference</span></div><div class='input'><span class='no'>xs</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>object</span>)
+<span class='no'>xs</span></div><div class='output co'>#&gt; Values are:
+#&gt; 	Point Estimate (Monte Carlo Standard Error)
 #&gt; 
-#&gt; Method variable: method 
-#&gt; 	Unique methods: CC, MI_LOGT, MI_T 
-#&gt; 	Reference method: CC 
-#&gt; By factors: none
+#&gt; Non-missing point estimates/standard errors:
+#&gt;    CC MI_LOGT MI_T
+#&gt;  1000    1000 1000
 #&gt; 
-#&gt; Summary statistics:
+#&gt; Average point estimate:
+#&gt;      CC MI_LOGT   MI_T
+#&gt;  0.5168  0.5009 0.4988
 #&gt; 
-#&gt; 	Method = CC 
-#&gt;                                              Estimate   MCSE Lower 2.5%
-#&gt;  Simulations with non-missing estimates/SEs 1000.0000     NA         NA
-#&gt;                      Average point estimate    0.5168     NA         NA
-#&gt;                       Median point estimate    0.5070     NA         NA
-#&gt;                      Average standard error    0.0216     NA         NA
-#&gt;                       Median standard error    0.0211     NA         NA
-#&gt;                      Bias in point estimate    0.0168 0.0048     0.0074
-#&gt;                    Empirical standard error    0.1511 0.0034     0.1445
-#&gt;                          Mean squared error    0.0231 0.0011     0.0209
-#&gt;   % gain in precision relative to method CC    1.0000 0.0000     1.0000
-#&gt;                  Model-based standard error    0.1471 0.0005     0.1461
-#&gt;          Relative % error in standard error   -2.6594 2.2049    -6.9810
-#&gt;                  Coverage of nominal 95% CI    0.9430 0.0073     0.9286
-#&gt;   Bias corrected coverage of nominal 95% CI    0.9400 0.0075     0.9253
-#&gt;                      Power of 5% level test    0.9460 0.0071     0.9320
-#&gt;  Upper 97.5%
-#&gt;           NA
-#&gt;           NA
-#&gt;           NA
-#&gt;           NA
-#&gt;           NA
-#&gt;       0.0261
-#&gt;       0.1577
-#&gt;       0.0253
-#&gt;       1.0000
-#&gt;       0.1481
-#&gt;       1.6622
-#&gt;       0.9574
-#&gt;       0.9547
-#&gt;       0.9600
+#&gt; Median point estimate:
+#&gt;      CC MI_LOGT   MI_T
+#&gt;  0.5070  0.4969 0.4939
 #&gt; 
-#&gt; 	Method = MI_LOGT 
-#&gt;                                              Estimate   MCSE Lower 2.5%
-#&gt;  Simulations with non-missing estimates/SEs 1000.0000     NA         NA
-#&gt;                      Average point estimate    0.5009     NA         NA
-#&gt;                       Median point estimate    0.4969     NA         NA
-#&gt;                      Average standard error    0.0182     NA         NA
-#&gt;                       Median standard error    0.0172     NA         NA
-#&gt;                      Bias in point estimate    0.0009 0.0042    -0.0073
-#&gt;                    Empirical standard error    0.1320 0.0030     0.1262
-#&gt;                          Mean squared error    0.0174 0.0009     0.0157
-#&gt;   % gain in precision relative to method CC    1.3105 0.0394     1.2333
-#&gt;                  Model-based standard error    0.1349 0.0006     0.1338
-#&gt;          Relative % error in standard error    2.2233 2.3318    -2.3469
-#&gt;                  Coverage of nominal 95% CI    0.9490 0.0070     0.9354
-#&gt;   Bias corrected coverage of nominal 95% CI    0.9490 0.0070     0.9354
-#&gt;                      Power of 5% level test    0.9690 0.0055     0.9583
-#&gt;  Upper 97.5%
-#&gt;           NA
-#&gt;           NA
-#&gt;           NA
-#&gt;           NA
-#&gt;           NA
-#&gt;       0.0091
-#&gt;       0.1378
-#&gt;       0.0191
-#&gt;       1.3876
-#&gt;       0.1361
-#&gt;       6.7935
-#&gt;       0.9626
-#&gt;       0.9626
-#&gt;       0.9797
+#&gt; Average standard error:
+#&gt;      CC MI_LOGT   MI_T
+#&gt;  0.0216  0.0182 0.0179
 #&gt; 
-#&gt; 	Method = MI_T 
-#&gt;                                              Estimate   MCSE Lower 2.5%
-#&gt;  Simulations with non-missing estimates/SEs 1000.0000     NA         NA
-#&gt;                      Average point estimate    0.4988     NA         NA
-#&gt;                       Median point estimate    0.4939     NA         NA
-#&gt;                      Average standard error    0.0179     NA         NA
-#&gt;                       Median standard error    0.0169     NA         NA
-#&gt;                      Bias in point estimate   -0.0012 0.0043    -0.0095
-#&gt;                    Empirical standard error    0.1344 0.0030     0.1285
-#&gt;                          Mean squared error    0.0181 0.0009     0.0163
-#&gt;   % gain in precision relative to method CC    1.2637 0.0384     1.1884
-#&gt;                  Model-based standard error    0.1338 0.0006     0.1327
-#&gt;          Relative % error in standard error   -0.4412 2.2690    -4.8883
-#&gt;                  Coverage of nominal 95% CI    0.9430 0.0073     0.9286
-#&gt;   Bias corrected coverage of nominal 95% CI    0.9430 0.0073     0.9286
-#&gt;                      Power of 5% level test    0.9630 0.0060     0.9513
-#&gt;  Upper 97.5%
-#&gt;           NA
-#&gt;           NA
-#&gt;           NA
-#&gt;           NA
-#&gt;           NA
-#&gt;       0.0071
-#&gt;       0.1403
-#&gt;       0.0198
-#&gt;       1.3390
-#&gt;       0.1350
-#&gt;       4.0059
-#&gt;       0.9574
-#&gt;       0.9574
-#&gt;       0.9747</div></pre>
+#&gt; Median standard error:
+#&gt;      CC MI_LOGT   MI_T
+#&gt;  0.0211  0.0172 0.0169
+#&gt; 
+#&gt; Bias in point estimate:
+#&gt;               CC         MI_LOGT             MI_T
+#&gt;  0.0168 (0.0048) 0.0009 (0.0042) -0.0012 (0.0043)
+#&gt; 
+#&gt; Empirical standard error:
+#&gt;               CC         MI_LOGT            MI_T
+#&gt;  0.1511 (0.0034) 0.1320 (0.0030) 0.1344 (0.0030)
+#&gt; 
+#&gt; % gain in precision relative to method CC:
+#&gt;               CC         MI_LOGT            MI_T
+#&gt;  1.0000 (0.0000) 1.3105 (0.0394) 1.2637 (0.0384)
+#&gt; 
+#&gt; Mean squared error:
+#&gt;               CC         MI_LOGT            MI_T
+#&gt;  0.0231 (0.0011) 0.0174 (0.0009) 0.0181 (0.0009)
+#&gt; 
+#&gt; Model-based standard error:
+#&gt;               CC         MI_LOGT            MI_T
+#&gt;  0.1471 (0.0005) 0.1349 (0.0006) 0.1338 (0.0006)
+#&gt; 
+#&gt; Relative % error in standard error:
+#&gt;                CC         MI_LOGT             MI_T
+#&gt;  -2.6594 (2.2049) 2.2233 (2.3318) -0.4412 (2.2690)
+#&gt; 
+#&gt; Coverage of nominal 95% confidence interval:
+#&gt;               CC         MI_LOGT            MI_T
+#&gt;  0.9430 (0.0073) 0.9490 (0.0070) 0.9430 (0.0073)
+#&gt; 
+#&gt; Bias-eliminated coverage of nominal 95% confidence interval:
+#&gt;               CC         MI_LOGT            MI_T
+#&gt;  0.9400 (0.0075) 0.9490 (0.0070) 0.9430 (0.0073)
+#&gt; 
+#&gt; Power of 5% level test:
+#&gt;               CC         MI_LOGT            MI_T
+#&gt;  0.9460 (0.0071) 0.9690 (0.0055) 0.9630 (0.0060)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -297,8 +264,6 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#note">Note</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2.9000</span>
       </span>
     </div>
 
@@ -115,12 +115,7 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/ellessenne/rsimsum">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -134,7 +129,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>print.multisimsum</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ellessenne/rsimsum/blob/master/R/print.multisimsum.R'><code>R/print.multisimsum.R</code></a></small>
+    
     <div class="hidden name"><code>print.multisimsum.Rd</code></div>
     </div>
 
@@ -169,15 +164,10 @@
     <span class='kw'>fv</span> <span class='kw'>=</span> <span class='fl'>0.75</span>
   ), <span class='kw'>estvarname</span> <span class='kw'>=</span> <span class='st'>"b"</span>, <span class='kw'>se</span> <span class='kw'>=</span> <span class='st'>"se"</span>, <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='st'>"model"</span>,
   <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"fv_dist"</span>
-)</div><div class='output co'>#&gt; <span class='message'>`ref` was not specified, Cox, Gamma set as the reference</span></div><div class='input'><span class='no'>ms</span></div><div class='output co'>#&gt; 
-#&gt; Call:
-#&gt; 	multisimsum(data = frailty, par = "par", true = c(trt = -0.5, 
-#&gt;     fv = 0.75), estvarname = "b", se = "se", methodvar = "model", 
-#&gt;     by = "fv_dist")
-#&gt; 
+)</div><div class='output co'>#&gt; <span class='message'>'ref' method was not specified, Cox, Gamma set as the reference</span></div><div class='input'><span class='no'>ms</span></div><div class='output co'>#&gt; 
 #&gt; Estimands variable: par 
 #&gt; 	Unique estimands: fv, trt 
-#&gt; 	True values: fv = 0.75, trt = -0.5 
+#&gt; 	True values: fv = -0.5, trt = 0.75 
 #&gt; 
 #&gt; Method variable: model 
 #&gt; 	Unique methods: Cox, Gamma, Cox, Log-Normal, RP(P), Gamma, RP(P), Log-Normal 

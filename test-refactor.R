@@ -1,51 +1,16 @@
 data("MIsim", package = "rsimsum")
 data("relhaz", package = "rsimsum")
-s <- rsimsum::simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", ref = "CC", x = T)
-a <- rsimsum::simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = c("n", "baseline"), x = TRUE)
-ss <- summary(s)
-aa <- summary(a)
+single <- rsimsum::simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", ref = "CC", x = T)
+multi <- rsimsum::simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = c("n", "baseline"), x = TRUE)
+singlesum <- summary(single)
+multisum <- summary(multi)
 
-# s
-autoplot(s, type = "forest")
-autoplot(s, type = "lolly")
-autoplot(s, type = "zip")
-autoplot(s, type = "est")
-autoplot(s, type = "se")
-autoplot(s, type = "est_ba")
-autoplot(s, type = "se_ba")
-autoplot(s, type = "est_ridge")
-autoplot(s, type = "se_ridge")
 
-# a
-autoplot(a, type = "forest")
-autoplot(a, type = "lolly")
-autoplot(a, type = "zip")
-autoplot(a, type = "est")
-autoplot(a, type = "se")
-autoplot(a, type = "est_ba")
-autoplot(a, type = "se_ba")
-autoplot(a, type = "est_ridge")
-autoplot(a, type = "se_ridge")
+df = get_data(single)
 
-# ss
-autoplot(ss, type = "forest")
-autoplot(ss, type = "lolly")
-autoplot(ss, type = "zip")
-autoplot(ss, type = "est")
-autoplot(ss, type = "se")
-autoplot(ss, type = "est_ba")
-autoplot(ss, type = "se_ba")
-autoplot(ss, type = "est_ridge")
-autoplot(ss, type = "se_ridge")
+library(tidyverse)
+ggplot(filter(df, stat == "bias"), aes(x = method, y = 1, fill = est)) +
+	geom_tile() +
+	viridis::scale_fill_viridis()
 
-# aa
-autoplot(aa, type = "forest")
-autoplot(aa, type = "lolly")
-autoplot(aa, type = "zip")
-autoplot(aa, type = "est")
-autoplot(aa, type = "se")
-autoplot(aa, type = "est_ba")
-autoplot(aa, type = "se_ba")
-autoplot(aa, type = "est_ridge")
-autoplot(aa, type = "se_ridge")
-
+autoplot(multi, type = "heat", stats = "bias") + viridis::scale_fill_viridis()

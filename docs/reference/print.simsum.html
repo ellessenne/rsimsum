@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2.9000</span>
       </span>
     </div>
 
@@ -115,12 +115,7 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="https://github.com/ellessenne/rsimsum">
-    <span class="fa fa-github fa-lg"></span>
-     
-  </a>
-</li>
+        
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -134,7 +129,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>print.simsum</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ellessenne/rsimsum/blob/master/R/print.simsum.R'><code>R/print.simsum.R</code></a></small>
+    
     <div class="hidden name"><code>print.simsum.Rd</code></div>
     </div>
 
@@ -165,11 +160,8 @@
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='st'>"MIsim"</span>)
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='simsum.html'>simsum</a></span>(
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>MIsim</span>, <span class='kw'>estvarname</span> <span class='kw'>=</span> <span class='st'>"b"</span>, <span class='kw'>true</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>se</span> <span class='kw'>=</span> <span class='st'>"se"</span>,
-  <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='st'>"method"</span>, <span class='kw'>mcse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</div><div class='output co'>#&gt; <span class='message'>`ref` was not specified, CC set as the reference</span></div><div class='input'><span class='no'>x</span></div><div class='output co'>#&gt; 
-#&gt; Call:
-#&gt; 	simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", 
-#&gt;     methodvar = "method", mcse = TRUE)
+  <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='st'>"method"</span>
+)</div><div class='output co'>#&gt; <span class='message'>'ref' method was not specified, CC set as the reference</span></div><div class='input'><span class='no'>x</span></div><div class='output co'>#&gt; Summary of a simulation study with a single estimand.
 #&gt; 
 #&gt; Method variable: method 
 #&gt; 	Unique methods: CC, MI_LOGT, MI_T 

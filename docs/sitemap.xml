@@ -7,43 +7,19 @@
     <loc>https://ellessenne.github.io/rsimsum/reference/MIsim.html</loc>
   </url>
   <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/bar.html</loc>
+    <loc>https://ellessenne.github.io/rsimsum/reference/autoplot.multisimsum.html</loc>
   </url>
   <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/bar.multisimsum.html</loc>
+    <loc>https://ellessenne.github.io/rsimsum/reference/autoplot.simsum.html</loc>
   </url>
   <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/bar.simsum.html</loc>
+    <loc>https://ellessenne.github.io/rsimsum/reference/autoplot.summary.multisimsum.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/rsimsum/reference/autoplot.summary.simsum.html</loc>
   </url>
   <url>
     <loc>https://ellessenne.github.io/rsimsum/reference/dropbig.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/dropbig.multisimsum.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/dropbig.simsum.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/forest.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/forest.multisimsum.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/forest.simsum.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/format.multisimsum.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/format.simsum.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/format.summary.multisimsum.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/format.summary.simsum.html</loc>
   </url>
   <url>
     <loc>https://ellessenne.github.io/rsimsum/reference/frailty.html</loc>
@@ -52,70 +28,22 @@
     <loc>https://ellessenne.github.io/rsimsum/reference/get_data.html</loc>
   </url>
   <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/get_data.miss.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/get_data.multisimsum.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/get_data.simsum.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/get_data.summary.multisimsum.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/get_data.summary.simsum.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/heat.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/heat.multisimsum.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/heat.simsum.html</loc>
-  </url>
-  <url>
     <loc>https://ellessenne.github.io/rsimsum/reference/is.multisimsum.html</loc>
   </url>
   <url>
     <loc>https://ellessenne.github.io/rsimsum/reference/is.simsum.html</loc>
   </url>
   <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/lolly.html</loc>
+    <loc>https://ellessenne.github.io/rsimsum/reference/is.summary.multisimsum.html</loc>
   </url>
   <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/lolly.multisimsum.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/lolly.simsum.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/miss.html</loc>
+    <loc>https://ellessenne.github.io/rsimsum/reference/is.summary.simsum.html</loc>
   </url>
   <url>
     <loc>https://ellessenne.github.io/rsimsum/reference/multisimsum.html</loc>
   </url>
   <url>
     <loc>https://ellessenne.github.io/rsimsum/reference/nsim.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/pattern.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/pattern.multisimsum.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/pattern.simsum.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/print.dropbig.multisimsum.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/print.dropbig.simsum.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/print.miss.html</loc>
   </url>
   <url>
     <loc>https://ellessenne.github.io/rsimsum/reference/print.multisimsum.html</loc>
@@ -143,15 +71,6 @@
   </url>
   <url>
     <loc>https://ellessenne.github.io/rsimsum/reference/summary.simsum.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/zipper.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/zipper.multisimsum.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/zipper.simsum.html</loc>
   </url>
   <url>
     <loc>https://ellessenne.github.io/rsimsum/articles/introduction.html</loc>
