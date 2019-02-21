@@ -14,11 +14,10 @@ editor_options:
 ```{r setup, include = FALSE}
 options(width = 150)
 knitr::opts_chunk$set(
-  eval = FALSE,
   collapse = TRUE,
   comment = "#>",
-  fig.align = "center", fig.height = 6, fig.width = 6,
-  out.width = "75%"
+  fig.align = "center", fig.height = 3, fig.width = 5,
+  out.width = "80%"
 )
 ```
 
@@ -29,9 +28,7 @@ library(rsimsum)
 library(ggplot2)
 ```
 
-Also, need to rework this out after implementing `autoplot()`.
-
-# Simulation study with a single estimand
+# Data
 
 We use data from a simulation study on misspecification of the baseline hazard in survival models. This dataset is included in `rsimsum` and can be loaded with:
 
@@ -46,302 +43,167 @@ str(relhaz)
 head(relhaz, n = 15)
 ```
 
-## Summarise results
+# Summarise results
 
 We use the `simsum` function to summarise results:
 
 ```{r summarise-1}
-s1 <- simsum(data = relhaz, estvarname = "theta", se = "se", true = -0.50, methodvar = "model", by = c("n", "baseline"), x = TRUE)
+s1 <- simsum(data = relhaz, estvarname = "theta", se = "se", true = -0.50, 
+						 methodvar = "model", by = c("n", "baseline"), x = TRUE)
 s1
 ```
 
-We call `simsum` with `x = TRUE` as we want to produce pattern plots and zipper plots later on.
+We call `simsum` with `x = TRUE` as that is required for some types of plots (e.g. zip plots, scatter plots, etc.).
 
 ```{r summary-summarise-1}
 summary(s1)
 ```
 
-## Pattern plots
+`rsimsum` implements the `autoplot` method for objects of classes: `simsum`, `summary.simsum`, `multisimsum`, `summary.multisimsum`.
 
-Pattern plots allow to assess serial trends in estimates and standard errors:
+See `?ggplot2::autoplot()` for details on the S3 generic function.
 
-```{r pattern-1}
-pattern(s1)
+# Scatter plots
+
+Scatter plots allow to assess serial trends in estimates and standard errors.
+
+For instance, if we want to compare the point estimates from different methods (across data-generating mechanisms):
+
+```{r plot-est}
+autoplot(s1, type = "est")
 ```
 
-Estimates and standard errors from the three methods compared with this example mostly overlap, in this settings.
+Analogously, if we want to compare standard errors:
 
-## Lolly plots
+```{r plot-se}
+autoplot(s1, type = "se")
+```
 
-Lolly plots are used to present estimates for a given summary statistic with confidence intervals based on Monte Carlo standard errors. They allow to easily compare methods.
+These two plot types allow comparing estimates (and standard errors) obtained from different methods with ease; in ideal settings, the points of the scatterplots should lay on the diagonal (dashed line). 
+An estimated regression line (of `X` vs `Y`, blue line) is superimposed by default to ease the comparison even more. 
 
-Say we are interest in bias:
+In addition to plots comparing estimates and standard errors, Bland-Altman-type plots are supported as well:
+
+```{r plot-est-ba}
+autoplot(s1, type = "est_ba")
+```
+
+Bland-Altman plots compare the difference between estimates from two competing methods (on the y-axis) with the mean of the estimates from the two methods (x-axis).
+In the ideal scenario, there should be no trend and all the points from the scatter plot should lay around the horizontal dashed line. 
+To ease comparison, a regression line is included here as well.
+Bland-Altman plots for standard errors could be obtained by setting the argument `type = "se_ba"`.
+
+## Ridgeline plots
+
+Another way of visually comparing estimates from different methods is given by ridgeline plots.
+According to the documentation of the `ggridges` package ([source](https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html)),
+
+> Ridgeline plots are partially overlapping line plots that create the impression of a mountain range. 
+> They can be quite useful for visualizing changes in distributions over time or space.
+
+In the settings of simulation studies, we aim to visualise changes in distribution over data-generating mechanisms.
+
+For instance, say we want to compare estimates across data-generating mechanisms and methods:
+
+```{r ridge-est-1}
+autoplot(s1, type = "est_ridge")
+```
+
+This allows us to see how the estimates from the `Exp` method are different from the other methods in two of the four data-generating mechanisms: `50, Weibull` and `250, Weibull`.
+
+To obtain a similar plot for standard errors, call the `autoplot` method with `type = "se_ridge` instead.
+
+# Lolly plots
+
+Lolly plots are used to present estimates for a given summary statistic with confidence intervals based on Monte Carlo standard errors (if calling the `autoplot` method on `summary` objects). 
+They allow to easily compare methods.
+
+Say we are interested in bias:
 
 ```{r lolly-bias-1}
-lolly(s1, sstat = "bias", by = c("n", "baseline"))
+autoplot(summary(s1), type = "lolly", stats = "bias")
 ```
 
-It is straightforward to identify the exponential model as yielding biased results when the true baseline hazard is Weibull, irrespectively of the sample size. All the methods also yield biased results with an exponential baseline hazard and a sample size of 50 individuals.
+It is straightforward to identify the exponential model as yielding biased results when the true baseline hazard is Weibull, irrespectively of the sample size. 
+
+If confidence intervals based on Monte Carlo errors are not required, it is sufficient to call the `autoplot` method on the `simsum` object:
+
+```{r lolly-bias-2}
+autoplot(s1, type = "lolly", stats = "bias")
+```
 
 Analogously, for coverage:
 
 ```{r lolly-coverage-1}
-lolly(s1, sstat = "cover", by = c("n", "baseline"))
+autoplot(summary(s1), type = "lolly", stats = "cover")
 ```
 
-## Forest plots and bar plots
+# Forest plots
 
-Forest plots and bar plots could be an alternative to lolly plots, with similar interpretation:
+Forest plots could be an alternative to lolly plots, with similar interpretation:
 
 ```{r forest-bias-1}
-forest(s1, sstat = "bias", by = c("n", "baseline"))
+autoplot(s1, type = "forest", stats = "bias")
 ```
 
-```{r forest-coverage-1}
-forest(s1, sstat = "cover", by = c("n", "baseline"))
+```{r forest-bias-2}
+autoplot(summary(s1), type = "forest", stats = "bias")
 ```
 
-```{r bar-bias-1}
-bar(s1, sstat = "bias", by = c("n", "baseline"))
-```
+# Zipper plots
 
-```{r bar-coverage-1}
-bar(s1, sstat = "cover", by = c("n", "baseline"))
-```
-
-## Zipper plots
-
-Zipper plots (or zip plots), introduced in Morris _et al_. (2017), help understand coverage by visualising the confidence intervals directly. For each data-generating mechanism and method, the confidence intervals are centile-ranked according to their significance agains the null hypotesis \(H_0: \theta = -0.50\), assessed via a Wald-type test. This ranking is used for the vertical axis and is plotted against the intervals themselves.
+Zipper plots (or zip plots), introduced in Morris _et al_. (2019), help understand coverage by visualising the confidence intervals directly. For each data-generating mechanism and method, the confidence intervals are centile-ranked according to their significance agains the null hypotesis \(H_0: \theta = \theta_{\text{true}}\), assessed via a Wald-type test. This ranking is used for the vertical axis and is plotted against the intervals themselves.
 
 When a method has \(95\%\) coverage, the colour of the intervals switches at 95 on the vertical axis. Finally, the horizontal lines represent confidence intervals for the estimated coverage based on Monte Carlo standard errors.
 
 ```{r zipper-1}
-zipper(s1)
+autoplot(s1, type = "zip")
 ```
 
 The zipper plot for the exponential model with \(n = 50\) and a true Weibull baseline hazard shows that coverage is approximately \(95\%\); however, there are more intervals to the right of \(\theta = -0.50\) than to the left: this indicates that the model standard errors must be overestimating the empirical standard error, because coverage is appropriate despite bias.
 
-## Heat plots
+# Heat plots
 
 Heat plots are a new visualisation that we suggest and include here for the first time. With heat plots, we produce a heat-map-like plot where the filling of each tile represents a given summary statistic, say bias:
 
 ```{r heat-bias-1}
-heat(s1, sstat = "bias", y = "baseline")
+autoplot(s1, type = "heat", stats = "bias")
 ```
 
-`heat()` requires a factor to be put on the `y`-axis; by default, the methods are included on the `x` axis, and all the remaining by-factors will be used for faceting. Therefore, this plot is appropriate when a simulation study includes different methods to be compared and many data-generating mechanisms. Using a heat plot, it is immediate to identify visually which method performs better and under which data-generating mechanisms.
+This visualisation type automatically puts all data-generating mechanisms on the y-axis; by default, the methods are included on the `x` axis. Therefore, this plot is most useful when a simulation study includes different methods to be compared and many data-generating mechanisms. Using a heat plot, it is immediate to identify visually which method performs better and under which data-generating mechanisms.
 
-By default, white colour represent the optimal, target value. Using summary statistics with zero as the lower bound (e.g. mean squared error, empirical standard error, etc.), red represents largest (e.g.) worse values. Finally, with summary statistics that can have lower and upper values (e.g. bias), blue colour represents values below the target and red colour represents values above the target. These colors, which are colourblind-safe by default, can be easily changed to taste:
-
-```{r heat-bias-coloured-1}
-heat(s1, sstat = "bias", y = "baseline", gpars = list(target.colour = "green", low.colour = "yellow", high.colour = "purple"))
-```
-
-It is also possible to add the actual value of each summary statistic and Monte Carlo standard error:
-
-```{r heat-bias-text-1}
-heat(s1, sstat = "bias", y = "baseline", text = TRUE)
-```
-
-# Simulation study with multiple estimands
-
-This second example is using data from a simulation study on misspecification in frailty survival models. This dataset is included in `rsimsum` and can be loaded with:
-
-```{r data-2}
-data("frailty", package = "rsimsum")
-```
-
-Inspecting the structure of the dataset and the first 15 rows of data:
-
-```{r inspect-2}
-str(frailty)
-head(frailty, n = 15)
-```
-
-This dataset has two estimands (estimated parameters from the models):
-
-```{r estimands-2}
-unique(frailty[["par"]])
-```
-
-`trt` is the estimated log-treatment effect from the frailty survival model, while `fv` is the estimated variance of the frailty term.
-
-To analyse this data, one could call `rsimsum` twice to each subset of data for each estimated parameter; `multisimsum` allows summarising this simulation study with a single command.
-
-## Summarise results
-
-We use the `simsum` function to summarise results:
-
-```{r summarise-2}
-s2 <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist", x = TRUE)
-s2
-```
-
-We call `multisimsum` with `x = TRUE` as we want to produce pattern plots and zipper plots later on.
-
-```{r summary-summarise-2}
-summary(s2)
-```
-
-## Patterns
-
-Plotting pattern plots for a given estimand:
-
-```{r pattern-single-2}
-pattern(s2, par = "trt")
-```
-
-Alternatively, plotting pattern plots for all estimands:
-
-```{r pattern-multiple-2}
-pattern(s2)
-```
-
-Estimates and standard errors mostly overlap, in this settings.
-
-## Lolly plots
-
-Lolly plot for bias of treatment effect:
-
-```{r lolly-bias-2}
-lolly(s2, sstat = "bias", par = "trt", by = "fv_dist")
-```
-
-Lolly plot for coverage of frailty variance:
-
-```{r lolly-coverage-2}
-lolly(s2, sstat = "cover", par = "fv", by = "fv_dist")
-```
-
-It is also possible to not select a single estimand and plot them both, say for bias:
-
-```{r lolly-bias-both-2}
-lolly(s2, sstat = "bias", by = "fv_dist")
-```
-
-## Forest plots and bar plots
-
-Forest plots for bias and coverage of treatment effect:
-
-```{r forest-bias-2}
-forest(s2, sstat = "bias", par = "trt", by = "fv_dist")
-```
-
-```{r forest-coverage-2}
-forest(s2, sstat = "cover", par = "fv", by = "fv_dist")
-```
-
-Bar plots for bias and coverage of treatment effect:
-
-```{r bar-bias-2}
-bar(s2, sstat = "bias", par = "trt", by = "fv_dist")
-```
-
-```{r bar-coverage-2}
-bar(s2, sstat = "cover", par = "fv", by = "fv_dist")
-```
-
-## Zipper plots
-
-Say we want to further investigate coverage of the frailty variance after seeing the lolly plot:
-
-```{r zipper-2}
-zipper(s2, par = "fv")
-```
-
-## Heat plots
-
-Finally, we also plot coverage of the frailty variance using a heat plot:
-
-```{r heat-cover-2}
-heat(s2, par = "fv", sstat = "cover", y = "fv_dist")
-```
-
-```{r heat-cover-text-2}
-heat(s2, par = "fv", sstat = "cover", y = "fv_dist", text = TRUE)
-```
+By default, heat plots use the default `ggplot` scale for the filling aesthetic.
+It is recommended to use a different colour palette with better characteristics, e.g. the viridis colour palette from `matplotlib`; see the next section for details on how to do this, and [here](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html) for details on the viridis colour palette.
 
 # Custom plotting
 
 All plots produced by `rsimsum` are meant to be quick explorations of results from Monte Carlo simulation studies: they are not meant to be final manuscript-like-quality plots (although they can be useful as a starting point).
 
-All plots can be reproduced with a higher degree of flexibility by combining the `get_data` method with `ggplot2` as follows.
+Generally, the output of all types of `autoplot` calls are `ggplot` objects; hence, it should be generally straightforward to customise all plots.
+For instance, say we want to add a custom theme:
 
-## Custom ordering of data-generating mechanisms and methods
-
-Let's reproduce a lolly plot from the simulation study with a single estimand and customise ordering of the data-generating factors:
-
-```{r custom-ordering}
-library(dplyr)
-s1 %>%
-  summary() %>%
-  get_data() %>%
-  mutate(
-    n = as.numeric(n),
-    baseline = factor(baseline, levels = c("Exponential", "Weibull")),
-    model = factor(model, levels = c("Exp", "RP(2)", "Cox"))
-  ) %>%
-  filter(stat == "bias") %>%
-  ggplot(aes(x = est, y = model, xend = 0, yend = model)) +
-  geom_vline(xintercept = 0, color = "red", linetype = "dashed") +
-  geom_segment(linetype = "dotted") +
-  geom_point(aes(x = est - 1.96 * mcse), pch = "(") +
-  geom_point(aes(x = est + 1.96 * mcse), pch = ")") +
-  geom_point() +
-  facet_wrap(~ n + baseline, labeller = label_both)
-```
-
-Compare with the default plot:
-
-```{r}
-lolly(s1, sstat = "bias", by = c("n", "baseline"))
-```
-
-By default all DGMs are stored as strings, hence the difference between the two plots - calling directly `lolly` will sort values in alphabetical order (where a value of `"250"` comes before a value of `"50"`).
-
-## Using `facet_grid` instead of `facet_wrap`
-
-Analogously, it is possible to use `facet_grid` instead of `facet_wrap`:
-
-```{r custom-facet}
-s1 %>%
-  summary() %>%
-  get_data() %>%
-  mutate(
-    n = as.numeric(n),
-    baseline = factor(baseline, levels = c("Exponential", "Weibull")),
-    model = factor(model, levels = c("Exp", "RP(2)", "Cox"))
-  ) %>%
-  filter(stat == "bias") %>%
-  ggplot(aes(x = est, y = model, xend = 0, yend = model)) +
-  geom_vline(xintercept = 0, color = "red", linetype = "dashed") +
-  geom_segment(linetype = "dotted") +
-  geom_point(aes(x = est - 1.96 * mcse), pch = "(") +
-  geom_point(aes(x = est + 1.96 * mcse), pch = ")") +
-  geom_point() +
-  facet_grid(n ~ baseline, labeller = label_both)
-```
-
-## Combining plots with additional `geom_*`, `theme_*`, etc.
-
-Each method introduced with this vignette returns `ggplot` objects that can be easily combined with any other `geom_*`, `theme_*`, `scale_*`.
-
-For instance:
-
-1. Adding a method-specific smoother to each panel of a pattern plot, to better visualise trends:
-```{r add-geom}
-pattern(s1) +
-  geom_smooth()
-```
-
-2. Adding a theme:
 ```{r add-theme}
-heat(s1, sstat = "bias", y = "baseline") +
-  theme_bw()
+autoplot(summary(s1), type = "lolly", stats = "bias") +
+  ggplot2::theme_bw()
 ```
 
-3. Using a different colour scale:
-```{r add-scale}
-heat(s1, sstat = "bias", y = "baseline") +
-  scale_fill_gradientn(colours = rainbow(n = 3))
+Compare to the default plot:
+
+```{r add-theme-default}
+autoplot(summary(s1), type = "lolly", stats = "bias")
+```
+
+We also mentioned before that the colour palette of heat plots should be customised. Say we want to use the default viridis colour palette:
+
+```{r heat-bias-viridis}
+autoplot(s1, type = "heat", stats = "bias") +
+	viridis::scale_fill_viridis()
+```
+
+Analogously, say we want to customise the colour palette of ridgelines plots, again using the viridis colour palette:
+
+```{r colour-palette}
+autoplot(s1, type = "est_ridge") +
+  viridis::scale_fill_viridis(discrete = TRUE) +
+  viridis::scale_colour_viridis(discrete = TRUE)
 ```

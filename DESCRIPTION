@@ -1,6 +1,6 @@
 Package: rsimsum
 Version: 0.4.2-9000
-Date: 2019-02-06
+Date: 2019-02-21
 Title: Analysis of Simulation Studies Including Monte Carlo Error
 Description: Summarise results from simulation studies and compute Monte Carlo
   standard errors of commonly used summary statistics. This package is modelled 
@@ -35,7 +35,8 @@ Suggests:
  rstpm2,
  survival,
  testthat,
- usethis
+ usethis,
+ viridis
 URL: https://ellessenne.github.io/rsimsum/
 BugReports: https://github.com/ellessenne/rsimsum/issues
 VignetteBuilder: knitr
