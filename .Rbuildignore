@@ -19,5 +19,4 @@ cache$
 ^CONTRIBUTING\.md$
 ^inst/JOSS$
 ^inst/Sticker$
-test-refactor.R
 ^data-raw$
