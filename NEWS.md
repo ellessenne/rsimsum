@@ -1,4 +1,4 @@
-# rsimsum 0.4.2-9000
+# rsimsum 0.5.0
 
 ### Improvements:
 
