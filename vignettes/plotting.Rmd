@@ -98,7 +98,7 @@ Bland-Altman plots for standard errors could be obtained by setting the argument
 ## Ridgeline plots
 
 Another way of visually comparing estimates from different methods is given by ridgeline plots.
-According to the documentation of the `ggridges` package ([source](https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html)),
+According to the documentation of the `ggridges` package ([source](https://cran.r-project.org/package=ggridges/vignettes/introduction.html)),
 
 > Ridgeline plots are partially overlapping line plots that create the impression of a mountain range. 
 > They can be quite useful for visualizing changes in distributions over time or space.
@@ -175,7 +175,7 @@ autoplot(s1, type = "heat", stats = "bias")
 This visualisation type automatically puts all data-generating mechanisms on the y-axis; by default, the methods are included on the `x` axis. Therefore, this plot is most useful when a simulation study includes different methods to be compared and many data-generating mechanisms. Using a heat plot, it is immediate to identify visually which method performs better and under which data-generating mechanisms.
 
 By default, heat plots use the default `ggplot` scale for the filling aesthetic.
-It is recommended to use a different colour palette with better characteristics, e.g. the viridis colour palette from `matplotlib`; see the next section for details on how to do this, and [here](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html) for details on the viridis colour palette.
+It is recommended to use a different colour palette with better characteristics, e.g. the viridis colour palette from `matplotlib`; see the next section for details on how to do this, and [here](https://cran.r-project.org/package=viridis/vignettes/intro-to-viridis.html) for details on the viridis colour palette.
 
 # Custom plotting
 
