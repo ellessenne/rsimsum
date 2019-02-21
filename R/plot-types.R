@@ -230,3 +230,24 @@
   ### Return plot
   return(gg)
 }
+
+### Ridgeline plot
+#' @keywords internal
+.heat_plot <- function(data, methodvar, by, stats) {
+  ### Create a .dgm column
+  if (!is.null(by)) {
+    tmp <- lapply(by, function(x) data[[x]])
+    data[[".dgm"]] <- do.call(paste, c(tmp, sep = ", "))
+  } else {
+    data[[".dgm"]] <- "Single DGM"
+  }
+
+  ### Build basic plot
+  methodvar <- rlang::sym(methodvar)
+  gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = !!methodvar, y = .dgm, fill = est)) +
+    ggplot2::geom_tile() +
+    ggplot2::labs(y = "", fill = stats)
+
+  ### Return plot
+  return(gg)
+}

@@ -11,7 +11,7 @@
 \arguments{
 \item{object}{An object of class \code{summary.simsum}.}
 
-\item{type}{The type of the plot to be produced. Possible choices are: \code{forest}, \code{lolly}, \code{zip}, \code{est}, \code{se}, \code{est_ba}, \code{se_ba}, \code{est_ridge}, \code{se_ridge}, with \code{forest} being the default.}
+\item{type}{The type of the plot to be produced. Possible choices are: \code{forest}, \code{lolly}, \code{zip}, \code{est}, \code{se}, \code{est_ba}, \code{se_ba}, \code{est_ridge}, \code{se_ridge}, \code{heat}, with \code{forest} being the default.}
 
 \item{stats}{Summary statistic to plot, defaults to \code{bias}. See \code{\link[=summary.simsum]{summary.simsum()}} for further details on supported summary statistics.}
 

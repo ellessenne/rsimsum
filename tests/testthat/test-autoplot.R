@@ -19,6 +19,7 @@ testthat::test_that("output from autoplot is of class gg, ggplot", {
   testthat::expect_s3_class(object = autoplot(single, type = "se_ba"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(single, type = "est_ridge"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(single, type = "se_ridge"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(single, type = "heat"), class = c("gg", "ggplot"))
   # simsum object, with 'by'
   testthat::expect_s3_class(object = autoplot(multi), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(multi, type = "forest"), class = c("gg", "ggplot"))
@@ -30,6 +31,7 @@ testthat::test_that("output from autoplot is of class gg, ggplot", {
   testthat::expect_s3_class(object = autoplot(multi, type = "se_ba"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(multi, type = "est_ridge"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(multi, type = "se_ridge"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(multi, type = "heat"), class = c("gg", "ggplot"))
   # summary.simsum object, no 'by'
   testthat::expect_s3_class(object = autoplot(singlesum), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(singlesum, type = "forest"), class = c("gg", "ggplot"))
@@ -41,6 +43,7 @@ testthat::test_that("output from autoplot is of class gg, ggplot", {
   testthat::expect_s3_class(object = autoplot(singlesum, type = "se_ba"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(singlesum, type = "est_ridge"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(singlesum, type = "se_ridge"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(singlesum, type = "heat"), class = c("gg", "ggplot"))
   # summary.simsum object, with 'by'
   testthat::expect_s3_class(object = autoplot(multisum), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(multisum, type = "forest"), class = c("gg", "ggplot"))
@@ -52,6 +55,7 @@ testthat::test_that("output from autoplot is of class gg, ggplot", {
   testthat::expect_s3_class(object = autoplot(multisum, type = "se_ba"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(multisum, type = "est_ridge"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(multisum, type = "se_ridge"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(multisum, type = "heat"), class = c("gg", "ggplot"))
 })
 
 testthat::test_that("argument checks works throws errors when appropriate", {
