@@ -48,8 +48,10 @@ head(relhaz, n = 15)
 We use the `simsum` function to summarise results:
 
 ```{r summarise-1}
-s1 <- simsum(data = relhaz, estvarname = "theta", se = "se", true = -0.50, 
-						 methodvar = "model", by = c("n", "baseline"), x = TRUE)
+s1 <- simsum(
+  data = relhaz, estvarname = "theta", se = "se", true = -0.50,
+  methodvar = "model", by = c("n", "baseline"), x = TRUE
+)
 s1
 ```
 
@@ -197,7 +199,7 @@ We also mentioned before that the colour palette of heat plots should be customi
 
 ```{r heat-bias-viridis}
 autoplot(s1, type = "heat", stats = "bias") +
-	viridis::scale_fill_viridis()
+  viridis::scale_fill_viridis()
 ```
 
 Analogously, say we want to customise the colour palette of ridgelines plots, again using the viridis colour palette:
