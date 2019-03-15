@@ -12,7 +12,7 @@
 #' @param x Set to `TRUE` to include the `data` argument used to calculate summary statistics (i.e. after pre-processing the input dataset e.g. removing values deemed too large via the `dropbig` argument) as a slot. Calling `simsum` with `x = TRUE` is required to produce zipper plots. The downside is that the size of the returned object increases considerably, therefore it is set to `FALSE` by default.
 #' @param control A list of parameters that control the behaviour of `simsum`. Possible values are:
 #' * `mcse`, whether to calculate Monte Carlo standard errors. Defaults to `TRUE`;
-#' * `level`, the significancy level used for coverage, bias-eliminated coverage, and power. Defaults to 0.95;
+#' * `level`, the significance level used for coverage, bias-eliminated coverage, and power. Defaults to 0.95;
 #' * `df`, whether to use robust critical values from a t distribution with `df` degrees of freedom when calculating coverage, bias-eliminated coverage, and power. Defaults to `NULL`, in which case a Gaussian distribution is used;
 #' * `na.rm`, whether to remove point estimates or standard errors where either (or both) is missing. Defaults to `TRUE`;
 #' * `char.sep`, a character utilised when splitting the input dataset `data`. Generally, this should not be changed;

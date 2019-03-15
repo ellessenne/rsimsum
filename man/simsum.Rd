@@ -32,7 +32,7 @@ simsum(data, estvarname, true, se, methodvar = NULL, ref = NULL,
 \item{control}{A list of parameters that control the behaviour of \code{simsum}. Possible values are:
 \itemize{
 \item \code{mcse}, whether to calculate Monte Carlo standard errors. Defaults to \code{TRUE};
-\item \code{level}, the significancy level used for coverage, bias-eliminated coverage, and power. Defaults to 0.95;
+\item \code{level}, the significance level used for coverage, bias-eliminated coverage, and power. Defaults to 0.95;
 \item \code{df}, whether to use robust critical values from a t distribution with \code{df} degrees of freedom when calculating coverage, bias-eliminated coverage, and power. Defaults to \code{NULL}, in which case a Gaussian distribution is used;
 \item \code{na.rm}, whether to remove point estimates or standard errors where either (or both) is missing. Defaults to \code{TRUE};
 \item \code{char.sep}, a character utilised when splitting the input dataset \code{data}. Generally, this should not be changed;

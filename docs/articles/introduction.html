@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@
       <h1>Introduction to rsimsum</h1>
                         <h4 class="author">Alessandro Gasparini</h4>
             
-            <h4 class="date">2019-02-21</h4>
+            <h4 class="date">2019-03-15</h4>
       
       
       <div class="hidden name"><code>introduction.Rmd</code></div>
@@ -140,11 +140,11 @@
 <p>The <strong>empirical standard error</strong> of <span class="math inline">\(\theta\)</span> depends only on <span class="math inline">\(\hat{\theta}\)</span> and does not require any knowledge of <span class="math inline">\(\theta\)</span>. It estimates the standard deviation of <span class="math inline">\(\hat{\theta}\)</span> over the <span class="math inline">\(n_{\text{sim}}\)</span> replications:</p>
 <p><span class="math display">\[\text{Empirical SE} = \sqrt{\frac{1}{n_{\text{sim}} - 1} \sum_{i = 1} ^ {n_{\text{sim}}} (\hat{\theta}_i - \bar{\theta}) ^ 2}\]</span></p>
 <p>The Monte Carlo standard error is calculated as:</p>
-<p><span class="math display">\[\text{MCSE(Emp. SE)} = \frac{\text{Emp. SE}}{\sqrt{2 (n_{\text{sim}} - 1)}}\]</span></p>
+<p><span class="math display">\[\text{MCSE(Emp. SE)} = \frac{\widehat{\text{Emp. SE}}}{\sqrt{2 (n_{\text{sim}} - 1)}}\]</span></p>
 <p>When comparing different methods, the <strong>relative precision of a given method B against a reference method A</strong> is computed as:</p>
-<p><span class="math display">\[\text{Relative % increase in precision} = \left( \frac{\text{Emp. SE}_A}{\text{Emp. SE}_B} \right) ^ 2\]</span></p>
+<p><span class="math display">\[\text{Relative % increase in precision} = 100 \left[ \left( \frac{\widehat{\text{Emp. SE}}_A}{\widehat{\text{Emp. SE}}_B} \right) ^ 2 - 1 \right]\]</span></p>
 <p>Its (approximated) Monte Carlo standard error is:</p>
-<p><span class="math display">\[\text{MCSE(Relative % increase in precision)} \simeq 2 \frac{\text{Var}(\hat{\theta}_A)}{\text{Var}(\hat{\theta}_B)} \sqrt{\frac{1 - \rho^2_{AB}}{n_{\text{sim}} - 1}}\]</span></p>
+<p><span class="math display">\[\text{MCSE(Relative % increase in precision)} \simeq 200 \left( \frac{\widehat{\text{Emp. SE}}_A}{\widehat{\text{Emp. SE}}_B} \right) \sqrt{\frac{1 - \rho^2_{AB}}{n_{\text{sim}} - 1}}\]</span></p>
 <p><span class="math inline">\(\rho^2_{AB}\)</span> is the correlation of <span class="math inline">\(\hat{\theta}_A\)</span> and <span class="math inline">\(\hat{\theta}_B\)</span>.</p>
 <p>A measure that takes into account both precision and accuracy of a method is the <strong>mean squared error</strong>, which is the sum of the squared bias and variance of <span class="math inline">\(\hat{\theta}\)</span>:</p>
 <p><span class="math display">\[\text{MSE} = \frac{1}{n_{\text{sim}}} = \sum_{i = 1} ^ {n_{\text{sim}}} (\hat{\theta}_i - \theta) ^ 2\]</span></p>
