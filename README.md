@@ -143,8 +143,8 @@ summary(s)
 #>  0.1511 (0.0034) 0.1320 (0.0030) 0.1344 (0.0030)
 #> 
 #> % gain in precision relative to method CC:
-#>               CC         MI_LOGT            MI_T
-#>  1.0000 (0.0000) 1.3105 (0.0394) 1.2637 (0.0384)
+#>               CC          MI_LOGT             MI_T
+#>  0.0000 (0.0000) 31.0463 (3.9375) 26.3682 (3.8424)
 #> 
 #> Mean squared error:
 #>               CC         MI_LOGT            MI_T
@@ -190,20 +190,19 @@ library(ggplot2)
 autoplot(s, type = "lolly", stats = "bias")
 ```
 
-<img src="man/figures/README-lolly-1.png" width="75%" style="display: block; margin: auto;" />
+<img src="man/figures/README-lolly-1.png" width="80%" style="display: block; margin: auto;" />
 
 ``` r
 autoplot(s, type = "zip")
 ```
 
-<img src="man/figures/README-zipper-1.png" width="75%" style="display: block; margin: auto;" />
+<img src="man/figures/README-zipper-1.png" width="80%" style="display: block; margin: auto;" />
 
 With `rsimsum` `0.5.0` the plotting functionality has been completely
 rewritten, and new plot types have been implemented:
 
   - Scatter plots for method-wise comparisons, including Bland-Altman
-    type
-plots;
+    type plots;
 
 <!-- end list -->
 
@@ -211,7 +210,7 @@ plots;
 autoplot(s, type = "est_ba")
 ```
 
-<img src="man/figures/README-ba-1.png" width="75%" style="display: block; margin: auto;" />
+<img src="man/figures/README-ba-1.png" width="80%" style="display: block; margin: auto;" />
 
   - Ridgeline plots.
 
@@ -222,7 +221,7 @@ autoplot(s, type = "est_ridge")
 #> Picking joint bandwidth of 0.0295
 ```
 
-<img src="man/figures/README-ridgeline-1.png" width="75%" style="display: block; margin: auto;" />
+<img src="man/figures/README-ridgeline-1.png" width="80%" style="display: block; margin: auto;" />
 
 The plotting functionality now extend the S3 generic `autoplot`: see
 `?ggplot2::autoplot` and `?rsimsum::autoplot.simsum` for further

@@ -1,3 +1,4 @@
+^CRAN-RELEASE$
 ^\.github$
 ^docs$
 ^_pkgdown\.yml$
@@ -12,7 +13,6 @@ R/test.R
 cran-comments.md
 ^.*\.dta$
 ^README\.Rmd$
-^README-.*\.png$
 figure$
 cache$
 ^LICENSE\.md$
