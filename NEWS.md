@@ -1,4 +1,8 @@
-# rsimsum 0.5.0-9000
+# rsimsum 0.5.1
+
+### Bug fixes:
+
+* Fixed calculations for "Relative % increase in precision" (thanks to Ian R. White for reporting this).
 
 # rsimsum 0.5.0
 

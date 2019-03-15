@@ -57,15 +57,15 @@ $$\text{Empirical SE} = \sqrt{\frac{1}{n_{\text{sim}} - 1} \sum_{i = 1} ^ {n_{\t
 
 The Monte Carlo standard error is calculated as:
 
-$$\text{MCSE(Emp. SE)} = \frac{\text{Emp. SE}}{\sqrt{2 (n_{\text{sim}} - 1)}}$$
+$$\text{MCSE(Emp. SE)} = \frac{\widehat{\text{Emp. SE}}}{\sqrt{2 (n_{\text{sim}} - 1)}}$$
 
 When comparing different methods, the **relative precision of a given method B against a reference method A** is computed as:
 
-$$\text{Relative % increase in precision} = \left( \frac{\text{Emp. SE}_A}{\text{Emp. SE}_B} \right) ^ 2$$
+$$\text{Relative % increase in precision} = 100 \left[ \left( \frac{\widehat{\text{Emp. SE}}_A}{\widehat{\text{Emp. SE}}_B} \right) ^ 2 - 1 \right]$$
 
 Its (approximated) Monte Carlo standard error is:
 
-$$\text{MCSE(Relative % increase in precision)} \simeq 2 \frac{\text{Var}(\hat{\theta}_A)}{\text{Var}(\hat{\theta}_B)} \sqrt{\frac{1 - \rho^2_{AB}}{n_{\text{sim}} - 1}}$$
+$$\text{MCSE(Relative % increase in precision)} \simeq 200 \left( \frac{\widehat{\text{Emp. SE}}_A}{\widehat{\text{Emp. SE}}_B} \right) \sqrt{\frac{1 - \rho^2_{AB}}{n_{\text{sim}} - 1}}$$
 
 $\rho^2_{AB}$ is the correlation of $\hat{\theta}_A$ and $\hat{\theta}_B$.
 

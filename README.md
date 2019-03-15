@@ -31,7 +31,7 @@ wide variety of summary statistics: bias, empirical and model-based
 standard errors, relative precision, relative error in model standard
 error, mean squared error, coverage, bias. Further details on each
 summary statistic are presented elsewhere (White I.R., 2010; Morris *et
-al*, 2017).
+al*, 2019).
 
 The main function of `rsimsum` is called `simsum` and can handle
 simulation studies with a single estimand of interest at a time. Missing

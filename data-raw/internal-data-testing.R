@@ -37,12 +37,12 @@ MIsim_res_stata <- dplyr::left_join(MIsim_res_stata_est, MIsim_res_stata_mcse, b
   dplyr::select(stat, est, mcse, method) %>%
   dplyr::mutate(
     est = dplyr::case_when(
-      stat == "relprec" ~ 1 + ifelse(!is.na(est), est / 100, 0),
       stat %in% c("cover", "power") ~ est / 100,
       TRUE ~ est
     ),
-    mcse = ifelse(stat %in% c("cover", "power", "relprec"), mcse / 100, mcse)
-  )
+    mcse = ifelse(stat %in% c("cover", "power"), mcse / 100, mcse)
+  ) %>%
+  tidyr::replace_na(replace = list(est = 0))
 rm(MIsim_res_stata_est, MIsim_res_stata_mcse, MIsim)
 
 relhaz_res_stata <- haven::read_dta(file = "data-raw/relhaz_res_stata.dta") %>%
@@ -68,13 +68,13 @@ relhaz_res_stata <- dplyr::left_join(relhaz_res_stata_est, relhaz_res_stata_mcse
   dplyr::select(stat, est, mcse, model, n, baseline) %>%
   dplyr::mutate(
     est = dplyr::case_when(
-      stat == "relprec" ~ 1 + ifelse(!is.na(est), est / 100, 0),
       stat %in% c("cover", "power") ~ est / 100,
       TRUE ~ est
     ),
     n = as.character(n),
-    mcse = ifelse(stat %in% c("cover", "power", "relprec"), mcse / 100, mcse)
-  )
+    mcse = ifelse(stat %in% c("cover", "power"), mcse / 100, mcse)
+  ) %>%
+  tidyr::replace_na(replace = list(est = 0))
 rm(relhaz_res_stata_est, relhaz_res_stata_mcse, relhaz)
 
 # Save data for internal use

@@ -23,7 +23,7 @@
   mse <- 1 / nsim * sum((data[[estvarname]] - true)^2, na.rm = control$na.rm)
   # Relative change in precision
   if (!is.null(empse_ref) & !is.null(rho)) {
-    relprec <- (empse_ref / empse)^2
+    relprec <- 100 * ((empse_ref / empse)^2 - 1)
   } else {
     relprec <- NA
   }
@@ -53,7 +53,7 @@
     empse_mcse <- empse / sqrt(2 * (nsim - 1))
     mse_mcse <- sqrt(sum(((data[[estvarname]] - true)^2 - mse)^2, na.rm = control$na.rm) / (nsim * (nsim - 1)))
     if (!is.null(empse_ref) & !is.null(rho)) {
-      relprec_mcse <- 2 * (empse_ref)^2 / (empse)^2 * sqrt((1 - rho^2) / (nsim - 1))
+      relprec_mcse <- 200 * (empse_ref / empse)^2 * sqrt((1 - rho^2) / (nsim - 1))
     } else {
       relprec_mcse <- NA
     }
