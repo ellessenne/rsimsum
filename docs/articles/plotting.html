@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@
       <h1>Visualising results from rsimsum</h1>
                         <h4 class="author">Alessandro Gasparini</h4>
             
-            <h4 class="date">2019-03-15</h4>
+            <h4 class="date">2019-04-25</h4>
       
       
       <div class="hidden name"><code>plotting.Rmd</code></div>
@@ -210,11 +210,11 @@
 <a class="sourceLine" id="cb5-52" title="52"><span class="co">#&gt;  250     Weibull 0.1333 (0.0095) 0.0929 (0.0066) 0.1368 (0.0097)</span></a>
 <a class="sourceLine" id="cb5-53" title="53"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb5-54" title="54"><span class="co">#&gt; % gain in precision relative to method Cox:</span></a>
-<a class="sourceLine" id="cb5-55" title="55"><span class="co">#&gt;    n    baseline             Cox             Exp           RP(2)</span></a>
-<a class="sourceLine" id="cb5-56" title="56"><span class="co">#&gt;   50 Exponential 1.0000 (0.0000) 1.0168 (0.0329) 0.9838 (0.0179)</span></a>
-<a class="sourceLine" id="cb5-57" title="57"><span class="co">#&gt;   50     Weibull 1.0000 (0.0000) 2.3280 (0.1644) 1.0024 (0.0374)</span></a>
-<a class="sourceLine" id="cb5-58" title="58"><span class="co">#&gt;  250 Exponential 1.0000 (0.0000) 0.9762 (0.0305) 0.9985 (0.0099)</span></a>
-<a class="sourceLine" id="cb5-59" title="59"><span class="co">#&gt;  250     Weibull 1.0000 (0.0000) 2.0584 (0.1249) 0.9505 (0.0206)</span></a>
+<a class="sourceLine" id="cb5-55" title="55"><span class="co">#&gt;    n    baseline              Cox                Exp            RP(2)</span></a>
+<a class="sourceLine" id="cb5-56" title="56"><span class="co">#&gt;   50 Exponential -0.0000 (0.0000)    1.6773 (3.2902) -1.6228 (1.7887)</span></a>
+<a class="sourceLine" id="cb5-57" title="57"><span class="co">#&gt;   50     Weibull -0.0000 (0.0000) 132.7958 (16.4433)  0.2412 (3.7361)</span></a>
+<a class="sourceLine" id="cb5-58" title="58"><span class="co">#&gt;  250 Exponential  0.0000 (0.0000)   -2.3839 (3.0501) -0.1491 (0.9916)</span></a>
+<a class="sourceLine" id="cb5-59" title="59"><span class="co">#&gt;  250     Weibull -0.0000 (0.0000) 105.8426 (12.4932) -4.9519 (2.0647)</span></a>
 <a class="sourceLine" id="cb5-60" title="60"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb5-61" title="61"><span class="co">#&gt; Mean squared error:</span></a>
 <a class="sourceLine" id="cb5-62" title="62"><span class="co">#&gt;    n    baseline             Cox             Exp           RP(2)</span></a>
@@ -265,14 +265,14 @@
 <a href="#scatter-plots" class="anchor"></a>Scatter plots</h1>
 <p>Scatter plots allow to assess serial trends in estimates and standard errors.</p>
 <p>For instance, if we want to compare the point estimates from different methods (across data-generating mechanisms):</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"est"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"est"</span>)</a></code></pre></div>
 <p><img src="plotting_files/figure-html/plot-est-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>Analogously, if we want to compare standard errors:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"se"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"se"</span>)</a></code></pre></div>
 <p><img src="plotting_files/figure-html/plot-se-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>These two plot types allow comparing estimates (and standard errors) obtained from different methods with ease; in ideal settings, the points of the scatterplots should lay on the diagonal (dashed line). An estimated regression line (of <code>X</code> vs <code>Y</code>, blue line) is superimposed by default to ease the comparison even more.</p>
 <p>In addition to plots comparing estimates and standard errors, Bland-Altman-type plots are supported as well:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"est_ba"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"est_ba"</span>)</a></code></pre></div>
 <p><img src="plotting_files/figure-html/plot-est-ba-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>Bland-Altman plots compare the difference between estimates from two competing methods (on the y-axis) with the mean of the estimates from the two methods (x-axis). In the ideal scenario, there should be no trend and all the points from the scatter plot should lay around the horizontal dashed line. To ease comparison, a regression line is included here as well. Bland-Altman plots for standard errors could be obtained by setting the argument <code>type = "se_ba"</code>.</p>
 <div id="ridgeline-plots" class="section level2">
@@ -284,7 +284,7 @@
 </blockquote>
 <p>In the settings of simulation studies, we aim to visualise changes in distribution over data-generating mechanisms.</p>
 <p>For instance, say we want to compare estimates across data-generating mechanisms and methods:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"est_ridge"</span>)</a>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"est_ridge"</span>)</a>
 <a class="sourceLine" id="cb9-2" title="2"><span class="co">#&gt; Picking joint bandwidth of 0.077</span></a></code></pre></div>
 <p><img src="plotting_files/figure-html/ridge-est-1-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>This allows us to see how the estimates from the <code>Exp</code> method are different from the other methods in two of the four data-generating mechanisms: <code>50, Weibull</code> and <code>250, Weibull</code>.</p>
@@ -296,23 +296,23 @@
 <a href="#lolly-plots" class="anchor"></a>Lolly plots</h1>
 <p>Lolly plots are used to present estimates for a given summary statistic with confidence intervals based on Monte Carlo standard errors (if calling the <code>autoplot</code> method on <code>summary</code> objects). They allow to easily compare methods.</p>
 <p>Say we are interested in bias:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(s1), <span class="dt">type =</span> <span class="st">"lolly"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(s1), <span class="dt">type =</span> <span class="st">"lolly"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</a></code></pre></div>
 <p><img src="plotting_files/figure-html/lolly-bias-1-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>It is straightforward to identify the exponential model as yielding biased results when the true baseline hazard is Weibull, irrespectively of the sample size.</p>
 <p>If confidence intervals based on Monte Carlo errors are not required, it is sufficient to call the <code>autoplot</code> method on the <code>simsum</code> object:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"lolly"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"lolly"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</a></code></pre></div>
 <p><img src="plotting_files/figure-html/lolly-bias-2-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>Analogously, for coverage:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(s1), <span class="dt">type =</span> <span class="st">"lolly"</span>, <span class="dt">stats =</span> <span class="st">"cover"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(s1), <span class="dt">type =</span> <span class="st">"lolly"</span>, <span class="dt">stats =</span> <span class="st">"cover"</span>)</a></code></pre></div>
 <p><img src="plotting_files/figure-html/lolly-coverage-1-1.png" width="80%" style="display: block; margin: auto;"></p>
 </div>
 <div id="forest-plots" class="section level1">
 <h1 class="hasAnchor">
 <a href="#forest-plots" class="anchor"></a>Forest plots</h1>
 <p>Forest plots could be an alternative to lolly plots, with similar interpretation:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"forest"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"forest"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</a></code></pre></div>
 <p><img src="plotting_files/figure-html/forest-bias-1-1.png" width="80%" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(s1), <span class="dt">type =</span> <span class="st">"forest"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(s1), <span class="dt">type =</span> <span class="st">"forest"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</a></code></pre></div>
 <p><img src="plotting_files/figure-html/forest-bias-2-1.png" width="80%" style="display: block; margin: auto;"></p>
 </div>
 <div id="zipper-plots" class="section level1">
@@ -320,7 +320,7 @@
 <a href="#zipper-plots" class="anchor"></a>Zipper plots</h1>
 <p>Zipper plots (or zip plots), introduced in Morris <em>et al</em>. (2019), help understand coverage by visualising the confidence intervals directly. For each data-generating mechanism and method, the confidence intervals are centile-ranked according to their significance against the null hypothesis <span class="math inline">\(H_0: \theta = \theta_{\text{true}}\)</span>, assessed via a Wald-type test. This ranking is used for the vertical axis and is plotted against the intervals themselves.</p>
 <p>When a method has <span class="math inline">\(95\%\)</span> coverage, the colour of the intervals switches at 95 on the vertical axis. Finally, the horizontal lines represent confidence intervals for the estimated coverage based on Monte Carlo standard errors.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"zip"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"zip"</span>)</a></code></pre></div>
 <p><img src="plotting_files/figure-html/zipper-1-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>The zipper plot for the exponential model with <span class="math inline">\(n = 50\)</span> and a true Weibull baseline hazard shows that coverage is approximately <span class="math inline">\(95\%\)</span>; however, there are more intervals to the right of <span class="math inline">\(\theta = -0.50\)</span> than to the left: this indicates that the model standard errors must be overestimating the empirical standard error, because coverage is appropriate despite bias.</p>
 </div>
@@ -328,7 +328,7 @@
 <h1 class="hasAnchor">
 <a href="#heat-plots" class="anchor"></a>Heat plots</h1>
 <p>Heat plots are a new visualisation that we suggest and include here for the first time. With heat plots, we produce a heat-map-like plot where the filling of each tile represents a given summary statistic, say bias:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"heat"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"heat"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</a></code></pre></div>
 <p><img src="plotting_files/figure-html/heat-bias-1-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>This visualisation type automatically puts all data-generating mechanisms on the y-axis; by default, the methods are included on the <code>x</code> axis. Therefore, this plot is most useful when a simulation study includes different methods to be compared and many data-generating mechanisms. Using a heat plot, it is immediate to identify visually which method performs better and under which data-generating mechanisms.</p>
 <p>By default, heat plots use the default <code>ggplot</code> scale for the filling aesthetic. It is recommended to use a different colour palette with better characteristics, e.g. the viridis colour palette from <code>matplotlib</code>; see the next section for details on how to do this, and <a href="https://cran.r-project.org/package=viridis/vignettes/intro-to-viridis.html">here</a> for details on the viridis colour palette.</p>
@@ -338,18 +338,18 @@
 <a href="#custom-plotting" class="anchor"></a>Custom plotting</h1>
 <p>All plots produced by <code>rsimsum</code> are meant to be quick explorations of results from Monte Carlo simulation studies: they are not meant to be final manuscript-like-quality plots (although they can be useful as a starting point).</p>
 <p>Generally, the output of all types of <code>autoplot</code> calls are <code>ggplot</code> objects; hence, it should be generally straightforward to customise all plots. For instance, say we want to add a custom theme:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(s1), <span class="dt">type =</span> <span class="st">"lolly"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb17-2" title="2"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(s1), <span class="dt">type =</span> <span class="st">"lolly"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb17-2" title="2"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggtheme">theme_bw</a></span>()</a></code></pre></div>
 <p><img src="plotting_files/figure-html/add-theme-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>Compare to the default plot:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(s1), <span class="dt">type =</span> <span class="st">"lolly"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(s1), <span class="dt">type =</span> <span class="st">"lolly"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</a></code></pre></div>
 <p><img src="plotting_files/figure-html/add-theme-default-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>We also mentioned before that the colour palette of heat plots should be customised. Say we want to use the default viridis colour palette:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"heat"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>) <span class="op">+</span></a>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"heat"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb19-2" title="2"><span class="st">  </span>viridis<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/viridis/topics/scale_viridis">scale_fill_viridis</a></span>()</a></code></pre></div>
 <p><img src="plotting_files/figure-html/heat-bias-viridis-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>Analogously, say we want to customise the colour palette of ridgelines plots, again using the viridis colour palette:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"est_ridge"</span>) <span class="op">+</span></a>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"est_ridge"</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb20-2" title="2"><span class="st">  </span>viridis<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/viridis/topics/scale_viridis">scale_fill_viridis</a></span>(<span class="dt">discrete =</span> <span class="ot">TRUE</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb20-3" title="3"><span class="st">  </span>viridis<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/viridis/topics/scale_viridis">scale_colour_viridis</a></span>(<span class="dt">discrete =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb20-4" title="4"><span class="co">#&gt; Picking joint bandwidth of 0.077</span></a></code></pre></div>

@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
       </span>
     </div>
 
@@ -167,8 +167,8 @@
 <a class="sourceLine" id="cb4-31" title="31"><span class="co">#&gt;  0.1511 (0.0034) 0.1320 (0.0030) 0.1344 (0.0030)</span></a>
 <a class="sourceLine" id="cb4-32" title="32"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb4-33" title="33"><span class="co">#&gt; % gain in precision relative to method CC:</span></a>
-<a class="sourceLine" id="cb4-34" title="34"><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></a>
-<a class="sourceLine" id="cb4-35" title="35"><span class="co">#&gt;  1.0000 (0.0000) 1.3105 (0.0394) 1.2637 (0.0384)</span></a>
+<a class="sourceLine" id="cb4-34" title="34"><span class="co">#&gt;               CC          MI_LOGT             MI_T</span></a>
+<a class="sourceLine" id="cb4-35" title="35"><span class="co">#&gt;  0.0000 (0.0000) 31.0463 (3.9375) 26.3682 (3.8424)</span></a>
 <a class="sourceLine" id="cb4-36" title="36"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb4-37" title="37"><span class="co">#&gt; Mean squared error:</span></a>
 <a class="sourceLine" id="cb4-38" title="38"><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></a>
@@ -205,23 +205,23 @@
 <a href="#visualising-results" class="anchor"></a>Visualising results</h2>
 <p>As of version <code>0.2.0</code>, <code>rsimsum</code> can produce a variety of plots: among others, lolly plots, forest plots, zipper plots, etc.:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s, <span class="dt">type =</span> <span class="st">"lolly"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</a></code></pre></div>
-<p><img src="reference/figures/README-lolly-1.png" width="75%" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s, <span class="dt">type =</span> <span class="st">"zip"</span>)</a></code></pre></div>
-<p><img src="reference/figures/README-zipper-1.png" width="75%" style="display: block; margin: auto;"></p>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>(s, <span class="dt">type =</span> <span class="st">"lolly"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</a></code></pre></div>
+<p><img src="reference/figures/README-lolly-1.png" width="80%" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>(s, <span class="dt">type =</span> <span class="st">"zip"</span>)</a></code></pre></div>
+<p><img src="reference/figures/README-zipper-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>With <code>rsimsum</code> <code>0.5.0</code> the plotting functionality has been completely rewritten, and new plot types have been implemented:</p>
 <ul>
 <li>Scatter plots for method-wise comparisons, including Bland-Altman type plots;</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s, <span class="dt">type =</span> <span class="st">"est_ba"</span>)</a></code></pre></div>
-<p><img src="reference/figures/README-ba-1.png" width="75%" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>(s, <span class="dt">type =</span> <span class="st">"est_ba"</span>)</a></code></pre></div>
+<p><img src="reference/figures/README-ba-1.png" width="80%" style="display: block; margin: auto;"></p>
 <ul>
 <li>Ridgeline plots.</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s, <span class="dt">type =</span> <span class="st">"est_ridge"</span>)</a>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">autoplot</a></span>(s, <span class="dt">type =</span> <span class="st">"est_ridge"</span>)</a>
 <a class="sourceLine" id="cb9-2" title="2"><span class="co">#&gt; Picking joint bandwidth of 0.0295</span></a></code></pre></div>
-<p><img src="reference/figures/README-ridgeline-1.png" width="75%" style="display: block; margin: auto;"></p>
-<p>The plotting functionality now extend the S3 generic <code>autoplot</code>: see <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">?ggplot2::autoplot</a></code> and <code><a href="reference/autoplot.simsum.html">?rsimsum::autoplot.simsum</a></code> for further details.</p>
+<p><img src="reference/figures/README-ridgeline-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p>The plotting functionality now extend the S3 generic <code>autoplot</code>: see <code><a href="https://www.rdocumentation.org/packages/ggplot2/topics/autoplot">?ggplot2::autoplot</a></code> and <code><a href="reference/autoplot.simsum.html">?rsimsum::autoplot.simsum</a></code> for further details.</p>
 <p>More details and information can be found in the vignette dedicated to plotting:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/vignette">vignette</a></span>(<span class="dt">topic =</span> <span class="st">"plotting"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</a></code></pre></div>
 </div>

@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@
       <h1>Simulating a simulation study</h1>
                         <h4 class="author">Alessandro Gasparini</h4>
             
-            <h4 class="date">2019-03-15</h4>
+            <h4 class="date">2019-04-25</h4>
       
       
       <div class="hidden name"><code>relhaz.Rmd</code></div>
@@ -363,24 +363,29 @@
 <a class="sourceLine" id="cb7-5" title="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/row.names">row.names</a></span>(relhaz) &lt;-<span class="st"> </span><span class="ot">NULL</span></a></code></pre></div>
 <p>We save the final results, that will be included as an example in the R package <code>rsimsum</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(usethis)</a>
-<a class="sourceLine" id="cb8-2" title="2">usethis<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/usethis/topics/use_data">use_data</a></span>(relhaz, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb8-2" title="2">usethis<span class="op">::</span><span class="kw"><a href="https://usethis.r-lib.org/reference/use_data.html">use_data</a></span>(relhaz, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="summarising-results" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summarising-results" class="anchor"></a>Summarising results</h2>
 <p>Finally, we obtain summary statistics by calling the <code>simsum</code> function:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rsimsum)</a>
-<a class="sourceLine" id="cb9-2" title="2">s &lt;-<span class="st"> </span>rsimsum<span class="op">::</span><span class="kw"><a href="https://ellessenne.github.io/rsimsum/reference/simsum.html">simsum</a></span>(<span class="dt">data =</span> relhaz, <span class="dt">estvarname =</span> <span class="st">"theta"</span>, <span class="dt">se =</span> <span class="st">"se"</span>, <span class="dt">true =</span> <span class="fl">-0.50</span>, <span class="dt">methodvar =</span> <span class="st">"model"</span>, <span class="dt">ref =</span> <span class="st">"Cox"</span>, <span class="dt">by =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"n"</span>, <span class="st">"baseline"</span>))</a>
-<a class="sourceLine" id="cb9-3" title="3">s</a>
-<a class="sourceLine" id="cb9-4" title="4"><span class="co">#&gt; Summary of a simulation study with a single estimand.</span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="co">#&gt; Attaching package: 'rsimsum'</span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="co">#&gt; The following object is masked _by_ '.GlobalEnv':</span></a>
 <a class="sourceLine" id="cb9-5" title="5"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-6" title="6"><span class="co">#&gt; Method variable: model </span></a>
-<a class="sourceLine" id="cb9-7" title="7"><span class="co">#&gt;  Unique methods: Cox, Exp, RP(2) </span></a>
-<a class="sourceLine" id="cb9-8" title="8"><span class="co">#&gt;  Reference method: Cox </span></a>
-<a class="sourceLine" id="cb9-9" title="9"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-10" title="10"><span class="co">#&gt; By factors: n, baseline </span></a>
-<a class="sourceLine" id="cb9-11" title="11"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-12" title="12"><span class="co">#&gt; Monte Carlo standard errors were computed.</span></a></code></pre></div>
+<a class="sourceLine" id="cb9-6" title="6"><span class="co">#&gt;     relhaz</span></a>
+<a class="sourceLine" id="cb9-7" title="7">s &lt;-<span class="st"> </span>rsimsum<span class="op">::</span><span class="kw"><a href="https://ellessenne.github.io/rsimsum/reference/simsum.html">simsum</a></span>(<span class="dt">data =</span> relhaz, <span class="dt">estvarname =</span> <span class="st">"theta"</span>, <span class="dt">se =</span> <span class="st">"se"</span>, <span class="dt">true =</span> <span class="fl">-0.50</span>, <span class="dt">methodvar =</span> <span class="st">"model"</span>, <span class="dt">ref =</span> <span class="st">"Cox"</span>, <span class="dt">by =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"n"</span>, <span class="st">"baseline"</span>))</a>
+<a class="sourceLine" id="cb9-8" title="8">s</a>
+<a class="sourceLine" id="cb9-9" title="9"><span class="co">#&gt; Summary of a simulation study with a single estimand.</span></a>
+<a class="sourceLine" id="cb9-10" title="10"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-11" title="11"><span class="co">#&gt; Method variable: model </span></a>
+<a class="sourceLine" id="cb9-12" title="12"><span class="co">#&gt;  Unique methods: Cox, Exp, RP(2) </span></a>
+<a class="sourceLine" id="cb9-13" title="13"><span class="co">#&gt;  Reference method: Cox </span></a>
+<a class="sourceLine" id="cb9-14" title="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-15" title="15"><span class="co">#&gt; By factors: n, baseline </span></a>
+<a class="sourceLine" id="cb9-16" title="16"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-17" title="17"><span class="co">#&gt; Monte Carlo standard errors were computed.</span></a></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(s)</a>
 <a class="sourceLine" id="cb10-2" title="2"><span class="co">#&gt; Values are:</span></a>
 <a class="sourceLine" id="cb10-3" title="3"><span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span></a>
@@ -435,11 +440,11 @@
 <a class="sourceLine" id="cb10-52" title="52"><span class="co">#&gt;  250     Weibull 0.1333 (0.0095) 0.0929 (0.0066) 0.1368 (0.0097)</span></a>
 <a class="sourceLine" id="cb10-53" title="53"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb10-54" title="54"><span class="co">#&gt; % gain in precision relative to method Cox:</span></a>
-<a class="sourceLine" id="cb10-55" title="55"><span class="co">#&gt;    n    baseline             Cox             Exp           RP(2)</span></a>
-<a class="sourceLine" id="cb10-56" title="56"><span class="co">#&gt;   50 Exponential 1.0000 (0.0000) 1.0168 (0.0329) 0.9838 (0.0179)</span></a>
-<a class="sourceLine" id="cb10-57" title="57"><span class="co">#&gt;   50     Weibull 1.0000 (0.0000) 2.3280 (0.1644) 1.0024 (0.0374)</span></a>
-<a class="sourceLine" id="cb10-58" title="58"><span class="co">#&gt;  250 Exponential 1.0000 (0.0000) 0.9762 (0.0305) 0.9985 (0.0099)</span></a>
-<a class="sourceLine" id="cb10-59" title="59"><span class="co">#&gt;  250     Weibull 1.0000 (0.0000) 2.0584 (0.1249) 0.9505 (0.0206)</span></a>
+<a class="sourceLine" id="cb10-55" title="55"><span class="co">#&gt;    n    baseline              Cox                Exp            RP(2)</span></a>
+<a class="sourceLine" id="cb10-56" title="56"><span class="co">#&gt;   50 Exponential -0.0000 (0.0000)    1.6773 (3.2902) -1.6228 (1.7887)</span></a>
+<a class="sourceLine" id="cb10-57" title="57"><span class="co">#&gt;   50     Weibull -0.0000 (0.0000) 132.7958 (16.4433)  0.2412 (3.7361)</span></a>
+<a class="sourceLine" id="cb10-58" title="58"><span class="co">#&gt;  250 Exponential  0.0000 (0.0000)   -2.3839 (3.0501) -0.1491 (0.9916)</span></a>
+<a class="sourceLine" id="cb10-59" title="59"><span class="co">#&gt;  250     Weibull -0.0000 (0.0000) 105.8426 (12.4932) -4.9519 (2.0647)</span></a>
 <a class="sourceLine" id="cb10-60" title="60"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb10-61" title="61"><span class="co">#&gt; Mean squared error:</span></a>
 <a class="sourceLine" id="cb10-62" title="62"><span class="co">#&gt;    n    baseline             Cox             Exp           RP(2)</span></a>
