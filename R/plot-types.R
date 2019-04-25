@@ -114,11 +114,11 @@
     by <- rlang::syms(by)
     methodvar <- rlang::sym(methodvar)
     gg <- gg +
-      ggplot2::facet_grid(cols = ggplot2::vars(!!!by), rows = ggplot2::vars(!!!methodvar), labeller = ggplot2::label_both)
+      ggplot2::facet_grid(cols = ggplot2::vars(!!!by), rows = ggplot2::vars(!!!methodvar), labeller = ggplot2::labeller(.rows = ggplot2::label_value, .cols = ggplot2::label_both))
   } else {
     methodvar <- rlang::sym(methodvar)
     gg <- gg +
-      ggplot2::facet_wrap(facets = vars(!!!methodvar), labeller = ggplot2::label_both)
+      ggplot2::facet_wrap(facets = vars(!!!methodvar))
   }
 
   ### Return plot
@@ -193,10 +193,10 @@
   if (!is.null(by)) {
     by <- rlang::syms(by)
     gg <- gg +
-      ggplot2::facet_grid(cols = ggplot2::vars(!!!by), rows = ggplot2::vars(contrast), scales = scales, labeller = ggplot2::label_both)
+      ggplot2::facet_grid(cols = ggplot2::vars(!!!by), rows = ggplot2::vars(contrast), scales = scales, labeller = ggplot2::labeller(.rows = ggplot2::label_value, .cols = ggplot2::label_both))
   } else {
     gg <- gg +
-      ggplot2::facet_wrap(~contrast, scales = scales, labeller = ggplot2::label_both)
+      ggplot2::facet_wrap(~contrast, scales = scales)
   }
 
   ### If 'fitted' add regression line

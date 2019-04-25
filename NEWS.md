@@ -2,7 +2,7 @@
 
 ### Bug fixes:
 
-* Fixed labelling when facetting for some plot types, now all defaults to `ggplot2::label_both`.
+* Fixed labelling when facetting for some plot types, now all defaults to `ggplot2::label_both` for 'by' factors (when included).
 
 # rsimsum 0.5.1
 
