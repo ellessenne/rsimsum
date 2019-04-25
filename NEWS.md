@@ -1,5 +1,9 @@
 # rsimsum 0.5.1-9000
 
+### Bug fixes:
+
+* Fixed labelling when facetting for some plot types, now all defaults to `ggplot2::label_both`.
+
 # rsimsum 0.5.1
 
 ### Bug fixes:
