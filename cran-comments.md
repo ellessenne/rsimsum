@@ -1,5 +1,5 @@
 # Test environments
-* local macOS install (Mojave 10.14.3), R 3.5.3
+* local macOS install (Mojave 10.14.4), R 3.5.3
 * ubuntu (via Travis-CI), R-oldrel, R-release, and R-devel
 * windows (via AppVeyor)
 * win-builder (R-oldrel, R-release, and R-devel)
