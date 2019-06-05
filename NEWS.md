@@ -1,5 +1,9 @@
 # rsimsum 0.5.2-9000
 
+### Improvements:
+
+* Added `data("nlp", package = "rsimsum")`, a dataset from a simulation study with 150 data-generating. This is particularly useful to illustrate nested loop plots.
+
 # rsimsum 0.5.2
 
 ### Bug fixes:

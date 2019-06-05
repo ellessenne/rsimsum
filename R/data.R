@@ -41,3 +41,24 @@
 #' @examples
 #' data("frailty", package = "rsimsum")
 "frailty"
+
+#' @title Example of a simulation study on survival modelling
+#' @description A dataset from a simulation study with 150 data-generating mechanisms, useful to illustrate nested loop plots. This simulation study aims to compare the Cox model and flexible parametric models in a variety of scenarios: different baseline hazard functions, sample size, and varying amount of heterogeneity unaccounted for in the model (simulated as white noise with a given variance). A Cox model and a Royston-Parmar model with 5 degrees of freedom are fit to each replication.
+#' @format A data frame with 30,000 rows and 10 variables:
+#' * `dgm` Data-generating mechanism, 1 to 150.
+#' * `i` Simulated dataset number.
+#' * `model` Method used, with 1 the Cox model and 2 the RP(5) model.
+#' * `b` Point estimate for the log-hazard ratio.
+#' * `se` Standard error of the point estimate.
+#' * `baseline` Baseline hazard function of the simulated dataset.
+#' * `ss` Sample size of the simulated dataset.
+#' * `esigma` Standard deviation of the white noise.
+#' * `pars` (Ancillary) Parameters of the baseline hazard function.
+#'
+#' @note Further details on this simulation study can be found in the R script used to generate this dataset, available on GitHub: [https://github.com/ellessenne/rsimsum/blob/master/data-raw/nlp-data.R](https://github.com/ellessenne/rsimsum/blob/master/data-raw/nlp-data.R)
+#' @examples
+#' data("nlp", package = "rsimsum")
+#' @references Cox D.R. 1972. Regression models and life-tables. Journal of the Royal Statistical Society, Series B (Methodological) 34(2):187-220. \doi{10.1007/978-1-4612-4380-9_37}
+#' @references Royston, P. and Parmar, M.K. 2002. Flexible parametric proportional-hazards and proportional-odds models for censored survival data, with application to prognostic modelling and estimation of treatment effects. Statistics in Medicine 21(15):2175-2197 \doi{10.1002/sim.1203}
+#' @references Rücker, G. and Schwarzer, G. 2014. Presenting simulation results in a nested loop plot. BMC Medical Research Methodology 14:129 \doi{10.1186/1471-2288-14-129}
+"nlp"

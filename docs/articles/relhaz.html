@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2.9000</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@
       <h1>Simulating a simulation study</h1>
                         <h4 class="author">Alessandro Gasparini</h4>
             
-            <h4 class="date">2019-04-25</h4>
+            <h4 class="date">2019-06-05</h4>
       
       
       <div class="hidden name"><code>relhaz.Rmd</code></div>
@@ -370,22 +370,27 @@
 <a href="#summarising-results" class="anchor"></a>Summarising results</h2>
 <p>Finally, we obtain summary statistics by calling the <code>simsum</code> function:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rsimsum)</a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="co">#&gt; Attaching package: 'rsimsum'</span></a>
-<a class="sourceLine" id="cb9-4" title="4"><span class="co">#&gt; The following object is masked _by_ '.GlobalEnv':</span></a>
-<a class="sourceLine" id="cb9-5" title="5"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-6" title="6"><span class="co">#&gt;     relhaz</span></a>
-<a class="sourceLine" id="cb9-7" title="7">s &lt;-<span class="st"> </span>rsimsum<span class="op">::</span><span class="kw"><a href="https://ellessenne.github.io/rsimsum/reference/simsum.html">simsum</a></span>(<span class="dt">data =</span> relhaz, <span class="dt">estvarname =</span> <span class="st">"theta"</span>, <span class="dt">se =</span> <span class="st">"se"</span>, <span class="dt">true =</span> <span class="fl">-0.50</span>, <span class="dt">methodvar =</span> <span class="st">"model"</span>, <span class="dt">ref =</span> <span class="st">"Cox"</span>, <span class="dt">by =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"n"</span>, <span class="st">"baseline"</span>))</a>
-<a class="sourceLine" id="cb9-8" title="8">s</a>
-<a class="sourceLine" id="cb9-9" title="9"><span class="co">#&gt; Summary of a simulation study with a single estimand.</span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="co">#&gt; Registered S3 methods overwritten by 'ggplot2':</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="co">#&gt;   method         from </span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="co">#&gt;   [.quosures     rlang</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="co">#&gt;   c.quosures     rlang</span></a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="co">#&gt;   print.quosures rlang</span></a>
+<a class="sourceLine" id="cb9-7" title="7"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-8" title="8"><span class="co">#&gt; Attaching package: 'rsimsum'</span></a>
+<a class="sourceLine" id="cb9-9" title="9"><span class="co">#&gt; The following object is masked _by_ '.GlobalEnv':</span></a>
 <a class="sourceLine" id="cb9-10" title="10"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-11" title="11"><span class="co">#&gt; Method variable: model </span></a>
-<a class="sourceLine" id="cb9-12" title="12"><span class="co">#&gt;  Unique methods: Cox, Exp, RP(2) </span></a>
-<a class="sourceLine" id="cb9-13" title="13"><span class="co">#&gt;  Reference method: Cox </span></a>
-<a class="sourceLine" id="cb9-14" title="14"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-15" title="15"><span class="co">#&gt; By factors: n, baseline </span></a>
-<a class="sourceLine" id="cb9-16" title="16"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-17" title="17"><span class="co">#&gt; Monte Carlo standard errors were computed.</span></a></code></pre></div>
+<a class="sourceLine" id="cb9-11" title="11"><span class="co">#&gt;     relhaz</span></a>
+<a class="sourceLine" id="cb9-12" title="12">s &lt;-<span class="st"> </span>rsimsum<span class="op">::</span><span class="kw"><a href="https://ellessenne.github.io/rsimsum/reference/simsum.html">simsum</a></span>(<span class="dt">data =</span> relhaz, <span class="dt">estvarname =</span> <span class="st">"theta"</span>, <span class="dt">se =</span> <span class="st">"se"</span>, <span class="dt">true =</span> <span class="fl">-0.50</span>, <span class="dt">methodvar =</span> <span class="st">"model"</span>, <span class="dt">ref =</span> <span class="st">"Cox"</span>, <span class="dt">by =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"n"</span>, <span class="st">"baseline"</span>))</a>
+<a class="sourceLine" id="cb9-13" title="13">s</a>
+<a class="sourceLine" id="cb9-14" title="14"><span class="co">#&gt; Summary of a simulation study with a single estimand.</span></a>
+<a class="sourceLine" id="cb9-15" title="15"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-16" title="16"><span class="co">#&gt; Method variable: model </span></a>
+<a class="sourceLine" id="cb9-17" title="17"><span class="co">#&gt;  Unique methods: Cox, Exp, RP(2) </span></a>
+<a class="sourceLine" id="cb9-18" title="18"><span class="co">#&gt;  Reference method: Cox </span></a>
+<a class="sourceLine" id="cb9-19" title="19"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-20" title="20"><span class="co">#&gt; By factors: n, baseline </span></a>
+<a class="sourceLine" id="cb9-21" title="21"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-22" title="22"><span class="co">#&gt; Monte Carlo standard errors were computed.</span></a></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(s)</a>
 <a class="sourceLine" id="cb10-2" title="2"><span class="co">#&gt; Values are:</span></a>
 <a class="sourceLine" id="cb10-3" title="3"><span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span></a>

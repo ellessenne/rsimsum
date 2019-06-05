@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.2.9000</span>
       </span>
     </div>
 
@@ -119,19 +119,24 @@
 <a href="#example" class="anchor"></a>Example</h2>
 <p>This is a basic example using data from a simulation study on missing data (type <code><a href="https://www.rdocumentation.org/packages/utils/topics/help">help("MIsim", package = "rsimsum")</a></code> in the R console for more information):</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rsimsum)</a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"MIsim"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</a>
-<a class="sourceLine" id="cb3-3" title="3">s &lt;-<span class="st"> </span><span class="kw"><a href="reference/simsum.html">simsum</a></span>(<span class="dt">data =</span> MIsim, <span class="dt">estvarname =</span> <span class="st">"b"</span>, <span class="dt">true =</span> <span class="fl">0.5</span>, <span class="dt">se =</span> <span class="st">"se"</span>, <span class="dt">methodvar =</span> <span class="st">"method"</span>, <span class="dt">x =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="co">#&gt; 'ref' method was not specified, CC set as the reference</span></a>
-<a class="sourceLine" id="cb3-5" title="5">s</a>
-<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt; Summary of a simulation study with a single estimand.</span></a>
-<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt; Method variable: method </span></a>
-<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt;  Unique methods: CC, MI_LOGT, MI_T </span></a>
-<a class="sourceLine" id="cb3-10" title="10"><span class="co">#&gt;  Reference method: CC </span></a>
-<a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt; By factors: none</span></a>
-<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb3-14" title="14"><span class="co">#&gt; Monte Carlo standard errors were computed.</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co">#&gt; Registered S3 methods overwritten by 'ggplot2':</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">#&gt;   method         from </span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">#&gt;   [.quosures     rlang</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">#&gt;   c.quosures     rlang</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt;   print.quosures rlang</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"MIsim"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</a>
+<a class="sourceLine" id="cb3-8" title="8">s &lt;-<span class="st"> </span><span class="kw"><a href="reference/simsum.html">simsum</a></span>(<span class="dt">data =</span> MIsim, <span class="dt">estvarname =</span> <span class="st">"b"</span>, <span class="dt">true =</span> <span class="fl">0.5</span>, <span class="dt">se =</span> <span class="st">"se"</span>, <span class="dt">methodvar =</span> <span class="st">"method"</span>, <span class="dt">x =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="co">#&gt; 'ref' method was not specified, CC set as the reference</span></a>
+<a class="sourceLine" id="cb3-10" title="10">s</a>
+<a class="sourceLine" id="cb3-11" title="11"><span class="co">#&gt; Summary of a simulation study with a single estimand.</span></a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-13" title="13"><span class="co">#&gt; Method variable: method </span></a>
+<a class="sourceLine" id="cb3-14" title="14"><span class="co">#&gt;  Unique methods: CC, MI_LOGT, MI_T </span></a>
+<a class="sourceLine" id="cb3-15" title="15"><span class="co">#&gt;  Reference method: CC </span></a>
+<a class="sourceLine" id="cb3-16" title="16"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-17" title="17"><span class="co">#&gt; By factors: none</span></a>
+<a class="sourceLine" id="cb3-18" title="18"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-19" title="19"><span class="co">#&gt; Monte Carlo standard errors were computed.</span></a></code></pre></div>
 <p>We set <code>x = TRUE</code> as it will be required for some plot types.</p>
 <p>Summarising the results:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/summary">summary</a></span>(s)</a>

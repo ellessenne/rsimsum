@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Example of a simulation study on missing data — MIsim • rsimsum</title>
+<title>Example of a simulation study on survival modelling — nlp • rsimsum</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Example of a simulation study on missing data — MIsim" />
+<meta property="og:title" content="Example of a simulation study on survival modelling — nlp" />
 
-<meta property="og:description" content="A dataset from a simulation study comparing different ways to handle missing covariates when fitting a Cox model (White and Royston, 2009). One thousand datasets were simulated, each containing normally distributed covariates \(x\) and \(z\) and time-to-event outcome. Both covariates has 20% of their values deleted independently of all other variables so the data became missing completely at random (Little and Rubin, 2002). Each simulated dataset was analysed in three ways. A Cox model was fit to the complete cases (CC). Then two methods of multiple imputation using chained equations (van Buuren, Boshuizen, and Knook, 1999) were used. The MI_LOGT method multiply imputes the missing values of \(x\) and \(z\) with the outcome included as \(\log (t)\) and \(d\), where \(t\) is the survival time and \(d\) is the event indicator. The MI_T method is the same except that \(\log (t)\) is replaced by \(t\) in the imputation model. The results are stored in long format." />
+<meta property="og:description" content="A dataset from a simulation study with 150 data-generating mechanisms, useful to illustrate nested loop plots. This simulation study aims to compare the Cox model and flexible parametric models in a variety of scenarios: different baseline hazard functions, sample size, and varying amount of heterogeneity unaccounted for in the model (simulated as white noise with a given variance). A Cox model and a Royston-Parmar model with 5 degrees of freedom are fit to each replication." />
 <meta name="twitter:card" content="summary" />
 <meta name="robots" content="noindex" />
 
@@ -128,42 +128,54 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Example of a simulation study on missing data</h1>
+    <h1>Example of a simulation study on survival modelling</h1>
     
-    <div class="hidden name"><code>MIsim.Rd</code></div>
+    <div class="hidden name"><code>nlp.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>A dataset from a simulation study comparing different ways to handle missing covariates when fitting a Cox model (White and Royston, 2009). One thousand datasets were simulated, each containing normally distributed covariates \(x\) and \(z\) and time-to-event outcome. Both covariates has 20% of their values deleted independently of all other variables so the data became missing completely at random (Little and Rubin, 2002). Each simulated dataset was analysed in three ways. A Cox model was fit to the complete cases (<code>CC</code>). Then two methods of multiple imputation using chained equations (van Buuren, Boshuizen, and Knook, 1999) were used. The <code>MI_LOGT</code> method multiply imputes the missing values of \(x\) and \(z\) with the outcome included as \(\log (t)\) and \(d\), where \(t\) is the survival time and \(d\) is the event indicator. The <code>MI_T</code> method is the same except that \(\log (t)\) is replaced by \(t\) in the imputation model. The results are stored in long format.</p>
+    <p>A dataset from a simulation study with 150 data-generating mechanisms, useful to illustrate nested loop plots. This simulation study aims to compare the Cox model and flexible parametric models in a variety of scenarios: different baseline hazard functions, sample size, and varying amount of heterogeneity unaccounted for in the model (simulated as white noise with a given variance). A Cox model and a Royston-Parmar model with 5 degrees of freedom are fit to each replication.</p>
     
     </div>
 
-    <pre class="usage"><span class='no'>MIsim</span></pre>
+    <pre class="usage"><span class='no'>nlp</span></pre>
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A data frame with 3,000 rows and 4 variables:</p><ul>
-<li><p><code>dataset</code> Simulated dataset number.</p></li>
-<li><p><code>method</code> Method used (<code>CC</code>, <code>MI_LOGT</code> or <code>MI_T</code>).</p></li>
-<li><p><code>b</code> Point estimate.</p></li>
+    <p>A data frame with 30,000 rows and 10 variables:</p><ul>
+<li><p><code>dgm</code> Data-generating mechanism, 1 to 150.</p></li>
+<li><p><code>i</code> Simulated dataset number.</p></li>
+<li><p><code>model</code> Method used, with 1 the Cox model and 2 the RP(5) model.</p></li>
+<li><p><code>b</code> Point estimate for the log-hazard ratio.</p></li>
 <li><p><code>se</code> Standard error of the point estimate.</p></li>
+<li><p><code>baseline</code> Baseline hazard function of the simulated dataset.</p></li>
+<li><p><code>ss</code> Sample size of the simulated dataset.</p></li>
+<li><p><code>esigma</code> Standard deviation of the white noise.</p></li>
+<li><p><code>pars</code> (Ancillary) Parameters of the baseline hazard function.</p></li>
 </ul>
+    
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>Further details on this simulation study can be found in the R script used to generate this dataset, available on GitHub: <a href='https://github.com/ellessenne/rsimsum/blob/master/data-raw/nlp-data.R'>https://github.com/ellessenne/rsimsum/blob/master/data-raw/nlp-data.R</a></p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>White, I.R., and P. Royston. 2009. Imputing missing covariate values for the Cox model. Statistics in Medicine 28(15):1982-1998 doi: <a href='https://doi.org/10.1002/sim.3618'>10.1002/sim.3618</a></p>
-<p>Little, R.J.A., and D.B. Rubin. 2002. Statistical analysis with missing data. 2nd ed. Hoboken, NJ: Wiley doi: <a href='https://doi.org/10.1002/9781119013563'>10.1002/9781119013563</a></p>
+    <p>Cox D.R. 1972. Regression models and life-tables. Journal of the Royal Statistical Society, Series B (Methodological) 34(2):187-220. doi: <a href='https://doi.org/10.1007/978-1-4612-4380-9_37'>10.1007/978-1-4612-4380-9_37</a></p>
+<p>Royston, P. and Parmar, M.K. 2002. Flexible parametric proportional-hazards and proportional-odds models for censored survival data, with application to prognostic modelling and estimation of treatment effects. Statistics in Medicine 21(15):2175-2197 doi: <a href='https://doi.org/10.1002/sim.1203'>10.1002/sim.1203</a></p>
+<p>Rücker, G. and Schwarzer, G. 2014. Presenting simulation results in a nested loop plot. BMC Medical Research Methodology 14:129 doi: <a href='https://doi.org/10.1186/1471-2288-14-129'>10.1186/1471-2288-14-129</a></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='st'>"MIsim"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"rsimsum"</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='st'>"nlp"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"rsimsum"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       
       <li><a href="#format">Format</a></li>
+
+      <li><a href="#note">Note</a></li>
 
       <li><a href="#references">References</a></li>
       
