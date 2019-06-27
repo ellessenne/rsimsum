@@ -14,13 +14,13 @@
 #' )
 #' xs <- summary(x)
 #' xs
-#' 
+#'
 #' # Printing less significant digits:
 #' print(xs, digits = 2)
-#' 
+#'
 #' # Printing confidence intervals:
 #' print(xs, mcse = FALSE)
-#' 
+#'
 #' # Printing values only:
 #' print(xs, mcse = NULL)
 print.summary.simsum <- function(x, digits = 4, mcse = TRUE, ...) {

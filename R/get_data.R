@@ -28,10 +28,10 @@
 #'   methodvar = "method"
 #' )
 #' get_data(x)
-#' 
+#'
 #' # Extracting only bias and coverage:
 #' get_data(x, stats = c("bias", "cover"))
-#' 
+#'
 #' xs <- summary(x)
 #' get_data(xs)
 get_data <- function(x, stats = NULL, ...) {

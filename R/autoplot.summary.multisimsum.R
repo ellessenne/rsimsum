@@ -15,7 +15,7 @@
 #'   by = "fv_dist", x = TRUE
 #' )
 #' sms <- summary(ms)
-#' 
+#'
 #' library(ggplot2)
 #' autoplot(sms, par = "trt")
 #' autoplot(sms, par = "trt", type = "lolly", stats = "cover")

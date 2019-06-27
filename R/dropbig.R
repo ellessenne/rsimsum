@@ -16,13 +16,13 @@
 #' @examples
 #' data("frailty", package = "rsimsum")
 #' frailty2 <- subset(frailty, par == "fv")
-#' 
+#'
 #' # Using low values of max, semax for illustration purposes:
 #' dropbig(
 #'   data = frailty2, estvarname = "b", se = "se",
 #'   methodvar = "model", by = "fv_dist", max = 2, semax = 2
 #' )
-#' 
+#'
 #' # Using regular standardisation:
 #' dropbig(
 #'   data = frailty2, estvarname = "b", se = "se",

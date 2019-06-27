@@ -17,13 +17,13 @@
 #' )
 #' sms <- summary(ms, stats = c("bias", "cover", "mse"))
 #' sms
-#' 
+#'
 #' # Printing less significant digits:
 #' print(sms, digits = 3)
-#' 
+#'
 #' # Printing confidence intervals:
 #' print(sms, digits = 3, mcse = FALSE)
-#' 
+#'
 #' # Printing values only:
 #' print(sms, mcse = NULL)
 print.summary.multisimsum <- function(x, digits = 4, mcse = TRUE, ...) {

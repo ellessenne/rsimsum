@@ -17,7 +17,7 @@
 #'   data = MIsim, estvarname = "b", true = 0.5, se = "se",
 #'   methodvar = "method", x = TRUE
 #' )
-#' 
+#'
 #' library(ggplot2)
 #' autoplot(s)
 #' autoplot(s, type = "lolly")

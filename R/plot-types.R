@@ -3,7 +3,7 @@
 .forest_plot <- function(data, methodvar, by, stats, ci, target, scales) {
   ### Build basic plot
   methodvar <- rlang::sym(methodvar)
-  gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = !!methodvar, y = est)) +
+  gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = {{methodvar}}, y = est)) +
     ggplot2::geom_hline(yintercept = target, linetype = "dotted") +
     ggplot2::geom_point() +
     ggplot2::labs(y = stats)
@@ -12,7 +12,7 @@
   if (!is.null(by)) {
     by <- rlang::syms(by)
     gg <- gg +
-      ggplot2::facet_wrap(facets = ggplot2::vars(!!!by), labeller = ggplot2::label_both, scales = scales)
+      ggplot2::facet_wrap(facets = ggplot2::vars(!!!{{by}}), labeller = ggplot2::label_both, scales = scales)
   }
 
   ### Add confidence intervals if we are calling autoplot on a summary object
@@ -30,9 +30,9 @@
 .lolly_plot <- function(data, methodvar, by, stats, ci, target, scales) {
   ### Build basic plot
   methodvar <- rlang::sym(methodvar)
-  gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = est, y = !!methodvar)) +
+  gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = est, y = {{methodvar}})) +
     ggplot2::geom_vline(xintercept = target, linetype = "dotted") +
-    ggplot2::geom_segment(aes(xend = target, yend = !!methodvar)) +
+    ggplot2::geom_segment(aes(xend = target, yend = {{methodvar}})) +
     ggplot2::geom_point() +
     ggplot2::labs(x = stats)
 
@@ -40,14 +40,14 @@
   if (!is.null(by)) {
     by <- rlang::syms(by)
     gg <- gg +
-      ggplot2::facet_wrap(facets = ggplot2::vars(!!!by), labeller = ggplot2::label_both, scales = scales)
+      ggplot2::facet_wrap(facets = ggplot2::vars(!!!{{by}}), labeller = ggplot2::label_both, scales = scales)
   }
 
   ### Add confidence intervals if we are calling autoplot on a summary object
   if (ci) {
     gg <- gg +
-      ggplot2::geom_point(ggplot2::aes(x = lower, y = !!methodvar), shape = 40) +
-      ggplot2::geom_point(ggplot2::aes(x = upper, y = !!methodvar), shape = 41)
+      ggplot2::geom_point(ggplot2::aes(x = lower, y = {{methodvar}}), shape = 40) +
+      ggplot2::geom_point(ggplot2::aes(x = upper, y = {{methodvar}}), shape = 41)
   }
 
   ### Return plot
@@ -101,12 +101,12 @@
   data <- merge(x = data, y = summ)
 
   ### Build plot
-  gg <- ggplot(data, aes(y = rank, x = lower, color = covering)) +
-    geom_segment(aes(yend = rank, xend = upper)) +
-    geom_vline(xintercept = true, color = "yellow", linetype = "dashed") +
-    geom_hline(aes(yintercept = cover_lower), color = "yellow", linetype = "dashed") +
-    geom_hline(aes(yintercept = cover_upper), color = "yellow", linetype = "dashed") +
-    labs(y = expression(paste("Fractional centile of |z| for z =", (theta[i] - theta) / SE[i])), x = paste0(100 * control$level, "% confidence intervals"), color = "") +
+  gg <- ggplot2::ggplot(data, ggplot2::aes(y = rank, x = lower, color = covering)) +
+    ggplot2::geom_segment(ggplot2::aes(yend = rank, xend = upper)) +
+    ggplot2::geom_vline(xintercept = true, color = "yellow", linetype = "dashed") +
+    ggplot2::geom_hline(ggplot2::aes(yintercept = cover_lower), color = "yellow", linetype = "dashed") +
+    ggplot2::geom_hline(ggplot2::aes(yintercept = cover_upper), color = "yellow", linetype = "dashed") +
+    ggplot2::labs(y = expression(paste("Fractional centile of |z| for z =", (theta[i] - theta) / SE[i])), x = paste0(100 * control$level, "% confidence intervals"), color = "") +
     theme(legend.position = "bottom")
 
   ### If 'by', use facet_grid; facet_wrap otherwise
@@ -114,11 +114,11 @@
     by <- rlang::syms(by)
     methodvar <- rlang::sym(methodvar)
     gg <- gg +
-      ggplot2::facet_grid(cols = ggplot2::vars(!!!by), rows = ggplot2::vars(!!!methodvar), labeller = ggplot2::labeller(.rows = ggplot2::label_value, .cols = ggplot2::label_both))
+      ggplot2::facet_grid(cols = ggplot2::vars(!!!{{by}}), rows = ggplot2::vars({{methodvar}}), labeller = ggplot2::labeller(.rows = ggplot2::label_value, .cols = ggplot2::label_both))
   } else {
     methodvar <- rlang::sym(methodvar)
     gg <- gg +
-      ggplot2::facet_wrap(facets = vars(!!!methodvar))
+      ggplot2::facet_wrap(facets = ggplot2::vars({{methodvar}}))
   }
 
   ### Return plot
@@ -193,7 +193,7 @@
   if (!is.null(by)) {
     by <- rlang::syms(by)
     gg <- gg +
-      ggplot2::facet_grid(cols = ggplot2::vars(!!!by), rows = ggplot2::vars(contrast), scales = scales, labeller = ggplot2::labeller(.rows = ggplot2::label_value, .cols = ggplot2::label_both))
+      ggplot2::facet_grid(cols = ggplot2::vars(!!!{{by}}), rows = ggplot2::vars(contrast), scales = scales, labeller = ggplot2::labeller(.rows = ggplot2::label_value, .cols = ggplot2::label_both))
   } else {
     gg <- gg +
       ggplot2::facet_wrap(~contrast, scales = scales)
@@ -223,7 +223,7 @@
   ### Build plot
   b <- rlang::sym(b)
   methodvar <- rlang::sym(methodvar)
-  gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = !!b, y = .dgm, color = !!methodvar, fill = !!methodvar)) +
+  gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = !!{{b}}, y = .dgm, color = {{methodvar}}, fill = {{methodvar}})) +
     ggridges::geom_density_ridges(alpha = 0.25) +
     ggplot2::labs(y = "")
 
@@ -244,7 +244,7 @@
 
   ### Build basic plot
   methodvar <- rlang::sym(methodvar)
-  gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = !!methodvar, y = .dgm, fill = est)) +
+  gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = {{methodvar}}, y = .dgm, fill = est)) +
     ggplot2::geom_tile() +
     ggplot2::labs(y = "", fill = stats)
 

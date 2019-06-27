@@ -22,7 +22,7 @@ Imports:
  checkmate,
  ggridges,
  ggplot2,
- rlang,
+ rlang (>= 0.4.0),
  stats
 Suggests:
  covr,

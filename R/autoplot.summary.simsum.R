@@ -13,7 +13,7 @@
 #'   methodvar = "method", x = TRUE
 #' )
 #' ss <- summary(s)
-#' 
+#'
 #' library(ggplot2)
 #' autoplot(ss)
 #' autoplot(ss, type = "lolly")
