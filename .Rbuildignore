@@ -21,3 +21,4 @@ cache$
 ^inst/JOSS$
 ^inst/Sticker$
 ^data-raw$
+^inst/Talks$
