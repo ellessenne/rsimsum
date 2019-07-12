@@ -76,15 +76,18 @@
     <loc>https://ellessenne.github.io/rsimsum/reference/summary.simsum.html</loc>
   </url>
   <url>
-    <loc>https://ellessenne.github.io/rsimsum/articles/introduction.html</loc>
+    <loc>https://ellessenne.github.io/rsimsum/articles/A-introduction.html</loc>
   </url>
   <url>
-    <loc>https://ellessenne.github.io/rsimsum/articles/plotting.html</loc>
+    <loc>https://ellessenne.github.io/rsimsum/articles/B-relhaz.html</loc>
   </url>
   <url>
-    <loc>https://ellessenne.github.io/rsimsum/articles/relhaz.html</loc>
+    <loc>https://ellessenne.github.io/rsimsum/articles/C-plotting.html</loc>
   </url>
   <url>
-    <loc>https://ellessenne.github.io/rsimsum/articles/rsimsumtidyverse.html</loc>
+    <loc>https://ellessenne.github.io/rsimsum/articles/D-nlp.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/rsimsum/articles/E-rsimsumtidyverse.html</loc>
   </url>
 </urlset>

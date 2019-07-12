@@ -1,11 +1,12 @@
-pandoc: 2.7.2
+pandoc: 2.7.3
 pkgdown: 1.3.0
 pkgdown_sha: ~
 articles:
-  introduction: introduction.html
-  plotting: plotting.html
-  relhaz: relhaz.html
-  rsimsumtidyverse: rsimsumtidyverse.html
+  A-introduction: A-introduction.html
+  B-relhaz: B-relhaz.html
+  C-plotting: C-plotting.html
+  D-nlp: D-nlp.html
+  E-rsimsumtidyverse: E-rsimsumtidyverse.html
 urls:
   reference: https://ellessenne.github.io/rsimsum/reference
   article: https://ellessenne.github.io/rsimsum/articles

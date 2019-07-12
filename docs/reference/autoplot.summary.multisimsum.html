@@ -96,16 +96,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/introduction.html">Introduction to rsimsum</a>
+      <a href="../articles/A-introduction.html">Introduction to rsimsum</a>
     </li>
     <li>
-      <a href="../articles/plotting.html">Visualising results from rsimsum</a>
+      <a href="../articles/B-relhaz.html">Simulating a simulation study</a>
     </li>
     <li>
-      <a href="../articles/relhaz.html">Simulating a simulation study</a>
+      <a href="../articles/C-plotting.html">Visualising results from rsimsum</a>
     </li>
     <li>
-      <a href="../articles/rsimsumtidyverse.html">rsimsum and the tidyverse</a>
+      <a href="../articles/D-nlp.html">Nested loop plots</a>
+    </li>
+    <li>
+      <a href="../articles/E-rsimsumtidyverse.html">rsimsum and the tidyverse</a>
     </li>
   </ul>
 </li>
@@ -157,7 +160,7 @@
     </tr>
     <tr>
       <th>type</th>
-      <td><p>The type of the plot to be produced. Possible choices are: <code>forest</code>, <code>lolly</code>, <code>zip</code>, <code>est</code>, <code>se</code>, <code>est_ba</code>, <code>se_ba</code>, <code>est_ridge</code>, <code>se_ridge</code>, with <code>forest</code> being the default.</p></td>
+      <td><p>The type of the plot to be produced. Possible choices are: <code>forest</code>, <code>lolly</code>, <code>zip</code>, <code>est</code>, <code>se</code>, <code>est_ba</code>, <code>se_ba</code>, <code>est_ridge</code>, <code>se_ridge</code>, <code>heat</code>, <code>nlp</code>, with <code>forest</code> being the default.</p></td>
     </tr>
     <tr>
       <th>stats</th>
@@ -196,7 +199,7 @@
 )</div><div class='output co'>#&gt; <span class='message'>'ref' method was not specified, Cox, Gamma set as the reference</span></div><div class='input'><span class='no'>sms</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>ms</span>)
 
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ggplot2</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/autoplot'>autoplot</a></span>(<span class='no'>sms</span>, <span class='kw'>par</span> <span class='kw'>=</span> <span class='st'>"trt"</span>)</div><div class='img'><img src='autoplot.summary.multisimsum-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/autoplot'>autoplot</a></span>(<span class='no'>sms</span>, <span class='kw'>par</span> <span class='kw'>=</span> <span class='st'>"trt"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"lolly"</span>, <span class='kw'>stats</span> <span class='kw'>=</span> <span class='st'>"cover"</span>)</div><div class='img'><img src='autoplot.summary.multisimsum-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/autoplot'>autoplot</a></span>(<span class='no'>sms</span>, <span class='kw'>par</span> <span class='kw'>=</span> <span class='st'>"trt"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"zip"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 32 rows containing missing values (geom_segment).</span></div><div class='img'><img src='autoplot.summary.multisimsum-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/autoplot'>autoplot</a></span>(<span class='no'>sms</span>, <span class='kw'>par</span> <span class='kw'>=</span> <span class='st'>"trt"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"est_ba"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 96 rows containing non-finite values (stat_smooth).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 96 rows containing missing values (geom_point).</span></div><div class='img'><img src='autoplot.summary.multisimsum-4.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>sms</span>, <span class='kw'>par</span> <span class='kw'>=</span> <span class='st'>"trt"</span>)</div><div class='img'><img src='autoplot.summary.multisimsum-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>sms</span>, <span class='kw'>par</span> <span class='kw'>=</span> <span class='st'>"trt"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"lolly"</span>, <span class='kw'>stats</span> <span class='kw'>=</span> <span class='st'>"cover"</span>)</div><div class='img'><img src='autoplot.summary.multisimsum-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>sms</span>, <span class='kw'>par</span> <span class='kw'>=</span> <span class='st'>"trt"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"zip"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 32 rows containing missing values (geom_segment).</span></div><div class='img'><img src='autoplot.summary.multisimsum-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>sms</span>, <span class='kw'>par</span> <span class='kw'>=</span> <span class='st'>"trt"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"est_ba"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 96 rows containing non-finite values (stat_smooth).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 96 rows containing missing values (geom_point).</span></div><div class='img'><img src='autoplot.summary.multisimsum-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

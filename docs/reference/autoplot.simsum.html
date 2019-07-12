@@ -96,16 +96,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/introduction.html">Introduction to rsimsum</a>
+      <a href="../articles/A-introduction.html">Introduction to rsimsum</a>
     </li>
     <li>
-      <a href="../articles/plotting.html">Visualising results from rsimsum</a>
+      <a href="../articles/B-relhaz.html">Simulating a simulation study</a>
     </li>
     <li>
-      <a href="../articles/relhaz.html">Simulating a simulation study</a>
+      <a href="../articles/C-plotting.html">Visualising results from rsimsum</a>
     </li>
     <li>
-      <a href="../articles/rsimsumtidyverse.html">rsimsum and the tidyverse</a>
+      <a href="../articles/D-nlp.html">Nested loop plots</a>
+    </li>
+    <li>
+      <a href="../articles/E-rsimsumtidyverse.html">rsimsum and the tidyverse</a>
     </li>
   </ul>
 </li>
@@ -135,13 +138,13 @@
 
     <div class="ref-description">
     
-    <p><code>autoplot</code> can produce a series of plot to summarise results of simulation studies. See <code><a href='../articles/plotting.html'>vignette("plotting", package = "rsimsum")</a></code> for further details.</p>
+    <p><code>autoplot</code> can produce a series of plot to summarise results of simulation studies. See <code>vignette("plotting", package = "rsimsum")</code> for further details.</p>
     
     </div>
 
     <pre class="usage"><span class='co'># S3 method for simsum</span>
 <span class='fu'>autoplot</span>(<span class='no'>object</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"forest"</span>, <span class='kw'>stats</span> <span class='kw'>=</span> <span class='st'>"bias"</span>,
-  <span class='kw'>target</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fitted</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>target</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fitted</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,7 +155,7 @@
     </tr>
     <tr>
       <th>type</th>
-      <td><p>The type of the plot to be produced. Possible choices are: <code>forest</code>, <code>lolly</code>, <code>zip</code>, <code>est</code>, <code>se</code>, <code>est_ba</code>, <code>se_ba</code>, <code>est_ridge</code>, <code>se_ridge</code>, <code>heat</code>, with <code>forest</code> being the default.</p></td>
+      <td><p>The type of the plot to be produced. Possible choices are: <code>forest</code>, <code>lolly</code>, <code>zip</code>, <code>est</code>, <code>se</code>, <code>est_ba</code>, <code>se_ba</code>, <code>est_ridge</code>, <code>se_ridge</code>, <code>heat</code>, <code>nlp</code>, with <code>forest</code> being the default.</p></td>
     </tr>
     <tr>
       <th>stats</th>
@@ -169,6 +172,10 @@
     <tr>
       <th>scales</th>
       <td><p>Should scales be fixed (<code>fixed</code>, the default), free (<code>free</code>), or free in one dimension (<code>free_x</code>, <code>free_y</code>)?</p></td>
+    </tr>
+    <tr>
+      <th>top</th>
+      <td><p>Should the legend for a nested loop plot be on the top side of the plot? Defaults to <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -188,7 +195,13 @@
   <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='st'>"method"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</div><div class='output co'>#&gt; <span class='message'>'ref' method was not specified, CC set as the reference</span></div><div class='input'>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ggplot2</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/autoplot'>autoplot</a></span>(<span class='no'>s</span>)</div><div class='img'><img src='autoplot.simsum-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/autoplot'>autoplot</a></span>(<span class='no'>s</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"lolly"</span>)</div><div class='img'><img src='autoplot.simsum-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>s</span>)</div><div class='img'><img src='autoplot.simsum-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>s</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"lolly"</span>)</div><div class='img'><img src='autoplot.simsum-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Nested loop plot:</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='st'>"nlp"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"rsimsum"</span>)
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rsimsum</span><span class='kw ns'>::</span><span class='fu'><a href='https://ellessenne.github.io/rsimsum/reference/simsum.html'>simsum</a></span>(
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>nlp</span>, <span class='kw'>estvarname</span> <span class='kw'>=</span> <span class='st'>"b"</span>, <span class='kw'>true</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>se</span> <span class='kw'>=</span> <span class='st'>"se"</span>,
+  <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='st'>"model"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"baseline"</span>, <span class='st'>"ss"</span>, <span class='st'>"esigma"</span>)
+)</div><div class='output co'>#&gt; <span class='message'>'ref' method was not specified, 1 set as the reference</span></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>s1</span>, <span class='kw'>stats</span> <span class='kw'>=</span> <span class='st'>"bias"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"nlp"</span>)</div><div class='img'><img src='autoplot.simsum-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

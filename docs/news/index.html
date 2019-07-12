@@ -93,16 +93,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/introduction.html">Introduction to rsimsum</a>
+      <a href="../articles/A-introduction.html">Introduction to rsimsum</a>
     </li>
     <li>
-      <a href="../articles/plotting.html">Visualising results from rsimsum</a>
+      <a href="../articles/B-relhaz.html">Simulating a simulation study</a>
     </li>
     <li>
-      <a href="../articles/relhaz.html">Simulating a simulation study</a>
+      <a href="../articles/C-plotting.html">Visualising results from rsimsum</a>
     </li>
     <li>
-      <a href="../articles/rsimsumtidyverse.html">rsimsum and the tidyverse</a>
+      <a href="../articles/D-nlp.html">Nested loop plots</a>
+    </li>
+    <li>
+      <a href="../articles/E-rsimsumtidyverse.html">rsimsum and the tidyverse</a>
     </li>
   </ul>
 </li>
@@ -137,6 +140,23 @@
 <h3 class="hasAnchor">
 <a href="#improvements" class="anchor"></a>Improvements:</h3>
 <ul>
+<li><p>Implemented fully automated nested loop plots for simulation studies with several data-generating mechanisms: <code>autoplot(object, type = "nlp")</code>;</p></li>
+<li><p>Added a new vignette on nested loop plots;</p></li>
+<li><p>Improved ordering of vignettes.</p></li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes:</h3>
+<ul>
+<li><p>Updated unquoting for compatibility with <code>rlang</code> 0.4.0;</p></li>
+<li><p>Fixed missing details and options in the documentation of <code>autoplot.multisimsum</code> and <code>autoplot.summary.multisimsum</code>.</p></li>
+</ul>
+</div>
+<div id="improvements-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#improvements-1" class="anchor"></a>Improvements:</h3>
+<ul>
 <li>Added <code><a href="https://www.rdocumentation.org/packages/utils/topics/data">data("nlp", package = "rsimsum")</a></code>, a dataset from a simulation study with 150 data-generating. This is particularly useful to illustrate nested loop plots.</li>
 </ul>
 </div>
@@ -145,11 +165,11 @@
 <h1 class="page-header">
 <a href="#rsimsum-052" class="anchor"></a>rsimsum 0.5.2<small> 2019-04-25 </small>
 </h1>
-<div id="bug-fixes" class="section level3">
+<div id="bug-fixes-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes:</h3>
 <ul>
-<li>Fixed labelling when facetting for some plot types, now all defaults to <code><a href="https://www.rdocumentation.org/packages/ggplot2/topics/labellers">ggplot2::label_both</a></code> for ‘by’ factors (when included).</li>
+<li>Fixed labelling when facetting for some plot types, now all defaults to <code><a href="https://ggplot2.tidyverse.org/reference/labellers.html">ggplot2::label_both</a></code> for ‘by’ factors (when included).</li>
 </ul>
 </div>
 </div>
@@ -157,9 +177,9 @@
 <h1 class="page-header">
 <a href="#rsimsum-051" class="anchor"></a>rsimsum 0.5.1<small> 2019-03-15 </small>
 </h1>
-<div id="bug-fixes-1" class="section level3">
+<div id="bug-fixes-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes:</h3>
 <ul>
 <li>Fixed calculations for “Relative % increase in precision” (thanks to Ian R. White for reporting this).</li>
 </ul>
@@ -169,9 +189,9 @@
 <h1 class="page-header">
 <a href="#rsimsum-050" class="anchor"></a>rsimsum 0.5.0<small> 2019-02-21 </small>
 </h1>
-<div id="improvements-1" class="section level3">
+<div id="improvements-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#improvements-1" class="anchor"></a>Improvements:</h3>
+<a href="#improvements-2" class="anchor"></a>Improvements:</h3>
 <ul>
 <li>Implemented <code>autoplot</code> method for <code>multisimsum</code> and <code>summary.multisimsum</code> objects;</li>
 <li>Implemented heat plot types for both <code>simsum</code> and <code>multisimsum</code> objects;</li>
@@ -181,9 +201,9 @@
 <li>Improved code coverage.</li>
 </ul>
 </div>
-<div id="bug-fixes-2" class="section level3">
+<div id="bug-fixes-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-3" class="anchor"></a>Bug fixes:</h3>
 <ul>
 <li>Fixed a bug in <code>autoplot</code> caused by premature slicing of <code>by</code> arguments, where no <code>by</code> arguments were included.</li>
 </ul>
@@ -216,9 +236,9 @@
 <a href="#rsimsum-040" class="anchor"></a>rsimsum 0.4.0<small> Unreleased </small>
 </h1>
 <p><code>rsimsum</code> 0.4.0 is a large refactoring of <code>rsimsum</code>. There are several improvements and breaking changes, outlined below.</p>
-<div id="improvements-2" class="section level3">
+<div id="improvements-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#improvements-2" class="anchor"></a>Improvements</h3>
+<a href="#improvements-3" class="anchor"></a>Improvements</h3>
 <ul>
 <li>
 <code>rsimsum</code> is more robust to using factor variables (e.g. as <code>methodvar</code> or <code>by</code> factor), with ordering that will be preserved if defined in the dataset passed to <code>simsum</code> (or <code>multisimsum</code>);</li>
