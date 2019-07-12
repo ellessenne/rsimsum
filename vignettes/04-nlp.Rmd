@@ -1,0 +1,63 @@
+---
+title: "Nested loop plots"
+author: "Alessandro Gasparini"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Nested loop plots}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include = FALSE}
+options(width = 150)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.align = "center", fig.width = 7,
+  out.width = "80%"
+)
+```
+
+As of version `0.6.0`, `rsimsum` supports the fully automated creation of nested loop plots (Rücker and Schwarzer, 2014).
+
+```{r package}
+library(rsimsum)
+```
+
+A dataset that can be purposefully used to illustrate nested loop plots is bundled and shipped with `rsimsum`:
+
+```{r data}
+data("nlp", package = "rsimsum")
+```
+
+This data set contains the results of a simulation study on survival modelling with 150 distinct data-generating mechanisms:
+
+```{r display-data}
+head(nlp)
+```
+
+Further information on the data could be find in the help file (`?nlp`).
+
+We can analyse this simulation study using `rsimsum` as usual:
+
+```{r analyse}
+s <- rsimsum::simsum(
+  data = nlp, estvarname = "b", true = 0, se = "se",
+  methodvar = "model", by = c("baseline", "ss", "esigma")
+)
+s
+```
+
+Finally, a nested loop plot can be automatically produced via the `autoplot` method, e.g. for bias:
+
+```{r nlp, fig.asp = 0.75}
+library(ggplot2)
+autoplot(s, type = "nlp", stats = "bias")
+```
+
+# References
+
+* Rücker, G. and Schwarzer, G. 2014 _Presenting simulation results in a nested loop plot_. BMC Medical Research Methodology 14(1) <[doi:10.1186/1471-2288-14-129](https://doi.org/10.1186/1471-2288-14-129)>
