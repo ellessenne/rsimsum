@@ -23,6 +23,7 @@ Imports:
  ggridges,
  ggplot2,
  rlang (>= 0.4.0),
+ scales,
  stats
 Suggests:
  covr,
