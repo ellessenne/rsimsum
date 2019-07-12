@@ -1,6 +1,14 @@
 # rsimsum 0.5.2-9000
 
-* Updated unquoting for compatibility with `rlang` 0.4.0.
+### Improvements:
+
+* Implemented fully automated nested loop plots for simulation studies with several data-generating mechanisms: `autoplot(object, type = "nlp")`.
+
+### Bug fixes:
+
+* Updated unquoting for compatibility with `rlang` 0.4.0;
+
+* Fixed missing details and options in the documentation of `autoplot.multisimsum` and `autoplot.summary.multisimsum`.
 
 ### Improvements:
 
