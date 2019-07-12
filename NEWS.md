@@ -2,7 +2,11 @@
 
 ### Improvements:
 
-* Implemented fully automated nested loop plots for simulation studies with several data-generating mechanisms: `autoplot(object, type = "nlp")`.
+* Implemented fully automated nested loop plots for simulation studies with several data-generating mechanisms: `autoplot(object, type = "nlp")`;
+
+* Added a new vignette on nested loop plots;
+
+* Improved ordering of vignettes.
 
 ### Bug fixes:
 
