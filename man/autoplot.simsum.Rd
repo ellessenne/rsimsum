@@ -45,6 +45,7 @@ autoplot(s, type = "lolly")
 data("nlp", package = "rsimsum")
 s1 <- rsimsum::simsum(
   data = nlp, estvarname = "b", true = 0, se = "se",
-  methodvar = "model", by = c("baseline", "ss", "esigma"))
+  methodvar = "model", by = c("baseline", "ss", "esigma")
+)
 autoplot(s1, stats = "bias", type = "nlp")
 }

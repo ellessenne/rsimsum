@@ -27,7 +27,8 @@
 #' data("nlp", package = "rsimsum")
 #' s1 <- rsimsum::simsum(
 #'   data = nlp, estvarname = "b", true = 0, se = "se",
-#'   methodvar = "model", by = c("baseline", "ss", "esigma"))
+#'   methodvar = "model", by = c("baseline", "ss", "esigma")
+#' )
 #' autoplot(s1, stats = "bias", type = "nlp")
 autoplot.simsum <- function(object, type = "forest", stats = "bias", target = NULL, fitted = TRUE, scales = "fixed", top = TRUE, ...) {
   ### Check arguments
