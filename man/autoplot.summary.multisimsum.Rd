@@ -13,7 +13,7 @@
 
 \item{par}{The parameter results to plot.}
 
-\item{type}{The type of the plot to be produced. Possible choices are: \code{forest}, \code{lolly}, \code{zip}, \code{est}, \code{se}, \code{est_ba}, \code{se_ba}, \code{est_ridge}, \code{se_ridge}, with \code{forest} being the default.}
+\item{type}{The type of the plot to be produced. Possible choices are: \code{forest}, \code{lolly}, \code{zip}, \code{est}, \code{se}, \code{est_ba}, \code{se_ba}, \code{est_ridge}, \code{se_ridge}, \code{heat}, \code{nlp}, with \code{forest} being the default.}
 
 \item{stats}{Summary statistic to plot, defaults to \code{bias}. See \code{\link[=summary.simsum]{summary.simsum()}} for further details on supported summary statistics.}
 
