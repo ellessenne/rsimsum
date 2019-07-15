@@ -54,6 +54,9 @@ autoplot.simsum <- function(object, type = "forest", stats = "bias", target = NU
   # Report
   if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
 
+  ### Nested loop plot not meaningful if there are no 'by' factors
+  if (type == "nlp" & is.null(object[["by"]])) stop("Nested loop plot not meaningful when no 'by' factors are defined", call. = FALSE)
+
   ### Extract data
   df <- get_data(object, stats = stats)
 
