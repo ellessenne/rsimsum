@@ -6,7 +6,7 @@
 \usage{
 \method{autoplot}{summary.simsum}(object, type = "forest",
   stats = "bias", target = NULL, fitted = TRUE, scales = "fixed",
-  ...)
+  top = TRUE, ...)
 }
 \arguments{
 \item{object}{An object of class \code{summary.simsum}.}
@@ -20,6 +20,8 @@
 \item{fitted}{Superimpose a fitted regression line, useful when \code{type} = (\code{est}, \code{se}, \code{est_ba}, \code{se_ba}). Defaults to \code{TRUE}.}
 
 \item{scales}{Should scales be fixed (\code{fixed}, the default), free (\code{free}), or free in one dimension (\code{free_x}, \code{free_y})?}
+
+\item{top}{Should the legend for a nested loop plot be on the top side of the plot? Defaults to \code{TRUE}.}
 
 \item{...}{Not used.}
 }
