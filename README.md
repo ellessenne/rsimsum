@@ -223,15 +223,30 @@ autoplot(s, type = "est_ridge")
 
 <img src="man/figures/README-ridgeline-1.png" width="80%" style="display: block; margin: auto;" />
 
+Finally, nested loop plots have been implemented in `rsimsum` `0.6.0`:
+
+``` r
+data("nlp", package = "rsimsum")
+s.nlp <- rsimsum::simsum(
+  data = nlp, estvarname = "b", true = 0, se = "se",
+  methodvar = "model", by = c("baseline", "ss", "esigma")
+)
+#> 'ref' method was not specified, 1 set as the reference
+autoplot(s.nlp, stats = "bias", type = "nlp")
+```
+
+<img src="man/figures/README-nlp-1.png" width="80%" style="display: block; margin: auto;" />
+
 The plotting functionality now extend the S3 generic `autoplot`: see
 `?ggplot2::autoplot` and `?rsimsum::autoplot.simsum` for further
 details.
 
-More details and information can be found in the vignette dedicated to
+More details and information can be found in the vignettes dedicated to
 plotting:
 
 ``` r
 vignette(topic = "plotting", package = "rsimsum")
+vignette(topic = "nlp", package = "rsimsum")
 ```
 
 # Citation
@@ -277,8 +292,8 @@ citation("rsimsum")
 
 If you use RStudio and equations are not displayed properly within the
 RStudio viewer window, please access the vignette from [the CRAN
-website](https://cran.rstudio.com/web/packages/rsimsum/) or directly
-from the R console with the command:
+website](https://CRAN.R-project.org/package=rsimsum) or directly from
+the R console with the command:
 
 ``` r
 vignette(topic = "introduction", package = "rsimsum")
