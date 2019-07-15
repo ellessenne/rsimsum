@@ -6,6 +6,9 @@ single <- rsimsum::simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se",
 multi <- rsimsum::simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = c("n", "baseline"), x = TRUE)
 singlesum <- summary(single)
 multisum <- summary(multi)
+data("nlp", package = "rsimsum")
+nlps <- rsimsum::simsum(data = nlp, estvarname = "b", true = 0, se = "se", methodvar = "model", by = c("baseline", "ss", "esigma"))
+nlpssum <- summary(nlps)
 
 testthat::test_that("output from autoplot is of class gg, ggplot", {
   # simsum object, no 'by'
@@ -56,6 +59,9 @@ testthat::test_that("output from autoplot is of class gg, ggplot", {
   testthat::expect_s3_class(object = autoplot(multisum, type = "est_ridge"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(multisum, type = "se_ridge"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(multisum, type = "heat"), class = c("gg", "ggplot"))
+  # nested loop plot
+  testthat::expect_s3_class(object = autoplot(nlps, type = "nlp"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(nlpssum, type = "nlp"), class = c("gg", "ggplot"))
 })
 
 testthat::test_that("argument checks works throws errors when appropriate", {
@@ -75,6 +81,8 @@ testthat::test_that("argument checks works throws errors when appropriate", {
   testthat::expect_error(object = print(autoplot(single, scales = "both")))
   testthat::expect_error(object = print(autoplot(single, scales = "none")))
   testthat::expect_error(object = print(autoplot(single, scales = "either")))
+  testthat::expect_error(object = print(autoplot(single, top = 0)))
+  testthat::expect_error(object = print(autoplot(single, top = "Yes!")))
   # simsum object, with 'by'
   testthat::expect_error(object = print(autoplot(multi, type = "megacool_plot")))
   testthat::expect_error(object = print(autoplot(multi, type = 1)))
@@ -91,6 +99,8 @@ testthat::test_that("argument checks works throws errors when appropriate", {
   testthat::expect_error(object = print(autoplot(multi, scales = "both")))
   testthat::expect_error(object = print(autoplot(multi, scales = "none")))
   testthat::expect_error(object = print(autoplot(multi, scales = "either")))
+  testthat::expect_error(object = print(autoplot(multi, top = 0)))
+  testthat::expect_error(object = print(autoplot(multi, top = "Yes!")))
   # summary.simsum object, no 'by'
   testthat::expect_error(object = print(autoplot(singlesum, type = "megacool_plot")))
   testthat::expect_error(object = print(autoplot(singlesum, type = 1)))
@@ -107,6 +117,8 @@ testthat::test_that("argument checks works throws errors when appropriate", {
   testthat::expect_error(object = print(autoplot(singlesum, scales = "both")))
   testthat::expect_error(object = print(autoplot(singlesum, scales = "none")))
   testthat::expect_error(object = print(autoplot(singlesum, scales = "either")))
+  testthat::expect_error(object = print(autoplot(singlesum, top = 0)))
+  testthat::expect_error(object = print(autoplot(singlesum, top = "Yes!")))
   # summary.simsum object, with 'by'
   testthat::expect_error(object = print(autoplot(multisum, type = "megacool_plot")))
   testthat::expect_error(object = print(autoplot(multisum, type = 1)))
@@ -123,6 +135,8 @@ testthat::test_that("argument checks works throws errors when appropriate", {
   testthat::expect_error(object = print(autoplot(multisum, scales = "both")))
   testthat::expect_error(object = print(autoplot(multisum, scales = "none")))
   testthat::expect_error(object = print(autoplot(multisum, scales = "either")))
+  testthat::expect_error(object = print(autoplot(multisum, top = 0)))
+  testthat::expect_error(object = print(autoplot(multisum, top = "Yes!")))
 })
 
 testthat::test_that("autoplot with target", {
@@ -194,6 +208,14 @@ testthat::test_that("autoplot with scales", {
   testthat::expect_s3_class(object = autoplot(multisum, scales = "free"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(multisum, scales = "free_x"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(multisum, scales = "free_y"), class = c("gg", "ggplot"))
+})
+
+testthat::test_that("autoplot with top", {
+  # nested loop plot
+  testthat::expect_s3_class(object = autoplot(nlps, type = "nlp", top = TRUE), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(nlps, type = "nlp", top = FALSE), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(nlpssum, type = "nlp", top = TRUE), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(nlpssum, type = "nlp", top = FALSE), class = c("gg", "ggplot"))
 })
 
 testthat::test_that("inferring target", {
@@ -293,6 +315,7 @@ testthat::test_that("output from autoplot is of class gg, ggplot", {
   testthat::expect_s3_class(object = autoplot(ms, par = "trt", type = "se_ba"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(ms, par = "trt", type = "est_ridge"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(ms, par = "trt", type = "se_ridge"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(ms, par = "trt", type = "heat"), class = c("gg", "ggplot"))
   # multisimsum object, with 'by'
   testthat::expect_s3_class(object = autoplot(ms2, par = "trt"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(ms2, par = "trt", type = "forest"), class = c("gg", "ggplot"))
@@ -304,6 +327,8 @@ testthat::test_that("output from autoplot is of class gg, ggplot", {
   testthat::expect_s3_class(object = autoplot(ms2, par = "trt", type = "se_ba"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(ms2, par = "trt", type = "est_ridge"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(ms2, par = "trt", type = "se_ridge"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(ms2, par = "trt", type = "heat"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(ms2, par = "trt", type = "nlp"), class = c("gg", "ggplot"))
   # summary.multisimsum object, no 'by'
   testthat::expect_s3_class(object = autoplot(sms, par = "trt"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(sms, par = "trt", type = "forest"), class = c("gg", "ggplot"))
@@ -315,6 +340,7 @@ testthat::test_that("output from autoplot is of class gg, ggplot", {
   testthat::expect_s3_class(object = autoplot(sms, par = "trt", type = "se_ba"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(sms, par = "trt", type = "est_ridge"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(sms, par = "trt", type = "se_ridge"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(sms, par = "trt", type = "heat"), class = c("gg", "ggplot"))
   # summary.multisimsum object, with 'by'
   testthat::expect_s3_class(object = autoplot(sms2, par = "trt"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(sms2, par = "trt", type = "forest"), class = c("gg", "ggplot"))
@@ -326,6 +352,8 @@ testthat::test_that("output from autoplot is of class gg, ggplot", {
   testthat::expect_s3_class(object = autoplot(sms2, par = "trt", type = "se_ba"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(sms2, par = "trt", type = "est_ridge"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(sms2, par = "trt", type = "se_ridge"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(sms2, par = "trt", type = "heat"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(sms2, par = "trt", type = "nlp"), class = c("gg", "ggplot"))
 })
 
 testthat::test_that("putting wrong 'par' (or no 'par' at all) throws an error", {
@@ -349,4 +377,9 @@ testthat::test_that("putting wrong 'par' (or no 'par' at all) throws an error", 
   testthat::expect_error(object = autoplot(sms2, par = "42"))
   testthat::expect_error(object = autoplot(sms2, par = 42))
   testthat::expect_error(object = autoplot(sms2, par = TRUE))
+})
+
+
+testthat::test_that("nlp with no 'by' factors throw an error", {
+  testthat::expect_error(object = autoplot(ms, par = "trt", type = "nlp"), regexp = "Nested loop plot not meaningful")
 })
