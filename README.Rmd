@@ -75,10 +75,16 @@ summary(s)
 
 ## Vignettes
 
-`rsimsum` comes with 4 vignettes. In particular, check out the introductory one:
+`rsimsum` comes with 5 vignettes. In particular, check out the introductory one:
 
-```{r vignette-intro, eval = FALSE}
-vignette(topic = "introduction", package = "rsimsum")
+```r
+vignette(topic = "A-introduction", package = "rsimsum")
+```
+
+The list of vignettes could be obtained by typing the following in the R console:
+
+```r
+vignette(package = "rsimsum")
 ```
 
 ## Visualising results
@@ -124,8 +130,8 @@ The plotting functionality now extend the S3 generic `autoplot`: see `?ggplot2::
 More details and information can be found in the vignettes dedicated to plotting:
 
 ```{r vignette-plotting, eval = FALSE}
-vignette(topic = "plotting", package = "rsimsum")
-vignette(topic = "nlp", package = "rsimsum")
+vignette(topic = "C-plotting", package = "rsimsum")
+vignette(topic = "D-nlp", package = "rsimsum")
 ```
 
 # Citation
@@ -146,8 +152,8 @@ citation("rsimsum")
 
 If you use RStudio and equations are not displayed properly within the RStudio viewer window, please access the vignette from [the CRAN website](https://CRAN.R-project.org/package=rsimsum) or directly from the R console with the command:
 
-```{r, eval = FALSE}
-vignette(topic = "introduction", package = "rsimsum")
+```r
+vignette(topic = "A-introduction", package = "rsimsum")
 ```
 
 This is a known issue with RStudio (see [#2253](https://github.com/rstudio/rstudio/issues/2253)).

@@ -173,11 +173,18 @@ summary(s)
 
 ## Vignettes
 
-`rsimsum` comes with 4 vignettes. In particular, check out the
+`rsimsum` comes with 5 vignettes. In particular, check out the
 introductory one:
 
 ``` r
-vignette(topic = "introduction", package = "rsimsum")
+vignette(topic = "A-introduction", package = "rsimsum")
+```
+
+The list of vignettes could be obtained by typing the following in the R
+console:
+
+``` r
+vignette(package = "rsimsum")
 ```
 
 ## Visualising results
@@ -245,8 +252,8 @@ More details and information can be found in the vignettes dedicated to
 plotting:
 
 ``` r
-vignette(topic = "plotting", package = "rsimsum")
-vignette(topic = "nlp", package = "rsimsum")
+vignette(topic = "C-plotting", package = "rsimsum")
+vignette(topic = "D-nlp", package = "rsimsum")
 ```
 
 # Citation
@@ -296,7 +303,7 @@ website](https://CRAN.R-project.org/package=rsimsum) or directly from
 the R console with the command:
 
 ``` r
-vignette(topic = "introduction", package = "rsimsum")
+vignette(topic = "A-introduction", package = "rsimsum")
 ```
 
 This is a known issue with RStudio (see
