@@ -12,8 +12,9 @@
 <script src="pkgdown.js"></script><meta property="og:title" content="Analysis of Simulation Studies Including Monte Carlo Error">
 <meta property="og:description" content="Summarise results from simulation studies and compute Monte Carlo
   standard errors of commonly used summary statistics. This package is modelled 
-  on the 'simsum' user-written command in 'Stata' (See White I.R., 2010 
-  &lt;http://www.stata-journal.com/article.html?article=st0200&gt;).">
+  on the 'simsum' user-written command in 'Stata' (White I.R., 2010 
+  &lt;http://www.stata-journal.com/article.html?article=st0200&gt;), further extending
+  it with additional functionality.">
 <meta name="twitter:card" content="summary">
 <meta name="robots" content="noindex">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -40,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.9000</span>
       </span>
     </div>
 
@@ -200,69 +201,71 @@
 <div id="vignettes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#vignettes" class="anchor"></a>Vignettes</h2>
-<p><code>rsimsum</code> comes with 4 vignettes. In particular, check out the introductory one:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/vignette">vignette</a></span>(<span class="dt">topic =</span> <span class="st">"introduction"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span></code></pre></div>
+<p><code>rsimsum</code> comes with 5 vignettes. In particular, check out the introductory one:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/vignette">vignette</a></span>(<span class="dt">topic =</span> <span class="st">"A-introduction"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span></code></pre></div>
+<p>The list of vignettes could be obtained by typing the following in the R console:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/vignette">vignette</a></span>(<span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span></code></pre></div>
 </div>
 <div id="visualising-results" class="section level2">
 <h2 class="hasAnchor">
 <a href="#visualising-results" class="anchor"></a>Visualising results</h2>
 <p>As of version <code>0.2.0</code>, <code>rsimsum</code> can produce a variety of plots: among others, lolly plots, forest plots, zipper plots, etc.:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s, <span class="dt">type =</span> <span class="st">"lolly"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s, <span class="dt">type =</span> <span class="st">"lolly"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</span></code></pre></div>
 <p><img src="reference/figures/README-lolly-1.png" width="85%" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s, <span class="dt">type =</span> <span class="st">"zip"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s, <span class="dt">type =</span> <span class="st">"zip"</span>)</span></code></pre></div>
 <p><img src="reference/figures/README-zipper-1.png" width="85%" style="display: block; margin: auto;"></p>
 <p>With <code>rsimsum</code> <code>0.5.0</code> the plotting functionality has been completely rewritten, and new plot types have been implemented:</p>
 <ul>
 <li>Scatter plots for method-wise comparisons, including Bland-Altman type plots;</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s, <span class="dt">type =</span> <span class="st">"est_ba"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s, <span class="dt">type =</span> <span class="st">"est_ba"</span>)</span></code></pre></div>
 <p><img src="reference/figures/README-ba-1.png" width="85%" style="display: block; margin: auto;"></p>
 <ul>
 <li>Ridgeline plots.</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s, <span class="dt">type =</span> <span class="st">"est_ridge"</span>)</span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="co">#&gt; Picking joint bandwidth of 0.0295</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s, <span class="dt">type =</span> <span class="st">"est_ridge"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="co">#&gt; Picking joint bandwidth of 0.0295</span></span></code></pre></div>
 <p><img src="reference/figures/README-ridgeline-1.png" width="85%" style="display: block; margin: auto;"></p>
 <p>Finally, nested loop plots have been implemented in <code>rsimsum</code> <code>0.6.0</code>:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"nlp"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span>
-<span id="cb10-2"><a href="#cb10-2"></a>s.nlp &lt;-<span class="st"> </span>rsimsum<span class="op">::</span><span class="kw"><a href="https://ellessenne.github.io/rsimsum/reference/simsum.html">simsum</a></span>(</span>
-<span id="cb10-3"><a href="#cb10-3"></a>  <span class="dt">data =</span> nlp, <span class="dt">estvarname =</span> <span class="st">"b"</span>, <span class="dt">true =</span> <span class="dv">0</span>, <span class="dt">se =</span> <span class="st">"se"</span>,</span>
-<span id="cb10-4"><a href="#cb10-4"></a>  <span class="dt">methodvar =</span> <span class="st">"model"</span>, <span class="dt">by =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"baseline"</span>, <span class="st">"ss"</span>, <span class="st">"esigma"</span>)</span>
-<span id="cb10-5"><a href="#cb10-5"></a>)</span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt; 'ref' method was not specified, 1 set as the reference</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s.nlp, <span class="dt">stats =</span> <span class="st">"bias"</span>, <span class="dt">type =</span> <span class="st">"nlp"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(<span class="st">"nlp"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2"></a>s.nlp &lt;-<span class="st"> </span>rsimsum<span class="op">::</span><span class="kw"><a href="https://ellessenne.github.io/rsimsum/reference/simsum.html">simsum</a></span>(</span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="dt">data =</span> nlp, <span class="dt">estvarname =</span> <span class="st">"b"</span>, <span class="dt">true =</span> <span class="dv">0</span>, <span class="dt">se =</span> <span class="st">"se"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4"></a>  <span class="dt">methodvar =</span> <span class="st">"model"</span>, <span class="dt">by =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"baseline"</span>, <span class="st">"ss"</span>, <span class="st">"esigma"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5"></a>)</span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="co">#&gt; 'ref' method was not specified, 1 set as the reference</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s.nlp, <span class="dt">stats =</span> <span class="st">"bias"</span>, <span class="dt">type =</span> <span class="st">"nlp"</span>)</span></code></pre></div>
 <p><img src="reference/figures/README-nlp-1.png" width="85%" style="display: block; margin: auto;"></p>
 <p>The plotting functionality now extend the S3 generic <code>autoplot</code>: see <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">?ggplot2::autoplot</a></code> and <code><a href="reference/autoplot.simsum.html">?rsimsum::autoplot.simsum</a></code> for further details.</p>
 <p>More details and information can be found in the vignettes dedicated to plotting:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/vignette">vignette</a></span>(<span class="dt">topic =</span> <span class="st">"plotting"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/vignette">vignette</a></span>(<span class="dt">topic =</span> <span class="st">"nlp"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/vignette">vignette</a></span>(<span class="dt">topic =</span> <span class="st">"C-plotting"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/vignette">vignette</a></span>(<span class="dt">topic =</span> <span class="st">"D-nlp"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="citation" class="section level1">
 <h1 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h1>
 <p>If you find <code>rsimsum</code> useful, please cite it in your publications:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/citation">citation</a></span>(<span class="st">"rsimsum"</span>)</span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="co">#&gt; </span></span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="co">#&gt; To cite the rsimsum package in publications, please use:</span></span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="co">#&gt; </span></span>
-<span id="cb12-5"><a href="#cb12-5"></a><span class="co">#&gt;   Gasparini, (2018). rsimsum: Summarise results from Monte Carlo simulation studies.</span></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="co">#&gt;   Journal of Open Source Software, 3(26), 739, https://doi.org/10.21105/joss.00739</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a><span class="co">#&gt; </span></span>
-<span id="cb12-8"><a href="#cb12-8"></a><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
-<span id="cb12-9"><a href="#cb12-9"></a><span class="co">#&gt; </span></span>
-<span id="cb12-10"><a href="#cb12-10"></a><span class="co">#&gt;   @Article{,</span></span>
-<span id="cb12-11"><a href="#cb12-11"></a><span class="co">#&gt;     author = {Alessandro Gasparini},</span></span>
-<span id="cb12-12"><a href="#cb12-12"></a><span class="co">#&gt;     title = {rsimsum: Summarise results from Monte Carlo simulation studies},</span></span>
-<span id="cb12-13"><a href="#cb12-13"></a><span class="co">#&gt;     journal = {Journal of Open Source Software},</span></span>
-<span id="cb12-14"><a href="#cb12-14"></a><span class="co">#&gt;     year = {2018},</span></span>
-<span id="cb12-15"><a href="#cb12-15"></a><span class="co">#&gt;     volume = {3},</span></span>
-<span id="cb12-16"><a href="#cb12-16"></a><span class="co">#&gt;     issue = {26},</span></span>
-<span id="cb12-17"><a href="#cb12-17"></a><span class="co">#&gt;     pages = {739},</span></span>
-<span id="cb12-18"><a href="#cb12-18"></a><span class="co">#&gt;     doi = {10.21105/joss.00739},</span></span>
-<span id="cb12-19"><a href="#cb12-19"></a><span class="co">#&gt;     url = {https://doi.org/10.21105/joss.00739},</span></span>
-<span id="cb12-20"><a href="#cb12-20"></a><span class="co">#&gt;   }</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/citation">citation</a></span>(<span class="st">"rsimsum"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="co">#&gt; </span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="co">#&gt; To cite the rsimsum package in publications, please use:</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="co">#&gt; </span></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="co">#&gt;   Gasparini, (2018). rsimsum: Summarise results from Monte Carlo simulation studies.</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="co">#&gt;   Journal of Open Source Software, 3(26), 739, https://doi.org/10.21105/joss.00739</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="co">#&gt; </span></span>
+<span id="cb13-8"><a href="#cb13-8"></a><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a><span class="co">#&gt; </span></span>
+<span id="cb13-10"><a href="#cb13-10"></a><span class="co">#&gt;   @Article{,</span></span>
+<span id="cb13-11"><a href="#cb13-11"></a><span class="co">#&gt;     author = {Alessandro Gasparini},</span></span>
+<span id="cb13-12"><a href="#cb13-12"></a><span class="co">#&gt;     title = {rsimsum: Summarise results from Monte Carlo simulation studies},</span></span>
+<span id="cb13-13"><a href="#cb13-13"></a><span class="co">#&gt;     journal = {Journal of Open Source Software},</span></span>
+<span id="cb13-14"><a href="#cb13-14"></a><span class="co">#&gt;     year = {2018},</span></span>
+<span id="cb13-15"><a href="#cb13-15"></a><span class="co">#&gt;     volume = {3},</span></span>
+<span id="cb13-16"><a href="#cb13-16"></a><span class="co">#&gt;     issue = {26},</span></span>
+<span id="cb13-17"><a href="#cb13-17"></a><span class="co">#&gt;     pages = {739},</span></span>
+<span id="cb13-18"><a href="#cb13-18"></a><span class="co">#&gt;     doi = {10.21105/joss.00739},</span></span>
+<span id="cb13-19"><a href="#cb13-19"></a><span class="co">#&gt;     url = {https://doi.org/10.21105/joss.00739},</span></span>
+<span id="cb13-20"><a href="#cb13-20"></a><span class="co">#&gt;   }</span></span></code></pre></div>
 </div>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">
@@ -277,7 +280,7 @@
 <h1 class="hasAnchor">
 <a href="#warning-for-rstudio-users" class="anchor"></a>Warning for RStudio users</h1>
 <p>If you use RStudio and equations are not displayed properly within the RStudio viewer window, please access the vignette from <a href="https://CRAN.R-project.org/package=rsimsum">the CRAN website</a> or directly from the R console with the command:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/vignette">vignette</a></span>(<span class="dt">topic =</span> <span class="st">"introduction"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/vignette">vignette</a></span>(<span class="dt">topic =</span> <span class="st">"A-introduction"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span></code></pre></div>
 <p>This is a known issue with RStudio (see <a href="https://github.com/rstudio/rstudio/issues/2253">#2253</a>).</p>
 </div>
   </div>
