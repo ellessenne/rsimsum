@@ -1,5 +1,9 @@
 # rsimsum 0.6.0-9000
 
+### Bug fixes:
+
+* Fixed labelling bug in zipper plots (thanks to @syriop-elisa for reporting it).
+
 # rsimsum 0.6.0
 
 ### Improvements:

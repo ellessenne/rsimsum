@@ -91,7 +91,7 @@
       data[[i]][[j]][["rank"]] <- rank(abs(data[[i]][[j]][["z"]])) / max(rank(abs(data[[i]][[j]][["z"]])))
       data[[i]][[j]][["lower"]] <- data[[i]][[j]][[estvarname]] - crit * data[[i]][[j]][[se]]
       data[[i]][[j]][["upper"]] <- data[[i]][[j]][[estvarname]] + crit * data[[i]][[j]][[se]]
-      data[[i]][[j]][["covering"]] <- factor(ifelse(true >= data[[i]][[j]][["lower"]] & true <= data[[i]][[j]][["upper"]], TRUE, FALSE), levels = c(FALSE, TRUE), labels = c("Coverers", "Non-coverers"))
+      data[[i]][[j]][["covering"]] <- factor(ifelse(true < data[[i]][[j]][["lower"]] | true > data[[i]][[j]][["upper"]], FALSE, TRUE), levels = c(FALSE, TRUE), labels = c("Non-coverers", "Coverers"))
     }
     data[[i]] <- .br(data[[i]])
   }
