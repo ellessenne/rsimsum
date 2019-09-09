@@ -2,7 +2,9 @@
 
 ### Bug fixes:
 
-* Fixed labelling bug in zipper plots (thanks to @syriop-elisa for reporting it).
+* Fixed labelling bug in zipper plots (thanks to @syriop-elisa for reporting it);
+
+* Clarified that `simsum` and `multisimsum` report average (or median) estimated variances, not standard errors (thanks to Ian R. White for reporting this).
 
 # rsimsum 0.6.0
 

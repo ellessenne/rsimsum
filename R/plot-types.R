@@ -231,7 +231,7 @@
   return(gg)
 }
 
-### Ridgeline plot
+### Heat plot
 #' @keywords internal
 .heat_plot <- function(data, methodvar, by, stats) {
   ### Create a .dgm column

@@ -19,8 +19,8 @@
 \item \code{nsim}, the number of replications with non-missing point estimates and standard error.
 \item \code{thetamean}, average point estimate.
 \item \code{thetamedian}, median point estimate.
-\item \code{se2mean}, average standard error.
-\item \code{se2median}, median standard error.
+\item \code{se2mean}, average variance.
+\item \code{se2median}, median variance.
 \item \code{bias}, bias in point estimate.
 \item \code{empse}, empirical standard error.
 \item \code{mse}, mean squared error.

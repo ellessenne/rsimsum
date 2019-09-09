@@ -7,8 +7,8 @@
 #' * `nsim`, the number of replications with non-missing point estimates and standard error.
 #' * `thetamean`, average point estimate.
 #' * `thetamedian`, median point estimate.
-#' * `se2mean`, average standard error.
-#' * `se2median`, median standard error.
+#' * `se2mean`, average variance.
+#' * `se2median`, median variance.
 #' * `bias`, bias in point estimate.
 #' * `empse`, empirical standard error.
 #' * `mse`, mean squared error.

@@ -83,7 +83,7 @@
   )
   x <- merge(x, description_df, by = "stat")
   x <- x[, names(x)[names(x) != "stat"]]
-  x$description <- factor(x$description, levels = c("Non-missing point estimates/standard errors", "Average point estimate", "Median point estimate", "Average standard error", "Median standard error", "Bias in point estimate", "Empirical standard error", paste("% gain in precision relative to method", ref), "Mean squared error", "Model-based standard error", "Relative % error in standard error", paste("Coverage of nominal", sprintf("%.0f%%", 100 * (level)), "confidence interval"), paste("Bias-eliminated coverage of nominal", sprintf("%.0f%%", 100 * (level)), "confidence interval"), paste("Power of", sprintf("%.0f%%", 100 * (1 - level)), "level test")))
+  x$description <- factor(x$description, levels = c("Non-missing point estimates/standard errors", "Average point estimate", "Median point estimate", "Average variance", "Median variance", "Bias in point estimate", "Empirical standard error", paste("% gain in precision relative to method", ref), "Mean squared error", "Model-based standard error", "Relative % error in standard error", paste("Coverage of nominal", sprintf("%.0f%%", 100 * (level)), "confidence interval"), paste("Bias-eliminated coverage of nominal", sprintf("%.0f%%", 100 * (level)), "confidence interval"), paste("Power of", sprintf("%.0f%%", 100 * (1 - level)), "level test")))
   x <- x[order(x$description), ]
   x <- x[, c("description", "est", names(x)[!(names(x) %in% c("description", "est"))])]
   return(x)
