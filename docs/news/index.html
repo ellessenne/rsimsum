@@ -8,21 +8,25 @@
 
 <title>Changelog • rsimsum</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,7 +34,9 @@
 
 
 
+
 <meta property="og:title" content="Changelog" />
+
 <meta name="robots" content="noindex" />
 
 
@@ -54,6 +60,7 @@
   gtag('config', 'UA-55201181-2');
 </script>
 
+
   </head>
 
   <body>
@@ -70,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
       </span>
     </div>
 
@@ -78,7 +85,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -113,7 +120,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -123,6 +129,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -132,15 +139,16 @@
       
     </div>
 
-    <div id="rsimsum-060-9000" class="section level1">
+    <div id="rsimsum-061" class="section level1">
 <h1 class="page-header">
-<a href="#rsimsum-060-9000" class="anchor"></a>rsimsum 0.6.0-9000<small> Unreleased </small>
+<a href="#rsimsum-061" class="anchor"></a>rsimsum 0.6.1<small> Unreleased </small>
 </h1>
 <div id="bug-fixes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes:</h3>
 <ul>
-<li>Fixed labelling bug in zipper plots (thanks to <a href='https://github.com/syriop-elisa'>@syriop-elisa</a> for reporting it).</li>
+<li><p>Fixed labelling bug in zipper plots (thanks to <a href='https://github.com/syriop-elisa'>@syriop-elisa</a> for reporting it);</p></li>
+<li><p>Clarified that <code>simsum</code> and <code>multisimsum</code> report average (or median) estimated variances, not standard errors (thanks to Ian R. White for reporting this).</p></li>
 </ul>
 </div>
 </div>
@@ -153,7 +161,7 @@
 <a href="#improvements" class="anchor"></a>Improvements:</h3>
 <ul>
 <li><p>Implemented fully automated nested loop plots for simulation studies with several data-generating mechanisms: <code>autoplot(object, type = "nlp")</code>;</p></li>
-<li><p>Added <code><a href="https://www.rdocumentation.org/packages/utils/topics/data">data("nlp", package = "rsimsum")</a></code>, a dataset from a simulation study with 150 data-generating. This is particularly useful to illustrate nested loop plots;</p></li>
+<li><p>Added <code><a href="https://rdrr.io/r/utils/data.html">data("nlp", package = "rsimsum")</a></code>, a dataset from a simulation study with 150 data-generating. This is particularly useful to illustrate nested loop plots;</p></li>
 <li><p>Added a new vignette on nested loop plots;</p></li>
 <li><p>Improved ordering of vignettes.</p></li>
 </ul>
@@ -248,7 +256,7 @@
 <ul>
 <li>
 <code>rsimsum</code> is more robust to using factor variables (e.g. as <code>methodvar</code> or <code>by</code> factor), with ordering that will be preserved if defined in the dataset passed to <code>simsum</code> (or <code>multisimsum</code>);</li>
-<li>Confidence intervals based on Monte Carlo standard errors can be now computed using quantiles from a t distribution; see <code><a href="https://www.rdocumentation.org/packages/utils/topics/help">help(summary.simsum)</a></code> for more details;</li>
+<li>Confidence intervals based on Monte Carlo standard errors can be now computed using quantiles from a t distribution; see <code><a href="https://rdrr.io/r/utils/help.html">help(summary.simsum)</a></code> for more details;</li>
 <li>Added comparison with results from Stata’s <code>simsum</code> for testing purposes - differences are negligible, and there are some calculations in <code>simsum</code> that are wrong (already reported). Most differences can be attributed to calculations (and conversions, for comparison) on different scales.</li>
 </ul>
 </div>
@@ -274,7 +282,7 @@
 <h3 class="hasAnchor">
 <a href="#breaking-changes-1" class="anchor"></a>Breaking changes</h3>
 <ul>
-<li>The <code>zip</code> method has been renamed to <code>zipper()</code> to avoid name collision with <code><a href="https://www.rdocumentation.org/packages/utils/topics/zip">utils::zip()</a></code>.</li>
+<li>The <code>zip</code> method has been renamed to <code>zipper()</code> to avoid name collision with <code><a href="https://rdrr.io/r/utils/zip.html">utils::zip()</a></code>.</li>
 </ul>
 </div>
 </div>
@@ -311,7 +319,7 @@
 <p><code>rsimsum</code> 0.3.2 is a small maintenance release:</p>
 <ul>
 <li>Merged pull request #1 from <a href='https://github.com/mllg'>@mllg</a> adapting to new version of the <code>checkmate</code> package;</li>
-<li>Fixed a bug where automatic labels in <code><a href="https://www.rdocumentation.org/packages/grDevices/topics/plotmath">bar()</a></code> and <code>forest()</code> were not selected properly.</li>
+<li>Fixed a bug where automatic labels in <code><a href="https://rdrr.io/r/grDevices/plotmath.html">bar()</a></code> and <code>forest()</code> were not selected properly.</li>
 </ul>
 </div>
     <div id="rsimsum-031" class="section level1">
@@ -321,7 +329,7 @@
 <p>Bug fixes:</p>
 <ul>
 <li>
-<code><a href="https://www.rdocumentation.org/packages/grDevices/topics/plotmath">bar()</a></code>, <code>forest()</code>, <code>lolly()</code>, <code>heat()</code> now appropriately pick a discrete X (or Y) axis scale for methods (if defined) when the method variable is numeric;</li>
+<code><a href="https://rdrr.io/r/grDevices/plotmath.html">bar()</a></code>, <code>forest()</code>, <code>lolly()</code>, <code>heat()</code> now appropriately pick a discrete X (or Y) axis scale for methods (if defined) when the method variable is numeric;</li>
 <li>
 <code><a href="../reference/simsum.html">simsum()</a></code> and <code><a href="../reference/multisimsum.html">multisimsum()</a></code> coerce <code>methodvar</code> variable to string format (if specified and not already string);</li>
 <li>fixed typos for empirical standard errors in documentation here and there.</li>
@@ -343,7 +351,7 @@
 <li>
 <code>forest()</code>, for forest plots;</li>
 <li>
-<code><a href="https://www.rdocumentation.org/packages/grDevices/topics/plotmath">bar()</a></code>, for bar plots.</li>
+<code><a href="https://rdrr.io/r/grDevices/plotmath.html">bar()</a></code>, for bar plots.</li>
 </ul>
 <p>Changes to existing functionality:</p>
 <ul>
@@ -362,7 +370,7 @@
 <li>
 <code>lolly()</code>, for lolly plots;</li>
 <li>
-<code><a href="https://www.rdocumentation.org/packages/utils/topics/zip">zip()</a></code>, for zip plots;</li>
+<code><a href="https://rdrr.io/r/utils/zip.html">zip()</a></code>, for zip plots;</li>
 <li>
 <code>heat()</code>, for heat plots;</li>
 <li>
@@ -392,7 +400,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#rsimsum-060-9000">0.6.0-9000</a></li>
+        <li><a href="#rsimsum-061">0.6.1</a></li>
         <li><a href="#rsimsum-060">0.6.0</a></li>
         <li><a href="#rsimsum-052">0.5.2</a></li>
         <li><a href="#rsimsum-051">0.5.1</a></li>
@@ -414,19 +422,23 @@
 
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Alessandro Gasparini, Ian R. White.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
