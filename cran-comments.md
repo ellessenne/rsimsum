@@ -1,8 +1,8 @@
 # Test environments
-* local macOS install (Mojave 10.14.5), R 3.6.1
-* ubuntu (via Travis-CI), R-oldrel, R-release, and R-devel
+* local macOS install (Mojave 10.14.6), R 3.6.1
+* ubuntu (via Travis-CI), R-oldrel, R-release, R-devel
 * windows (via AppVeyor)
-* win-builder (R-oldrel, R-release, and R-devel)
+* win-builder (R-oldrel, R-release)
 
 # R CMD check results on local macOS
 0 errors | 0 warnings | 0 notes
@@ -18,4 +18,3 @@
 
 # Reverse dependencies
 There are no reverse dependencies
-
