@@ -1,4 +1,4 @@
-# rsimsum 0.6.0-9000
+# rsimsum 0.6.1
 
 ### Bug fixes:
 
