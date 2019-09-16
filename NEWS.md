@@ -1,4 +1,8 @@
-# rsimsum 0.6.1-9000
+# rsimsum 0.6.2
+
+### Bug fixes:
+
+* Fixed bug introduced in `rsimsum` 0.6.1 (average and median variances are not printed).
 
 # rsimsum 0.6.1
 
