@@ -1,11 +1,18 @@
 #' @title Analyses of simulation studies including Monte Carlo error
-#' @description `simsum` computes performance measures for simulation studies in which each simulated data set yields point estimates by one or more analysis methods. Bias, empirical standard error and precision relative to a reference method can be computed for each method.  If, in addition, model-based standard errors are available then `simsum` can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, the coverage under the assumption that there is no bias (bias-eliminated coverage), and the power to reject a null hypothesis. Monte Carlo errors are available for all estimated quantities.
-#' @param data A `data.frame` in which variable names are interpreted. It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.
+#' @description `simsum` computes performance measures for simulation studies in which each simulated data set yields point estimates by one or more analysis methods.
+#' Bias, empirical standard error and precision relative to a reference method can be computed for each method.
+#' If, in addition, model-based standard errors are available then `simsum` can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, the coverage under the assumption that there is no bias (bias-eliminated coverage), and the power to reject a null hypothesis.
+#' Monte Carlo errors are available for all estimated quantities.
+#' @param data A `data.frame` in which variable names are interpreted.
+#' It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.
 #' @param estvarname The name of the variable containing the point estimates.
-#' @param true The true value of the parameter. This is used in calculations of bias and coverage.
 #' @param se The name of the variable containing the standard errors of the point estimates.
-#' @param methodvar The name of the variable containing the methods to compare. For instance, methods could be the models compared within a simulation study. Can be `NULL`.
-#' @param ref Specifies the reference method against which relative precision will be calculated. Only useful if `methodvar` is specified.
+#' @param true The true value of the parameter; this is used in calculations of bias, coverage, and mean squared error and is required whenever these performance measures are requested.
+#' @param methodvar The name of the variable containing the methods to compare.
+#' For instance, methods could be the models compared within a simulation study.
+#' Can be `NULL`.
+#' @param ref Specifies the reference method against which relative precision will be calculated.
+#' Only useful if `methodvar` is specified.
 #' @param by A vector of variable names to compute performance measures by a list of factors. Factors listed here are the (potentially several) data-generating mechanisms used to simulate data under different scenarios (e.g. sample size, true distribution of a variable, etc.). Can be `NULL`.
 #' @param ci.limits A numeric vector of length 2 specifying the limits (lower and upper) of confidence intervals used to calculate coverage. Useful for non-Wald type estimators (e.g. bootstrap). Defaults to `NULL`, where Wald-type confidence intervals based on the provided SEs are calculated for coverage. This feature is experimental, use with caution.
 #' @param dropbig Specifies that point estimates or standard errors beyond the maximum acceptable values should be dropped. Defaults to `FALSE`.
@@ -34,8 +41,8 @@
 #' s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
 simsum <- function(data,
                    estvarname,
-                   true,
                    se,
+                   true = NULL,
                    methodvar = NULL,
                    ref = NULL,
                    by = NULL,
@@ -53,7 +60,7 @@ simsum <- function(data,
   checkmate::assert_string(x = methodvar, null.ok = TRUE, add = arg_checks)
   checkmate::assert_string(x = ref, null.ok = TRUE, add = arg_checks)
   # 'true' must be a single numberic value
-  checkmate::assert_number(x = true, add = arg_checks)
+  checkmate::assert_number(x = true, null.ok = TRUE, add = arg_checks)
   # 'dropbig', 'mcse', 'x' must be single logical value
   checkmate::assert_logical(x = dropbig, len = 1, add = arg_checks)
   checkmate::assert_logical(x = x, len = 1, add = arg_checks)
