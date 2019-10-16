@@ -19,7 +19,11 @@ print.multisimsum <- function(x, ...) {
   cat("\nEstimands variable:", x$par, "\n")
   estimands <- unique(x$summ[[x$par]])
   cat("\tUnique estimands:", paste(estimands, collapse = ", "), "\n")
-  cat("\tTrue values:", paste(estimands, "=", x$true[estimands], collapse = ", "), "\n")
+  if (!is.null(x$true)) {
+    cat("\tTrue values:", paste(estimands, "=", x$true[estimands], collapse = ", "), "\n")
+  } else {
+    cat("\tTrue value of the estimands not defined: bias, coverage, and mean squared error were not computed.\n")
+  }
 
   ### Print `methodvar` (if any), possible methods, and reference method
   if (!is.null(x$methodvar)) {

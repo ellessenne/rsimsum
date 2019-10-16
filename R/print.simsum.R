@@ -13,6 +13,11 @@
 #' x
 print.simsum <- function(x, ...) {
   cat("Summary of a simulation study with a single estimand.\n")
+  if (!is.null(x$true)) {
+    cat("True value of the estimand:", x$true, "\n")
+  } else {
+    cat("True value of the estimand not defined: bias, coverage, and mean squared error were not computed.\n")
+  }
 
   ### Print `methodvar` (if any), possible methods, and reference method
   if (!is.null(x$methodvar)) {

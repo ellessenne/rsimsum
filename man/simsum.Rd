@@ -4,22 +4,26 @@
 \alias{simsum}
 \title{Analyses of simulation studies including Monte Carlo error}
 \usage{
-simsum(data, estvarname, true, se, methodvar = NULL, ref = NULL,
-  by = NULL, ci.limits = NULL, dropbig = FALSE, x = FALSE,
-  control = list())
+simsum(data, estvarname, se, true = NULL, methodvar = NULL,
+  ref = NULL, by = NULL, ci.limits = NULL, dropbig = FALSE,
+  x = FALSE, control = list())
 }
 \arguments{
-\item{data}{A \code{data.frame} in which variable names are interpreted. It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.}
+\item{data}{A \code{data.frame} in which variable names are interpreted.
+It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.}
 
 \item{estvarname}{The name of the variable containing the point estimates.}
 
-\item{true}{The true value of the parameter. This is used in calculations of bias and coverage.}
-
 \item{se}{The name of the variable containing the standard errors of the point estimates.}
 
-\item{methodvar}{The name of the variable containing the methods to compare. For instance, methods could be the models compared within a simulation study. Can be \code{NULL}.}
+\item{true}{The true value of the parameter; this is used in calculations of bias, coverage, and mean squared error and is required whenever these performance measures are requested.}
 
-\item{ref}{Specifies the reference method against which relative precision will be calculated. Only useful if \code{methodvar} is specified.}
+\item{methodvar}{The name of the variable containing the methods to compare.
+For instance, methods could be the models compared within a simulation study.
+Can be \code{NULL}.}
+
+\item{ref}{Specifies the reference method against which relative precision will be calculated.
+Only useful if \code{methodvar} is specified.}
 
 \item{by}{A vector of variable names to compute performance measures by a list of factors. Factors listed here are the (potentially several) data-generating mechanisms used to simulate data under different scenarios (e.g. sample size, true distribution of a variable, etc.). Can be \code{NULL}.}
 
@@ -45,7 +49,10 @@ simsum(data, estvarname, true, se, methodvar = NULL, ref = NULL,
 An object of class \code{simsum}.
 }
 \description{
-\code{simsum} computes performance measures for simulation studies in which each simulated data set yields point estimates by one or more analysis methods. Bias, empirical standard error and precision relative to a reference method can be computed for each method.  If, in addition, model-based standard errors are available then \code{simsum} can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, the coverage under the assumption that there is no bias (bias-eliminated coverage), and the power to reject a null hypothesis. Monte Carlo errors are available for all estimated quantities.
+\code{simsum} computes performance measures for simulation studies in which each simulated data set yields point estimates by one or more analysis methods.
+Bias, empirical standard error and precision relative to a reference method can be computed for each method.
+If, in addition, model-based standard errors are available then \code{simsum} can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, the coverage under the assumption that there is no bias (bias-eliminated coverage), and the power to reject a null hypothesis.
+Monte Carlo errors are available for all estimated quantities.
 }
 \details{
 The following names are not allowed for \code{estvarname}, \code{se}, \code{methodvar}, \code{by}: \code{stat}, \code{est}, \code{mcse}, \code{lower}, \code{upper}.

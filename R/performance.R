@@ -16,11 +16,11 @@
   se2_median <- stats::median(data[[se]]^2, na.rm = control$na.rm)
   se2_var <- stats::var(data[[se]]^2, na.rm = control$na.rm)
   # Bias
-  bias <- 1 / nsim * sum(data[[estvarname]] - true, na.rm = control$na.rm)
+  if (!is.null(true)) bias <- 1 / nsim * sum(data[[estvarname]] - true, na.rm = control$na.rm)
   # Empirical standard error
   empse <- sqrt(1 / (nsim - 1) * sum((data[[estvarname]] - mean(data[[estvarname]], na.rm = control$na.rm))^2, na.rm = control$na.rm))
   # Mean squared error
-  mse <- 1 / nsim * sum((data[[estvarname]] - true)^2, na.rm = control$na.rm)
+  if (!is.null(true)) mse <- 1 / nsim * sum((data[[estvarname]] - true)^2, na.rm = control$na.rm)
   # Relative change in precision
   if (!is.null(empse_ref) & !is.null(rho)) {
     relprec <- 100 * ((empse_ref / empse)^2 - 1)
@@ -35,12 +35,14 @@
   # Compute critical value from either a normal or a t distribution
   crit <- ifelse(is.null(control$df), stats::qnorm(1 - (1 - control$level) / 2), stats::qt(1 - (1 - control$level) / 2, df = control$df))
   # Coverage of a nominal (1 - level)% confidence interval
-  if (is.null(ci.limits)) {
-    cover <- 1 / nsim * sum(true >= data[[estvarname]] - crit * data[[se]] & true <= data[[estvarname]] + crit * data[[se]], na.rm = control$na.rm)
-  } else {
-    data[["lower"]] <- ci.limits[1]
-    data[["upper"]] <- ci.limits[2]
-    cover <- 1 / nsim * sum(true >= data[["lower"]] & true <= data[["upper"]], na.rm = control$na.rm)
+  if (!is.null(true)) {
+    if (is.null(ci.limits)) {
+      cover <- 1 / nsim * sum(true >= data[[estvarname]] - crit * data[[se]] & true <= data[[estvarname]] + crit * data[[se]], na.rm = control$na.rm)
+    } else {
+      data[["lower"]] <- ci.limits[1]
+      data[["upper"]] <- ci.limits[2]
+      cover <- 1 / nsim * sum(true >= data[["lower"]] & true <= data[["upper"]], na.rm = control$na.rm)
+    }
   }
   # Bias-corrected coverage of a nominal (1 - level)% confidence interval
   becover <- 1 / nsim * sum(mean(data[[estvarname]], na.rm = control$na.rm) >= data[[estvarname]] - crit * data[[se]] & mean(data[[estvarname]], na.rm = control$na.rm) <= data[[estvarname]] + crit * data[[se]], na.rm = control$na.rm)
@@ -49,9 +51,9 @@
 
   ### Compute Monte Carlo SEs if requested:
   if (control$mcse) {
-    bias_mcse <- sqrt(1 / (nsim * (nsim - 1)) * sum((data[[estvarname]] - mean(data[[estvarname]], na.rm = control$na.rm))^2, na.rm = control$na.rm))
+    if (!is.null(true)) bias_mcse <- sqrt(1 / (nsim * (nsim - 1)) * sum((data[[estvarname]] - mean(data[[estvarname]], na.rm = control$na.rm))^2, na.rm = control$na.rm))
     empse_mcse <- empse / sqrt(2 * (nsim - 1))
-    mse_mcse <- sqrt(sum(((data[[estvarname]] - true)^2 - mse)^2, na.rm = control$na.rm) / (nsim * (nsim - 1)))
+    if (!is.null(true)) mse_mcse <- sqrt(sum(((data[[estvarname]] - true)^2 - mse)^2, na.rm = control$na.rm) / (nsim * (nsim - 1)))
     if (!is.null(empse_ref) & !is.null(rho)) {
       relprec_mcse <- 200 * (empse_ref / empse)^2 * sqrt((1 - rho^2) / (nsim - 1))
     } else {
@@ -60,57 +62,23 @@
     names(relprec_mcse) <- NULL
     modelse_mcse <- sqrt(se2_var / (4 * nsim * modelse^2))
     relerror_mcse <- 100 * (modelse / empse) * sqrt(se2_var / (4 * nsim * modelse^4) + 1 / (2 * nsim - 1))
-    cover_mcse <- sqrt(cover * (1 - cover) / nsim)
+    if (!is.null(true)) cover_mcse <- sqrt(cover * (1 - cover) / nsim)
     becover_mcse <- sqrt(becover * (1 - becover) / nsim)
     power_mcse <- sqrt(power * (1 - power) / nsim)
   }
 
+  # Easy thing to do is to add what can't be computed as null
+  if (is.null(true)) {
+    bias <- cover <- mse <- NULL
+    bias_mcse <- cover_mcse <- mse_mcse <- NULL
+  }
+
   ### Assemble object to return
-  obj$stat <- c(
-    "nsim",
-    "thetamean",
-    "thetamedian",
-    "se2mean",
-    "se2median",
-    "bias",
-    "empse",
-    "mse",
-    "relprec",
-    "modelse",
-    "relerror",
-    "cover",
-    "becover",
-    "power"
-  )
-  obj$est <- c(
-    nsim,
-    theta_mean,
-    theta_median,
-    se2_mean,
-    se2_median,
-    bias,
-    empse,
-    mse,
-    relprec,
-    modelse,
-    relerror,
-    cover,
-    becover,
-    power
-  )
+  obj$stat <- c("nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "becover", "power")
+  if (is.null(true)) obj$stat <- obj$stat[!(obj$stat %in% c("bias", "cover", "mse"))]
+  obj$est <- c(nsim, theta_mean, theta_median, se2_mean, se2_median, bias, empse, mse, relprec, modelse, relerror, cover, becover, power)
   if (control$mcse) {
-    obj$mcse <- c(
-      rep(NA, 5),
-      bias_mcse,
-      empse_mcse,
-      mse_mcse,
-      relprec_mcse,
-      modelse_mcse,
-      relerror_mcse,
-      cover_mcse,
-      becover_mcse,
-      power_mcse
-    )
+    obj$mcse <- c(rep(NA, 5), bias_mcse, empse_mcse, mse_mcse, relprec_mcse, modelse_mcse, relerror_mcse, cover_mcse, becover_mcse, power_mcse)
   }
   obj <- as.data.frame(obj, stringsAsFactors = FALSE)
 

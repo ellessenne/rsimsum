@@ -6,8 +6,10 @@ testthat::test_that("simsum prints ok", {
   testthat::expect_output(print(rsimsum::simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")))
   testthat::expect_output(print(rsimsum::simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se")))
   testthat::expect_output(print(rsimsum::simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", control = list(mcse = FALSE))))
+  testthat::expect_output(print(rsimsum::simsum(data = MIsim, estvarname = "b", se = "se")))
   testthat::expect_output(print(rsimsum::simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = c("n", "baseline"))))
   testthat::expect_output(print(rsimsum::simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", by = c("n", "baseline"))))
+  testthat::expect_output(print(rsimsum::simsum(data = relhaz, estvarname = "theta", se = "se")))
 })
 
 testthat::test_that("simsum returns an object of class simsum", {
@@ -27,13 +29,6 @@ testthat::test_that("not passing estvarname throws an error", {
     data("MIsim", package = "rsimsum")
     s <- rsimsum::simsum(data = MIsim, true = 0.5, se = "se", methodvar = "method", ref = "CC")
   }, 'argument "estvarname" is missing, with no default')
-})
-
-testthat::test_that("not passing true throws an error", {
-  testthat::expect_error({
-    data("MIsim", package = "rsimsum")
-    s <- rsimsum::simsum(data = MIsim, estvarname = "b", se = "se", methodvar = "method", ref = "CC")
-  }, 'argument "true" is missing, with no default')
 })
 
 testthat::test_that("not passing se throws an error", {
@@ -132,4 +127,10 @@ testthat::test_that("simsum with dropbig = TRUE does drop all the big stuff", {
   expected <- .na_pair(data = expected, estvarname = "b", se = "se")
   expected$method <- factor(expected$method)
   testthat::expect_equivalent(object = s$x, expected = expected)
+})
+
+testthat::test_that("simsum without 'true' does not compute bias, cover, mse", {
+  data("MIsim", package = "rsimsum")
+  s <- simsum(data = MIsim, estvarname = "b", se = "se", methodvar = "method")
+  testthat::expect_false(object = any(c("bias", "cover", "mse") %in% s$summ$stat))
 })
