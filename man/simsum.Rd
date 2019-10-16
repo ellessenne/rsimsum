@@ -4,7 +4,7 @@
 \alias{simsum}
 \title{Analyses of simulation studies including Monte Carlo error}
 \usage{
-simsum(data, estvarname, se, true = NULL, methodvar = NULL,
+simsum(data, estvarname, se = NULL, true = NULL, methodvar = NULL,
   ref = NULL, by = NULL, ci.limits = NULL, dropbig = FALSE,
   x = FALSE, control = list())
 }

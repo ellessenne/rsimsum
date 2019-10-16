@@ -4,9 +4,9 @@
 \alias{multisimsum}
 \title{Analyses of simulation studies with multiple estimands at once, including Monte Carlo error}
 \usage{
-multisimsum(data, par, estvarname, se, true = NULL, methodvar = NULL,
-  ref = NULL, by = NULL, ci.limits = NULL, dropbig = FALSE,
-  x = FALSE, control = list())
+multisimsum(data, par, estvarname, se = NULL, true = NULL,
+  methodvar = NULL, ref = NULL, by = NULL, ci.limits = NULL,
+  dropbig = FALSE, x = FALSE, control = list())
 }
 \arguments{
 \item{data}{A \code{data.frame} in which variable names are interpreted.
