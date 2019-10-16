@@ -7,6 +7,7 @@ testthat::test_that("multisimsum prints ok", {
   testthat::expect_output(print(multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model")))
   testthat::expect_output(print(multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se")))
   testthat::expect_output(print(multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist", control = list(mcse = FALSE))))
+  testthat::expect_output(print(multisimsum(data = frailty, par = "par", estvarname = "b", se = "se")))
 })
 
 testthat::test_that("multisimsum returns an object of class multisimsum", {

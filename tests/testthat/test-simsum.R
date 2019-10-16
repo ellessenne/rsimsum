@@ -6,8 +6,10 @@ testthat::test_that("simsum prints ok", {
   testthat::expect_output(print(rsimsum::simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")))
   testthat::expect_output(print(rsimsum::simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se")))
   testthat::expect_output(print(rsimsum::simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", control = list(mcse = FALSE))))
+  testthat::expect_output(print(rsimsum::simsum(data = MIsim, estvarname = "b", se = "se")))
   testthat::expect_output(print(rsimsum::simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = c("n", "baseline"))))
   testthat::expect_output(print(rsimsum::simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", by = c("n", "baseline"))))
+  testthat::expect_output(print(rsimsum::simsum(data = relhaz, estvarname = "theta", se = "se")))
 })
 
 testthat::test_that("simsum returns an object of class simsum", {
