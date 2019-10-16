@@ -32,7 +32,7 @@
 
 ### Set to NA if standardised values of 'estvarname' or 'se' > 'max' (grouped by 'methodvar', 'by') using either normal ((x - mean) / stdev) or robust ((x - median) / IQR) standardisation
 #' @keywords internal
-.dropbig <- function(data, estvarname, se, methodvar, by, max, semax, robust, internal = TRUE) {
+.dropbig <- function(data, estvarname, se = NULL, methodvar, by, max, semax, robust, internal = TRUE) {
   splt_c <- c(methodvar, by)
   if (length(splt_c) > 0) {
     idata <- .split_by(data, splt_c)
@@ -72,7 +72,7 @@
 
 ### Set both est, se to NA if any of the two is NA
 #' @keywords internal
-.na_pair <- function(data, estvarname, se) {
+.na_pair <- function(data, estvarname, se = NULL) {
   if (!is.null(se)) {
     toNA <- (is.na(data[[estvarname]]) | is.na(data[[se]]))
     data[[se]][toNA] <- NA
