@@ -29,13 +29,6 @@ testthat::test_that("not passing estvarname throws an error", {
   }, 'argument "estvarname" is missing, with no default')
 })
 
-testthat::test_that("not passing se throws an error", {
-  testthat::expect_error({
-    data("frailty")
-    ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", methodvar = "model", by = "fv_dist")
-  }, 'argument "se" is missing, with no default')
-})
-
 testthat::test_that("specifying ref and not methodvar throws a warning", {
   testthat::expect_warning({
     data("frailty")
@@ -118,4 +111,16 @@ testthat::test_that("multisimsum without 'true' does not compute bias, cover, ms
   data("frailty")
   s <- multisimsum(data = frailty, par = "par", estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
   testthat::expect_false(object = any(c("bias", "cover", "mse") %in% s$summ$stat))
+})
+
+testthat::test_that("simsum without 'se' does not compute se2mean, se2median, modelse, relerror, cover, becover, power", {
+  data("frailty")
+  s <- multisimsum(data = frailty, par = "par", estvarname = "b", true = c(trt = -0.50, fv = 0.75), methodvar = "model", by = "fv_dist")
+  testthat::expect_false(object = any(c("se2mean", "se2median", "modelse", "relerror", "cover", "becover", "power") %in% s$summ$stat))
+})
+
+testthat::test_that("simsum without 'se' nor 'true' does not compute se2mean, se2median, modelse, relerror, cover, becover, power, bias, mse", {
+  data("frailty")
+  s <- multisimsum(data = frailty, par = "par", estvarname = "b", methodvar = "model", by = "fv_dist")
+  testthat::expect_false(object = any(c("se2mean", "se2median", "modelse", "relerror", "cover", "becover", "power", "bias", "mse") %in% s$summ$stat))
 })
