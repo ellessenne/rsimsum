@@ -4,24 +4,29 @@
 \alias{multisimsum}
 \title{Analyses of simulation studies with multiple estimands at once, including Monte Carlo error}
 \usage{
-multisimsum(data, par, estvarname, true, se, methodvar = NULL,
+multisimsum(data, par, estvarname, se, true = NULL, methodvar = NULL,
   ref = NULL, by = NULL, ci.limits = NULL, dropbig = FALSE,
   x = FALSE, control = list())
 }
 \arguments{
-\item{data}{A \code{data.frame} in which variable names are interpreted. It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.}
+\item{data}{A \code{data.frame} in which variable names are interpreted.
+It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.}
 
-\item{par}{The name of the variable containing the methods to compare. Can be \code{NULL}.}
+\item{par}{The name of the variable containing the methods to compare.
+Can be \code{NULL}.}
 
 \item{estvarname}{The name of the variable containing the point estimates.}
 
-\item{true}{The true value of the parameter. This is used in calculations of bias and coverage.}
-
 \item{se}{The name of the variable containing the standard errors of the point estimates.}
 
-\item{methodvar}{The name of the variable containing the methods to compare. For instance, methods could be the models compared within a simulation study. Can be \code{NULL}.}
+\item{true}{The true value of the parameter; this is used in calculations of bias, coverage, and mean squared error and is required whenever these performance measures are requested.}
 
-\item{ref}{Specifies the reference method against which relative precision will be calculated. Only useful if \code{methodvar} is specified.}
+\item{methodvar}{The name of the variable containing the methods to compare.
+For instance, methods could be the models compared within a simulation study.
+Can be \code{NULL}.}
+
+\item{ref}{Specifies the reference method against which relative precision will be calculated.
+Only useful if \code{methodvar} is specified.}
 
 \item{by}{A vector of variable names to compute performance measures by a list of factors. Factors listed here are the (potentially several) data-generating mechanisms used to simulate data under different scenarios (e.g. sample size, true distribution of a variable, etc.). Can be \code{NULL}.}
 
@@ -47,7 +52,10 @@ multisimsum(data, par, estvarname, true, se, methodvar = NULL,
 An object of class \code{multisimsum}.
 }
 \description{
-\code{multisimsum} is an extension of \code{\link[=simsum]{simsum()}} that can handle multiple estimated parameters at once. \code{multisimsum} calls \code{\link[=simsum]{simsum()}} internally, each estimands at once. There is only one new argument that must be set when calling \code{multisimsum}: \code{par}, a string representing the column of \code{data} that identifies the different estimands. Additionally, with \code{multisimsum} the argument \code{true} must be a named vector, where names correspond to each estimand (see examples).
+\code{multisimsum} is an extension of \code{\link[=simsum]{simsum()}} that can handle multiple estimated parameters at once.
+\code{multisimsum} calls \code{\link[=simsum]{simsum()}} internally, each estimands at once.
+There is only one new argument that must be set when calling \code{multisimsum}: \code{par}, a string representing the column of \code{data} that identifies the different estimands.
+Additionally, with \code{multisimsum} the argument \code{true} must be a named vector, where names correspond to each estimand (see examples).
 }
 \details{
 The following names are not allowed for \code{estvarname}, \code{se}, \code{methodvar}, \code{by}, \code{par}: \code{stat}, \code{est}, \code{mcse}, \code{lower}, \code{upper}.
