@@ -1,5 +1,9 @@
 # rsimsum 0.6.2-9000
 
+### Improvements:
+
+* Passing the true value of an estimand (`true` argument) is no longer required; if `true` is not passed to `simsum` or `multisimsum`, bias, coverage, and mean squared error are not computed.
+
 # rsimsum 0.6.2
 
 ### Bug fixes:
