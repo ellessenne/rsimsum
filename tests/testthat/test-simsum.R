@@ -31,13 +31,6 @@ testthat::test_that("not passing estvarname throws an error", {
   }, 'argument "estvarname" is missing, with no default')
 })
 
-testthat::test_that("not passing se throws an error", {
-  testthat::expect_error({
-    data("MIsim", package = "rsimsum")
-    s <- rsimsum::simsum(data = MIsim, estvarname = "b", true = 0.5, methodvar = "method", ref = "CC")
-  }, 'argument "se" is missing, with no default')
-})
-
 testthat::test_that("specifying ref and not methodvar throws a warning", {
   testthat::expect_warning({
     data("MIsim", package = "rsimsum")
@@ -133,4 +126,16 @@ testthat::test_that("simsum without 'true' does not compute bias, cover, mse", {
   data("MIsim", package = "rsimsum")
   s <- simsum(data = MIsim, estvarname = "b", se = "se", methodvar = "method")
   testthat::expect_false(object = any(c("bias", "cover", "mse") %in% s$summ$stat))
+})
+
+testthat::test_that("simsum without 'se' does not compute se2mean, se2median, modelse, relerror, cover, becover, power", {
+  data("MIsim", package = "rsimsum")
+  s <- simsum(data = MIsim, estvarname = "b", true = 0.5, methodvar = "method")
+  testthat::expect_false(object = any(c("se2mean", "se2median", "modelse", "relerror", "cover", "becover", "power") %in% s$summ$stat))
+})
+
+testthat::test_that("simsum without 'se' nor 'true' does not compute se2mean, se2median, modelse, relerror, cover, becover, power, bias, mse", {
+  data("MIsim", package = "rsimsum")
+  s <- simsum(data = MIsim, estvarname = "b", methodvar = "method")
+  testthat::expect_false(object = any(c("se2mean", "se2median", "modelse", "relerror", "cover", "becover", "power", "bias", "mse") %in% s$summ$stat))
 })

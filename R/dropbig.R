@@ -28,14 +28,14 @@
 #'   data = frailty2, estvarname = "b", se = "se",
 #'   methodvar = "model", by = "fv_dist", max = 2, semax = 2, robust = FALSE
 #' )
-dropbig <- function(data, estvarname, se, methodvar = NULL, by = NULL, max = 10, semax = 100, robust = TRUE) {
+dropbig <- function(data, estvarname, se = NULL, methodvar = NULL, by = NULL, max = 10, semax = 100, robust = TRUE) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # 'data' must be a data.frame
   checkmate::assert_data_frame(x = data, add = arg_checks)
   # 'estvarname', 'se', 'methodvar' must be a single string value
   checkmate::assert_string(x = estvarname, add = arg_checks)
-  checkmate::assert_string(x = se, add = arg_checks)
+  checkmate::assert_string(x = se, null.ok = TRUE, add = arg_checks)
   checkmate::assert_string(x = methodvar, null.ok = TRUE, add = arg_checks)
   # 'robust' must be single logical value
   checkmate::assert_logical(x = robust, len = 1, add = arg_checks)
