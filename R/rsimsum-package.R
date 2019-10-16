@@ -7,7 +7,7 @@
 #'
 #' @name rsimsum
 #' @docType package
-#' @author Alessandro Gasparini (ag475@@leicester.ac.uk)
+#' @author Alessandro Gasparini (alessandro.gasparini@@ki.se)
 #' @import checkmate ggplot2 rlang scales stats
 NULL
 

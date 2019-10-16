@@ -12,5 +12,5 @@ on the 'simsum' user-written command in 'Stata' (See White I.R., 2010
 \url{http://www.stata-journal.com/article.html?article=st0200}).
 }
 \author{
-Alessandro Gasparini (ag475@leicester.ac.uk)
+Alessandro Gasparini (alessandro.gasparini@ki.se)
 }
