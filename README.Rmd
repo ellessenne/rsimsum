@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
   fig.align = "center",
   fig.height = 4,
   fig.width = 6,
-  out.width = "85%",
+  out.width = "80%",
   dpi = 150
 )
 options(width = 100)

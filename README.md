@@ -95,6 +95,7 @@ s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "
 #> 'ref' method was not specified, CC set as the reference
 s
 #> Summary of a simulation study with a single estimand.
+#> True value of the estimand: 0.5 
 #> 
 #> Method variable: method 
 #>  Unique methods: CC, MI_LOGT, MI_T 
@@ -126,11 +127,11 @@ summary(s)
 #>      CC MI_LOGT   MI_T
 #>  0.5070  0.4969 0.4939
 #> 
-#> Average standard error:
+#> Average variance:
 #>      CC MI_LOGT   MI_T
 #>  0.0216  0.0182 0.0179
 #> 
-#> Median standard error:
+#> Median variance:
 #>      CC MI_LOGT   MI_T
 #>  0.0211  0.0172 0.0169
 #> 
@@ -197,13 +198,13 @@ library(ggplot2)
 autoplot(s, type = "lolly", stats = "bias")
 ```
 
-<img src="man/figures/README-lolly-1.png" width="85%" style="display: block; margin: auto;" />
+<img src="man/figures/README-lolly-1.png" width="80%" style="display: block; margin: auto;" />
 
 ``` r
 autoplot(s, type = "zip")
 ```
 
-<img src="man/figures/README-zipper-1.png" width="85%" style="display: block; margin: auto;" />
+<img src="man/figures/README-zipper-1.png" width="80%" style="display: block; margin: auto;" />
 
 With `rsimsum` `0.5.0` the plotting functionality has been completely
 rewritten, and new plot types have been implemented:
@@ -217,7 +218,7 @@ rewritten, and new plot types have been implemented:
 autoplot(s, type = "est_ba")
 ```
 
-<img src="man/figures/README-ba-1.png" width="85%" style="display: block; margin: auto;" />
+<img src="man/figures/README-ba-1.png" width="80%" style="display: block; margin: auto;" />
 
   - Ridgeline plots.
 
@@ -228,7 +229,7 @@ autoplot(s, type = "est_ridge")
 #> Picking joint bandwidth of 0.0295
 ```
 
-<img src="man/figures/README-ridgeline-1.png" width="85%" style="display: block; margin: auto;" />
+<img src="man/figures/README-ridgeline-1.png" width="80%" style="display: block; margin: auto;" />
 
 Finally, nested loop plots have been implemented in `rsimsum` `0.6.0`:
 
@@ -242,7 +243,7 @@ s.nlp <- rsimsum::simsum(
 autoplot(s.nlp, stats = "bias", type = "nlp")
 ```
 
-<img src="man/figures/README-nlp-1.png" width="85%" style="display: block; margin: auto;" />
+<img src="man/figures/README-nlp-1.png" width="80%" style="display: block; margin: auto;" />
 
 The plotting functionality now extend the S3 generic `autoplot`: see
 `?ggplot2::autoplot` and `?rsimsum::autoplot.simsum` for further

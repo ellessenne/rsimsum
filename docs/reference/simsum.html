@@ -36,7 +36,10 @@
 
 
 <meta property="og:title" content="Analyses of simulation studies including Monte Carlo error — simsum" />
-<meta property="og:description" content="simsum computes performance measures for simulation studies in which each simulated data set yields point estimates by one or more analysis methods. Bias, empirical standard error and precision relative to a reference method can be computed for each method.  If, in addition, model-based standard errors are available then simsum can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, the coverage under the assumption that there is no bias (bias-eliminated coverage), and the power to reject a null hypothesis. Monte Carlo errors are available for all estimated quantities." />
+<meta property="og:description" content="simsum computes performance measures for simulation studies in which each simulated data set yields point estimates by one or more analysis methods.
+Bias, empirical standard error and precision relative to a reference method can be computed for each method.
+If, in addition, model-based standard errors are available then simsum can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, the coverage under the assumption that there is no bias (bias-eliminated coverage), and the power to reject a null hypothesis.
+Monte Carlo errors are available for all estimated quantities." />
 <meta name="twitter:card" content="summary" />
 
 <meta name="robots" content="noindex" />
@@ -79,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
       </span>
     </div>
 
@@ -143,39 +146,46 @@
     </div>
 
     <div class="ref-description">
-    <p><code>simsum</code> computes performance measures for simulation studies in which each simulated data set yields point estimates by one or more analysis methods. Bias, empirical standard error and precision relative to a reference method can be computed for each method.  If, in addition, model-based standard errors are available then <code>simsum</code> can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, the coverage under the assumption that there is no bias (bias-eliminated coverage), and the power to reject a null hypothesis. Monte Carlo errors are available for all estimated quantities.</p>
+    <p><code>simsum</code> computes performance measures for simulation studies in which each simulated data set yields point estimates by one or more analysis methods.
+Bias, empirical standard error and precision relative to a reference method can be computed for each method.
+If, in addition, model-based standard errors are available then <code>simsum</code> can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, the coverage under the assumption that there is no bias (bias-eliminated coverage), and the power to reject a null hypothesis.
+Monte Carlo errors are available for all estimated quantities.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>simsum</span>(<span class='no'>data</span>, <span class='no'>estvarname</span>, <span class='no'>true</span>, <span class='no'>se</span>, <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ref</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ci.limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>dropbig</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>())</pre>
+    <pre class="usage"><span class='fu'>simsum</span>(<span class='no'>data</span>, <span class='no'>estvarname</span>, <span class='kw'>se</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>true</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ref</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ci.limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>dropbig</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>())</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>A <code>data.frame</code> in which variable names are interpreted. It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.</p></td>
+      <td><p>A <code>data.frame</code> in which variable names are interpreted.
+It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.</p></td>
     </tr>
     <tr>
       <th>estvarname</th>
       <td><p>The name of the variable containing the point estimates.</p></td>
     </tr>
     <tr>
-      <th>true</th>
-      <td><p>The true value of the parameter. This is used in calculations of bias and coverage.</p></td>
-    </tr>
-    <tr>
       <th>se</th>
       <td><p>The name of the variable containing the standard errors of the point estimates.</p></td>
     </tr>
     <tr>
+      <th>true</th>
+      <td><p>The true value of the parameter; this is used in calculations of bias, coverage, and mean squared error and is required whenever these performance measures are requested.</p></td>
+    </tr>
+    <tr>
       <th>methodvar</th>
-      <td><p>The name of the variable containing the methods to compare. For instance, methods could be the models compared within a simulation study. Can be <code>NULL</code>.</p></td>
+      <td><p>The name of the variable containing the methods to compare.
+For instance, methods could be the models compared within a simulation study.
+Can be <code>NULL</code>.</p></td>
     </tr>
     <tr>
       <th>ref</th>
-      <td><p>Specifies the reference method against which relative precision will be calculated. Only useful if <code>methodvar</code> is specified.</p></td>
+      <td><p>Specifies the reference method against which relative precision will be calculated.
+Only useful if <code>methodvar</code> is specified.</p></td>
     </tr>
     <tr>
       <th>by</th>
@@ -246,7 +256,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>

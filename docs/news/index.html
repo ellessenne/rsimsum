@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
       </span>
     </div>
 
@@ -139,13 +139,38 @@
       
     </div>
 
-    <div id="rsimsum-061" class="section level1">
+    <div id="rsimsum-062-9000" class="section level1">
 <h1 class="page-header">
-<a href="#rsimsum-061" class="anchor"></a>rsimsum 0.6.1<small> Unreleased </small>
+<a href="#rsimsum-062-9000" class="anchor"></a>rsimsum 0.6.2-9000<small> Unreleased </small>
+</h1>
+<div id="improvements" class="section level3">
+<h3 class="hasAnchor">
+<a href="#improvements" class="anchor"></a>Improvements:</h3>
+<ul>
+<li><p>Passing the true value of an estimand (<code>true</code> argument) is no longer required; if <code>true</code> is not passed to <code>simsum</code> or <code>multisimsum</code>, bias, coverage, and mean squared error are not computed;</p></li>
+<li><p>Passing estimated standard errors per replication (<code>se</code> argument) is no longer required; if so, average and median variances, model-based standard errors, relative error, coverage probability and bias-eliminated coverage probability, power are not computed.</p></li>
+</ul>
+</div>
+</div>
+    <div id="rsimsum-062" class="section level1">
+<h1 class="page-header">
+<a href="#rsimsum-062" class="anchor"></a>rsimsum 0.6.2<small> Unreleased </small>
 </h1>
 <div id="bug-fixes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bug-fixes" class="anchor"></a>Bug fixes:</h3>
+<ul>
+<li>Fixed bug introduced in <code>rsimsum</code> 0.6.1 (average and median variances are not printed).</li>
+</ul>
+</div>
+</div>
+    <div id="rsimsum-061" class="section level1">
+<h1 class="page-header">
+<a href="#rsimsum-061" class="anchor"></a>rsimsum 0.6.1<small> 2019-09-12 </small>
+</h1>
+<div id="bug-fixes-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes:</h3>
 <ul>
 <li><p>Fixed labelling bug in zipper plots (thanks to <a href='https://github.com/syriop-elisa'>@syriop-elisa</a> for reporting it);</p></li>
 <li><p>Clarified that <code>simsum</code> and <code>multisimsum</code> report average (or median) estimated variances, not standard errors (thanks to Ian R. White for reporting this).</p></li>
@@ -156,9 +181,9 @@
 <h1 class="page-header">
 <a href="#rsimsum-060" class="anchor"></a>rsimsum 0.6.0<small> 2019-07-15 </small>
 </h1>
-<div id="improvements" class="section level3">
+<div id="improvements-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#improvements" class="anchor"></a>Improvements:</h3>
+<a href="#improvements-1" class="anchor"></a>Improvements:</h3>
 <ul>
 <li><p>Implemented fully automated nested loop plots for simulation studies with several data-generating mechanisms: <code>autoplot(object, type = "nlp")</code>;</p></li>
 <li><p>Added <code><a href="https://rdrr.io/r/utils/data.html">data("nlp", package = "rsimsum")</a></code>, a dataset from a simulation study with 150 data-generating. This is particularly useful to illustrate nested loop plots;</p></li>
@@ -166,9 +191,9 @@
 <li><p>Improved ordering of vignettes.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-1" class="section level3">
+<div id="bug-fixes-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes:</h3>
 <ul>
 <li><p>Updated unquoting for compatibility with <code>rlang</code> 0.4.0;</p></li>
 <li><p>Fixed missing details and options in the documentation of <code>autoplot.multisimsum</code> and <code>autoplot.summary.multisimsum</code>.</p></li>
@@ -179,9 +204,9 @@
 <h1 class="page-header">
 <a href="#rsimsum-052" class="anchor"></a>rsimsum 0.5.2<small> 2019-04-25 </small>
 </h1>
-<div id="bug-fixes-2" class="section level3">
+<div id="bug-fixes-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-3" class="anchor"></a>Bug fixes:</h3>
 <ul>
 <li>Fixed labelling when facetting for some plot types, now all defaults to <code><a href="https://ggplot2.tidyverse.org/reference/labellers.html">ggplot2::label_both</a></code> for ‘by’ factors (when included).</li>
 </ul>
@@ -191,9 +216,9 @@
 <h1 class="page-header">
 <a href="#rsimsum-051" class="anchor"></a>rsimsum 0.5.1<small> 2019-03-15 </small>
 </h1>
-<div id="bug-fixes-3" class="section level3">
+<div id="bug-fixes-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-3" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-4" class="anchor"></a>Bug fixes:</h3>
 <ul>
 <li>Fixed calculations for “Relative % increase in precision” (thanks to Ian R. White for reporting this).</li>
 </ul>
@@ -203,9 +228,9 @@
 <h1 class="page-header">
 <a href="#rsimsum-050" class="anchor"></a>rsimsum 0.5.0<small> 2019-02-21 </small>
 </h1>
-<div id="improvements-1" class="section level3">
+<div id="improvements-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#improvements-1" class="anchor"></a>Improvements:</h3>
+<a href="#improvements-2" class="anchor"></a>Improvements:</h3>
 <ul>
 <li>Implemented <code>autoplot</code> method for <code>multisimsum</code> and <code>summary.multisimsum</code> objects;</li>
 <li>Implemented heat plot types for both <code>simsum</code> and <code>multisimsum</code> objects;</li>
@@ -215,9 +240,9 @@
 <li>Improved code coverage.</li>
 </ul>
 </div>
-<div id="bug-fixes-4" class="section level3">
+<div id="bug-fixes-5" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-4" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-5" class="anchor"></a>Bug fixes:</h3>
 <ul>
 <li>Fixed a bug in <code>autoplot</code> caused by premature slicing of <code>by</code> arguments, where no <code>by</code> arguments were included.</li>
 </ul>
@@ -250,9 +275,9 @@
 <a href="#rsimsum-040" class="anchor"></a>rsimsum 0.4.0<small> Unreleased </small>
 </h1>
 <p><code>rsimsum</code> 0.4.0 is a large refactoring of <code>rsimsum</code>. There are several improvements and breaking changes, outlined below.</p>
-<div id="improvements-2" class="section level3">
+<div id="improvements-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#improvements-2" class="anchor"></a>Improvements</h3>
+<a href="#improvements-3" class="anchor"></a>Improvements</h3>
 <ul>
 <li>
 <code>rsimsum</code> is more robust to using factor variables (e.g. as <code>methodvar</code> or <code>by</code> factor), with ordering that will be preserved if defined in the dataset passed to <code>simsum</code> (or <code>multisimsum</code>);</li>
@@ -400,6 +425,8 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#rsimsum-062-9000">0.6.2-9000</a></li>
+        <li><a href="#rsimsum-062">0.6.2</a></li>
         <li><a href="#rsimsum-061">0.6.1</a></li>
         <li><a href="#rsimsum-060">0.6.0</a></li>
         <li><a href="#rsimsum-052">0.5.2</a></li>
@@ -429,7 +456,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
 
       </footer>
