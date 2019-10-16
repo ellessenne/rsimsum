@@ -1,6 +1,10 @@
 #' @title Analyses of simulation studies with multiple estimands at once, including Monte Carlo error
-#' @description `multisimsum` is an extension of [simsum()] that can handle multiple estimated parameters at once. `multisimsum` calls [simsum()] internally, each estimands at once. There is only one new argument that must be set when calling `multisimsum`: `par`, a string representing the column of `data` that identifies the different estimands. Additionally, with `multisimsum` the argument `true` must be a named vector, where names correspond to each estimand (see examples).
-#' @param par The name of the variable containing the methods to compare. Can be `NULL`.
+#' @description `multisimsum` is an extension of [simsum()] that can handle multiple estimated parameters at once.
+#' `multisimsum` calls [simsum()] internally, each estimands at once.
+#' There is only one new argument that must be set when calling `multisimsum`: `par`, a string representing the column of `data` that identifies the different estimands.
+#' Additionally, with `multisimsum` the argument `true` must be a named vector, where names correspond to each estimand (see examples).
+#' @param par The name of the variable containing the methods to compare.
+#' Can be `NULL`.
 #' @inheritParams simsum
 #' @return An object of class `multisimsum`.
 #' @export
@@ -18,8 +22,8 @@
 multisimsum <- function(data,
                         par,
                         estvarname,
-                        true,
                         se,
+                        true = NULL,
                         methodvar = NULL,
                         ref = NULL,
                         by = NULL,
@@ -46,9 +50,11 @@ multisimsum <- function(data,
   # 'true' must a named vector
   # its length must be equal to the number of unique elements in 'par'
   # the names must be the same unique values in 'par'
-  checkmate::assert_named(x = true, add = arg_checks)
-  checkmate::assert_true(x = (length(unique(data[[par]])) == length(true)), add = arg_checks)
-  checkmate::assert_true(x = all(names(true) %in% unique(data[[par]])), add = arg_checks)
+  if (!is.null(true)) {
+    checkmate::assert_named(x = true, add = arg_checks)
+    checkmate::assert_true(x = (length(unique(data[[par]])) == length(true)), add = arg_checks)
+    checkmate::assert_true(x = all(names(true) %in% unique(data[[par]])), add = arg_checks)
+  }
   # 'control' must be a list, with well defined components
   checkmate::assert_list(x = control, add = arg_checks)
   checkmate::assert_subset(x = names(control), choices = c("mcse", "level", "df", "na.rm", "char.sep", "dropbig.max", "dropbig.semax", "dropbig.robust"), empty.ok = TRUE, add = arg_checks)

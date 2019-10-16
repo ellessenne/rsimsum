@@ -28,13 +28,6 @@ testthat::test_that("not passing estvarname throws an error", {
   }, 'argument "estvarname" is missing, with no default')
 })
 
-testthat::test_that("not passing true throws an error", {
-  testthat::expect_error({
-    data("frailty")
-    ms <- multisimsum(data = frailty, par = "par", estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
-  }, 'argument "true" is missing, with no default')
-})
-
 testthat::test_that("not passing se throws an error", {
   testthat::expect_error({
     data("frailty")
@@ -118,4 +111,10 @@ testthat::test_that("multisimsum argument checks", {
   testthat::expect_error(object = rsimsum::multisimsum(data = frailty, par = NULL, true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist"))
   testthat::expect_error(object = rsimsum::multisimsum(data = frailty, par = "par", true = 1, estvarname = "b", se = "se", methodvar = "model", by = "fv_dist"))
   testthat::expect_error(object = rsimsum::multisimsum(data = frailty, par = "par", true = TRUE, estvarname = "b", se = "se", methodvar = "model", by = "fv_dist"))
+})
+
+testthat::test_that("multisimsum without 'true' does not compute bias, cover, mse", {
+  data("frailty")
+  s <- multisimsum(data = frailty, par = "par", estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
+  testthat::expect_false(object = any(c("bias", "cover", "mse") %in% s$summ$stat))
 })
