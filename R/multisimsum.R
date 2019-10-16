@@ -22,7 +22,7 @@
 multisimsum <- function(data,
                         par,
                         estvarname,
-                        se,
+                        se = NULL,
                         true = NULL,
                         methodvar = NULL,
                         ref = NULL,

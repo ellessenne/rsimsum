@@ -25,8 +25,20 @@ testthat::test_that("dropbig detects values above 'max'", {
   df$theta[1] <- rnorm(1, mean = 25)
   out <- dropbig(data = df, estvarname = "theta", se = "se", methodvar = NULL, by = NULL, robust = TRUE)
   testthat::expect_equal(object = out$.dropbig[1], expected = TRUE)
+  # Without passing 'se':
+  df$theta[1] <- rnorm(1, mean = 500)
+  out <- dropbig(data = df, estvarname = "theta", methodvar = NULL, by = NULL, robust = TRUE)
+  testthat::expect_equal(object = out$.dropbig[1], expected = TRUE)
+  df$theta[1] <- rnorm(1, mean = 100)
+  out <- dropbig(data = df, estvarname = "theta", methodvar = NULL, by = NULL, robust = TRUE)
+  testthat::expect_equal(object = out$.dropbig[1], expected = TRUE)
+  df$theta[1] <- rnorm(1, mean = 50)
+  out <- dropbig(data = df, estvarname = "theta", methodvar = NULL, by = NULL, robust = TRUE)
+  testthat::expect_equal(object = out$.dropbig[1], expected = TRUE)
+  df$theta[1] <- rnorm(1, mean = 25)
+  out <- dropbig(data = df, estvarname = "theta", methodvar = NULL, by = NULL, robust = TRUE)
+  testthat::expect_equal(object = out$.dropbig[1], expected = TRUE)
 })
-
 
 testthat::test_that("dropbig throws errors when appropriate", {
   set.seed(238746)

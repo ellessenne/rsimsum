@@ -32,7 +32,7 @@
 
 ### Set to NA if standardised values of 'estvarname' or 'se' > 'max' (grouped by 'methodvar', 'by') using either normal ((x - mean) / stdev) or robust ((x - median) / IQR) standardisation
 #' @keywords internal
-.dropbig <- function(data, estvarname, se, methodvar, by, max, semax, robust, internal = TRUE) {
+.dropbig <- function(data, estvarname, se = NULL, methodvar, by, max, semax, robust, internal = TRUE) {
   splt_c <- c(methodvar, by)
   if (length(splt_c) > 0) {
     idata <- .split_by(data, splt_c)
@@ -43,33 +43,43 @@
     tmp <- idata[[i]]
     if (robust) {
       tmp[[paste0(".", estvarname, ".std")]] <- (tmp[[estvarname]] - median(tmp[[estvarname]], na.rm = TRUE)) / (fivenum(tmp[[estvarname]], na.rm = TRUE)[4] - fivenum(tmp[[estvarname]], na.rm = TRUE)[2])
-      tmp[[paste0(".", se, ".std")]] <- (tmp[[se]] - median(tmp[[se]], na.rm = TRUE)) / (fivenum(tmp[[se]], na.rm = TRUE)[4] - fivenum(tmp[[se]], na.rm = TRUE)[2])
+      if (!is.null(se)) tmp[[paste0(".", se, ".std")]] <- (tmp[[se]] - median(tmp[[se]], na.rm = TRUE)) / (fivenum(tmp[[se]], na.rm = TRUE)[4] - fivenum(tmp[[se]], na.rm = TRUE)[2])
     } else {
       tmp[[paste0(".", estvarname, ".std")]] <- (tmp[[estvarname]] - mean(tmp[[estvarname]], na.rm = TRUE)) / sqrt(var(tmp[[estvarname]], na.rm = TRUE))
-      tmp[[paste0(".", se, ".std")]] <- (tmp[[se]] - mean(tmp[[se]], na.rm = TRUE)) / sqrt(var(tmp[[se]], na.rm = TRUE))
+      if (!is.null(se)) tmp[[paste0(".", se, ".std")]] <- (tmp[[se]] - mean(tmp[[se]], na.rm = TRUE)) / sqrt(var(tmp[[se]], na.rm = TRUE))
     }
     tmp
   })
   odata <- .br(odata)
   if (internal) {
     odata[[estvarname]] <- ifelse(abs(odata[[paste0(".", estvarname, ".std")]]) > max, NA, odata[[estvarname]])
-    odata[[se]] <- ifelse(abs(odata[[paste0(".", se, ".std")]]) > semax, NA, odata[[se]])
     odata[[paste0(".", estvarname, ".std")]] <- NULL
-    odata[[paste0(".", se, ".std")]] <- NULL
+    if (!is.null(se)) {
+      odata[[se]] <- ifelse(abs(odata[[paste0(".", se, ".std")]]) > semax, NA, odata[[se]])
+      odata[[paste0(".", se, ".std")]] <- NULL
+    }
   } else {
-    odata[[".dropbig"]] <- ifelse(abs(odata[[paste0(".", estvarname, ".std")]]) > max | abs(odata[[paste0(".", se, ".std")]]) > semax, TRUE, FALSE)
+    if (!is.null(se)) {
+      odata[[".dropbig"]] <- ifelse(abs(odata[[paste0(".", estvarname, ".std")]]) > max | abs(odata[[paste0(".", se, ".std")]]) > semax, TRUE, FALSE)
+      odata[[paste0(".", se, ".std")]] <- NULL
+    } else {
+      odata[[".dropbig"]] <- ifelse(abs(odata[[paste0(".", estvarname, ".std")]]) > max, TRUE, FALSE)
+    }
     odata[[paste0(".", estvarname, ".std")]] <- NULL
-    odata[[paste0(".", se, ".std")]] <- NULL
   }
   return(odata)
 }
 
 ### Set both est, se to NA if any of the two is NA
 #' @keywords internal
-.na_pair <- function(data, estvarname, se) {
-  toNA <- (is.na(data[[estvarname]]) | is.na(data[[se]]))
+.na_pair <- function(data, estvarname, se = NULL) {
+  if (!is.null(se)) {
+    toNA <- (is.na(data[[estvarname]]) | is.na(data[[se]]))
+    data[[se]][toNA] <- NA
+  } else {
+    toNA <- (is.na(data[[estvarname]]))
+  }
   data[[estvarname]][toNA] <- NA
-  data[[se]][toNA] <- NA
   data
 }
 

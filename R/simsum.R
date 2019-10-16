@@ -41,7 +41,7 @@
 #' s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
 simsum <- function(data,
                    estvarname,
-                   se,
+                   se = NULL,
                    true = NULL,
                    methodvar = NULL,
                    ref = NULL,
@@ -56,7 +56,7 @@ simsum <- function(data,
   checkmate::assert_data_frame(x = data, add = arg_checks)
   # 'estvarname', 'se', 'methodvar', 'ref' must be a single string value
   checkmate::assert_string(x = estvarname, add = arg_checks)
-  checkmate::assert_string(x = se, add = arg_checks)
+  checkmate::assert_string(x = se, null.ok = TRUE, add = arg_checks)
   checkmate::assert_string(x = methodvar, null.ok = TRUE, add = arg_checks)
   checkmate::assert_string(x = ref, null.ok = TRUE, add = arg_checks)
   # 'true' must be a single numberic value
@@ -77,7 +77,7 @@ simsum <- function(data,
   }
   # 'estvarname', 'se', 'methodvar', 'by' must not be any in ('stat', 'est', 'mcse', 'lower', 'upper')
   checkmate::assert_false(x = (estvarname %in% c("stat", "est", "mcse", "lower", "upper")), add = arg_checks)
-  checkmate::assert_false(x = (se %in% c("stat", "est", "mcse", "lower", "upper")), add = arg_checks)
+  if (!is.null(se)) checkmate::assert_false(x = (se %in% c("stat", "est", "mcse", "lower", "upper")), add = arg_checks)
   if (!is.null(methodvar)) checkmate::assert_false(x = (methodvar %in% c("stat", "est", "mcse", "lower", "upper")))
   if (!is.null(by)) checkmate::assert_false(x = any(by %in% c("stat", "est", "mcse", "lower", "upper")))
   # 'ci.limits' must be a numeric vector of length 2

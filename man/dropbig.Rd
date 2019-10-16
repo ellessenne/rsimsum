@@ -4,8 +4,8 @@
 \alias{dropbig}
 \title{Identify replications with large point estimates, standard errors}
 \usage{
-dropbig(data, estvarname, se, methodvar = NULL, by = NULL, max = 10,
-  semax = 100, robust = TRUE)
+dropbig(data, estvarname, se = NULL, methodvar = NULL, by = NULL,
+  max = 10, semax = 100, robust = TRUE)
 }
 \arguments{
 \item{data}{A \code{data.frame} in which variable names are interpreted. It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.}
