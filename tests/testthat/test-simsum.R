@@ -29,13 +29,6 @@ testthat::test_that("not passing estvarname throws an error", {
   }, 'argument "estvarname" is missing, with no default')
 })
 
-testthat::test_that("not passing true throws an error", {
-  testthat::expect_error({
-    data("MIsim", package = "rsimsum")
-    s <- rsimsum::simsum(data = MIsim, estvarname = "b", se = "se", methodvar = "method", ref = "CC")
-  }, 'argument "true" is missing, with no default')
-})
-
 testthat::test_that("not passing se throws an error", {
   testthat::expect_error({
     data("MIsim", package = "rsimsum")
@@ -132,4 +125,10 @@ testthat::test_that("simsum with dropbig = TRUE does drop all the big stuff", {
   expected <- .na_pair(data = expected, estvarname = "b", se = "se")
   expected$method <- factor(expected$method)
   testthat::expect_equivalent(object = s$x, expected = expected)
+})
+
+testthat::test_that("simsum without 'true' does not compute bias, cover, mse", {
+  data("MIsim", package = "rsimsum")
+  s <- simsum(data = MIsim, estvarname = "b", se = "se", methodvar = "method")
+  testthat::expect_false(object = any(c("bias", "cover", "mse") %in% s$summ$stat))
 })
