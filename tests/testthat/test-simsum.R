@@ -120,6 +120,11 @@ testthat::test_that("simsum with dropbig = TRUE does drop all the big stuff", {
   expected <- .na_pair(data = expected, estvarname = "b", se = "se")
   expected$method <- factor(expected$method)
   testthat::expect_equivalent(object = s$x, expected = expected)
+  s <- simsum(data = MIsim, estvarname = "b", true = 0.5, methodvar = "method", x = TRUE, dropbig = TRUE, control = list(dropbig.max = 3, dropbig.robust = FALSE))
+  expected <- .dropbig(data = MIsim, estvarname = "b", methodvar = "method", by = NULL, robust = FALSE, max = 3)
+  expected <- .na_pair(data = expected, estvarname = "b")
+  expected$method <- factor(expected$method)
+  testthat::expect_equivalent(object = s$x, expected = expected)
 })
 
 testthat::test_that("simsum without 'true' does not compute bias, cover, mse", {
