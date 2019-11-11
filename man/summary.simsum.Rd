@@ -30,8 +30,9 @@
 \item \code{cover}, coverage of a nominal \code{level}\% confidence interval.
 \item \code{becover}, bias corrected coverage of a nominal \code{level}\% confidence interval.
 \item \code{power}, power of a (1 - \code{level})\% level test.
-Defaults to \code{NULL}, in which case all possible summary statistics are included.
-}}
+}
+
+Defaults to \code{NULL}, in which case all possible summary statistics are included.}
 
 \item{...}{Ignored.}
 }

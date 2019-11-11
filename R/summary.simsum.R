@@ -18,6 +18,7 @@
 #' * `cover`, coverage of a nominal `level`\% confidence interval.
 #' * `becover`, bias corrected coverage of a nominal `level`\% confidence interval.
 #' * `power`, power of a (1 - `level`)\% level test.
+#'
 #' Defaults to `NULL`, in which case all possible summary statistics are included.
 #' @param ... Ignored.
 #' @return An object of class `summary.simsum`.
