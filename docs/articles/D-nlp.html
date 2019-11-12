@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
       </span>
     </div>
 
@@ -97,7 +97,7 @@
       <h1>Nested loop plots</h1>
                         <h4 class="author">Alessandro Gasparini</h4>
             
-            <h4 class="date">2019-10-16</h4>
+            <h4 class="date">2019-11-12</h4>
       
       
       <div class="hidden name"><code>D-nlp.Rmd</code></div>
@@ -107,39 +107,39 @@
     
     
 <p>As of version <code>0.6.0</code>, <code>rsimsum</code> supports the fully automated creation of nested loop plots (Rücker and Schwarzer, 2014).</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rsimsum)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rsimsum)</a></code></pre></div>
 <p>A dataset that can be purposefully used to illustrate nested loop plots is bundled and shipped with <code>rsimsum</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"nlp"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"nlp"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</a></code></pre></div>
 <p>This data set contains the results of a simulation study on survival modelling with 150 distinct data-generating mechanisms:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(nlp)</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="co">#&gt;   dgm  i model           b        se baseline  ss beta esigma pars</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&gt; 1   1  1     1  0.17119413 0.2064344        E 100    0    0.1  0.5</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt; 2   1  1     2  0.19822898 0.2048353        E 100    0    0.1  0.5</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt; 3   1 50     2 -0.03404229 0.2071766        E 100    0    0.1  0.5</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt; 4   1 82     1 -0.09263968 0.2040281        E 100    0    0.1  0.5</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; 5   1 82     2 -0.05095914 0.2026813        E 100    0    0.1  0.5</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; 6   1 33     1 -0.17013365 0.2038076        E 100    0    0.1  0.5</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(nlp)</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co">#&gt;   dgm  i model           b        se baseline  ss beta esigma pars</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">#&gt; 1   1  1     1  0.17119413 0.2064344        E 100    0    0.1  0.5</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">#&gt; 2   1  1     2  0.19822898 0.2048353        E 100    0    0.1  0.5</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">#&gt; 3   1 50     2 -0.03404229 0.2071766        E 100    0    0.1  0.5</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="co">#&gt; 4   1 82     1 -0.09263968 0.2040281        E 100    0    0.1  0.5</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="co">#&gt; 5   1 82     2 -0.05095914 0.2026813        E 100    0    0.1  0.5</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt; 6   1 33     1 -0.17013365 0.2038076        E 100    0    0.1  0.5</span></a></code></pre></div>
 <p>Further information on the data could be find in the help file (<code><a href="../reference/nlp.html">?nlp</a></code>).</p>
 <p>We can analyse this simulation study using <code>rsimsum</code> as usual:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>s &lt;-<span class="st"> </span>rsimsum<span class="op">::</span><span class="kw"><a href="https://ellessenne.github.io/rsimsum/reference/simsum.html">simsum</a></span>(</span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="dt">data =</span> nlp, <span class="dt">estvarname =</span> <span class="st">"b"</span>, <span class="dt">true =</span> <span class="dv">0</span>, <span class="dt">se =</span> <span class="st">"se"</span>,</span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="dt">methodvar =</span> <span class="st">"model"</span>, <span class="dt">by =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"baseline"</span>, <span class="st">"ss"</span>, <span class="st">"esigma"</span>)</span>
-<span id="cb4-4"><a href="#cb4-4"></a>)</span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; 'ref' method was not specified, 1 set as the reference</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a>s</span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; Summary of a simulation study with a single estimand.</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; True value of the estimand: 0 </span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; </span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; Method variable: model </span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt;  Unique methods: 1, 2 </span></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt;  Reference method: 1 </span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; </span></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt; By factors: baseline, ss, esigma </span></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; </span></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; Monte Carlo standard errors were computed.</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">s &lt;-<span class="st"> </span>rsimsum<span class="op">::</span><span class="kw"><a href="https://ellessenne.github.io/rsimsum/reference/simsum.html">simsum</a></span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="dt">data =</span> nlp, <span class="dt">estvarname =</span> <span class="st">"b"</span>, <span class="dt">true =</span> <span class="dv">0</span>, <span class="dt">se =</span> <span class="st">"se"</span>,</a>
+<a class="sourceLine" id="cb4-3" title="3">  <span class="dt">methodvar =</span> <span class="st">"model"</span>, <span class="dt">by =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"baseline"</span>, <span class="st">"ss"</span>, <span class="st">"esigma"</span>)</a>
+<a class="sourceLine" id="cb4-4" title="4">)</a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co">#&gt; 'ref' method was not specified, 1 set as the reference</span></a>
+<a class="sourceLine" id="cb4-6" title="6">s</a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt; Summary of a simulation study with a single estimand.</span></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt; True value of the estimand: 0 </span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="co">#&gt; Method variable: model </span></a>
+<a class="sourceLine" id="cb4-11" title="11"><span class="co">#&gt;  Unique methods: 1, 2 </span></a>
+<a class="sourceLine" id="cb4-12" title="12"><span class="co">#&gt;  Reference method: 1 </span></a>
+<a class="sourceLine" id="cb4-13" title="13"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-14" title="14"><span class="co">#&gt; By factors: baseline, ss, esigma </span></a>
+<a class="sourceLine" id="cb4-15" title="15"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-16" title="16"><span class="co">#&gt; Monte Carlo standard errors were computed.</span></a></code></pre></div>
 <p>Finally, a nested loop plot can be automatically produced via the <code>autoplot</code> method, e.g. for bias:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s, <span class="dt">type =</span> <span class="st">"nlp"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw">autoplot</span>(s, <span class="dt">type =</span> <span class="st">"nlp"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</a></code></pre></div>
 <p><img src="D-nlp_files/figure-html/nlp-1.png" width="80%" style="display: block; margin: auto;"></p>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">

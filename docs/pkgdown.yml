@@ -1,12 +1,12 @@
-pandoc: 2.7.3
+pandoc: 2.7.2
 pkgdown: 1.4.1
 pkgdown_sha: ~
 articles:
-  A-introduction: A-introduction.html
-  B-relhaz: B-relhaz.html
-  C-plotting: C-plotting.html
-  D-nlp: D-nlp.html
-  E-rsimsumtidyverse: E-rsimsumtidyverse.html
+  A-introduction: ../../../../../../../Z:/R-Dev/rsimsum/vignettes/A-introduction.html
+  B-relhaz: ../../../../../../../Z:/R-Dev/rsimsum/vignettes/B-relhaz.html
+  C-plotting: ../../../../../../../Z:/R-Dev/rsimsum/vignettes/C-plotting.html
+  D-nlp: ../../../../../../../Z:/R-Dev/rsimsum/vignettes/D-nlp.html
+  E-rsimsumtidyverse: ../../../../../../../Z:/R-Dev/rsimsum/vignettes/E-rsimsumtidyverse.html
 urls:
   reference: https://ellessenne.github.io/rsimsum/reference
   article: https://ellessenne.github.io/rsimsum/articles
