@@ -202,7 +202,7 @@ autoplot(s1, type = "heat", stats = "bias") +
   viridis::scale_fill_viridis()
 ```
 
-Analogously, say we want to customise the colour palette of ridgelines plots, again using the viridis colour palette:
+Analogously, say we want to customise the colour palette of ridgeline plots, again using the viridis colour palette:
 
 ```{r colour-palette}
 autoplot(s1, type = "est_ridge") +
