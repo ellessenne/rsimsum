@@ -3,18 +3,18 @@
 * ubuntu (via Travis-CI), R-oldrel, R-release, R-devel
 * windows (via AppVeyor)
 * win-builder (R-oldrel, R-release)
+* r-hub (via rhub::check_for_cran)
 
-# R CMD check results on local macOS
-0 errors | 0 warnings | 0 notes
+# R CMD check results (on several platforms: r-hub and win-builder)
+* checking CRAN incoming feasibility ... NOTE
+Maintainer: ‘Alessandro Gasparini <alessandro.gasparini@ki.se>’
 
-# R CMD check results on win-builder (R-release)
-0 errors | 0 warnings | 0 notes
-
-# R CMD check results on win-builder (R-devel)
-0 errors | 0 warnings | 0 notes
-
-# R CMD check results on win-builder (R-oldrel)
-0 errors | 0 warnings | 0 notes
+New maintainer:
+  Alessandro Gasparini <alessandro.gasparini@ki.se>
+Old maintainer(s):
+  Alessandro Gasparini <ag475@leicester.ac.uk>
+  
+I updated my e-mail address now that I moved to a new institution.
 
 # Reverse dependencies
 There are no reverse dependencies
