@@ -23,24 +23,33 @@ testthat::test_that("summ slot of a multisimsum object is a data.frame", {
 })
 
 testthat::test_that("not passing estvarname throws an error", {
-  testthat::expect_error({
-    data("frailty")
-    ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), se = "se", methodvar = "model", by = "fv_dist")
-  }, 'argument "estvarname" is missing, with no default')
+  testthat::expect_error(
+    {
+      data("frailty")
+      ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), se = "se", methodvar = "model", by = "fv_dist")
+    },
+    'argument "estvarname" is missing, with no default'
+  )
 })
 
 testthat::test_that("specifying ref and not methodvar throws a warning", {
-  testthat::expect_warning({
-    data("frailty")
-    ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", ref = "Cox, Gamma", by = "fv_dist")
-  }, "'ref' method is specified while 'methodvar' is not: 'ref' will be ignored")
+  testthat::expect_warning(
+    {
+      data("frailty")
+      ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", ref = "Cox, Gamma", by = "fv_dist")
+    },
+    "'ref' method is specified while 'methodvar' is not: 'ref' will be ignored"
+  )
 })
 
 testthat::test_that("specifying methodvar and not ref shows a message", {
-  testthat::expect_message({
-    data("frailty")
-    ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
-  }, "'ref' method was not specified, Cox, Gamma set as the reference")
+  testthat::expect_message(
+    {
+      data("frailty")
+      ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
+    },
+    "'ref' method was not specified, Cox, Gamma set as the reference"
+  )
 })
 
 testthat::test_that("running multisimsum on frailty return summaries of the correct dimension", {

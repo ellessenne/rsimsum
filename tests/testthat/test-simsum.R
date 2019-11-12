@@ -25,24 +25,33 @@ testthat::test_that("summ slot of a simsum object is a data.frame", {
 })
 
 testthat::test_that("not passing estvarname throws an error", {
-  testthat::expect_error({
-    data("MIsim", package = "rsimsum")
-    s <- rsimsum::simsum(data = MIsim, true = 0.5, se = "se", methodvar = "method", ref = "CC")
-  }, 'argument "estvarname" is missing, with no default')
+  testthat::expect_error(
+    {
+      data("MIsim", package = "rsimsum")
+      s <- rsimsum::simsum(data = MIsim, true = 0.5, se = "se", methodvar = "method", ref = "CC")
+    },
+    'argument "estvarname" is missing, with no default'
+  )
 })
 
 testthat::test_that("specifying ref and not methodvar throws a warning", {
-  testthat::expect_warning({
-    data("MIsim", package = "rsimsum")
-    s <- rsimsum::simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", ref = "CC")
-  }, "'ref' method is specified while 'methodvar' is not: 'ref' will be ignored")
+  testthat::expect_warning(
+    {
+      data("MIsim", package = "rsimsum")
+      s <- rsimsum::simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", ref = "CC")
+    },
+    "'ref' method is specified while 'methodvar' is not: 'ref' will be ignored"
+  )
 })
 
 testthat::test_that("specifying methodvar and not ref shows a message", {
-  testthat::expect_message({
-    data("MIsim", package = "rsimsum")
-    s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
-  }, "'ref' method was not specified, CC set as the reference")
+  testthat::expect_message(
+    {
+      data("MIsim", package = "rsimsum")
+      s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
+    },
+    "'ref' method was not specified, CC set as the reference"
+  )
 })
 
 testthat::test_that("running simsum on MIsim return summaries of the correct dimension", {
