@@ -13,7 +13,7 @@ nsim(alpha, sigma, delta, power = 0.5)
 
 \item{delta}{Specified level of accuracy of the estimate of interest you are willing to accept. Must be greater than 0.}
 
-\item{power}{Power to detect a specific difference from the true value as significant. Must be a value between 0 and 1. Defaults to 0.5, e.g. a power of 50\%.}
+\item{power}{Power to detect a specific difference from the true value as significant. Must be a value between 0 and 1. Defaults to 0.5, e.g. a power of 50\\%.}
 }
 \value{
 A scalar value \eqn{B}{B} representing the number of simulations to perform based on the accuracy required.

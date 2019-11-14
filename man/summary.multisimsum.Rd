@@ -4,8 +4,7 @@
 \alias{summary.multisimsum}
 \title{Summarising multisimsum objects}
 \usage{
-\method{summary}{multisimsum}(object, ci_level = 0.95, df = NULL,
-  stats = NULL, ...)
+\method{summary}{multisimsum}(object, ci_level = 0.95, df = NULL, stats = NULL, ...)
 }
 \arguments{
 \item{object}{An object of class \code{multisimsum}.}
@@ -27,9 +26,9 @@
 \item \code{relprec}, percentage gain in precision relative to the reference method.
 \item \code{modelse}, model-based standard error.
 \item \code{relerror}, relative percentage error in standard error.
-\item \code{cover}, coverage of a nominal \code{level}\% confidence interval.
-\item \code{becover}, bias corrected coverage of a nominal \code{level}\% confidence interval.
-\item \code{power}, power of a (1 - \code{level})\% level test.
+\item \code{cover}, coverage of a nominal \code{level}\\% confidence interval.
+\item \code{becover}, bias corrected coverage of a nominal \code{level}\\% confidence interval.
+\item \code{power}, power of a (1 - \code{level})\\% level test.
 Defaults to \code{NULL}, in which case all possible summary statistics are included.
 }}
 

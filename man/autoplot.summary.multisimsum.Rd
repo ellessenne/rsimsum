@@ -4,26 +4,37 @@
 \alias{autoplot.summary.multisimsum}
 \title{autoplot method for summary.multisimsum objects}
 \usage{
-\method{autoplot}{summary.multisimsum}(object, par, type = "forest",
-  stats = "bias", target = NULL, fitted = TRUE, scales = "fixed",
-  top = TRUE, ...)
+\method{autoplot}{summary.multisimsum}(
+  object,
+  par,
+  type = "forest",
+  stats = "bias",
+  target = NULL,
+  fitted = TRUE,
+  scales = "fixed",
+  top = TRUE,
+  density.legend = TRUE,
+  ...
+)
 }
 \arguments{
 \item{object}{An object of class \code{summary.multisimsum}.}
 
 \item{par}{The parameter results to plot.}
 
-\item{type}{The type of the plot to be produced. Possible choices are: \code{forest}, \code{lolly}, \code{zip}, \code{est}, \code{se}, \code{est_ba}, \code{se_ba}, \code{est_ridge}, \code{se_ridge}, \code{heat}, \code{nlp}, with \code{forest} being the default.}
+\item{type}{The type of the plot to be produced. Possible choices are: \code{forest}, \code{lolly}, \code{zip}, \code{est}, \code{se}, \code{est_ba}, \code{se_ba}, \code{est_density}, \code{se_density}, \code{est_hex}, \code{se_hex}, \code{est_ridge}, \code{se_ridge}, \code{heat}, \code{nlp}, with \code{forest} being the default.}
 
 \item{stats}{Summary statistic to plot, defaults to \code{bias}. See \code{\link[=summary.simsum]{summary.simsum()}} for further details on supported summary statistics.}
 
 \item{target}{Target of summary statistic, e.g. 0 for \code{bias}. Defaults to \code{NULL}, in which case target will be inferred.}
 
-\item{fitted}{Superimpose a fitted regression line, useful when \code{type} = (\code{est}, \code{se}, \code{est_ba}, \code{se_ba}). Defaults to \code{TRUE}.}
+\item{fitted}{Superimpose a fitted regression line, useful when \code{type} = (\code{est}, \code{se}, \code{est_ba}, \code{se_ba}, \code{est_density}, \code{se_density}, \code{est_hex}, \code{se_hex}). Defaults to \code{TRUE}.}
 
 \item{scales}{Should scales be fixed (\code{fixed}, the default), free (\code{free}), or free in one dimension (\code{free_x}, \code{free_y})?}
 
 \item{top}{Should the legend for a nested loop plot be on the top side of the plot? Defaults to \code{TRUE}.}
+
+\item{density.legend}{Should the legend for density and hexbin plots be included? Defaults to \code{TRUE}.}
 
 \item{...}{Not used.}
 }

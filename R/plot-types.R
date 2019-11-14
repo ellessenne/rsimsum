@@ -306,3 +306,72 @@
   ### Return plot
   return(gg)
 }
+
+#' @keywords internal
+.density_plot <- function(data, b, methodvar, by, fitted, scales, hex, density.legend) {
+  ### Identify combinations of methodvar
+  cs <- t(utils::combn(x = unique(data[[methodvar]]), m = 2))
+  colnames(cs) <- c("X", "Y")
+
+  ### Split data by 'by' factors
+  data_split <- .split_by(data = data, by = by)
+
+  ### Restructure data
+  internal_df <- list()
+  for (i in seq_along(data_split)) {
+    tmp <- list()
+    for (j in seq(nrow(cs))) {
+      tmp[[j]] <- data.frame(
+        X = data_split[[i]][[b]][data_split[[i]][[methodvar]] == cs[j, "X"]],
+        Y = data_split[[i]][[b]][data_split[[i]][[methodvar]] == cs[j, "Y"]],
+        contrast = paste0("X: ", cs[j, "X"], " vs Y: ", cs[j, "Y"]),
+        row.names = NULL
+      )
+    }
+    tmp <- .br(tmp)
+    if (!is.null(by)) {
+      for (byval in by) {
+        tmp[[byval]] <- unique(data_split[[i]][[byval]])
+      }
+    }
+    internal_df[[i]] <- tmp
+  }
+  internal_df <- .br(internal_df)
+
+  ### Build plot
+  caption <- paste0("Comparison of variable '", b, "'")
+  gg <- ggplot2::ggplot(data = internal_df, ggplot2::aes(x = X, y = Y)) +
+    ggplot2::labs(caption = caption, fill = "Count")
+
+  ### Add layer with contour or hexbin plot
+  if (hex) {
+    gg <- gg +
+      ggplot2::geom_hex(show.legend = density.legend)
+  } else {
+    gg <- gg +
+      ggplot2::stat_density_2d(mapping = ggplot2::aes(fill = stat(level)), geom = "polygon", show.legend = density.legend)
+  }
+
+  ### Add reference line
+  gg <- gg +
+    ggplot2::geom_abline(slope = 1, intercept = 0, linetype = "dashed")
+
+  ### If 'by', use facet_grid; facet_wrap otherwise
+  if (!is.null(by)) {
+    by <- rlang::syms(by)
+    gg <- gg +
+      ggplot2::facet_grid(cols = ggplot2::vars(!!!{{ by }}), rows = ggplot2::vars(contrast), scales = scales, labeller = ggplot2::labeller(.rows = ggplot2::label_value, .cols = ggplot2::label_both))
+  } else {
+    gg <- gg +
+      ggplot2::facet_wrap(~contrast)
+  }
+
+  ### If 'fitted' add regression line
+  if (fitted) {
+    gg <- gg +
+      ggplot2::geom_smooth(method = "lm")
+  }
+
+  ### Return plot
+  return(gg)
+}

@@ -11,7 +11,7 @@
 \item \code{se} Standard error of the point estimate.
 \item \code{par} The estimand. \code{trt} is the log-treatment effect, \code{fv} is the variance of the frailty.
 \item \code{fv_dist} The true frailty distribution.
-\item \code{model} Method used (\code{Cox, Gamma}, \code{Cox, Log-Normal}, \code{RP(P), Gamma}, or \code{RP(P), Log-Normal}).
+\item \code{model} Method used (\verb{Cox, Gamma}, \verb{Cox, Log-Normal}, \verb{RP(P), Gamma}, or \verb{RP(P), Log-Normal}).
 }}
 \usage{
 frailty

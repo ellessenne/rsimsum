@@ -3,7 +3,6 @@
 \docType{package}
 \name{rsimsum}
 \alias{rsimsum}
-\alias{rsimsum-package}
 \title{Analysis of Simulation Studies Including Monte Carlo Error}
 \description{
 Summarise results from simulation studies and compute Monte Carlo
