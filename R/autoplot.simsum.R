@@ -43,9 +43,10 @@ autoplot.simsum <- function(object, type = "forest", stats = "bias", target = NU
   checkmate::assert_subset(x = stats, choices = c("nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "becover", "power"), empty.ok = FALSE, add = arg_checks)
   # 'target' must be single numeric value, can be null
   checkmate::assert_number(x = target, null.ok = TRUE, na.ok = FALSE, add = arg_checks)
-  # 'fitted' and 'top' must be a single boolean value
+  # 'fitted', 'top', 'density.legend' must be a single boolean value
   checkmate::assert_logical(x = fitted, len = 1, add = arg_checks)
   checkmate::assert_logical(x = top, len = 1, add = arg_checks)
+  checkmate::assert_logical(x = density.legend, len = 1, add = arg_checks)
   # 'scales' must be a single string value, among those allowed
   checkmate::assert_string(x = scales, add = arg_checks)
   checkmate::assert_subset(x = scales, choices = c("fixed", "free", "free_x", "free_y"), empty.ok = FALSE, add = arg_checks)
