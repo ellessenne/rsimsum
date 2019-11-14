@@ -42,7 +42,7 @@ URL: https://ellessenne.github.io/rsimsum/
 BugReports: https://github.com/ellessenne/rsimsum/issues
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.0
 LazyData: true
 ByteCompile: true
 Encoding: UTF-8
