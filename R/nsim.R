@@ -5,7 +5,7 @@
 #' @param alpha Significance level. Must be a value between 0 and 1.
 #' @param sigma Variance for the parameter of interest. Must be greater than 0.
 #' @param delta Specified level of accuracy of the estimate of interest you are willing to accept. Must be greater than 0.
-#' @param power Power to detect a specific difference from the true value as significant. Must be a value between 0 and 1. Defaults to 0.5, e.g. a power of 50\%.
+#' @param power Power to detect a specific difference from the true value as significant. Must be a value between 0 and 1. Defaults to 0.5, e.g. a power of 50%.
 #' @return A scalar value \eqn{B}{B} representing the number of simulations to perform based on the accuracy required.
 #' @export
 #' @references Burton, A., Douglas G. Altman, P. Royston. et al. 2006. The design of simulation studies in medical statistics. Statistics in Medicine 25: 4279-4292 \doi{10.1002/sim.2673}
