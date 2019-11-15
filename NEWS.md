@@ -2,7 +2,7 @@
 
 # rsimsum 0.7.1
 
-* `autoplot` supports two new visualisations: contour plots and hexbin plots, for either point estimates or standard errors. They can be obtained by selecting the argument `type = "est_density"`, `type = "se_density"`, `type = "est_hex"`, or `type = "se_hes"`.
+* `autoplot` supports two new visualisations: contour plots and hexbin plots, for either point estimates or standard errors. They can be obtained by selecting the argument `type = "est_density"`, `type = "se_density"`, `type = "est_hex"`, or `type = "se_hex"`.
 
 # rsimsum 0.7.0
 
