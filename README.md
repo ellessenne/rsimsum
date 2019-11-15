@@ -260,6 +260,9 @@ autoplot(s, type = "est_hex")
 
 <img src="man/figures/README-hex-1.png" width="80%" style="display: block; margin: auto;" />
 
+They provide a useful alternative when there are several data points
+with large overlap (e.g. in a scatterplot).
+
 The plotting functionality now extend the S3 generic `autoplot`: see
 `?ggplot2::autoplot` and `?rsimsum::autoplot.simsum` for further
 details.

@@ -58,6 +58,13 @@ library(ggplot2)
 autoplot(s, type = "nlp", stats = "bias")
 ```
 
+However:
+
+1. Nested loop plots are suited for several DGMs but not for several methods;
+1. The decision on how to _nest_ the results is subjective - the top-level of nesting receives most emphasis;
+1. It gives an _overall_ impression, without focusing too much on details;
+1. It is cumbersome to incorporate Monte Carlo errors in the plot.
+
 # References
 
 * Rücker, G. and Schwarzer, G. 2014 _Presenting simulation results in a nested loop plot_. BMC Medical Research Methodology 14(1) <[doi:10.1186/1471-2288-14-129](https://doi.org/10.1186/1471-2288-14-129)>

@@ -358,46 +358,26 @@
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"se_hex"</span>)</span></code></pre></div>
 <p><img src="C-plotting_files/figure-html/plot-se-hex-1.png" width="90%" style="display: block; margin: auto;"></p>
 </div>
-<div id="nested-loop-plots" class="section level1">
-<h1 class="hasAnchor">
-<a href="#nested-loop-plots" class="anchor"></a>Nested loop plots</h1>
-<p>Nested loop plots aim to have all simulation results in one plot by bringing all scenarios into a lexicographical order and arranging them consecutively on the horizontal axis of a plot, with the performance measure estimate on the vertical axis:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"nlp"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span>
-<span id="cb22-2"><a href="#cb22-2"></a>s.nlp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/simsum.html">simsum</a></span>(</span>
-<span id="cb22-3"><a href="#cb22-3"></a>  <span class="dt">data =</span> nlp, <span class="dt">estvarname =</span> <span class="st">"b"</span>, <span class="dt">true =</span> <span class="dv">0</span>, <span class="dt">se =</span> <span class="st">"se"</span>,</span>
-<span id="cb22-4"><a href="#cb22-4"></a>  <span class="dt">methodvar =</span> <span class="st">"model"</span>, <span class="dt">by =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"baseline"</span>, <span class="st">"ss"</span>, <span class="st">"esigma"</span>)</span>
-<span id="cb22-5"><a href="#cb22-5"></a>)</span>
-<span id="cb22-6"><a href="#cb22-6"></a><span class="co">#&gt; 'ref' method was not specified, 1 set as the reference</span></span>
-<span id="cb22-7"><a href="#cb22-7"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s.nlp, <span class="dt">stats =</span> <span class="st">"bias"</span>, <span class="dt">type =</span> <span class="st">"nlp"</span>)</span></code></pre></div>
-<p><img src="C-plotting_files/figure-html/plot-nlp-1.png" width="90%" style="display: block; margin: auto;"></p>
-<p>However:</p>
-<ol style="list-style-type: decimal">
-<li>Nested loop plots are suited for several DGMs but not for several methods;</li>
-<li>The decision on how to <em>nest</em> the results is subjective - the top-level of nesting receives most emphasis;</li>
-<li>It gives an <em>overall</em> impression, without focusing too much on details;</li>
-<li>It is cumbersome to incorporate Monte Carlo errors in the plot.</li>
-</ol>
-</div>
 <div id="custom-plotting" class="section level1">
 <h1 class="hasAnchor">
 <a href="#custom-plotting" class="anchor"></a>Custom plotting</h1>
 <p>All plots produced by <code>rsimsum</code> are meant to be quick explorations of results from Monte Carlo simulation studies: they are not meant to be final manuscript-like-quality plots (although they can be useful as a starting point).</p>
 <p>Generally, the output of all types of <code>autoplot</code> calls are <code>ggplot</code> objects; hence, it should be generally straightforward to customise all plots. For instance, say we want to add a custom theme:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(s1), <span class="dt">type =</span> <span class="st">"lolly"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>) <span class="op">+</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span>()</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(s1), <span class="dt">type =</span> <span class="st">"lolly"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>) <span class="op">+</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span>()</span></code></pre></div>
 <p><img src="C-plotting_files/figure-html/add-theme-1.png" width="90%" style="display: block; margin: auto;"></p>
 <p>Compare to the default plot:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(s1), <span class="dt">type =</span> <span class="st">"lolly"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(s1), <span class="dt">type =</span> <span class="st">"lolly"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</span></code></pre></div>
 <p><img src="C-plotting_files/figure-html/add-theme-default-1.png" width="90%" style="display: block; margin: auto;"></p>
 <p>We also mentioned before that the colour palette of heat plots should be customised. Say we want to use the default viridis colour palette:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"heat"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>) <span class="op">+</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="st">  </span>viridis<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/viridis/man/scale_viridis.html">scale_fill_viridis</a></span>()</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"heat"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>) <span class="op">+</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="st">  </span>viridis<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/viridis/man/scale_viridis.html">scale_fill_viridis</a></span>()</span></code></pre></div>
 <p><img src="C-plotting_files/figure-html/heat-bias-viridis-1.png" width="90%" style="display: block; margin: auto;"></p>
 <p>Analogously, say we want to customise the colour palette of ridgeline plots, again using the viridis colour palette:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"est_ridge"</span>) <span class="op">+</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="st">  </span>viridis<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/viridis/man/scale_viridis.html">scale_fill_viridis</a></span>(<span class="dt">discrete =</span> <span class="ot">TRUE</span>) <span class="op">+</span></span>
-<span id="cb26-3"><a href="#cb26-3"></a><span class="st">  </span>viridis<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/viridis/man/scale_viridis.html">scale_colour_viridis</a></span>(<span class="dt">discrete =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb26-4"><a href="#cb26-4"></a><span class="co">#&gt; Picking joint bandwidth of 0.077</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s1, <span class="dt">type =</span> <span class="st">"est_ridge"</span>) <span class="op">+</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="st">  </span>viridis<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/viridis/man/scale_viridis.html">scale_fill_viridis</a></span>(<span class="dt">discrete =</span> <span class="ot">TRUE</span>) <span class="op">+</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="st">  </span>viridis<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/viridis/man/scale_viridis.html">scale_colour_viridis</a></span>(<span class="dt">discrete =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="co">#&gt; Picking joint bandwidth of 0.077</span></span></code></pre></div>
 <p><img src="C-plotting_files/figure-html/colour-palette-1.png" width="90%" style="display: block; margin: auto;"></p>
 </div>
   </div>
@@ -420,7 +400,6 @@
       <li><a href="#zipper-plots">Zipper plots</a></li>
       <li><a href="#heat-plots">Heat plots</a></li>
       <li><a href="#contour-plots-and-hexbin-plots">Contour plots and hexbin plots</a></li>
-      <li><a href="#nested-loop-plots">Nested loop plots</a></li>
       <li><a href="#custom-plotting">Custom plotting</a></li>
       </ul>
 </div>
