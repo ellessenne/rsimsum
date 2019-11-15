@@ -156,6 +156,7 @@
   <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
   <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>density.legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>zoom</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='no'>...</span>
 )</pre>
 
@@ -195,6 +196,10 @@
       <td><p>Should the legend for density and hexbin plots be included? Defaults to <code>TRUE</code>.</p></td>
     </tr>
     <tr>
+      <th>zoom</th>
+      <td><p>A numeric value between 0 and 1 signalling that a zip plot should <em>zoom</em> on the top x% of the plot (to ease interpretation). Defaults to 1, where the whole zip plot is displayed.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>Not used.</p></td>
     </tr>
@@ -211,13 +216,13 @@
   <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='st'>"method"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</div><div class='output co'>#&gt; <span class='message'>'ref' method was not specified, CC set as the reference</span></div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>)
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>s</span>)</div><div class='img'><img src='autoplot.simsum-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>s</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"lolly"</span>)</div><div class='img'><img src='autoplot.simsum-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>s</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"est_hex"</span>)</div><div class='img'><img src='autoplot.simsum-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>s</span>)</div><div class='img'><img src='autoplot.simsum-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>s</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"lolly"</span>)</div><div class='img'><img src='autoplot.simsum-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>s</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"est_hex"</span>)</div><div class='img'><img src='autoplot.simsum-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>s</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"zip"</span>, <span class='kw'>zoom</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='img'><img src='autoplot.simsum-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Nested loop plot:</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"nlp"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"rsimsum"</span>)
 <span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rsimsum</span><span class='kw ns'>::</span><span class='fu'><a href='https://ellessenne.github.io/rsimsum/reference/simsum.html'>simsum</a></span>(
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>nlp</span>, <span class='kw'>estvarname</span> <span class='kw'>=</span> <span class='st'>"b"</span>, <span class='kw'>true</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>se</span> <span class='kw'>=</span> <span class='st'>"se"</span>,
   <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='st'>"model"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"baseline"</span>, <span class='st'>"ss"</span>, <span class='st'>"esigma"</span>)
-)</div><div class='output co'>#&gt; <span class='message'>'ref' method was not specified, 1 set as the reference</span></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>s1</span>, <span class='kw'>stats</span> <span class='kw'>=</span> <span class='st'>"bias"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"nlp"</span>)</div><div class='img'><img src='autoplot.simsum-4.png' alt='' width='700' height='433' /></div></pre>
+)</div><div class='output co'>#&gt; <span class='message'>'ref' method was not specified, 1 set as the reference</span></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>s1</span>, <span class='kw'>stats</span> <span class='kw'>=</span> <span class='st'>"bias"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"nlp"</span>)</div><div class='img'><img src='autoplot.simsum-5.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
