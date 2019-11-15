@@ -141,6 +141,13 @@
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s, <span class="dt">type =</span> <span class="st">"nlp"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</span></code></pre></div>
 <p><img src="D-nlp_files/figure-html/nlp-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p>However:</p>
+<ol style="list-style-type: decimal">
+<li>Nested loop plots are suited for several DGMs but not for several methods;</li>
+<li>The decision on how to <em>nest</em> the results is subjective - the top-level of nesting receives most emphasis;</li>
+<li>It gives an <em>overall</em> impression, without focusing too much on details;</li>
+<li>It is cumbersome to incorporate Monte Carlo errors in the plot.</li>
+</ol>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
