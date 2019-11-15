@@ -157,6 +157,7 @@
   <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
   <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>density.legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>zoom</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='no'>...</span>
 )</pre>
 
@@ -198,6 +199,10 @@
     <tr>
       <th>density.legend</th>
       <td><p>Should the legend for density and hexbin plots be included? Defaults to <code>TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>zoom</th>
+      <td><p>A numeric value between 0 and 1 signalling that a zip plot should <em>zoom</em> on the top x% of the plot (to ease interpretation). Defaults to 1, where the whole zip plot is displayed.</p></td>
     </tr>
     <tr>
       <th>...</th>

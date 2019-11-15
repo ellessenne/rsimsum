@@ -56,7 +56,7 @@
 
 ### Zip plot
 #' @keywords internal
-.zip_plot <- function(data, estvarname, se, true, methodvar, by, control, summ) {
+.zip_plot <- function(data, estvarname, se, true, methodvar, by, control, summ, zoom) {
   ### Extract overall coverage
   summ <- summ[summ$stat == "cover", ]
   summ$cover <- summ$est
@@ -120,6 +120,10 @@
     gg <- gg +
       ggplot2::facet_wrap(facets = ggplot2::vars({{ methodvar }}))
   }
+
+  ### Zoom (or not)
+  gg <- gg +
+    ggplot2::coord_cartesian(ylim = c(1 - zoom, 1))
 
   ### Return plot
   return(gg)

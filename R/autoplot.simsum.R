@@ -8,6 +8,7 @@
 #' @param scales Should scales be fixed (`fixed`, the default), free (`free`), or free in one dimension (`free_x`, `free_y`)?
 #' @param top Should the legend for a nested loop plot be on the top side of the plot? Defaults to `TRUE`.
 #' @param density.legend Should the legend for density and hexbin plots be included? Defaults to `TRUE`.
+#' @param zoom A numeric value between 0 and 1 signalling that a zip plot should _zoom_ on the top x% of the plot (to ease interpretation). Defaults to 1, where the whole zip plot is displayed.
 #' @param ... Not used.
 #'
 #' @return A `ggplot` object.
@@ -24,6 +25,7 @@
 #' autoplot(s)
 #' autoplot(s, type = "lolly")
 #' autoplot(s, type = "est_hex")
+#' autoplot(s, type = "zip", zoom = 0.5)
 #'
 #' # Nested loop plot:
 #' data("nlp", package = "rsimsum")
@@ -32,7 +34,7 @@
 #'   methodvar = "model", by = c("baseline", "ss", "esigma")
 #' )
 #' autoplot(s1, stats = "bias", type = "nlp")
-autoplot.simsum <- function(object, type = "forest", stats = "bias", target = NULL, fitted = TRUE, scales = "fixed", top = TRUE, density.legend = TRUE, ...) {
+autoplot.simsum <- function(object, type = "forest", stats = "bias", target = NULL, fitted = TRUE, scales = "fixed", top = TRUE, density.legend = TRUE, zoom = 1, ...) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # 'type' must be a single string value, among those allowed
@@ -43,6 +45,8 @@ autoplot.simsum <- function(object, type = "forest", stats = "bias", target = NU
   checkmate::assert_subset(x = stats, choices = c("nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "becover", "power"), empty.ok = FALSE, add = arg_checks)
   # 'target' must be single numeric value, can be null
   checkmate::assert_number(x = target, null.ok = TRUE, na.ok = FALSE, add = arg_checks)
+  # 'zoom' needs to be a numeric value between zero and one
+  checkmate::assert_number(x = zoom, lower = 0, upper = 1, null.ok = FALSE, na.ok = FALSE, add = arg_checks)
   # 'fitted', 'top', 'density.legend' must be a single boolean value
   checkmate::assert_logical(x = fitted, len = 1, add = arg_checks)
   checkmate::assert_logical(x = top, len = 1, add = arg_checks)
@@ -81,7 +85,7 @@ autoplot.simsum <- function(object, type = "forest", stats = "bias", target = NU
   plot <- switch(type,
     "forest" = .forest_plot(data = df, methodvar = object$methodvar, by = object$by, stats = stats, ci = ci, target = target, scales = scales),
     "lolly" = .lolly_plot(data = df, methodvar = object$methodvar, by = object$by, stats = stats, ci = ci, target = target, scales = scales),
-    "zip" = .zip_plot(data = object$x, estvarname = object$estvarname, se = object$se, true = object$true, methodvar = object$methodvar, by = object$by, control = object$control, summ = object$summ), # zip for coverage
+    "zip" = .zip_plot(data = object$x, estvarname = object$estvarname, se = object$se, true = object$true, methodvar = object$methodvar, by = object$by, control = object$control, summ = object$summ, zoom = zoom), # zip for coverage
     "est" = .vs_plot(data = object$x, b = object$estvarname, methodvar = object$methodvar, by = object$by, fitted = fitted, scales = scales, ba = FALSE),
     "se" = .vs_plot(data = object$x, b = object$se, methodvar = object$methodvar, by = object$by, fitted = fitted, scales = scales, ba = FALSE),
     "est_ba" = .vs_plot(data = object$x, b = object$estvarname, methodvar = object$methodvar, by = object$by, fitted = fitted, scales = scales, ba = TRUE),

@@ -154,15 +154,21 @@ autoplot(summary(s1), type = "forest", stats = "bias")
 
 # Zipper plots
 
-Zipper plots (or zip plots), introduced in Morris _et al_. (2019), help understand coverage by visualising the confidence intervals directly. For each data-generating mechanism and method, the confidence intervals are centile-ranked according to their significance against the null hypothesis \(H_0: \theta = \theta_{\text{true}}\), assessed via a Wald-type test. This ranking is used for the vertical axis and is plotted against the intervals themselves.
+Zipper plots (or zip plots), introduced in Morris _et al_. (2019), help understand coverage by visualising the confidence intervals directly. For each data-generating mechanism and method, the confidence intervals are centile-ranked according to their significance against the null hypothesis \(H_0: \theta\) = \(\theta_{\text{true}}\), assessed via a Wald-type test. This ranking is used for the vertical axis and is plotted against the intervals themselves.
 
-When a method has \(95\%\) coverage, the colour of the intervals switches at 95 on the vertical axis. Finally, the horizontal lines represent confidence intervals for the estimated coverage based on Monte Carlo standard errors.
+When a method has 95% coverage, the colour of the intervals switches at 95 on the vertical axis. Finally, the horizontal lines represent confidence intervals for the estimated coverage based on Monte Carlo standard errors.
 
 ```{r zipper-1}
 autoplot(s1, type = "zip")
 ```
 
-The zipper plot for the exponential model with \(n = 50\) and a true Weibull baseline hazard shows that coverage is approximately \(95\%\); however, there are more intervals to the right of \(\theta = -0.50\) than to the left: this indicates that the model standard errors must be overestimating the empirical standard error, because coverage is appropriate despite bias.
+The zipper plot for the exponential model with n = 50 and a true Weibull baseline hazard shows that coverage is approximately 95%; however, there are more intervals to the right of \(\theta\) = -0.50 than to the left: this indicates that the model standard errors must be overestimating the empirical standard error, because coverage is appropriate despite bias.
+
+It is also possible to _zoom_ on the top x% of the zip plot to increase readibility, e.g. on the top 30%:
+
+```{r zipper-zoom}
+autoplot(s1, type = "zip", zoom = 0.3)
+```
 
 # Heat plots
 

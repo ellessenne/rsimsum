@@ -17,6 +17,6 @@
 #' library(ggplot2)
 #' autoplot(ss)
 #' autoplot(ss, type = "lolly")
-autoplot.summary.simsum <- function(object, type = "forest", stats = "bias", target = NULL, fitted = TRUE, scales = "fixed", top = TRUE, density.legend = TRUE, ...) {
-  autoplot.simsum(object = object, type = type, stats = stats, target = target, fitted = fitted, scales = scales, top = top, density.legend = density.legend)
+autoplot.summary.simsum <- function(object, type = "forest", stats = "bias", target = NULL, fitted = TRUE, scales = "fixed", top = TRUE, density.legend = TRUE, zoom = 1, ...) {
+  autoplot.simsum(object = object, type = type, stats = stats, target = target, fitted = fitted, scales = scales, top = top, density.legend = density.legend, zoom = zoom)
 }

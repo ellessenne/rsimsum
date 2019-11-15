@@ -1,5 +1,7 @@
 # rsimsum (development version)
 
+* Added new argument `zoom` to `autoplot` methods: it is now possible to _zoom_ on the top x% of a zip plot to improve readability.
+
 # rsimsum 0.7.1
 
 * `autoplot` supports two new visualisations: contour plots and hexbin plots, for either point estimates or standard errors. They can be obtained by selecting the argument `type = "est_density"`, `type = "se_density"`, `type = "est_hex"`, or `type = "se_hex"`.
