@@ -231,7 +231,7 @@ autoplot(s, type = "est_ridge")
 
 <img src="man/figures/README-ridgeline-1.png" width="80%" style="display: block; margin: auto;" />
 
-Finally, nested loop plots have been implemented in `rsimsum` `0.6.0`:
+Nested loop plots have been implemented in `rsimsum` `0.6.0`:
 
 ``` r
 data("nlp", package = "rsimsum")
@@ -244,6 +244,21 @@ autoplot(s.nlp, stats = "bias", type = "nlp")
 ```
 
 <img src="man/figures/README-nlp-1.png" width="80%" style="display: block; margin: auto;" />
+
+Finally, as of `rsimsum` `0.7.1` contour plots and hexbin plots have
+been implemented as well:
+
+``` r
+autoplot(s, type = "est_density")
+```
+
+<img src="man/figures/README-density-1.png" width="80%" style="display: block; margin: auto;" />
+
+``` r
+autoplot(s, type = "est_hex")
+```
+
+<img src="man/figures/README-hex-1.png" width="80%" style="display: block; margin: auto;" />
 
 The plotting functionality now extend the S3 generic `autoplot`: see
 `?ggplot2::autoplot` and `?rsimsum::autoplot.simsum` for further
