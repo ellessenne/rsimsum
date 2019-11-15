@@ -14,6 +14,7 @@
   scales = "fixed",
   top = TRUE,
   density.legend = TRUE,
+  zoom = 1,
   ...
 )
 }
@@ -35,6 +36,8 @@
 \item{top}{Should the legend for a nested loop plot be on the top side of the plot? Defaults to \code{TRUE}.}
 
 \item{density.legend}{Should the legend for density and hexbin plots be included? Defaults to \code{TRUE}.}
+
+\item{zoom}{A numeric value between 0 and 1 signalling that a zip plot should \emph{zoom} on the top x\% of the plot (to ease interpretation). Defaults to 1, where the whole zip plot is displayed.}
 
 \item{...}{Not used.}
 }
@@ -58,4 +61,5 @@ autoplot(ms, par = "trt")
 autoplot(ms, par = "trt", type = "lolly", stats = "cover")
 autoplot(ms, par = "trt", type = "zip")
 autoplot(ms, par = "trt", type = "est_ba")
+autoplot(ms, par = "trt", type = "zip")
 }

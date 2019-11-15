@@ -101,6 +101,8 @@ testthat::test_that("argument checks works throws errors when appropriate", {
   testthat::expect_error(object = print(autoplot(single, top = "Yes!")))
   testthat::expect_error(object = print(autoplot(single, density.legend = 0)))
   testthat::expect_error(object = print(autoplot(single, density.legend = "Bamboozled")))
+  testthat::expect_error(object = print(autoplot(single, zoom = TRUE)))
+  testthat::expect_error(object = print(autoplot(single, zoom = "Why not?")))
   # simsum object, with 'by'
   testthat::expect_error(object = print(autoplot(multi, type = "megacool_plot")))
   testthat::expect_error(object = print(autoplot(multi, type = 1)))
@@ -121,6 +123,8 @@ testthat::test_that("argument checks works throws errors when appropriate", {
   testthat::expect_error(object = print(autoplot(multi, top = "Yes!")))
   testthat::expect_error(object = print(autoplot(multi, density.legend = 0)))
   testthat::expect_error(object = print(autoplot(multi, density.legend = "Bamboozled")))
+  testthat::expect_error(object = print(autoplot(multi, zoom = TRUE)))
+  testthat::expect_error(object = print(autoplot(multi, zoom = "Why not?")))
   # summary.simsum object, no 'by'
   testthat::expect_error(object = print(autoplot(singlesum, type = "megacool_plot")))
   testthat::expect_error(object = print(autoplot(singlesum, type = 1)))
@@ -141,6 +145,8 @@ testthat::test_that("argument checks works throws errors when appropriate", {
   testthat::expect_error(object = print(autoplot(singlesum, top = "Yes!")))
   testthat::expect_error(object = print(autoplot(singlesum, density.legend = 0)))
   testthat::expect_error(object = print(autoplot(singlesum, density.legend = "Bamboozled")))
+  testthat::expect_error(object = print(autoplot(singlesum, zoom = TRUE)))
+  testthat::expect_error(object = print(autoplot(singlesum, zoom = "Why not?")))
   # summary.simsum object, with 'by'
   testthat::expect_error(object = print(autoplot(multisum, type = "megacool_plot")))
   testthat::expect_error(object = print(autoplot(multisum, type = 1)))
@@ -161,6 +167,8 @@ testthat::test_that("argument checks works throws errors when appropriate", {
   testthat::expect_error(object = print(autoplot(multisum, top = "Yes!")))
   testthat::expect_error(object = print(autoplot(multisum, density.legend = 0)))
   testthat::expect_error(object = print(autoplot(multisum, density.legend = "Bamboozled")))
+  testthat::expect_error(object = print(autoplot(multisum, zoom = TRUE)))
+  testthat::expect_error(object = print(autoplot(multisum, zoom = "Why not?")))
 })
 
 testthat::test_that("autoplot with target", {
@@ -258,6 +266,14 @@ testthat::test_that("autoplot with density.legend", {
   testthat::expect_s3_class(object = autoplot(multisum, scales = "free"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(multisum, scales = "free_x"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(multisum, scales = "free_y"), class = c("gg", "ggplot"))
+})
+
+testthat::test_that("autoplot with zoom", {
+  # nested loop plot
+  testthat::expect_s3_class(object = autoplot(single, type = "zip", zoom = 0.5), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(singlesum, type = "zip", zoom = 0.5), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(multi, type = "zip", zoom = 0.5), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(multisum, type = "zip", zoom = 0.5), class = c("gg", "ggplot"))
 })
 
 testthat::test_that("inferring target", {

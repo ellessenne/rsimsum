@@ -13,6 +13,7 @@
   scales = "fixed",
   top = TRUE,
   density.legend = TRUE,
+  zoom = 1,
   ...
 )
 }
@@ -33,6 +34,8 @@
 
 \item{density.legend}{Should the legend for density and hexbin plots be included? Defaults to \code{TRUE}.}
 
+\item{zoom}{A numeric value between 0 and 1 signalling that a zip plot should \emph{zoom} on the top x\% of the plot (to ease interpretation). Defaults to 1, where the whole zip plot is displayed.}
+
 \item{...}{Not used.}
 }
 \value{
@@ -52,6 +55,7 @@ library(ggplot2)
 autoplot(s)
 autoplot(s, type = "lolly")
 autoplot(s, type = "est_hex")
+autoplot(s, type = "zip", zoom = 0.5)
 
 # Nested loop plot:
 data("nlp", package = "rsimsum")

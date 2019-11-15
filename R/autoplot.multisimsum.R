@@ -9,6 +9,7 @@
 #' @param scales Should scales be fixed (`fixed`, the default), free (`free`), or free in one dimension (`free_x`, `free_y`)?
 #' @param top Should the legend for a nested loop plot be on the top side of the plot? Defaults to `TRUE`.
 #' @param density.legend Should the legend for density and hexbin plots be included? Defaults to `TRUE`.
+#' @param zoom A numeric value between 0 and 1 signalling that a zip plot should _zoom_ on the top x% of the plot (to ease interpretation). Defaults to 1, where the whole zip plot is displayed.
 #' @param ... Not used.
 #'
 #' @return A `ggplot` object.
@@ -28,7 +29,8 @@
 #' autoplot(ms, par = "trt", type = "lolly", stats = "cover")
 #' autoplot(ms, par = "trt", type = "zip")
 #' autoplot(ms, par = "trt", type = "est_ba")
-autoplot.multisimsum <- function(object, par, type = "forest", stats = "bias", target = NULL, fitted = TRUE, scales = "fixed", top = TRUE, density.legend = TRUE, ...) {
+#' autoplot(ms, par = "trt", type = "zip")
+autoplot.multisimsum <- function(object, par, type = "forest", stats = "bias", target = NULL, fitted = TRUE, scales = "fixed", top = TRUE, density.legend = TRUE, zoom = 1, ...) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # 'par' must be one of the values in names(object$true)
@@ -51,7 +53,7 @@ autoplot.multisimsum <- function(object, par, type = "forest", stats = "bias", t
   }
 
   # Call autoplot.simsum on the subset of results for a given parameter:
-  plot <- autoplot(object = object, type = type, stats = stats, target = target, fitted = fitted, scales = scales, top = top, density.legend = density.legend, ...)
+  plot <- autoplot(object = object, type = type, stats = stats, target = target, fitted = fitted, scales = scales, top = top, density.legend = density.legend, zoom = zoom, ...)
 
   # Add title with parameter of interest
   plot <- plot +
