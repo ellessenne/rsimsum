@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1.9000</span>
       </span>
     </div>
 
@@ -146,8 +146,16 @@
     <p><code>dropbig</code> is useful to identify replications with large point estimates or standard errors. Large values are defined as standardised values above a given threshold, as defined when calling <code>dropbig</code>. Regular standardisation using mean and standard deviation is implemented, as well as robust standardisation using median and inter-quartile range. Further to that, the  standardisation process is stratified by data-generating mechanism if <code>by</code> factors are defined.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>dropbig</span>(<span class='no'>data</span>, <span class='no'>estvarname</span>, <span class='kw'>se</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>semax</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>dropbig</span>(
+  <span class='no'>data</span>,
+  <span class='no'>estvarname</span>,
+  <span class='kw'>se</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>semax</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

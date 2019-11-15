@@ -82,7 +82,7 @@ Additionally, with multisimsum the argument true must be a named vector, where n
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1.9000</span>
       </span>
     </div>
 
@@ -152,9 +152,20 @@ There is only one new argument that must be set when calling <code>multisimsum</
 Additionally, with <code>multisimsum</code> the argument <code>true</code> must be a named vector, where names correspond to each estimand (see examples).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>multisimsum</span>(<span class='no'>data</span>, <span class='no'>par</span>, <span class='no'>estvarname</span>, <span class='kw'>se</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>true</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ref</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ci.limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>dropbig</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>())</pre>
+    <pre class="usage"><span class='fu'>multisimsum</span>(
+  <span class='no'>data</span>,
+  <span class='no'>par</span>,
+  <span class='no'>estvarname</span>,
+  <span class='kw'>se</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>true</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ref</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ci.limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>dropbig</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>()
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

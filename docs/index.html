@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.1.9000</span>
       </span>
     </div>
 
@@ -226,7 +226,7 @@
 <!-- end list --><div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s, <span class="dt">type =</span> <span class="st">"est_ridge"</span>)</span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="co">#&gt; Picking joint bandwidth of 0.0295</span></span></code></pre></div>
 <p><img src="reference/figures/README-ridgeline-1.png" width="80%" style="display: block; margin: auto;"></p>
-<p>Finally, nested loop plots have been implemented in <code>rsimsum</code> <code>0.6.0</code>:</p>
+<p>Nested loop plots have been implemented in <code>rsimsum</code> <code>0.6.0</code>:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"nlp"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span>
 <span id="cb11-2"><a href="#cb11-2"></a>s.nlp &lt;-<span class="st"> </span>rsimsum<span class="op">::</span><span class="kw"><a href="https://ellessenne.github.io/rsimsum/reference/simsum.html">simsum</a></span>(</span>
 <span id="cb11-3"><a href="#cb11-3"></a>  <span class="dt">data =</span> nlp, <span class="dt">estvarname =</span> <span class="st">"b"</span>, <span class="dt">true =</span> <span class="dv">0</span>, <span class="dt">se =</span> <span class="st">"se"</span>,</span>
@@ -235,36 +235,41 @@
 <span id="cb11-6"><a href="#cb11-6"></a><span class="co">#&gt; 'ref' method was not specified, 1 set as the reference</span></span>
 <span id="cb11-7"><a href="#cb11-7"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s.nlp, <span class="dt">stats =</span> <span class="st">"bias"</span>, <span class="dt">type =</span> <span class="st">"nlp"</span>)</span></code></pre></div>
 <p><img src="reference/figures/README-nlp-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p>Finally, as of <code>rsimsum</code> <code>0.7.1</code> contour plots and hexbin plots have been implemented as well:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s, <span class="dt">type =</span> <span class="st">"est_density"</span>)</span></code></pre></div>
+<p><img src="reference/figures/README-density-1.png" width="80%" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(s, <span class="dt">type =</span> <span class="st">"est_hex"</span>)</span></code></pre></div>
+<p><img src="reference/figures/README-hex-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>The plotting functionality now extend the S3 generic <code>autoplot</code>: see <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">?ggplot2::autoplot</a></code> and <code><a href="reference/autoplot.simsum.html">?rsimsum::autoplot.simsum</a></code> for further details.</p>
 <p>More details and information can be found in the vignettes dedicated to plotting:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="dt">topic =</span> <span class="st">"C-plotting"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="kw"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="dt">topic =</span> <span class="st">"D-nlp"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="dt">topic =</span> <span class="st">"C-plotting"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="kw"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="dt">topic =</span> <span class="st">"D-nlp"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="citation" class="section level1">
 <h1 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h1>
 <p>If you find <code>rsimsum</code> useful, please cite it in your publications:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"rsimsum"</span>)</span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="co">#&gt; </span></span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="co">#&gt; To cite the rsimsum package in publications, please use:</span></span>
-<span id="cb13-4"><a href="#cb13-4"></a><span class="co">#&gt; </span></span>
-<span id="cb13-5"><a href="#cb13-5"></a><span class="co">#&gt;   Gasparini, (2018). rsimsum: Summarise results from Monte Carlo simulation studies.</span></span>
-<span id="cb13-6"><a href="#cb13-6"></a><span class="co">#&gt;   Journal of Open Source Software, 3(26), 739, https://doi.org/10.21105/joss.00739</span></span>
-<span id="cb13-7"><a href="#cb13-7"></a><span class="co">#&gt; </span></span>
-<span id="cb13-8"><a href="#cb13-8"></a><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
-<span id="cb13-9"><a href="#cb13-9"></a><span class="co">#&gt; </span></span>
-<span id="cb13-10"><a href="#cb13-10"></a><span class="co">#&gt;   @Article{,</span></span>
-<span id="cb13-11"><a href="#cb13-11"></a><span class="co">#&gt;     author = {Alessandro Gasparini},</span></span>
-<span id="cb13-12"><a href="#cb13-12"></a><span class="co">#&gt;     title = {rsimsum: Summarise results from Monte Carlo simulation studies},</span></span>
-<span id="cb13-13"><a href="#cb13-13"></a><span class="co">#&gt;     journal = {Journal of Open Source Software},</span></span>
-<span id="cb13-14"><a href="#cb13-14"></a><span class="co">#&gt;     year = {2018},</span></span>
-<span id="cb13-15"><a href="#cb13-15"></a><span class="co">#&gt;     volume = {3},</span></span>
-<span id="cb13-16"><a href="#cb13-16"></a><span class="co">#&gt;     issue = {26},</span></span>
-<span id="cb13-17"><a href="#cb13-17"></a><span class="co">#&gt;     pages = {739},</span></span>
-<span id="cb13-18"><a href="#cb13-18"></a><span class="co">#&gt;     doi = {10.21105/joss.00739},</span></span>
-<span id="cb13-19"><a href="#cb13-19"></a><span class="co">#&gt;     url = {https://doi.org/10.21105/joss.00739},</span></span>
-<span id="cb13-20"><a href="#cb13-20"></a><span class="co">#&gt;   }</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"rsimsum"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="co">#&gt; </span></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="co">#&gt; To cite the rsimsum package in publications, please use:</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="co">#&gt; </span></span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="co">#&gt;   Gasparini, (2018). rsimsum: Summarise results from Monte Carlo simulation studies.</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="co">#&gt;   Journal of Open Source Software, 3(26), 739, https://doi.org/10.21105/joss.00739</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a><span class="co">#&gt; </span></span>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a><span class="co">#&gt; </span></span>
+<span id="cb15-10"><a href="#cb15-10"></a><span class="co">#&gt;   @Article{,</span></span>
+<span id="cb15-11"><a href="#cb15-11"></a><span class="co">#&gt;     author = {Alessandro Gasparini},</span></span>
+<span id="cb15-12"><a href="#cb15-12"></a><span class="co">#&gt;     title = {rsimsum: Summarise results from Monte Carlo simulation studies},</span></span>
+<span id="cb15-13"><a href="#cb15-13"></a><span class="co">#&gt;     journal = {Journal of Open Source Software},</span></span>
+<span id="cb15-14"><a href="#cb15-14"></a><span class="co">#&gt;     year = {2018},</span></span>
+<span id="cb15-15"><a href="#cb15-15"></a><span class="co">#&gt;     volume = {3},</span></span>
+<span id="cb15-16"><a href="#cb15-16"></a><span class="co">#&gt;     issue = {26},</span></span>
+<span id="cb15-17"><a href="#cb15-17"></a><span class="co">#&gt;     pages = {739},</span></span>
+<span id="cb15-18"><a href="#cb15-18"></a><span class="co">#&gt;     doi = {10.21105/joss.00739},</span></span>
+<span id="cb15-19"><a href="#cb15-19"></a><span class="co">#&gt;     url = {https://doi.org/10.21105/joss.00739},</span></span>
+<span id="cb15-20"><a href="#cb15-20"></a><span class="co">#&gt;   }</span></span></code></pre></div>
 </div>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">
@@ -279,7 +284,7 @@
 <h1 class="hasAnchor">
 <a href="#warning-for-rstudio-users" class="anchor"></a>Warning for RStudio users</h1>
 <p>If you use RStudio and equations are not displayed properly within the RStudio viewer window, please access the vignette from <a href="https://CRAN.R-project.org/package=rsimsum">the CRAN website</a> or directly from the R console with the command:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="dt">topic =</span> <span class="st">"A-introduction"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="dt">topic =</span> <span class="st">"A-introduction"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span></code></pre></div>
 <p>This is a known issue with RStudio (see <a href="https://github.com/rstudio/rstudio/issues/2253">#2253</a>).</p>
 </div>
 
