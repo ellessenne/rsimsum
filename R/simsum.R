@@ -78,10 +78,19 @@ simsum <- function(data,
   # 'estvarname', 'se', 'methodvar', 'by' must not be any in ('stat', 'est', 'mcse', 'lower', 'upper')
   checkmate::assert_false(x = (estvarname %in% c("stat", "est", "mcse", "lower", "upper")), add = arg_checks)
   if (!is.null(se)) checkmate::assert_false(x = (se %in% c("stat", "est", "mcse", "lower", "upper")), add = arg_checks)
-  if (!is.null(methodvar)) checkmate::assert_false(x = (methodvar %in% c("stat", "est", "mcse", "lower", "upper")))
-  if (!is.null(by)) checkmate::assert_false(x = any(by %in% c("stat", "est", "mcse", "lower", "upper")))
-  # 'ci.limits' must be a numeric vector of length 2
-  checkmate::assert_numeric(x = ci.limits, len = 2, null.ok = TRUE, add = arg_checks)
+  if (!is.null(methodvar)) checkmate::assert_false(x = (methodvar %in% c("stat", "est", "mcse", "lower", "upper")), add = arg_checks)
+  if (!is.null(by)) checkmate::assert_false(x = any(by %in% c("stat", "est", "mcse", "lower", "upper")), add = arg_checks)
+  # 'ci.limits' must be either a numeric vector of length 2 or a string vector with column names in 'data'
+  if (!is.null(ci.limits)) {
+    checkmate::assert_true(x = all(class(ci.limits) %in% c("character", "numeric")), add = arg_checks)
+    if (is.character(ci.limits)) {
+      checkmate::assert_character(x = ci.limits, len = 2, add = arg_checks)
+      checkmate::assert_true(x = all(ci.limits %in% names(data)), add = arg_checks)
+    }
+    if (is.numeric(ci.limits)) {
+      checkmate::assert_numeric(x = ci.limits, len = 2, add = arg_checks)
+    }
+  }
   # 'control' must be a list, with well defined components
   checkmate::assert_list(x = control, add = arg_checks)
   checkmate::assert_subset(x = names(control), choices = c("mcse", "level", "df", "na.rm", "char.sep", "dropbig.max", "dropbig.semax", "dropbig.robust"), empty.ok = TRUE, add = arg_checks)

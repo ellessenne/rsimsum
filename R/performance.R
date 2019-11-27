@@ -44,9 +44,13 @@
     if (is.null(ci.limits)) {
       cover <- 1 / nsim * sum(true >= data[[estvarname]] - crit * data[[se]] & true <= data[[estvarname]] + crit * data[[se]], na.rm = control$na.rm)
     } else {
+      if (is.character(ci.limits)) {
+        cover <- 1 / nsim * sum(true >= data[[ci.limits[1]]] & true <= data[[ci.limits[2]]], na.rm = control$na.rm)
+      } else if (is.numeric(ci.limits)) {
       data[["lower"]] <- ci.limits[1]
       data[["upper"]] <- ci.limits[2]
       cover <- 1 / nsim * sum(true >= data[["lower"]] & true <= data[["upper"]], na.rm = control$na.rm)
+      }
     }
   }
   # Bias-corrected coverage of a nominal (1 - level)% confidence interval
