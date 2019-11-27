@@ -23,5 +23,5 @@ test_that("loading nlp works", {
 test_that("loading tt works", {
   data("tt", package = "rsimsum")
   expect_s3_class(object = tt, class = "data.frame")
-  expect_equal(object = dim(tt), expected = c(800, 8))
+  expect_equal(object = dim(tt), expected = c(4000, 8))
 })
