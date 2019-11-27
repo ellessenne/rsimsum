@@ -4,13 +4,13 @@
 \name{tt}
 \alias{tt}
 \title{Example of a simulation study on the t-test}
-\format{A data frame with 800 rows and 8 variables:
+\format{A data frame with 4,000 rows and 8 variables:
 \itemize{
 \item \code{diff} The diffference in mean between groups estimated by the t-test;
 \item \code{se} Standard error of the estimated difference;
 \item \code{lower}, \code{upper} Confidence interval for the difference in mean as reported by the t-test;
 \item \code{df} The number of degrees of freedom assumed by the t-test;
-\item \code{repno} Identifies each replication, between 1 and 100S;
+\item \code{repno} Identifies each replication, between 1 and 500;
 \item \code{dgm} Identifies each data-generating mechanism: 1 corresponds to normal data with equal variance between the groups, 2 is normal data with unequal variance, 3 and 4 are skewed data (simulated from a Gamma distribution) with equal and unequal variance between groups, respectively;
 \item \code{method} Analysis method: 1 represents the t-test with pooled variance, while 2 represents the t-test with unpooled variance.
 }}

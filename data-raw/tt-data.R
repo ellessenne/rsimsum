@@ -2,7 +2,7 @@
 set.seed(2398756) # random seed
 obs <- 90 # total number of observations
 gr_ratio <- 2 # using 1 gives equal number of obs per group
-B <- 100 # Replications
+B <- 500 # Replications
 # Object with results
 tt.df <- vector(mode = "list", length = B)
 # Loop (for ftw)
