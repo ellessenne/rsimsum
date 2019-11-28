@@ -1,0 +1,66 @@
+---
+title: "Custom input values for confidence intervals and true values"
+author: "Alessandro Gasparini"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Custom input values for confidence intervals and true values}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include = FALSE}
+options(width = 150)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.align = "center", fig.height = 6, fig.width = 6,
+  out.width = "75%"
+)
+```
+
+`rsimsum` supports custom input values for the true value of the estimand and for confidence intervals limits (used to calculate coverage probability).
+
+To illustrate this feature, we can use the `tt` dataset (bundled with `rsimsum`):
+
+```{r packages}
+library(rsimsum)
+data("tt", package = "rsimsum")
+head(tt)
+```
+
+This includes the results of a simulation study assessing robustness of the t-test when estimating the difference between means.
+The t-test assumes a t distribution, hence confidence intervals for the estimated mean are generally based on the t distribution.
+See for instance the example from the t-test documentation (`?t.test`):
+
+```{r}
+t.test(extra ~ group, data = sleep)
+```
+
+We can incorporate custom confidence intervals by passing the name of two columns in `data` as the `ci.limits` argument:
+
+```{r}
+s <- simsum(data = tt, estvarname = "diff", true = -1, se = "se", ci.limits = c("lower", "upper"), methodvar = "method", by = "dgm")
+summary(s, stats = "cover")
+```
+
+By doing so, we can incorporate different types of confidence intervals in the analysis of Monte Carlo simulation studies.
+Compare with the default setting:
+
+```{r}
+s <- simsum(data = tt, estvarname = "diff", true = -1, se = "se", methodvar = "method", by = "dgm")
+summary(s, stats = "cover")
+```
+
+The `ci.limits` is also useful when using non-symmetrical confidence intervals, e.g. when using bootstrapped confidence intervals.
+
+A pair of values can also be passed to `rsimsum` as the `ci.limits` argument:
+
+```{r}
+s <- simsum(data = tt, estvarname = "diff", true = -1, se = "se", ci.limits = c(-1.5, -0.5), methodvar = "method", by = "dgm")
+summary(s, stats = "cover")
+```
+
+I don't fully understand the utility of this setting, see discussion on [GitHub](https://github.com/ellessenne/rsimsum/issues/6) for more details that lead to the implementation of this feature.

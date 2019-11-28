@@ -62,3 +62,19 @@
 #' @references Royston, P. and Parmar, M.K. 2002. Flexible parametric proportional-hazards and proportional-odds models for censored survival data, with application to prognostic modelling and estimation of treatment effects. Statistics in Medicine 21(15):2175-2197 \doi{10.1002/sim.1203}
 #' @references Rücker, G. and Schwarzer, G. 2014. Presenting simulation results in a nested loop plot. BMC Medical Research Methodology 14:129 \doi{10.1186/1471-2288-14-129}
 "nlp"
+
+#' @title Example of a simulation study on the t-test
+#' @description A dataset from a simulation study with 4 data-generating mechanisms, useful to illustrate custom input of confidence intervals to calculate coverage probability. This simulation study aims to compare the t-test assuming pooled or unpooled variance in violation (or not) of the t-test assumptions: normality of data, and equality (or not) or variance between groups.
+#' @format A data frame with 4,000 rows and 8 variables:
+#' * `diff` The diffference in mean between groups estimated by the t-test;
+#' * `se` Standard error of the estimated difference;
+#' * `lower`, `upper` Confidence interval for the difference in mean as reported by the t-test;
+#' * `df` The number of degrees of freedom assumed by the t-test;
+#' * `repno` Identifies each replication, between 1 and 500;
+#' * `dgm` Identifies each data-generating mechanism: 1 corresponds to normal data with equal variance between the groups, 2 is normal data with unequal variance, 3 and 4 are skewed data (simulated from a Gamma distribution) with equal and unequal variance between groups, respectively;
+#' * `method` Analysis method: 1 represents the t-test with pooled variance, while 2 represents the t-test with unpooled variance.
+#'
+#' @note Further details on this simulation study can be found in the R script used to generate this dataset, available on GitHub: [https://github.com/ellessenne/rsimsum/blob/master/data-raw/tt-data.R](https://github.com/ellessenne/rsimsum/blob/master/data-raw/tt-data.R)
+#' @examples
+#' data("tt", package = "rsimsum")
+"tt"
