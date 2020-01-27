@@ -42,16 +42,16 @@ t.test(extra ~ group, data = sleep)
 We can incorporate custom confidence intervals by passing the name of two columns in `data` as the `ci.limits` argument:
 
 ```{r}
-s <- simsum(data = tt, estvarname = "diff", true = -1, se = "se", ci.limits = c("lower", "upper"), methodvar = "method", by = "dgm")
-summary(s, stats = "cover")
+s1 <- simsum(data = tt, estvarname = "diff", true = -1, se = "se", ci.limits = c("lower", "upper"), methodvar = "method", by = "dgm")
+summary(s1, stats = "cover")
 ```
 
 By doing so, we can incorporate different types of confidence intervals in the analysis of Monte Carlo simulation studies.
 Compare with the default setting:
 
 ```{r}
-s <- simsum(data = tt, estvarname = "diff", true = -1, se = "se", methodvar = "method", by = "dgm")
-summary(s, stats = "cover")
+s2 <- simsum(data = tt, estvarname = "diff", true = -1, se = "se", methodvar = "method", by = "dgm")
+summary(s2, stats = "cover")
 ```
 
 The `ci.limits` is also useful when using non-symmetrical confidence intervals, e.g. when using bootstrapped confidence intervals.
@@ -59,8 +59,22 @@ The `ci.limits` is also useful when using non-symmetrical confidence intervals, 
 A pair of values can also be passed to `rsimsum` as the `ci.limits` argument:
 
 ```{r}
-s <- simsum(data = tt, estvarname = "diff", true = -1, se = "se", ci.limits = c(-1.5, -0.5), methodvar = "method", by = "dgm")
-summary(s, stats = "cover")
+s3 <- simsum(data = tt, estvarname = "diff", true = -1, se = "se", ci.limits = c(-1.5, -0.5), methodvar = "method", by = "dgm")
+summary(s3, stats = "cover")
 ```
 
-I don't fully understand the utility of this setting, see discussion on [GitHub](https://github.com/ellessenne/rsimsum/issues/6) for more details that lead to the implementation of this feature.
+If you have a better example of the utility of this method please [get in touch](https://twitter.com/ellessenne) - I'd love to hear from you!
+
+Finally, we can pass a column of values for `true` as well:
+
+```{r}
+tt$true <- -1
+s4 <- simsum(data = tt, estvarname = "diff", true = "true", se = "se", ci.limits = c("lower", "upper"), methodvar = "method", by = "dgm")
+summary(s4, stats = "cover")
+```
+
+Compare with the default settings:
+
+```{r}
+summary(s2, stats = "cover")
+```
