@@ -59,8 +59,16 @@ simsum <- function(data,
   checkmate::assert_string(x = se, null.ok = TRUE, add = arg_checks)
   checkmate::assert_string(x = methodvar, null.ok = TRUE, add = arg_checks)
   checkmate::assert_string(x = ref, null.ok = TRUE, add = arg_checks)
-  # 'true' must be a single numberic value
-  checkmate::assert_number(x = true, null.ok = TRUE, add = arg_checks)
+  # 'true' must be a single numeric value, or a string that identifies a column in 'data'
+  if (!is.null(true)) {
+    checkmate::assert_true(x = all(class(true) %in% c("character", "numeric")), add = arg_checks)
+    if (is.character(true)) {
+      checkmate::assert_string(x = true, add = arg_checks)
+      checkmate::assert_true(x = all(true %in% names(data)), add = arg_checks)
+    } else {
+      checkmate::assert_number(x = true, null.ok = TRUE, add = arg_checks)
+    }
+  }
   # 'dropbig', 'mcse', 'x' must be single logical value
   checkmate::assert_logical(x = dropbig, len = 1, add = arg_checks)
   checkmate::assert_logical(x = x, len = 1, add = arg_checks)
