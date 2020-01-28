@@ -67,7 +67,7 @@ simsum <- function(data,
   checkmate::assert_string(x = ref, null.ok = TRUE, add = arg_checks)
   # 'true' must be a single numeric value, or a string that identifies a column in 'data'
   if (!is.null(true)) {
-    checkmate::assert_true(x = inherits(x = true, what = c("character", "numeric")), add = arg_checks)
+    checkmate::assert_true(x = inherits(x = true, what = c("character", "numeric", "integer")), add = arg_checks)
     if (is.character(true)) {
       checkmate::assert_string(x = true, add = arg_checks)
       checkmate::assert_true(x = all(true %in% names(data)), add = arg_checks)
@@ -96,7 +96,7 @@ simsum <- function(data,
   if (!is.null(by)) checkmate::assert_false(x = any(by %in% c("stat", "est", "mcse", "lower", "upper")), add = arg_checks)
   # 'ci.limits' must be either a numeric vector of length 2 or a string vector with column names in 'data'
   if (!is.null(ci.limits)) {
-    checkmate::assert_true(x = inherits(x = ci.limits, what = c("character", "numeric")), add = arg_checks)
+    checkmate::assert_true(x = inherits(x = ci.limits, what = c("character", "numeric", "integer")), add = arg_checks)
     if (is.character(ci.limits)) {
       checkmate::assert_character(x = ci.limits, len = 2, add = arg_checks)
       checkmate::assert_true(x = all(ci.limits %in% names(data)), add = arg_checks)
