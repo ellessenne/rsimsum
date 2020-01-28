@@ -17,3 +17,10 @@ all.equal(get_data(m1), get_data(m2))
 
 # Should be ok!
 # Need to describe in the vignette the different possibilities when passing values to multisimsum...
+
+### All-in-one testing
+devtools::check_win_oldrelease(quiet = TRUE)
+devtools::check_win_release(quiet = TRUE)
+devtools::check_win_devel(quiet = TRUE)
+rhub::check_for_cran()
+rhub::check_on_macos()
