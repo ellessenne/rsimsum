@@ -47,13 +47,16 @@ multisimsum <- function(data,
   # 'methodvar', 'par' must not be any in ('stat', 'est', 'mcse', 'lower', 'upper')
   if (!is.null(methodvar)) checkmate::assert_false(x = (methodvar %in% c("stat", "est", "mcse", "lower", "upper")))
   checkmate::assert_false(x = (par %in% c("stat", "est", "mcse", "lower", "upper")), add = arg_checks)
-  # 'true' must a named vector
+  # 'true' can be a named vector, with numeric values
   # its length must be equal to the number of unique elements in 'par'
   # the names must be the same unique values in 'par'
+  # N.B.: if not, then pass everything onto simsum
   if (!is.null(true)) {
-    checkmate::assert_named(x = true, add = arg_checks)
-    checkmate::assert_true(x = (length(unique(data[[par]])) == length(true)), add = arg_checks)
-    checkmate::assert_true(x = all(names(true) %in% unique(data[[par]])), add = arg_checks)
+    if (rlang::is_named(true)) {
+      checkmate::assert_named(x = true, add = arg_checks)
+      checkmate::assert_true(x = (length(unique(data[[par]])) == length(true)), add = arg_checks)
+      checkmate::assert_true(x = all(names(true) %in% unique(data[[par]])), add = arg_checks)
+    }
   }
   # 'control' must be a list, with well defined components
   checkmate::assert_list(x = control, add = arg_checks)
@@ -106,7 +109,11 @@ multisimsum <- function(data,
   par_simsum <- vector(mode = "list", length = length(par_split))
   if (x) par_data <- vector(mode = "list", length = length(par_split))
   for (i in seq_along(par_split)) {
-    run <- simsum(data = par_split[[i]], estvarname = estvarname, true = true[names(par_split)[i]], se = se, methodvar = methodvar, ref = ref, by = by, ci.limits = ci.limits, dropbig = dropbig, x = x, control = control)
+    if (rlang::is_named(true) | is.null(true)) {
+      run <- simsum(data = par_split[[i]], estvarname = estvarname, true = true[names(par_split)[i]], se = se, methodvar = methodvar, ref = ref, by = by, ci.limits = ci.limits, dropbig = dropbig, x = x, control = control)
+    } else {
+      run <- simsum(data = par_split[[i]], estvarname = estvarname, true = true, se = se, methodvar = methodvar, ref = ref, by = by, ci.limits = ci.limits, dropbig = dropbig, x = x, control = control)
+    }
     par_simsum[[i]] <- run[["summ"]]
     if (x) par_data[[i]] <- run[["x"]]
   }

@@ -112,7 +112,7 @@ testthat::test_that("multisimsum argument checks", {
   testthat::expect_error(object = rsimsum::multisimsum(data = frailty, par = 1, true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist"))
   testthat::expect_error(object = rsimsum::multisimsum(data = frailty, par = TRUE, true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist"))
   testthat::expect_error(object = rsimsum::multisimsum(data = frailty, par = NULL, true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist"))
-  testthat::expect_error(object = rsimsum::multisimsum(data = frailty, par = "par", true = 1, estvarname = "b", se = "se", methodvar = "model", by = "fv_dist"))
+  testthat::expect_error(object = rsimsum::multisimsum(data = frailty, par = "par", true = c(1, 1), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist"))
   testthat::expect_error(object = rsimsum::multisimsum(data = frailty, par = "par", true = TRUE, estvarname = "b", se = "se", methodvar = "model", by = "fv_dist"))
 })
 
