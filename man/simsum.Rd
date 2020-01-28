@@ -26,7 +26,10 @@ It has to be in tidy format, e.g. each variable forms a column and each observat
 
 \item{se}{The name of the variable containing the standard errors of the point estimates.}
 
-\item{true}{The true value of the parameter; this is used in calculations of bias, coverage, and mean squared error and is required whenever these performance measures are requested.}
+\item{true}{The true value of the parameter; this is used in calculations of bias, coverage, and mean squared error and is required whenever these performance measures are requested.
+\code{true} can be a numeric value or a string that identifies a column in \code{data}.
+In the former setting, \code{simsum} will assume the same value for all replications; conversely, each replication will use a distinct value for \code{true} as identified by each row of \code{data}.
+See \code{vignette("E-custom-inputs", package = "rsimsum")} for more details.}
 
 \item{methodvar}{The name of the variable containing the methods to compare.
 For instance, methods could be the models compared within a simulation study.
@@ -37,7 +40,10 @@ Only useful if \code{methodvar} is specified.}
 
 \item{by}{A vector of variable names to compute performance measures by a list of factors. Factors listed here are the (potentially several) data-generating mechanisms used to simulate data under different scenarios (e.g. sample size, true distribution of a variable, etc.). Can be \code{NULL}.}
 
-\item{ci.limits}{A numeric vector of length 2 specifying the limits (lower and upper) of confidence intervals used to calculate coverage. Useful for non-Wald type estimators (e.g. bootstrap). Defaults to \code{NULL}, where Wald-type confidence intervals based on the provided SEs are calculated for coverage. This feature is experimental, use with caution.}
+\item{ci.limits}{Can be used to specify the limits (lower and upper) of confidence intervals used to calculate coverage.
+Useful for non-Wald type estimators (e.g. bootstrap).
+Defaults to \code{NULL}, where Wald-type confidence intervals based on the provided SEs are calculated for coverage; otherwise, it can be a numeric vector (for fixed confidence intervals) or a vector of strings that identify columns in \code{data} with replication-specific lower and upper limits.
+See \code{vignette("E-custom-inputs", package = "rsimsum")} for more details.}
 
 \item{dropbig}{Specifies that point estimates or standard errors beyond the maximum acceptable values should be dropped. Defaults to \code{FALSE}.}
 

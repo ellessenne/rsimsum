@@ -2,7 +2,9 @@
 #' @description `multisimsum` is an extension of [simsum()] that can handle multiple estimated parameters at once.
 #' `multisimsum` calls [simsum()] internally, each estimands at once.
 #' There is only one new argument that must be set when calling `multisimsum`: `par`, a string representing the column of `data` that identifies the different estimands.
-#' Additionally, with `multisimsum` the argument `true` must be a named vector, where names correspond to each estimand (see examples).
+#' Additionally, with `multisimsum` the argument `true` can be a named vector, where names correspond to each estimand (see examples).
+#' Otherwise, constant values (or values identified by a column in `data`) will be utilised.
+#' See `vignette("E-custom-inputs", package = "rsimsum")` for more details.
 #' @param par The name of the variable containing the methods to compare.
 #' Can be `NULL`.
 #' @inheritParams simsum

@@ -4,9 +4,6 @@
     <loc>https://ellessenne.github.io/rsimsum/index.html</loc>
   </url>
   <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/MIsim.html</loc>
-  </url>
-  <url>
     <loc>https://ellessenne.github.io/rsimsum/reference/autoplot.multisimsum.html</loc>
   </url>
   <url>
@@ -38,6 +35,9 @@
   </url>
   <url>
     <loc>https://ellessenne.github.io/rsimsum/reference/is.summary.simsum.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/rsimsum/reference/MIsim.html</loc>
   </url>
   <url>
     <loc>https://ellessenne.github.io/rsimsum/reference/multisimsum.html</loc>
@@ -76,6 +76,9 @@
     <loc>https://ellessenne.github.io/rsimsum/reference/summary.simsum.html</loc>
   </url>
   <url>
+    <loc>https://ellessenne.github.io/rsimsum/reference/tt.html</loc>
+  </url>
+  <url>
     <loc>https://ellessenne.github.io/rsimsum/articles/A-introduction.html</loc>
   </url>
   <url>
@@ -88,6 +91,9 @@
     <loc>https://ellessenne.github.io/rsimsum/articles/D-nlp.html</loc>
   </url>
   <url>
-    <loc>https://ellessenne.github.io/rsimsum/articles/E-rsimsumtidyverse.html</loc>
+    <loc>https://ellessenne.github.io/rsimsum/articles/E-custom-inputs.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/rsimsum/articles/F-rsimsumtidyverse.html</loc>
   </url>
 </urlset>

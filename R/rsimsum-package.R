@@ -8,7 +8,7 @@
 #' @name rsimsum
 #' @docType package
 #' @author Alessandro Gasparini (alessandro.gasparini@@ki.se)
-#' @import checkmate ggplot2 rlang scales stats
+#' @import checkmate ggridges ggplot2 rlang scales stats
 NULL
 
 # Quiets concerns of R CMD check re: variable names used internally

@@ -37,7 +37,7 @@
 
 <meta property="og:title" content="Changelog" />
 
-<meta name="robots" content="noindex" />
+
 
 
 <!-- mathjax -->
@@ -112,7 +112,10 @@
       <a href="../articles/D-nlp.html">Nested loop plots</a>
     </li>
     <li>
-      <a href="../articles/E-rsimsumtidyverse.html">rsimsum and the tidyverse</a>
+      <a href="../articles/E-custom-inputs.html">Custom input values for confidence intervals and true values</a>
+    </li>
+    <li>
+      <a href="../articles/F-rsimsumtidyverse.html">rsimsum and the tidyverse</a>
     </li>
   </ul>
 </li>
@@ -143,9 +146,17 @@
 <h1 class="page-header">
 <a href="#rsimsum-development-version" class="anchor"></a>rsimsum (development version)<small> Unreleased </small>
 </h1>
+<div id="improvements" class="section level3">
+<h3 class="hasAnchor">
+<a href="#improvements" class="anchor"></a>Improvements:</h3>
 <ul>
-<li>Added new argument <code>zoom</code> to <code>autoplot</code> methods: it is now possible to <em>zoom</em> on the top x% of a zip plot to improve readability.</li>
+<li><p>Added new argument <code>zoom</code> to <code>autoplot</code> methods: it is now possible to <em>zoom</em> on the top x% of a zip plot to improve readability;</p></li>
+<li><p>Added a new example dataset from a toy simulation study assessing the robustness of the t-test. See <code><a href="../reference/tt.html">?"tt"</a></code> for more details;</p></li>
+<li><p>The <code>true</code> argument of <code>rsimsum</code> and <code>multisimsum</code> now accepts a string that identifies a column in <code>data</code>. This is especially useful in settings where the true value varies across replications, e.g. when it depends on characteristics of the simulated data. See <code><a href="../articles/../../../../../../../Z:/R-Dev/rsimsum/vignettes/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code> for more details and examples;</p></li>
+<li><p>Analogously, the <code>ci.limits</code> argument now accepts a vector of strings that identifies lower and upper limits for custom-defined confidence intervals from columns in <code>data</code>. Once again, more details are included in <code><a href="../articles/../../../../../../../Z:/R-Dev/rsimsum/vignettes/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code>;</p></li>
+<li><p><code>rsimsum</code> now correctly uses <code><a href="https://rdrr.io/r/base/class.html">inherits(obj, "someclass")</a></code> instead of <code>class(obj) == "someclass"</code> (#20).</p></li>
 </ul>
+</div>
 </div>
     <div id="rsimsum-071" class="section level1">
 <h1 class="page-header">
@@ -160,9 +171,9 @@
 <h1 class="page-header">
 <a href="#rsimsum-070" class="anchor"></a>rsimsum 0.7.0<small> 2019-11-12 </small>
 </h1>
-<div id="improvements" class="section level3">
+<div id="improvements-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#improvements" class="anchor"></a>Improvements:</h3>
+<a href="#improvements-1" class="anchor"></a>Improvements:</h3>
 <ul>
 <li><p>Passing the true value of an estimand (<code>true</code> argument) is no longer required; if <code>true</code> is not passed to <code>simsum</code> or <code>multisimsum</code>, bias, coverage, and mean squared error are not computed;</p></li>
 <li><p>Passing estimated standard errors per replication (<code>se</code> argument) is no longer required; if so, average and median variances, model-based standard errors, relative error, coverage probability, bias-eliminated coverage probability, power are not computed.</p></li>
@@ -198,9 +209,9 @@
 <h1 class="page-header">
 <a href="#rsimsum-060" class="anchor"></a>rsimsum 0.6.0<small> 2019-07-15 </small>
 </h1>
-<div id="improvements-1" class="section level3">
+<div id="improvements-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#improvements-1" class="anchor"></a>Improvements:</h3>
+<a href="#improvements-2" class="anchor"></a>Improvements:</h3>
 <ul>
 <li><p>Implemented fully automated nested loop plots for simulation studies with several data-generating mechanisms: <code>autoplot(object, type = "nlp")</code>;</p></li>
 <li><p>Added <code><a href="https://rdrr.io/r/utils/data.html">data("nlp", package = "rsimsum")</a></code>, a dataset from a simulation study with 150 data-generating. This is particularly useful to illustrate nested loop plots;</p></li>
@@ -245,9 +256,9 @@
 <h1 class="page-header">
 <a href="#rsimsum-050" class="anchor"></a>rsimsum 0.5.0<small> 2019-02-21 </small>
 </h1>
-<div id="improvements-2" class="section level3">
+<div id="improvements-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#improvements-2" class="anchor"></a>Improvements:</h3>
+<a href="#improvements-3" class="anchor"></a>Improvements:</h3>
 <ul>
 <li>Implemented <code>autoplot</code> method for <code>multisimsum</code> and <code>summary.multisimsum</code> objects;</li>
 <li>Implemented heat plot types for both <code>simsum</code> and <code>multisimsum</code> objects;</li>
@@ -292,9 +303,9 @@
 <a href="#rsimsum-040" class="anchor"></a>rsimsum 0.4.0<small> Unreleased </small>
 </h1>
 <p><code>rsimsum</code> 0.4.0 is a large refactoring of <code>rsimsum</code>. There are several improvements and breaking changes, outlined below.</p>
-<div id="improvements-3" class="section level3">
+<div id="improvements-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#improvements-3" class="anchor"></a>Improvements</h3>
+<a href="#improvements-4" class="anchor"></a>Improvements</h3>
 <ul>
 <li>
 <code>rsimsum</code> is more robust to using factor variables (e.g. as <code>methodvar</code> or <code>by</code> factor), with ordering that will be preserved if defined in the dataset passed to <code>simsum</code> (or <code>multisimsum</code>);</li>

@@ -8,13 +8,19 @@
 #' @param estvarname The name of the variable containing the point estimates.
 #' @param se The name of the variable containing the standard errors of the point estimates.
 #' @param true The true value of the parameter; this is used in calculations of bias, coverage, and mean squared error and is required whenever these performance measures are requested.
+#' `true` can be a numeric value or a string that identifies a column in `data`.
+#' In the former setting, `simsum` will assume the same value for all replications; conversely, each replication will use a distinct value for `true` as identified by each row of `data`.
+#' See `vignette("E-custom-inputs", package = "rsimsum")` for more details.
 #' @param methodvar The name of the variable containing the methods to compare.
 #' For instance, methods could be the models compared within a simulation study.
 #' Can be `NULL`.
 #' @param ref Specifies the reference method against which relative precision will be calculated.
 #' Only useful if `methodvar` is specified.
 #' @param by A vector of variable names to compute performance measures by a list of factors. Factors listed here are the (potentially several) data-generating mechanisms used to simulate data under different scenarios (e.g. sample size, true distribution of a variable, etc.). Can be `NULL`.
-#' @param ci.limits A numeric vector of length 2 specifying the limits (lower and upper) of confidence intervals used to calculate coverage. Useful for non-Wald type estimators (e.g. bootstrap). Defaults to `NULL`, where Wald-type confidence intervals based on the provided SEs are calculated for coverage. This feature is experimental, use with caution.
+#' @param ci.limits Can be used to specify the limits (lower and upper) of confidence intervals used to calculate coverage.
+#' Useful for non-Wald type estimators (e.g. bootstrap).
+#' Defaults to `NULL`, where Wald-type confidence intervals based on the provided SEs are calculated for coverage; otherwise, it can be a numeric vector (for fixed confidence intervals) or a vector of strings that identify columns in `data` with replication-specific lower and upper limits.
+#' See `vignette("E-custom-inputs", package = "rsimsum")` for more details.
 #' @param dropbig Specifies that point estimates or standard errors beyond the maximum acceptable values should be dropped. Defaults to `FALSE`.
 #' @param x Set to `TRUE` to include the `data` argument used to calculate summary statistics (i.e. after pre-processing the input dataset e.g. removing values deemed too large via the `dropbig` argument) as a slot. Calling `simsum` with `x = TRUE` is required to produce zipper plots. The downside is that the size of the returned object increases considerably, therefore it is set to `FALSE` by default.
 #' @param control A list of parameters that control the behaviour of `simsum`. Possible values are:

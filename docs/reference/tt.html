@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Example of a simulation study on survival modelling — nlp • rsimsum</title>
+<title>Example of a simulation study on the t-test — tt • rsimsum</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Example of a simulation study on survival modelling — nlp" />
-<meta property="og:description" content="A dataset from a simulation study with 150 data-generating mechanisms, useful to illustrate nested loop plots. This simulation study aims to compare the Cox model and flexible parametric models in a variety of scenarios: different baseline hazard functions, sample size, and varying amount of heterogeneity unaccounted for in the model (simulated as white noise with a given variance). A Cox model and a Royston-Parmar model with 5 degrees of freedom are fit to each replication." />
+<meta property="og:title" content="Example of a simulation study on the t-test — tt" />
+<meta property="og:description" content="A dataset from a simulation study with 4 data-generating mechanisms, useful to illustrate custom input of confidence intervals to calculate coverage probability. This simulation study aims to compare the t-test assuming pooled or unpooled variance in violation (or not) of the t-test assumptions: normality of data, and equality (or not) or variance between groups." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -140,49 +140,41 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Example of a simulation study on survival modelling</h1>
+    <h1>Example of a simulation study on the t-test</h1>
     
-    <div class="hidden name"><code>nlp.Rd</code></div>
+    <div class="hidden name"><code>tt.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A dataset from a simulation study with 150 data-generating mechanisms, useful to illustrate nested loop plots. This simulation study aims to compare the Cox model and flexible parametric models in a variety of scenarios: different baseline hazard functions, sample size, and varying amount of heterogeneity unaccounted for in the model (simulated as white noise with a given variance). A Cox model and a Royston-Parmar model with 5 degrees of freedom are fit to each replication.</p>
+    <p>A dataset from a simulation study with 4 data-generating mechanisms, useful to illustrate custom input of confidence intervals to calculate coverage probability. This simulation study aims to compare the t-test assuming pooled or unpooled variance in violation (or not) of the t-test assumptions: normality of data, and equality (or not) or variance between groups.</p>
     </div>
 
-    <pre class="usage"><span class='no'>nlp</span></pre>
+    <pre class="usage"><span class='no'>tt</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A data frame with 30,000 rows and 10 variables:</p><ul>
-<li><p><code>dgm</code> Data-generating mechanism, 1 to 150.</p></li>
-<li><p><code>i</code> Simulated dataset number.</p></li>
-<li><p><code>model</code> Method used, with 1 the Cox model and 2 the RP(5) model.</p></li>
-<li><p><code>b</code> Point estimate for the log-hazard ratio.</p></li>
-<li><p><code>se</code> Standard error of the point estimate.</p></li>
-<li><p><code>baseline</code> Baseline hazard function of the simulated dataset.</p></li>
-<li><p><code>ss</code> Sample size of the simulated dataset.</p></li>
-<li><p><code>esigma</code> Standard deviation of the white noise.</p></li>
-<li><p><code>pars</code> (Ancillary) Parameters of the baseline hazard function.</p></li>
+    <p>A data frame with 4,000 rows and 8 variables:</p><ul>
+<li><p><code>diff</code> The diffference in mean between groups estimated by the t-test;</p></li>
+<li><p><code>se</code> Standard error of the estimated difference;</p></li>
+<li><p><code>lower</code>, <code>upper</code> Confidence interval for the difference in mean as reported by the t-test;</p></li>
+<li><p><code>df</code> The number of degrees of freedom assumed by the t-test;</p></li>
+<li><p><code>repno</code> Identifies each replication, between 1 and 500;</p></li>
+<li><p><code>dgm</code> Identifies each data-generating mechanism: 1 corresponds to normal data with equal variance between the groups, 2 is normal data with unequal variance, 3 and 4 are skewed data (simulated from a Gamma distribution) with equal and unequal variance between groups, respectively;</p></li>
+<li><p><code>method</code> Analysis method: 1 represents the t-test with pooled variance, while 2 represents the t-test with unpooled variance.</p></li>
 </ul>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Further details on this simulation study can be found in the R script used to generate this dataset, available on GitHub: <a href='https://github.com/ellessenne/rsimsum/blob/master/data-raw/nlp-data.R'>https://github.com/ellessenne/rsimsum/blob/master/data-raw/nlp-data.R</a></p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Cox D.R. 1972. Regression models and life-tables. Journal of the Royal Statistical Society, Series B (Methodological) 34(2):187-220. doi: <a href='https://doi.org/10.1007/978-1-4612-4380-9_37'>10.1007/978-1-4612-4380-9_37</a></p>
-<p>Royston, P. and Parmar, M.K. 2002. Flexible parametric proportional-hazards and proportional-odds models for censored survival data, with application to prognostic modelling and estimation of treatment effects. Statistics in Medicine 21(15):2175-2197 doi: <a href='https://doi.org/10.1002/sim.1203'>10.1002/sim.1203</a></p>
-<p>Rücker, G. and Schwarzer, G. 2014. Presenting simulation results in a nested loop plot. BMC Medical Research Methodology 14:129 doi: <a href='https://doi.org/10.1186/1471-2288-14-129'>10.1186/1471-2288-14-129</a></p>
+    <p>Further details on this simulation study can be found in the R script used to generate this dataset, available on GitHub: <a href='https://github.com/ellessenne/rsimsum/blob/master/data-raw/tt-data.R'>https://github.com/ellessenne/rsimsum/blob/master/data-raw/tt-data.R</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"nlp"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"rsimsum"</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"tt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"rsimsum"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#format">Format</a></li>
       <li><a href="#note">Note</a></li>
-      <li><a href="#references">References</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
