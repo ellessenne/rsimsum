@@ -1,6 +1,16 @@
 # rsimsum (development version)
 
-* Added new argument `zoom` to `autoplot` methods: it is now possible to _zoom_ on the top x% of a zip plot to improve readability.
+### Improvements:
+
+* Added new argument `zoom` to `autoplot` methods: it is now possible to _zoom_ on the top x% of a zip plot to improve readability;
+
+* Added a new example dataset from a toy simulation study assessing the robustness of the t-test. See `?"tt"` for more details;
+
+* The `true` argument of `rsimsum` and `multisimsum` now accepts a string that identifies a column in `data`. This is especially useful in settings where the true value varies across replications, e.g. when it depends on characteristics of the simulated data. See `vignette("E-custom-inputs", package = "rsimsum")` for more details and examples;
+
+* Analogously, the `ci.limits` argument now accepts a vector of strings that identifies lower and upper limits for custom-defined confidence intervals from columns in `data`. Once again, more details are included in `vignette("E-custom-inputs", package = "rsimsum")`;
+
+* `rsimsum` now correctly uses `inherits(obj, "someclass")` instead of `class(obj) == "someclass"` (#20).
 
 # rsimsum 0.7.1
 
