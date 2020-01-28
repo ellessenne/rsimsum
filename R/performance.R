@@ -21,11 +21,23 @@
     se2_var <- stats::var(data[[se]]^2, na.rm = control$na.rm)
   }
   # Bias
-  if (!is.null(true)) bias <- 1 / nsim * sum(data[[estvarname]] - true, na.rm = control$na.rm)
+  if (!is.null(true)) {
+    if (is.character(true)) {
+      bias <- 1 / nsim * sum(data[[estvarname]] - data[[true]], na.rm = control$na.rm)
+    } else {
+      bias <- 1 / nsim * sum(data[[estvarname]] - true, na.rm = control$na.rm)
+    }
+  }
   # Empirical standard error
   empse <- sqrt(1 / (nsim - 1) * sum((data[[estvarname]] - mean(data[[estvarname]], na.rm = control$na.rm))^2, na.rm = control$na.rm))
   # Mean squared error
-  if (!is.null(true)) mse <- 1 / nsim * sum((data[[estvarname]] - true)^2, na.rm = control$na.rm)
+  if (!is.null(true)) {
+    if (is.character(true)) {
+      mse <- 1 / nsim * sum((data[[estvarname]] - data[[true]])^2, na.rm = control$na.rm)
+    } else {
+      mse <- 1 / nsim * sum((data[[estvarname]] - true)^2, na.rm = control$na.rm)
+    }
+  }
   # Relative change in precision
   if (!is.null(empse_ref) & !is.null(rho)) {
     relprec <- 100 * ((empse_ref / empse)^2 - 1)
@@ -42,14 +54,26 @@
   # Coverage of a nominal (1 - level)% confidence interval
   if (!is.null(true) & !is.null(se)) {
     if (is.null(ci.limits)) {
-      cover <- 1 / nsim * sum(true >= data[[estvarname]] - crit * data[[se]] & true <= data[[estvarname]] + crit * data[[se]], na.rm = control$na.rm)
+      if (is.character(true)) {
+        cover <- 1 / nsim * sum(data[[true]] >= data[[estvarname]] - crit * data[[se]] & data[[true]] <= data[[estvarname]] + crit * data[[se]], na.rm = control$na.rm)
+      } else {
+        cover <- 1 / nsim * sum(true >= data[[estvarname]] - crit * data[[se]] & true <= data[[estvarname]] + crit * data[[se]], na.rm = control$na.rm)
+      }
     } else {
       if (is.character(ci.limits)) {
-        cover <- 1 / nsim * sum(true >= data[[ci.limits[1]]] & true <= data[[ci.limits[2]]], na.rm = control$na.rm)
+        if (is.character(true)) {
+          cover <- 1 / nsim * sum(data[[true]] >= data[[ci.limits[1]]] & data[[true]] <= data[[ci.limits[2]]], na.rm = control$na.rm)
+        } else {
+          cover <- 1 / nsim * sum(true >= data[[ci.limits[1]]] & true <= data[[ci.limits[2]]], na.rm = control$na.rm)
+        }
       } else if (is.numeric(ci.limits)) {
         data[["lower"]] <- ci.limits[1]
         data[["upper"]] <- ci.limits[2]
-        cover <- 1 / nsim * sum(true >= data[["lower"]] & true <= data[["upper"]], na.rm = control$na.rm)
+        if (is.character(true)) {
+          cover <- 1 / nsim * sum(data[[true]] >= data[["lower"]] & data[[true]] <= data[["upper"]], na.rm = control$na.rm)
+        } else {
+          cover <- 1 / nsim * sum(true >= data[["lower"]] & true <= data[["upper"]], na.rm = control$na.rm)
+        }
       }
     }
   }
@@ -62,7 +86,13 @@
   if (control$mcse) {
     if (!is.null(true)) bias_mcse <- sqrt(1 / (nsim * (nsim - 1)) * sum((data[[estvarname]] - mean(data[[estvarname]], na.rm = control$na.rm))^2, na.rm = control$na.rm))
     empse_mcse <- empse / sqrt(2 * (nsim - 1))
-    if (!is.null(true)) mse_mcse <- sqrt(sum(((data[[estvarname]] - true)^2 - mse)^2, na.rm = control$na.rm) / (nsim * (nsim - 1)))
+    if (!is.null(true)) {
+      if (is.character(true)) {
+        mse_mcse <- sqrt(sum(((data[[estvarname]] - data[[true]])^2 - mse)^2, na.rm = control$na.rm) / (nsim * (nsim - 1)))
+      } else {
+        mse_mcse <- sqrt(sum(((data[[estvarname]] - true)^2 - mse)^2, na.rm = control$na.rm) / (nsim * (nsim - 1)))
+      }
+    }
     if (!is.null(empse_ref) & !is.null(rho)) {
       relprec_mcse <- 200 * (empse_ref / empse)^2 * sqrt((1 - rho^2) / (nsim - 1))
     } else {
@@ -85,7 +115,6 @@
     se2_mean <- se2_median <- se2_var <- modelse <- relerror <- cover <- becover <- power <- NULL
     modelse_mcse <- relerror_mcse <- cover_mcse <- becover_mcse <- power_mcse <- NULL
   }
-
 
   ### Assemble object to return
   obj$stat <- c("nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "becover", "power")

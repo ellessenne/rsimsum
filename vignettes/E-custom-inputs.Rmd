@@ -21,6 +21,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+# Single Estimand
+
 `rsimsum` supports custom input values for the true value of the estimand and for confidence intervals limits (used to calculate coverage probability).
 
 To illustrate this feature, we can use the `tt` dataset (bundled with `rsimsum`):
@@ -42,16 +44,16 @@ t.test(extra ~ group, data = sleep)
 We can incorporate custom confidence intervals by passing the name of two columns in `data` as the `ci.limits` argument:
 
 ```{r}
-s <- simsum(data = tt, estvarname = "diff", true = -1, se = "se", ci.limits = c("lower", "upper"), methodvar = "method", by = "dgm")
-summary(s, stats = "cover")
+s1 <- simsum(data = tt, estvarname = "diff", true = -1, se = "se", ci.limits = c("lower", "upper"), methodvar = "method", by = "dgm")
+summary(s1, stats = "cover")
 ```
 
 By doing so, we can incorporate different types of confidence intervals in the analysis of Monte Carlo simulation studies.
 Compare with the default setting:
 
 ```{r}
-s <- simsum(data = tt, estvarname = "diff", true = -1, se = "se", methodvar = "method", by = "dgm")
-summary(s, stats = "cover")
+s2 <- simsum(data = tt, estvarname = "diff", true = -1, se = "se", methodvar = "method", by = "dgm")
+summary(s2, stats = "cover")
 ```
 
 The `ci.limits` is also useful when using non-symmetrical confidence intervals, e.g. when using bootstrapped confidence intervals.
@@ -59,8 +61,86 @@ The `ci.limits` is also useful when using non-symmetrical confidence intervals, 
 A pair of values can also be passed to `rsimsum` as the `ci.limits` argument:
 
 ```{r}
-s <- simsum(data = tt, estvarname = "diff", true = -1, se = "se", ci.limits = c(-1.5, -0.5), methodvar = "method", by = "dgm")
-summary(s, stats = "cover")
+s3 <- simsum(data = tt, estvarname = "diff", true = -1, se = "se", ci.limits = c(-1.5, -0.5), methodvar = "method", by = "dgm")
+summary(s3, stats = "cover")
 ```
 
-I don't fully understand the utility of this setting, see discussion on [GitHub](https://github.com/ellessenne/rsimsum/issues/6) for more details that lead to the implementation of this feature.
+If you have a better example of the utility of this method please [get in touch](https://twitter.com/ellessenne) - I'd love to hear from you!
+
+Finally, we can pass a column of values for `true` as well:
+
+```{r}
+tt$true <- -1
+s4 <- simsum(data = tt, estvarname = "diff", true = "true", se = "se", ci.limits = c("lower", "upper"), methodvar = "method", by = "dgm")
+summary(s4, stats = "cover")
+```
+
+Compare with the default settings:
+
+```{r}
+summary(s2, stats = "cover")
+```
+
+# Multiple Estimands at Once
+
+`multisimsum` can be as flexible as `simsum`.
+Remember the default behaviour:
+
+```{r}
+data("frailty", package = "rsimsum")
+ms1 <- multisimsum(
+  data = frailty,
+  par = "par", true = c(trt = -0.50, fv = 0.75),
+  estvarname = "b", se = "se", methodvar = "model",
+  by = "fv_dist"
+)
+summary(ms1, stats = "bias")
+```
+
+In this example, we pass the true values of each estimand as the named vector `c(trt = -0.50, fv = 0.75)`.
+
+Say instead we stored the true value of each estimand as a column in our dataset:
+
+```{r}
+frailty$true <- ifelse(frailty$par == "trt", -0.50, 0.75)
+head(frailty)
+```
+
+With this data structure, we can pass a string value to `multisimsum` that will identify the `true` column in our dataset:
+
+```{r}
+ms2 <- multisimsum(
+  data = frailty,
+  par = "par", true = "true",
+  estvarname = "b", se = "se", methodvar = "model",
+  by = "fv_dist"
+)
+summary(ms2, stats = "bias")
+```
+
+We can confirm that we obtain the same results with the two approaches:
+
+```{r}
+identical(get_data(ms1), get_data(ms2))
+```
+
+This approach is particularly useful when the true value might vary across replications (e.g. when it depends on the simulated dataset).
+
+Of course, it can be combined with custom confidence interval limits for coverage as well:
+
+```{r}
+ms3 <- multisimsum(
+  data = frailty,
+  par = "par", true = "true",
+  estvarname = "b", se = "se", methodvar = "model",
+  by = "fv_dist",
+  ci.limits = c(-1, 1)
+)
+summary(ms3, stats = "cover")
+```
+
+This will be completely different than before:
+
+```{r}
+summary(ms2, stats = "cover")
+```
