@@ -46,7 +46,7 @@ autoplot.multisimsum <- function(object, par, type = "forest", stats = "bias", t
     object[["x"]] <- object[["x"]][object[["x"]][[object[["par"]]]] == par, ]
   }
   #
-  if (any(grepl("^summary", class(object)))) {
+  if (inherits(object, "summary.multisimsum")) {
     class(object) <- c("list", "summary.simsum")
   } else {
     class(object) <- c("list", "simsum")

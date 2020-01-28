@@ -79,7 +79,7 @@ autoplot.simsum <- function(object, type = "forest", stats = "bias", target = NU
   }
 
   ### Add CI if it is a summary object
-  ci <- ifelse("summary.simsum" %in% class(object), TRUE, FALSE)
+  ci <- inherits(x = object, what = "summary.simsum")
 
   ### Call internal function to build plot
   plot <- switch(type,

@@ -82,7 +82,7 @@ simsum <- function(data,
   if (!is.null(by)) checkmate::assert_false(x = any(by %in% c("stat", "est", "mcse", "lower", "upper")), add = arg_checks)
   # 'ci.limits' must be either a numeric vector of length 2 or a string vector with column names in 'data'
   if (!is.null(ci.limits)) {
-    checkmate::assert_true(x = all(class(ci.limits) %in% c("character", "numeric")), add = arg_checks)
+    checkmate::assert_true(x = inherits(x = ci.limits, what = c("character", "numeric")), add = arg_checks)
     if (is.character(ci.limits)) {
       checkmate::assert_character(x = ci.limits, len = 2, add = arg_checks)
       checkmate::assert_true(x = all(ci.limits %in% names(data)), add = arg_checks)

@@ -39,7 +39,7 @@ get_data <- function(x, stats = NULL, ...) {
   arg_checks <- checkmate::makeAssertCollection()
 
   # 'x' must be an object of class 'simsum', 'summary.simsum', 'multisimsum', 'summary.multisimsum' (any)
-  checkmate::assert_true(x = any(c("simsum", "summary.simsum", "multisimsum", "summary.multisimsum") %in% class(x)), add = arg_checks)
+  checkmate::assert_true(x = inherits(x = x, what = c("simsum", "summary.simsum", "multisimsum", "summary.multisimsum")), add = arg_checks)
 
   # 'stats' must be one of the possible choices
   checkmate::assert_character(x = stats, null.ok = TRUE, add = arg_checks)
