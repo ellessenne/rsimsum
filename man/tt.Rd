@@ -6,7 +6,7 @@
 \title{Example of a simulation study on the t-test}
 \format{A data frame with 4,000 rows and 8 variables:
 \itemize{
-\item \code{diff} The diffference in mean between groups estimated by the t-test;
+\item \code{diff} The difference in mean between groups estimated by the t-test;
 \item \code{se} Standard error of the estimated difference;
 \item \code{lower}, \code{upper} Confidence interval for the difference in mean as reported by the t-test;
 \item \code{df} The number of degrees of freedom assumed by the t-test;

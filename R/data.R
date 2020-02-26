@@ -68,7 +68,7 @@
 #' This simulation study aims to compare the t-test assuming pooled or unpooled variance in violation (or not) of the t-test assumptions: normality of data, and equality (or not) or variance between groups.
 #' The true value of the difference between groups is -1.
 #' @format A data frame with 4,000 rows and 8 variables:
-#' * `diff` The diffference in mean between groups estimated by the t-test;
+#' * `diff` The difference in mean between groups estimated by the t-test;
 #' * `se` Standard error of the estimated difference;
 #' * `lower`, `upper` Confidence interval for the difference in mean as reported by the t-test;
 #' * `df` The number of degrees of freedom assumed by the t-test;
