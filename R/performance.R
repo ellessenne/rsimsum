@@ -78,7 +78,19 @@
     }
   }
   # Bias-corrected coverage of a nominal (1 - level)% confidence interval
-  if (!is.null(se)) becover <- 1 / nsim * sum(mean(data[[estvarname]], na.rm = control$na.rm) >= data[[estvarname]] - crit * data[[se]] & mean(data[[estvarname]], na.rm = control$na.rm) <= data[[estvarname]] + crit * data[[se]], na.rm = control$na.rm)
+  if (!is.null(se)) {
+    if (is.null(ci.limits)) {
+    becover <- 1 / nsim * sum(mean(data[[estvarname]], na.rm = control$na.rm) >= data[[estvarname]] - crit * data[[se]] & mean(data[[estvarname]], na.rm = control$na.rm) <= data[[estvarname]] + crit * data[[se]], na.rm = control$na.rm)
+    } else {
+      if (is.character(ci.limits)) {
+        becover <- 1 / nsim * sum(mean(data[[estvarname]], na.rm = control$na.rm) >= data[[ci.limits[1]]] & mean(data[[estvarname]], na.rm = control$na.rm) <= data[[ci.limits[2]]], na.rm = control$na.rm)
+      } else if (is.numeric(ci.limits)) {
+        data[["lower"]] <- ci.limits[1]
+        data[["upper"]] <- ci.limits[2]
+        becover <- 1 / nsim * sum(mean(data[[estvarname]], na.rm = control$na.rm) >= data[[estvarname]] - data[["lower"]] & mean(data[[estvarname]], na.rm = control$na.rm) <= data[["upper"]], na.rm = control$na.rm)
+      }
+    }
+  }
   # Power of a significance test at the `level` level
   if (!is.null(se)) power <- 1 / nsim * sum(abs(data[[estvarname]]) >= crit * data[[se]], na.rm = control$na.rm)
 

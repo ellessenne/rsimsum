@@ -40,7 +40,7 @@ Only useful if \code{methodvar} is specified.}
 
 \item{by}{A vector of variable names to compute performance measures by a list of factors. Factors listed here are the (potentially several) data-generating mechanisms used to simulate data under different scenarios (e.g. sample size, true distribution of a variable, etc.). Can be \code{NULL}.}
 
-\item{ci.limits}{Can be used to specify the limits (lower and upper) of confidence intervals used to calculate coverage.
+\item{ci.limits}{Can be used to specify the limits (lower and upper) of confidence intervals used to calculate coverage and bias-eliminated coverage.
 Useful for non-Wald type estimators (e.g. bootstrap).
 Defaults to \code{NULL}, where Wald-type confidence intervals based on the provided SEs are calculated for coverage; otherwise, it can be a numeric vector (for fixed confidence intervals) or a vector of strings that identify columns in \code{data} with replication-specific lower and upper limits.
 See \code{vignette("E-custom-inputs", package = "rsimsum")} for more details.}
