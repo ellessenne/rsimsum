@@ -3,16 +3,16 @@ r:
   - oldrel
   - release
   - devel
-
 cache: packages
-
 os:
   - linux
   - osx
-
+matrix:
+  exclude:
+    - r: devel
+      os: osx
 r_packages:
   - covr
   - eha
-
 after_success:
   - travis_wait 20 Rscript -e "covr::codecov()"
