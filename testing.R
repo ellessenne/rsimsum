@@ -1,6 +1,7 @@
 set.seed(29364)
 devtools::load_all()
 data(tt, package = "rsimsum")
+
 tt$true <- -1
 tt2 <- dplyr::bind_rows(
   dplyr::mutate(tt, par = "diff1"),
@@ -14,11 +15,12 @@ m2 <- multisimsum(data = tt2, estvarname = "diff", par = "par", true = "true", s
 summary(m2, stats = "cover")
 
 all.equal(get_data(m1), get_data(m2))
-
 # Should be ok!
-# Need to describe in the vignette the different possibilities when passing values to multisimsum...
 
 ### All-in-one testing
+devtools::document()
+devtools::build_vignettes()
+devtools::check()
 devtools::check_win_oldrelease(quiet = TRUE)
 devtools::check_win_release(quiet = TRUE)
 devtools::check_win_devel(quiet = TRUE)
