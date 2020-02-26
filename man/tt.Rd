@@ -18,7 +18,9 @@
 tt
 }
 \description{
-A dataset from a simulation study with 4 data-generating mechanisms, useful to illustrate custom input of confidence intervals to calculate coverage probability. This simulation study aims to compare the t-test assuming pooled or unpooled variance in violation (or not) of the t-test assumptions: normality of data, and equality (or not) or variance between groups.
+A dataset from a simulation study with 4 data-generating mechanisms, useful to illustrate custom input of confidence intervals to calculate coverage probability.
+This simulation study aims to compare the t-test assuming pooled or unpooled variance in violation (or not) of the t-test assumptions: normality of data, and equality (or not) or variance between groups.
+The true value of the difference between groups is -1.
 }
 \note{
 Further details on this simulation study can be found in the R script used to generate this dataset, available on GitHub: \url{https://github.com/ellessenne/rsimsum/blob/master/data-raw/tt-data.R}

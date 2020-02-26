@@ -64,7 +64,9 @@
 "nlp"
 
 #' @title Example of a simulation study on the t-test
-#' @description A dataset from a simulation study with 4 data-generating mechanisms, useful to illustrate custom input of confidence intervals to calculate coverage probability. This simulation study aims to compare the t-test assuming pooled or unpooled variance in violation (or not) of the t-test assumptions: normality of data, and equality (or not) or variance between groups.
+#' @description A dataset from a simulation study with 4 data-generating mechanisms, useful to illustrate custom input of confidence intervals to calculate coverage probability.
+#' This simulation study aims to compare the t-test assuming pooled or unpooled variance in violation (or not) of the t-test assumptions: normality of data, and equality (or not) or variance between groups.
+#' The true value of the difference between groups is -1.
 #' @format A data frame with 4,000 rows and 8 variables:
 #' * `diff` The diffference in mean between groups estimated by the t-test;
 #' * `se` Standard error of the estimated difference;
