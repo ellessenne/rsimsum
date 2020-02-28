@@ -2,8 +2,13 @@
 #' @keywords internal
 .forest_plot <- function(data, methodvar, by, stats, ci, target, scales) {
   ### Build basic plot
-  methodvar <- rlang::sym(methodvar)
-  gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = {{ methodvar }}, y = est)) +
+  if (!is.null(methodvar)) {
+    methodvar <- rlang::sym(methodvar)
+    gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = {{ methodvar }}, y = est))
+  } else {
+    gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = "Single Method", y = est))
+  }
+  gg <- gg +
     ggplot2::geom_hline(yintercept = target, linetype = "dotted") +
     ggplot2::geom_point() +
     ggplot2::labs(y = stats)
@@ -29,10 +34,17 @@
 #' @keywords internal
 .lolly_plot <- function(data, methodvar, by, stats, ci, target, scales) {
   ### Build basic plot
-  methodvar <- rlang::sym(methodvar)
-  gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = est, y = {{ methodvar }})) +
-    ggplot2::geom_vline(xintercept = target, linetype = "dotted") +
-    ggplot2::geom_segment(aes(xend = target, yend = {{ methodvar }})) +
+  if (!is.null(methodvar)) {
+    methodvar <- rlang::sym(methodvar)
+    gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = est, y = {{ methodvar }})) +
+      ggplot2::geom_vline(xintercept = target, linetype = "dotted") +
+      ggplot2::geom_segment(aes(xend = target, yend = {{ methodvar }}))
+  } else {
+    gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = est, y = "Single Method")) +
+      ggplot2::geom_vline(xintercept = target, linetype = "dotted") +
+      ggplot2::geom_segment(aes(xend = target, yend = "Single Method"))
+  }
+  gg <- gg +
     ggplot2::geom_point() +
     ggplot2::labs(x = stats)
 
@@ -45,9 +57,15 @@
 
   ### Add confidence intervals if we are calling autoplot on a summary object
   if (ci) {
-    gg <- gg +
-      ggplot2::geom_point(ggplot2::aes(x = lower, y = {{ methodvar }}), shape = 40) +
-      ggplot2::geom_point(ggplot2::aes(x = upper, y = {{ methodvar }}), shape = 41)
+    if (!is.null(methodvar)) {
+      gg <- gg +
+        ggplot2::geom_point(ggplot2::aes(x = lower, y = {{ methodvar }}), shape = 40) +
+        ggplot2::geom_point(ggplot2::aes(x = upper, y = {{ methodvar }}), shape = 41)
+    } else {
+      gg <- gg +
+        ggplot2::geom_point(ggplot2::aes(x = lower, y = "Single Method"), shape = 40) +
+        ggplot2::geom_point(ggplot2::aes(x = upper, y = "Single Method"), shape = 41)
+    }
   }
 
   ### Return plot
