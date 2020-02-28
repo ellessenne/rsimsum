@@ -15,7 +15,7 @@ m2 <- multisimsum(data = tt2, estvarname = "diff", par = "par", true = "true", s
 summary(m2, stats = "cover")
 
 all.equal(get_data(m1), get_data(m2))
-# Should be ok!
+# Should be TRUE
 
 ### All-in-one testing
 devtools::document()
