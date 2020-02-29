@@ -1,6 +1,5 @@
 # Test environments
 * local macOS install (Mojave 10.14.6), R 3.6.2
-* local Windows 10 install, R 3.6.2
 * ubuntu (via Travis-CI), R-oldrelease, R-release, R-devel
 * macOS (via Travis-CI), R-oldrelease, R-release
 * windows (via AppVeyor)
