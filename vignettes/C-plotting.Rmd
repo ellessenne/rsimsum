@@ -164,7 +164,7 @@ autoplot(s1, type = "zip")
 
 The zipper plot for the exponential model with n = 50 and a true Weibull baseline hazard shows that coverage is approximately 95%; however, there are more intervals to the right of \(\theta\) = -0.50 than to the left: this indicates that the model standard errors must be overestimating the empirical standard error, because coverage is appropriate despite bias.
 
-It is also possible to _zoom_ on the top x% of the zip plot to increase readibility, e.g. on the top 30%:
+It is also possible to _zoom_ on the top x% of the zip plot to increase readability, e.g. on the top 30%:
 
 ```{r zipper-zoom}
 autoplot(s1, type = "zip", zoom = 0.3)
