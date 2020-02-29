@@ -10,7 +10,9 @@
 
 * Analogously, the `ci.limits` argument now accepts a vector of strings that identifies lower and upper limits for custom-defined confidence intervals from columns in `data`. Once again, more details are included in `vignette("E-custom-inputs", package = "rsimsum")`;
 
-* `rsimsum` now correctly uses `inherits(obj, "someclass")` instead of `class(obj) == "someclass"` (#20).
+* `rsimsum` now correctly uses `inherits(obj, "someclass")` instead of `class(obj) == "someclass"` (#20);
+
+* Fixed bugs and errors that appeared when auto-plotting results of simulation studies with no methods being compared (#23).
 
 # rsimsum 0.7.1
 
