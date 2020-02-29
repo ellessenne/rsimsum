@@ -22,10 +22,16 @@ testthat::test_that("output from autoplot without methods is ok for other types 
 
   testthat::expect_s3_class(object = autoplot(s6), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(s6, type = "lolly"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(summary(s6)), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(summary(s6), type = "lolly"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(s6, type = "heat"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(s6, type = "zip"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(s6, type = "est_ridge"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(s6, type = "se_ridge"), class = c("gg", "ggplot"))
 
+  testthat::expect_s3_class(object = autoplot(s7, type = "heat"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(s7, type = "zip"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(s7, type = "est_ridge"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(s7, type = "se_ridge"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(s7, type = "nlp"), class = c("gg", "ggplot"))
 })
