@@ -129,12 +129,15 @@ This approach is particularly useful when the true value might vary across repli
 Of course, it can be combined with custom confidence interval limits for coverage as well:
 
 ```{r}
+frailty$lower <- frailty$b - qt(1 - 0.05 / 2, df = 10) * frailty$se
+frailty$upper <- frailty$b + qt(1 - 0.05 / 2, df = 10) * frailty$se
+
 ms3 <- multisimsum(
   data = frailty,
   par = "par", true = "true",
   estvarname = "b", se = "se", methodvar = "model",
   by = "fv_dist",
-  ci.limits = c(-1, 1)
+  ci.limits = c("lower", "upper")
 )
 summary(ms3, stats = "cover")
 ```

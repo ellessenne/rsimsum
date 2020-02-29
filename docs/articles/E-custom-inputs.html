@@ -279,45 +279,37 @@
 <span id="cb11-2"><a href="#cb11-2"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 <p>This approach is particularly useful when the true value might vary across replications (e.g. when it depends on the simulated dataset).</p>
 <p>Of course, it can be combined with custom confidence interval limits for coverage as well:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>ms3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/multisimsum.html">multisimsum</a></span>(</span>
-<span id="cb12-2"><a href="#cb12-2"></a>  <span class="dt">data =</span> frailty,</span>
-<span id="cb12-3"><a href="#cb12-3"></a>  <span class="dt">par =</span> <span class="st">"par"</span>, <span class="dt">true =</span> <span class="st">"true"</span>,</span>
-<span id="cb12-4"><a href="#cb12-4"></a>  <span class="dt">estvarname =</span> <span class="st">"b"</span>, <span class="dt">se =</span> <span class="st">"se"</span>, <span class="dt">methodvar =</span> <span class="st">"model"</span>,</span>
-<span id="cb12-5"><a href="#cb12-5"></a>  <span class="dt">by =</span> <span class="st">"fv_dist"</span>,</span>
-<span id="cb12-6"><a href="#cb12-6"></a>  <span class="dt">ci.limits =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb12-7"><a href="#cb12-7"></a>)</span>
-<span id="cb12-8"><a href="#cb12-8"></a><span class="co">#&gt; 'ref' method was not specified, Cox, Gamma set as the reference</span></span>
-<span id="cb12-9"><a href="#cb12-9"></a><span class="co">#&gt; Warning in sqrt(cover * (1 - cover)/nsim): NaNs produced</span></span>
-<span id="cb12-10"><a href="#cb12-10"></a></span>
-<span id="cb12-11"><a href="#cb12-11"></a><span class="co">#&gt; Warning in sqrt(cover * (1 - cover)/nsim): NaNs produced</span></span>
-<span id="cb12-12"><a href="#cb12-12"></a></span>
-<span id="cb12-13"><a href="#cb12-13"></a><span class="co">#&gt; Warning in sqrt(cover * (1 - cover)/nsim): NaNs produced</span></span>
-<span id="cb12-14"><a href="#cb12-14"></a></span>
-<span id="cb12-15"><a href="#cb12-15"></a><span class="co">#&gt; Warning in sqrt(cover * (1 - cover)/nsim): NaNs produced</span></span>
-<span id="cb12-16"><a href="#cb12-16"></a></span>
-<span id="cb12-17"><a href="#cb12-17"></a><span class="co">#&gt; Warning in sqrt(cover * (1 - cover)/nsim): NaNs produced</span></span>
-<span id="cb12-18"><a href="#cb12-18"></a></span>
-<span id="cb12-19"><a href="#cb12-19"></a><span class="co">#&gt; Warning in sqrt(cover * (1 - cover)/nsim): NaNs produced</span></span>
-<span id="cb12-20"><a href="#cb12-20"></a><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(ms3, <span class="dt">stats =</span> <span class="st">"cover"</span>)</span>
-<span id="cb12-21"><a href="#cb12-21"></a><span class="co">#&gt; Values are:</span></span>
-<span id="cb12-22"><a href="#cb12-22"></a><span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span></span>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>frailty<span class="op">$</span>lower &lt;-<span class="st"> </span>frailty<span class="op">$</span>b <span class="op">-</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/TDist.html">qt</a></span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.05</span> <span class="op">/</span><span class="st"> </span><span class="dv">2</span>, <span class="dt">df =</span> <span class="dv">10</span>) <span class="op">*</span><span class="st"> </span>frailty<span class="op">$</span>se</span>
+<span id="cb12-2"><a href="#cb12-2"></a>frailty<span class="op">$</span>upper &lt;-<span class="st"> </span>frailty<span class="op">$</span>b <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/TDist.html">qt</a></span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.05</span> <span class="op">/</span><span class="st"> </span><span class="dv">2</span>, <span class="dt">df =</span> <span class="dv">10</span>) <span class="op">*</span><span class="st"> </span>frailty<span class="op">$</span>se</span>
+<span id="cb12-3"><a href="#cb12-3"></a></span>
+<span id="cb12-4"><a href="#cb12-4"></a>ms3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/multisimsum.html">multisimsum</a></span>(</span>
+<span id="cb12-5"><a href="#cb12-5"></a>  <span class="dt">data =</span> frailty,</span>
+<span id="cb12-6"><a href="#cb12-6"></a>  <span class="dt">par =</span> <span class="st">"par"</span>, <span class="dt">true =</span> <span class="st">"true"</span>,</span>
+<span id="cb12-7"><a href="#cb12-7"></a>  <span class="dt">estvarname =</span> <span class="st">"b"</span>, <span class="dt">se =</span> <span class="st">"se"</span>, <span class="dt">methodvar =</span> <span class="st">"model"</span>,</span>
+<span id="cb12-8"><a href="#cb12-8"></a>  <span class="dt">by =</span> <span class="st">"fv_dist"</span>,</span>
+<span id="cb12-9"><a href="#cb12-9"></a>  <span class="dt">ci.limits =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"lower"</span>, <span class="st">"upper"</span>)</span>
+<span id="cb12-10"><a href="#cb12-10"></a>)</span>
+<span id="cb12-11"><a href="#cb12-11"></a><span class="co">#&gt; 'ref' method was not specified, Cox, Gamma set as the reference</span></span>
+<span id="cb12-12"><a href="#cb12-12"></a><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(ms3, <span class="dt">stats =</span> <span class="st">"cover"</span>)</span>
+<span id="cb12-13"><a href="#cb12-13"></a><span class="co">#&gt; Values are:</span></span>
+<span id="cb12-14"><a href="#cb12-14"></a><span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span></span>
+<span id="cb12-15"><a href="#cb12-15"></a><span class="co">#&gt; </span></span>
+<span id="cb12-16"><a href="#cb12-16"></a><span class="co">#&gt;    </span></span>
+<span id="cb12-17"><a href="#cb12-17"></a><span class="co">#&gt; Parameter: fv </span></span>
+<span id="cb12-18"><a href="#cb12-18"></a><span class="co">#&gt; </span></span>
+<span id="cb12-19"><a href="#cb12-19"></a><span class="co">#&gt; Coverage of nominal 95% confidence interval:</span></span>
+<span id="cb12-20"><a href="#cb12-20"></a><span class="co">#&gt;     fv_dist      Cox, Gamma Cox, Log-Normal    RP(P), Gamma RP(P), Log-Normal</span></span>
+<span id="cb12-21"><a href="#cb12-21"></a><span class="co">#&gt;       Gamma 0.9477 (0.0071) 0.9680 (0.0056) 0.9516 (0.0069)   0.9640 (0.0059)</span></span>
+<span id="cb12-22"><a href="#cb12-22"></a><span class="co">#&gt;  Log-Normal 0.8046 (0.0128) 0.9330 (0.0079) 0.8235 (0.0121)   0.9460 (0.0071)</span></span>
 <span id="cb12-23"><a href="#cb12-23"></a><span class="co">#&gt; </span></span>
-<span id="cb12-24"><a href="#cb12-24"></a><span class="co">#&gt;    </span></span>
-<span id="cb12-25"><a href="#cb12-25"></a><span class="co">#&gt; Parameter: fv </span></span>
-<span id="cb12-26"><a href="#cb12-26"></a><span class="co">#&gt; </span></span>
-<span id="cb12-27"><a href="#cb12-27"></a><span class="co">#&gt; Coverage of nominal 95% confidence interval:</span></span>
-<span id="cb12-28"><a href="#cb12-28"></a><span class="co">#&gt;     fv_dist   Cox, Gamma Cox, Log-Normal RP(P), Gamma RP(P), Log-Normal</span></span>
-<span id="cb12-29"><a href="#cb12-29"></a><span class="co">#&gt;       Gamma 1.0246 (NaN) 1.0000 (0.0000) 1.0299 (NaN)   1.0000 (0.0000)</span></span>
-<span id="cb12-30"><a href="#cb12-30"></a><span class="co">#&gt;  Log-Normal 1.0449 (NaN) 1.0000 (0.0000) 1.0030 (NaN)   1.0000 (0.0000)</span></span>
-<span id="cb12-31"><a href="#cb12-31"></a><span class="co">#&gt; </span></span>
-<span id="cb12-32"><a href="#cb12-32"></a><span class="co">#&gt;  ------------------------------------------------------------------------------------------------------------------------------------------------------ </span></span>
-<span id="cb12-33"><a href="#cb12-33"></a><span class="co">#&gt;  </span></span>
-<span id="cb12-34"><a href="#cb12-34"></a><span class="co">#&gt; Parameter: trt </span></span>
-<span id="cb12-35"><a href="#cb12-35"></a><span class="co">#&gt; </span></span>
-<span id="cb12-36"><a href="#cb12-36"></a><span class="co">#&gt; Coverage of nominal 95% confidence interval:</span></span>
-<span id="cb12-37"><a href="#cb12-37"></a><span class="co">#&gt;     fv_dist      Cox, Gamma Cox, Log-Normal RP(P), Gamma RP(P), Log-Normal</span></span>
-<span id="cb12-38"><a href="#cb12-38"></a><span class="co">#&gt;       Gamma 1.0000 (0.0000) 1.0000 (0.0000) 1.0299 (NaN)   1.0000 (0.0000)</span></span>
-<span id="cb12-39"><a href="#cb12-39"></a><span class="co">#&gt;  Log-Normal 1.0000 (0.0000) 1.0000 (0.0000) 1.0030 (NaN)   1.0000 (0.0000)</span></span></code></pre></div>
+<span id="cb12-24"><a href="#cb12-24"></a><span class="co">#&gt;  ------------------------------------------------------------------------------------------------------------------------------------------------------ </span></span>
+<span id="cb12-25"><a href="#cb12-25"></a><span class="co">#&gt;  </span></span>
+<span id="cb12-26"><a href="#cb12-26"></a><span class="co">#&gt; Parameter: trt </span></span>
+<span id="cb12-27"><a href="#cb12-27"></a><span class="co">#&gt; </span></span>
+<span id="cb12-28"><a href="#cb12-28"></a><span class="co">#&gt; Coverage of nominal 95% confidence interval:</span></span>
+<span id="cb12-29"><a href="#cb12-29"></a><span class="co">#&gt;     fv_dist      Cox, Gamma Cox, Log-Normal    RP(P), Gamma RP(P), Log-Normal</span></span>
+<span id="cb12-30"><a href="#cb12-30"></a><span class="co">#&gt;       Gamma 0.9730 (0.0051) 0.9710 (0.0053) 0.9732 (0.0052)   0.9710 (0.0053)</span></span>
+<span id="cb12-31"><a href="#cb12-31"></a><span class="co">#&gt;  Log-Normal 0.9710 (0.0053) 0.9690 (0.0055) 0.9719 (0.0052)   0.9690 (0.0055)</span></span></code></pre></div>
 <p>This will be completely different than before:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(ms2, <span class="dt">stats =</span> <span class="st">"cover"</span>)</span>
 <span id="cb13-2"><a href="#cb13-2"></a><span class="co">#&gt; Values are:</span></span>

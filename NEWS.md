@@ -1,5 +1,9 @@
 # rsimsum (development version)
 
+### Improvements:
+
+* Improved `multisimsum` example in vignette on custom inputs.
+
 # rsimsum 0.8.0
 
 ### Improvements:
