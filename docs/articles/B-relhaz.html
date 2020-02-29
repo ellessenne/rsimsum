@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0.9000</span>
       </span>
     </div>
 
@@ -93,13 +93,13 @@
 
       
 
-      </header><div class="row">
+      </header><script src="B-relhaz_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Simulating a simulation study</h1>
                         <h4 class="author">Alessandro Gasparini</h4>
             
-            <h4 class="date">2020-02-26</h4>
+            <h4 class="date">2020-02-29</h4>
       
       
       <div class="hidden name"><code>B-relhaz.Rmd</code></div>
@@ -122,11 +122,11 @@
 <h1 class="hasAnchor">
 <a href="#data-generating-mechanisms" class="anchor"></a>Data generating mechanisms</h1>
 <p>We simulate an hypothetical trial with a binary treatment. We fix the log-treatment effect to <span class="math inline">\(-0.50\)</span>, and we generate a treatment indicator variable for each simulated individual via a <span class="math inline">\(Binom(1, 0.5)\)</span> random variable. We simulate two different sample sizes (50 and 250 individuals) and we assume two different baseline hazard functions: exponential with scale parameter <span class="math inline">\(\lambda = 0.5\)</span>, and Weibull with scale parameter <span class="math inline">\(\lambda = 0.5\)</span> and shape parameter <span class="math inline">\(\gamma = 1.5\)</span>. Finally, we apply administrative censoring at time <span class="math inline">\(t = 5\)</span>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">exp_basehaz &lt;-<span class="st"> </span><span class="cf">function</span>(t, <span class="dt">lambda =</span> <span class="fl">0.5</span>) lambda <span class="op">*</span><span class="st"> </span><span class="dv">1</span> <span class="op">*</span><span class="st"> </span>t<span class="op">^</span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb1-2" title="2">exp_weibull &lt;-<span class="st"> </span><span class="cf">function</span>(t, <span class="dt">lambda =</span> <span class="fl">0.5</span>, <span class="dt">gamma =</span> <span class="fl">1.5</span>) lambda <span class="op">*</span><span class="st"> </span>gamma <span class="op">*</span><span class="st"> </span>t<span class="op">^</span>(gamma <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="kw"><a href="https://rdrr.io/r/graphics/curve.html">curve</a></span>(exp_basehaz, <span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">5</span>, <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">ylim =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="dt">ylab =</span> <span class="kw"><a href="https://rdrr.io/r/base/expression.html">expression</a></span>(h[<span class="dv">0</span>](t)), <span class="dt">xlab =</span> <span class="st">"Follow-up time t"</span>)</a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="kw"><a href="https://rdrr.io/r/graphics/curve.html">curve</a></span>(exp_weibull, <span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">5</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb1-5" title="5"><span class="kw"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span>(<span class="dt">x =</span> <span class="st">"topleft"</span>, <span class="dt">lty =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">legend =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Exponential baseline hazard"</span>, <span class="st">"Weibull baseline hazard"</span>), <span class="dt">bty =</span> <span class="st">"n"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>exp_basehaz &lt;-<span class="st"> </span><span class="cf">function</span>(t, <span class="dt">lambda =</span> <span class="fl">0.5</span>) lambda <span class="op">*</span><span class="st"> </span><span class="dv">1</span> <span class="op">*</span><span class="st"> </span>t<span class="op">^</span><span class="dv">0</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>exp_weibull &lt;-<span class="st"> </span><span class="cf">function</span>(t, <span class="dt">lambda =</span> <span class="fl">0.5</span>, <span class="dt">gamma =</span> <span class="fl">1.5</span>) lambda <span class="op">*</span><span class="st"> </span>gamma <span class="op">*</span><span class="st"> </span>t<span class="op">^</span>(gamma <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw"><a href="https://rdrr.io/r/graphics/curve.html">curve</a></span>(exp_basehaz, <span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">5</span>, <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">ylim =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="dt">ylab =</span> <span class="kw"><a href="https://rdrr.io/r/base/expression.html">expression</a></span>(h[<span class="dv">0</span>](t)), <span class="dt">xlab =</span> <span class="st">"Follow-up time t"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw"><a href="https://rdrr.io/r/graphics/curve.html">curve</a></span>(exp_weibull, <span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">5</span>, <span class="dt">lty =</span> <span class="dv">2</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span>(<span class="dt">x =</span> <span class="st">"topleft"</span>, <span class="dt">lty =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">legend =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Exponential baseline hazard"</span>, <span class="st">"Weibull baseline hazard"</span>), <span class="dt">bty =</span> <span class="st">"n"</span>)</span></code></pre></div>
 <p><img src="B-relhaz_files/figure-html/baseline-hazards-1.png" width="75%" style="display: block; margin: auto;"></p>
 <p>The survival times are estimated using the approach of Bender <em>et al</em>. (2005), based on drawing from a <span class="math inline">\(U(0, 1)\)</span> random variable and applying the following transformations:</p>
 <ol style="list-style-type: decimal">
@@ -134,29 +134,29 @@
 <li><p>for a Weibull baseline hazard, the survival time <span class="math inline">\(t\)</span> is simulated as: <span class="math display">\[t = \left(-\frac{log(U)}{\lambda \exp(\beta ^ T X)}\right) ^ {1 / \gamma}\]</span></p></li>
 </ol>
 <p>The R function to simulate a dataset for our simulation study is defined as follows:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">simulate_data &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, n, baseline, <span class="dt">params =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(), <span class="dt">coveff =</span> <span class="fl">-0.50</span>) {</a>
-<a class="sourceLine" id="cb2-2" title="2">  <span class="co"># Simulate treatment indicator variable</span></a>
-<a class="sourceLine" id="cb2-3" title="3">  x &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span>(<span class="dt">n =</span> n, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb2-4" title="4">  <span class="co"># Draw from a U(0,1) random variable</span></a>
-<a class="sourceLine" id="cb2-5" title="5">  u &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(n)</a>
-<a class="sourceLine" id="cb2-6" title="6">  <span class="co"># Simulate survival times depending on the baseline hazard</span></a>
-<a class="sourceLine" id="cb2-7" title="7">  <span class="cf">if</span> (baseline <span class="op">==</span><span class="st"> "Exponential"</span>) {</a>
-<a class="sourceLine" id="cb2-8" title="8">    t &lt;-<span class="st"> </span><span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(u) <span class="op">/</span><span class="st"> </span>(params<span class="op">$</span>lambda <span class="op">*</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Log.html">exp</a></span>(x <span class="op">*</span><span class="st"> </span>coveff))</a>
-<a class="sourceLine" id="cb2-9" title="9">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb2-10" title="10">    t &lt;-<span class="st"> </span>(<span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(u) <span class="op">/</span><span class="st"> </span>(params<span class="op">$</span>lambda <span class="op">*</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Log.html">exp</a></span>(x <span class="op">*</span><span class="st"> </span>coveff)))<span class="op">^</span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>params<span class="op">$</span>gamma)</a>
-<a class="sourceLine" id="cb2-11" title="11">  }</a>
-<a class="sourceLine" id="cb2-12" title="12">  <span class="co"># Winsorising tiny values for t (smaller than one day on a yearly-scale, e.g. 1 / 365.242), and adding a tiny amount of white noise not to have too many concurrent values</span></a>
-<a class="sourceLine" id="cb2-13" title="13">  t &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(t <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="fl">365.242</span>, <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="fl">365.242</span>, t)</a>
-<a class="sourceLine" id="cb2-14" title="14">  t[t <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="fl">365.242</span>] &lt;-<span class="st"> </span>t[t <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="fl">365.242</span>] <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(t[t <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="fl">365.242</span>]), <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="fl">1e-4</span>)</a>
-<a class="sourceLine" id="cb2-15" title="15">  <span class="co"># ...and make sure that the resulting value is positive</span></a>
-<a class="sourceLine" id="cb2-16" title="16">  t &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(t)</a>
-<a class="sourceLine" id="cb2-17" title="17"></a>
-<a class="sourceLine" id="cb2-18" title="18">  <span class="co"># Make event indicator variable applying administrative censoring at t = 5</span></a>
-<a class="sourceLine" id="cb2-19" title="19">  d &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(t <span class="op">&lt;</span><span class="st"> </span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb2-20" title="20">  t &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">pmin</a></span>(t, <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb2-21" title="21">  <span class="co"># Return a data.frame</span></a>
-<a class="sourceLine" id="cb2-22" title="22">  <span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">dataset =</span> dataset, <span class="dt">x =</span> x, <span class="dt">t =</span> t, <span class="dt">d =</span> d, <span class="dt">n =</span> n, <span class="dt">baseline =</span> baseline, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb2-23" title="23">}</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>simulate_data &lt;-<span class="st"> </span><span class="cf">function</span>(dataset, n, baseline, <span class="dt">params =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(), <span class="dt">coveff =</span> <span class="fl">-0.50</span>) {</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="co"># Simulate treatment indicator variable</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>  x &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span>(<span class="dt">n =</span> n, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="co"># Draw from a U(0,1) random variable</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>  u &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(n)</span>
+<span id="cb2-6"><a href="#cb2-6"></a>  <span class="co"># Simulate survival times depending on the baseline hazard</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>  <span class="cf">if</span> (baseline <span class="op">==</span><span class="st"> "Exponential"</span>) {</span>
+<span id="cb2-8"><a href="#cb2-8"></a>    t &lt;-<span class="st"> </span><span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(u) <span class="op">/</span><span class="st"> </span>(params<span class="op">$</span>lambda <span class="op">*</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Log.html">exp</a></span>(x <span class="op">*</span><span class="st"> </span>coveff))</span>
+<span id="cb2-9"><a href="#cb2-9"></a>  } <span class="cf">else</span> {</span>
+<span id="cb2-10"><a href="#cb2-10"></a>    t &lt;-<span class="st"> </span>(<span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(u) <span class="op">/</span><span class="st"> </span>(params<span class="op">$</span>lambda <span class="op">*</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Log.html">exp</a></span>(x <span class="op">*</span><span class="st"> </span>coveff)))<span class="op">^</span>(<span class="dv">1</span> <span class="op">/</span><span class="st"> </span>params<span class="op">$</span>gamma)</span>
+<span id="cb2-11"><a href="#cb2-11"></a>  }</span>
+<span id="cb2-12"><a href="#cb2-12"></a>  <span class="co"># Winsorising tiny values for t (smaller than one day on a yearly-scale, e.g. 1 / 365.242), and adding a tiny amount of white noise not to have too many concurrent values</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>  t &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(t <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="fl">365.242</span>, <span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="fl">365.242</span>, t)</span>
+<span id="cb2-14"><a href="#cb2-14"></a>  t[t <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="fl">365.242</span>] &lt;-<span class="st"> </span>t[t <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="fl">365.242</span>] <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(t[t <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="fl">365.242</span>]), <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="fl">1e-4</span>)</span>
+<span id="cb2-15"><a href="#cb2-15"></a>  <span class="co"># ...and make sure that the resulting value is positive</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a>  t &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(t)</span>
+<span id="cb2-17"><a href="#cb2-17"></a></span>
+<span id="cb2-18"><a href="#cb2-18"></a>  <span class="co"># Make event indicator variable applying administrative censoring at t = 5</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a>  d &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(t <span class="op">&lt;</span><span class="st"> </span><span class="dv">5</span>)</span>
+<span id="cb2-20"><a href="#cb2-20"></a>  t &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">pmin</a></span>(t, <span class="dv">5</span>)</span>
+<span id="cb2-21"><a href="#cb2-21"></a>  <span class="co"># Return a data.frame</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a>  <span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">dataset =</span> dataset, <span class="dt">x =</span> x, <span class="dt">t =</span> t, <span class="dt">d =</span> d, <span class="dt">n =</span> n, <span class="dt">baseline =</span> baseline, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb2-23"><a href="#cb2-23"></a>}</span></code></pre></div>
 </div>
 <div id="methods" class="section level1">
 <h1 class="hasAnchor">
@@ -191,310 +191,310 @@
 <a href="#generate-data" class="anchor"></a>Generate data</h2>
 <p>We generate <span class="math inline">\(100\)</span> datasets for each data-generating mechanism.</p>
 <p>First, we set a random seed for reproducibility:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">755353002</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">755353002</span>)</span></code></pre></div>
 <p>Then, we simulate the data:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">reps &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span></a>
-<a class="sourceLine" id="cb4-2" title="2">data &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>()</a>
-<a class="sourceLine" id="cb4-3" title="3">data[[<span class="st">"n = 50, baseline = Exp"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</a>
-<a class="sourceLine" id="cb4-4" title="4">  <span class="dt">X =</span> reps,</a>
-<a class="sourceLine" id="cb4-5" title="5">  <span class="dt">FUN =</span> simulate_data,</a>
-<a class="sourceLine" id="cb4-6" title="6">  <span class="dt">n =</span> <span class="dv">50</span>,</a>
-<a class="sourceLine" id="cb4-7" title="7">  <span class="dt">baseline =</span> <span class="st">"Exponential"</span>,</a>
-<a class="sourceLine" id="cb4-8" title="8">  <span class="dt">params =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">lambda =</span> <span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb4-9" title="9">)</a>
-<a class="sourceLine" id="cb4-10" title="10">data[[<span class="st">"n = 250, baseline = Exp"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</a>
-<a class="sourceLine" id="cb4-11" title="11">  <span class="dt">X =</span> reps,</a>
-<a class="sourceLine" id="cb4-12" title="12">  <span class="dt">FUN =</span> simulate_data,</a>
-<a class="sourceLine" id="cb4-13" title="13">  <span class="dt">n =</span> <span class="dv">250</span>,</a>
-<a class="sourceLine" id="cb4-14" title="14">  <span class="dt">baseline =</span> <span class="st">"Exponential"</span>,</a>
-<a class="sourceLine" id="cb4-15" title="15">  <span class="dt">params =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">lambda =</span> <span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb4-16" title="16">)</a>
-<a class="sourceLine" id="cb4-17" title="17">data[[<span class="st">"n = 50, baseline = Wei"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</a>
-<a class="sourceLine" id="cb4-18" title="18">  <span class="dt">X =</span> reps,</a>
-<a class="sourceLine" id="cb4-19" title="19">  <span class="dt">FUN =</span> simulate_data,</a>
-<a class="sourceLine" id="cb4-20" title="20">  <span class="dt">n =</span> <span class="dv">50</span>,</a>
-<a class="sourceLine" id="cb4-21" title="21">  <span class="dt">baseline =</span> <span class="st">"Weibull"</span>,</a>
-<a class="sourceLine" id="cb4-22" title="22">  <span class="dt">params =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">lambda =</span> <span class="fl">0.5</span>, <span class="dt">gamma =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb4-23" title="23">)</a>
-<a class="sourceLine" id="cb4-24" title="24">data[[<span class="st">"n = 250, baseline = Wei"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</a>
-<a class="sourceLine" id="cb4-25" title="25">  <span class="dt">X =</span> reps,</a>
-<a class="sourceLine" id="cb4-26" title="26">  <span class="dt">FUN =</span> simulate_data,</a>
-<a class="sourceLine" id="cb4-27" title="27">  <span class="dt">n =</span> <span class="dv">250</span>,</a>
-<a class="sourceLine" id="cb4-28" title="28">  <span class="dt">baseline =</span> <span class="st">"Weibull"</span>,</a>
-<a class="sourceLine" id="cb4-29" title="29">  <span class="dt">params =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">lambda =</span> <span class="fl">0.5</span>, <span class="dt">gamma =</span> <span class="fl">1.5</span>)</a>
-<a class="sourceLine" id="cb4-30" title="30">)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>reps &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>data &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>()</span>
+<span id="cb4-3"><a href="#cb4-3"></a>data[[<span class="st">"n = 50, baseline = Exp"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="dt">X =</span> reps,</span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="dt">FUN =</span> simulate_data,</span>
+<span id="cb4-6"><a href="#cb4-6"></a>  <span class="dt">n =</span> <span class="dv">50</span>,</span>
+<span id="cb4-7"><a href="#cb4-7"></a>  <span class="dt">baseline =</span> <span class="st">"Exponential"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8"></a>  <span class="dt">params =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">lambda =</span> <span class="fl">0.5</span>)</span>
+<span id="cb4-9"><a href="#cb4-9"></a>)</span>
+<span id="cb4-10"><a href="#cb4-10"></a>data[[<span class="st">"n = 250, baseline = Exp"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</span>
+<span id="cb4-11"><a href="#cb4-11"></a>  <span class="dt">X =</span> reps,</span>
+<span id="cb4-12"><a href="#cb4-12"></a>  <span class="dt">FUN =</span> simulate_data,</span>
+<span id="cb4-13"><a href="#cb4-13"></a>  <span class="dt">n =</span> <span class="dv">250</span>,</span>
+<span id="cb4-14"><a href="#cb4-14"></a>  <span class="dt">baseline =</span> <span class="st">"Exponential"</span>,</span>
+<span id="cb4-15"><a href="#cb4-15"></a>  <span class="dt">params =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">lambda =</span> <span class="fl">0.5</span>)</span>
+<span id="cb4-16"><a href="#cb4-16"></a>)</span>
+<span id="cb4-17"><a href="#cb4-17"></a>data[[<span class="st">"n = 50, baseline = Wei"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</span>
+<span id="cb4-18"><a href="#cb4-18"></a>  <span class="dt">X =</span> reps,</span>
+<span id="cb4-19"><a href="#cb4-19"></a>  <span class="dt">FUN =</span> simulate_data,</span>
+<span id="cb4-20"><a href="#cb4-20"></a>  <span class="dt">n =</span> <span class="dv">50</span>,</span>
+<span id="cb4-21"><a href="#cb4-21"></a>  <span class="dt">baseline =</span> <span class="st">"Weibull"</span>,</span>
+<span id="cb4-22"><a href="#cb4-22"></a>  <span class="dt">params =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">lambda =</span> <span class="fl">0.5</span>, <span class="dt">gamma =</span> <span class="fl">1.5</span>)</span>
+<span id="cb4-23"><a href="#cb4-23"></a>)</span>
+<span id="cb4-24"><a href="#cb4-24"></a>data[[<span class="st">"n = 250, baseline = Wei"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</span>
+<span id="cb4-25"><a href="#cb4-25"></a>  <span class="dt">X =</span> reps,</span>
+<span id="cb4-26"><a href="#cb4-26"></a>  <span class="dt">FUN =</span> simulate_data,</span>
+<span id="cb4-27"><a href="#cb4-27"></a>  <span class="dt">n =</span> <span class="dv">250</span>,</span>
+<span id="cb4-28"><a href="#cb4-28"></a>  <span class="dt">baseline =</span> <span class="st">"Weibull"</span>,</span>
+<span id="cb4-29"><a href="#cb4-29"></a>  <span class="dt">params =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">lambda =</span> <span class="fl">0.5</span>, <span class="dt">gamma =</span> <span class="fl">1.5</span>)</span>
+<span id="cb4-30"><a href="#cb4-30"></a>)</span></code></pre></div>
 </div>
 <div id="run-models" class="section level2">
 <h2 class="hasAnchor">
 <a href="#run-models" class="anchor"></a>Run models</h2>
 <p>We define a function to fit the models of interest:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(survival)</a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rstpm2)</a>
-<a class="sourceLine" id="cb5-3" title="3"><span class="co">#&gt; Loading required package: splines</span></a>
-<a class="sourceLine" id="cb5-4" title="4"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb5-5" title="5"><span class="co">#&gt; Attaching package: 'rstpm2'</span></a>
-<a class="sourceLine" id="cb5-6" title="6"><span class="co">#&gt; The following object is masked from 'package:survival':</span></a>
-<a class="sourceLine" id="cb5-7" title="7"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb5-8" title="8"><span class="co">#&gt;     colon</span></a>
-<a class="sourceLine" id="cb5-9" title="9"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(eha)</a>
-<a class="sourceLine" id="cb5-10" title="10"></a>
-<a class="sourceLine" id="cb5-11" title="11">fit_models &lt;-<span class="st"> </span><span class="cf">function</span>(data, model) {</a>
-<a class="sourceLine" id="cb5-12" title="12">  <span class="co"># Fit model</span></a>
-<a class="sourceLine" id="cb5-13" title="13">  <span class="cf">if</span> (model <span class="op">==</span><span class="st"> "Cox"</span>) {</a>
-<a class="sourceLine" id="cb5-14" title="14">    fit &lt;-<span class="st"> </span>survival<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/survival/man/coxph.html">coxph</a></span>(<span class="kw">Surv</span>(t, d) <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> data)</a>
-<a class="sourceLine" id="cb5-15" title="15">  } <span class="cf">else</span> <span class="cf">if</span> (model <span class="op">==</span><span class="st"> "RP(2)"</span>) {</a>
-<a class="sourceLine" id="cb5-16" title="16">    fit &lt;-<span class="st"> </span>rstpm2<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/rstpm2/man/gsm.html">stpm2</a></span>(<span class="kw">Surv</span>(t, d) <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> data, <span class="dt">df =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb5-17" title="17">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb5-18" title="18">    fit &lt;-<span class="st"> </span>eha<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/eha/man/phreg.html">phreg</a></span>(<span class="kw">Surv</span>(t, d) <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> data, <span class="dt">dist =</span> <span class="st">"weibull"</span>, <span class="dt">shape =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb5-19" title="19">  }</a>
-<a class="sourceLine" id="cb5-20" title="20">  <span class="co"># Return relevant coefficients</span></a>
-<a class="sourceLine" id="cb5-21" title="21">  <span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</a>
-<a class="sourceLine" id="cb5-22" title="22">    <span class="dt">dataset =</span> <span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(data<span class="op">$</span>dataset),</a>
-<a class="sourceLine" id="cb5-23" title="23">    <span class="dt">n =</span> <span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(data<span class="op">$</span>n),</a>
-<a class="sourceLine" id="cb5-24" title="24">    <span class="dt">baseline =</span> <span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(data<span class="op">$</span>baseline),</a>
-<a class="sourceLine" id="cb5-25" title="25">    <span class="dt">theta =</span> <span class="kw"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span>(fit)[<span class="st">"x"</span>],</a>
-<a class="sourceLine" id="cb5-26" title="26">    <span class="dt">se =</span> <span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(model <span class="op">==</span><span class="st"> "Exp"</span>, fit<span class="op">$</span>var[<span class="st">"x"</span>, <span class="st">"x"</span>], <span class="kw"><a href="https://rdrr.io/r/stats/vcov.html">vcov</a></span>(fit)[<span class="st">"x"</span>, <span class="st">"x"</span>])),</a>
-<a class="sourceLine" id="cb5-27" title="27">    <span class="dt">model =</span> model,</a>
-<a class="sourceLine" id="cb5-28" title="28">    <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb5-29" title="29">    <span class="dt">row.names =</span> <span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb5-30" title="30">  )</a>
-<a class="sourceLine" id="cb5-31" title="31">}</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(survival)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rstpm2)</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; Loading required package: splines</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt; </span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt; Attaching package: 'rstpm2'</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt; The following object is masked from 'package:survival':</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt; </span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt;     colon</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(eha)</span>
+<span id="cb5-10"><a href="#cb5-10"></a></span>
+<span id="cb5-11"><a href="#cb5-11"></a>fit_models &lt;-<span class="st"> </span><span class="cf">function</span>(data, model) {</span>
+<span id="cb5-12"><a href="#cb5-12"></a>  <span class="co"># Fit model</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a>  <span class="cf">if</span> (model <span class="op">==</span><span class="st"> "Cox"</span>) {</span>
+<span id="cb5-14"><a href="#cb5-14"></a>    fit &lt;-<span class="st"> </span>survival<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/survival/man/coxph.html">coxph</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span>(t, d) <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> data)</span>
+<span id="cb5-15"><a href="#cb5-15"></a>  } <span class="cf">else</span> <span class="cf">if</span> (model <span class="op">==</span><span class="st"> "RP(2)"</span>) {</span>
+<span id="cb5-16"><a href="#cb5-16"></a>    fit &lt;-<span class="st"> </span>rstpm2<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/rstpm2/man/gsm.html">stpm2</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span>(t, d) <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> data, <span class="dt">df =</span> <span class="dv">2</span>)</span>
+<span id="cb5-17"><a href="#cb5-17"></a>  } <span class="cf">else</span> {</span>
+<span id="cb5-18"><a href="#cb5-18"></a>    fit &lt;-<span class="st"> </span>eha<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/eha/man/phreg.html">phreg</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span>(t, d) <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> data, <span class="dt">dist =</span> <span class="st">"weibull"</span>, <span class="dt">shape =</span> <span class="dv">1</span>)</span>
+<span id="cb5-19"><a href="#cb5-19"></a>  }</span>
+<span id="cb5-20"><a href="#cb5-20"></a>  <span class="co"># Return relevant coefficients</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a>  <span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</span>
+<span id="cb5-22"><a href="#cb5-22"></a>    <span class="dt">dataset =</span> <span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(data<span class="op">$</span>dataset),</span>
+<span id="cb5-23"><a href="#cb5-23"></a>    <span class="dt">n =</span> <span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(data<span class="op">$</span>n),</span>
+<span id="cb5-24"><a href="#cb5-24"></a>    <span class="dt">baseline =</span> <span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(data<span class="op">$</span>baseline),</span>
+<span id="cb5-25"><a href="#cb5-25"></a>    <span class="dt">theta =</span> <span class="kw"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span>(fit)[<span class="st">"x"</span>],</span>
+<span id="cb5-26"><a href="#cb5-26"></a>    <span class="dt">se =</span> <span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(model <span class="op">==</span><span class="st"> "Exp"</span>, fit<span class="op">$</span>var[<span class="st">"x"</span>, <span class="st">"x"</span>], <span class="kw"><a href="https://rdrr.io/r/stats/vcov.html">vcov</a></span>(fit)[<span class="st">"x"</span>, <span class="st">"x"</span>])),</span>
+<span id="cb5-27"><a href="#cb5-27"></a>    <span class="dt">model =</span> model,</span>
+<span id="cb5-28"><a href="#cb5-28"></a>    <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb5-29"><a href="#cb5-29"></a>    <span class="dt">row.names =</span> <span class="ot">NULL</span></span>
+<span id="cb5-30"><a href="#cb5-30"></a>  )</span>
+<span id="cb5-31"><a href="#cb5-31"></a>}</span></code></pre></div>
 <p>We now run the models for each simulated dataset:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">results &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>()</a>
-<a class="sourceLine" id="cb6-2" title="2">results[[<span class="st">"n = 50, baseline = Exp, model = Cox"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</a>
-<a class="sourceLine" id="cb6-3" title="3">  rbind.data.frame,</a>
-<a class="sourceLine" id="cb6-4" title="4">  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</a>
-<a class="sourceLine" id="cb6-5" title="5">    <span class="dt">X =</span> data[[<span class="st">"n = 50, baseline = Exp"</span>]],</a>
-<a class="sourceLine" id="cb6-6" title="6">    <span class="dt">FUN =</span> fit_models,</a>
-<a class="sourceLine" id="cb6-7" title="7">    <span class="dt">model =</span> <span class="st">"Cox"</span></a>
-<a class="sourceLine" id="cb6-8" title="8">  )</a>
-<a class="sourceLine" id="cb6-9" title="9">)</a>
-<a class="sourceLine" id="cb6-10" title="10">results[[<span class="st">"n = 250, baseline = Exp, model = Cox"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</a>
-<a class="sourceLine" id="cb6-11" title="11">  rbind.data.frame,</a>
-<a class="sourceLine" id="cb6-12" title="12">  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</a>
-<a class="sourceLine" id="cb6-13" title="13">    <span class="dt">X =</span> data[[<span class="st">"n = 250, baseline = Exp"</span>]],</a>
-<a class="sourceLine" id="cb6-14" title="14">    <span class="dt">FUN =</span> fit_models,</a>
-<a class="sourceLine" id="cb6-15" title="15">    <span class="dt">model =</span> <span class="st">"Cox"</span></a>
-<a class="sourceLine" id="cb6-16" title="16">  )</a>
-<a class="sourceLine" id="cb6-17" title="17">)</a>
-<a class="sourceLine" id="cb6-18" title="18">results[[<span class="st">"n = 50, baseline = Wei, model = Cox"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</a>
-<a class="sourceLine" id="cb6-19" title="19">  rbind.data.frame,</a>
-<a class="sourceLine" id="cb6-20" title="20">  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</a>
-<a class="sourceLine" id="cb6-21" title="21">    <span class="dt">X =</span> data[[<span class="st">"n = 50, baseline = Wei"</span>]],</a>
-<a class="sourceLine" id="cb6-22" title="22">    <span class="dt">FUN =</span> fit_models,</a>
-<a class="sourceLine" id="cb6-23" title="23">    <span class="dt">model =</span> <span class="st">"Cox"</span></a>
-<a class="sourceLine" id="cb6-24" title="24">  )</a>
-<a class="sourceLine" id="cb6-25" title="25">)</a>
-<a class="sourceLine" id="cb6-26" title="26">results[[<span class="st">"n = 250, baseline = Wei, model = Cox"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</a>
-<a class="sourceLine" id="cb6-27" title="27">  rbind.data.frame,</a>
-<a class="sourceLine" id="cb6-28" title="28">  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</a>
-<a class="sourceLine" id="cb6-29" title="29">    <span class="dt">X =</span> data[[<span class="st">"n = 250, baseline = Wei"</span>]],</a>
-<a class="sourceLine" id="cb6-30" title="30">    <span class="dt">FUN =</span> fit_models,</a>
-<a class="sourceLine" id="cb6-31" title="31">    <span class="dt">model =</span> <span class="st">"Cox"</span></a>
-<a class="sourceLine" id="cb6-32" title="32">  )</a>
-<a class="sourceLine" id="cb6-33" title="33">)</a>
-<a class="sourceLine" id="cb6-34" title="34"></a>
-<a class="sourceLine" id="cb6-35" title="35">results[[<span class="st">"n = 50, baseline = Exp, model = Exp"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</a>
-<a class="sourceLine" id="cb6-36" title="36">  rbind.data.frame,</a>
-<a class="sourceLine" id="cb6-37" title="37">  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</a>
-<a class="sourceLine" id="cb6-38" title="38">    <span class="dt">X =</span> data[[<span class="st">"n = 50, baseline = Exp"</span>]],</a>
-<a class="sourceLine" id="cb6-39" title="39">    <span class="dt">FUN =</span> fit_models,</a>
-<a class="sourceLine" id="cb6-40" title="40">    <span class="dt">model =</span> <span class="st">"Exp"</span></a>
-<a class="sourceLine" id="cb6-41" title="41">  )</a>
-<a class="sourceLine" id="cb6-42" title="42">)</a>
-<a class="sourceLine" id="cb6-43" title="43">results[[<span class="st">"n = 250, baseline = Exp, model = Exp"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</a>
-<a class="sourceLine" id="cb6-44" title="44">  rbind.data.frame,</a>
-<a class="sourceLine" id="cb6-45" title="45">  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</a>
-<a class="sourceLine" id="cb6-46" title="46">    <span class="dt">X =</span> data[[<span class="st">"n = 250, baseline = Exp"</span>]],</a>
-<a class="sourceLine" id="cb6-47" title="47">    <span class="dt">FUN =</span> fit_models,</a>
-<a class="sourceLine" id="cb6-48" title="48">    <span class="dt">model =</span> <span class="st">"Exp"</span></a>
-<a class="sourceLine" id="cb6-49" title="49">  )</a>
-<a class="sourceLine" id="cb6-50" title="50">)</a>
-<a class="sourceLine" id="cb6-51" title="51">results[[<span class="st">"n = 50, baseline = Wei, model = Exp"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</a>
-<a class="sourceLine" id="cb6-52" title="52">  rbind.data.frame,</a>
-<a class="sourceLine" id="cb6-53" title="53">  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</a>
-<a class="sourceLine" id="cb6-54" title="54">    <span class="dt">X =</span> data[[<span class="st">"n = 50, baseline = Wei"</span>]],</a>
-<a class="sourceLine" id="cb6-55" title="55">    <span class="dt">FUN =</span> fit_models,</a>
-<a class="sourceLine" id="cb6-56" title="56">    <span class="dt">model =</span> <span class="st">"Exp"</span></a>
-<a class="sourceLine" id="cb6-57" title="57">  )</a>
-<a class="sourceLine" id="cb6-58" title="58">)</a>
-<a class="sourceLine" id="cb6-59" title="59">results[[<span class="st">"n = 250, baseline = Wei, model = Exp"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</a>
-<a class="sourceLine" id="cb6-60" title="60">  rbind.data.frame,</a>
-<a class="sourceLine" id="cb6-61" title="61">  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</a>
-<a class="sourceLine" id="cb6-62" title="62">    <span class="dt">X =</span> data[[<span class="st">"n = 250, baseline = Wei"</span>]],</a>
-<a class="sourceLine" id="cb6-63" title="63">    <span class="dt">FUN =</span> fit_models,</a>
-<a class="sourceLine" id="cb6-64" title="64">    <span class="dt">model =</span> <span class="st">"Exp"</span></a>
-<a class="sourceLine" id="cb6-65" title="65">  )</a>
-<a class="sourceLine" id="cb6-66" title="66">)</a>
-<a class="sourceLine" id="cb6-67" title="67"></a>
-<a class="sourceLine" id="cb6-68" title="68">results[[<span class="st">"n = 50, baseline = Exp, model = RP(2)"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</a>
-<a class="sourceLine" id="cb6-69" title="69">  rbind.data.frame,</a>
-<a class="sourceLine" id="cb6-70" title="70">  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</a>
-<a class="sourceLine" id="cb6-71" title="71">    <span class="dt">X =</span> data[[<span class="st">"n = 50, baseline = Exp"</span>]],</a>
-<a class="sourceLine" id="cb6-72" title="72">    <span class="dt">FUN =</span> fit_models,</a>
-<a class="sourceLine" id="cb6-73" title="73">    <span class="dt">model =</span> <span class="st">"RP(2)"</span></a>
-<a class="sourceLine" id="cb6-74" title="74">  )</a>
-<a class="sourceLine" id="cb6-75" title="75">)</a>
-<a class="sourceLine" id="cb6-76" title="76">results[[<span class="st">"n = 250, baseline = Exp, model = RP(2)"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</a>
-<a class="sourceLine" id="cb6-77" title="77">  rbind.data.frame,</a>
-<a class="sourceLine" id="cb6-78" title="78">  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</a>
-<a class="sourceLine" id="cb6-79" title="79">    <span class="dt">X =</span> data[[<span class="st">"n = 250, baseline = Exp"</span>]],</a>
-<a class="sourceLine" id="cb6-80" title="80">    <span class="dt">FUN =</span> fit_models,</a>
-<a class="sourceLine" id="cb6-81" title="81">    <span class="dt">model =</span> <span class="st">"RP(2)"</span></a>
-<a class="sourceLine" id="cb6-82" title="82">  )</a>
-<a class="sourceLine" id="cb6-83" title="83">)</a>
-<a class="sourceLine" id="cb6-84" title="84">results[[<span class="st">"n = 50, baseline = Wei, model = RP(2)"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</a>
-<a class="sourceLine" id="cb6-85" title="85">  rbind.data.frame,</a>
-<a class="sourceLine" id="cb6-86" title="86">  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</a>
-<a class="sourceLine" id="cb6-87" title="87">    <span class="dt">X =</span> data[[<span class="st">"n = 50, baseline = Wei"</span>]],</a>
-<a class="sourceLine" id="cb6-88" title="88">    <span class="dt">FUN =</span> fit_models,</a>
-<a class="sourceLine" id="cb6-89" title="89">    <span class="dt">model =</span> <span class="st">"RP(2)"</span></a>
-<a class="sourceLine" id="cb6-90" title="90">  )</a>
-<a class="sourceLine" id="cb6-91" title="91">)</a>
-<a class="sourceLine" id="cb6-92" title="92">results[[<span class="st">"n = 250, baseline = Wei, model = RP(2)"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</a>
-<a class="sourceLine" id="cb6-93" title="93">  rbind.data.frame,</a>
-<a class="sourceLine" id="cb6-94" title="94">  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</a>
-<a class="sourceLine" id="cb6-95" title="95">    <span class="dt">X =</span> data[[<span class="st">"n = 250, baseline = Wei"</span>]],</a>
-<a class="sourceLine" id="cb6-96" title="96">    <span class="dt">FUN =</span> fit_models,</a>
-<a class="sourceLine" id="cb6-97" title="97">    <span class="dt">model =</span> <span class="st">"RP(2)"</span></a>
-<a class="sourceLine" id="cb6-98" title="98">  )</a>
-<a class="sourceLine" id="cb6-99" title="99">)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>results &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>()</span>
+<span id="cb6-2"><a href="#cb6-2"></a>results[[<span class="st">"n = 50, baseline = Exp, model = Cox"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</span>
+<span id="cb6-3"><a href="#cb6-3"></a>  rbind.data.frame,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    <span class="dt">X =</span> data[[<span class="st">"n = 50, baseline = Exp"</span>]],</span>
+<span id="cb6-6"><a href="#cb6-6"></a>    <span class="dt">FUN =</span> fit_models,</span>
+<span id="cb6-7"><a href="#cb6-7"></a>    <span class="dt">model =</span> <span class="st">"Cox"</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>  )</span>
+<span id="cb6-9"><a href="#cb6-9"></a>)</span>
+<span id="cb6-10"><a href="#cb6-10"></a>results[[<span class="st">"n = 250, baseline = Exp, model = Cox"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</span>
+<span id="cb6-11"><a href="#cb6-11"></a>  rbind.data.frame,</span>
+<span id="cb6-12"><a href="#cb6-12"></a>  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</span>
+<span id="cb6-13"><a href="#cb6-13"></a>    <span class="dt">X =</span> data[[<span class="st">"n = 250, baseline = Exp"</span>]],</span>
+<span id="cb6-14"><a href="#cb6-14"></a>    <span class="dt">FUN =</span> fit_models,</span>
+<span id="cb6-15"><a href="#cb6-15"></a>    <span class="dt">model =</span> <span class="st">"Cox"</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a>  )</span>
+<span id="cb6-17"><a href="#cb6-17"></a>)</span>
+<span id="cb6-18"><a href="#cb6-18"></a>results[[<span class="st">"n = 50, baseline = Wei, model = Cox"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</span>
+<span id="cb6-19"><a href="#cb6-19"></a>  rbind.data.frame,</span>
+<span id="cb6-20"><a href="#cb6-20"></a>  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</span>
+<span id="cb6-21"><a href="#cb6-21"></a>    <span class="dt">X =</span> data[[<span class="st">"n = 50, baseline = Wei"</span>]],</span>
+<span id="cb6-22"><a href="#cb6-22"></a>    <span class="dt">FUN =</span> fit_models,</span>
+<span id="cb6-23"><a href="#cb6-23"></a>    <span class="dt">model =</span> <span class="st">"Cox"</span></span>
+<span id="cb6-24"><a href="#cb6-24"></a>  )</span>
+<span id="cb6-25"><a href="#cb6-25"></a>)</span>
+<span id="cb6-26"><a href="#cb6-26"></a>results[[<span class="st">"n = 250, baseline = Wei, model = Cox"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</span>
+<span id="cb6-27"><a href="#cb6-27"></a>  rbind.data.frame,</span>
+<span id="cb6-28"><a href="#cb6-28"></a>  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</span>
+<span id="cb6-29"><a href="#cb6-29"></a>    <span class="dt">X =</span> data[[<span class="st">"n = 250, baseline = Wei"</span>]],</span>
+<span id="cb6-30"><a href="#cb6-30"></a>    <span class="dt">FUN =</span> fit_models,</span>
+<span id="cb6-31"><a href="#cb6-31"></a>    <span class="dt">model =</span> <span class="st">"Cox"</span></span>
+<span id="cb6-32"><a href="#cb6-32"></a>  )</span>
+<span id="cb6-33"><a href="#cb6-33"></a>)</span>
+<span id="cb6-34"><a href="#cb6-34"></a></span>
+<span id="cb6-35"><a href="#cb6-35"></a>results[[<span class="st">"n = 50, baseline = Exp, model = Exp"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</span>
+<span id="cb6-36"><a href="#cb6-36"></a>  rbind.data.frame,</span>
+<span id="cb6-37"><a href="#cb6-37"></a>  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</span>
+<span id="cb6-38"><a href="#cb6-38"></a>    <span class="dt">X =</span> data[[<span class="st">"n = 50, baseline = Exp"</span>]],</span>
+<span id="cb6-39"><a href="#cb6-39"></a>    <span class="dt">FUN =</span> fit_models,</span>
+<span id="cb6-40"><a href="#cb6-40"></a>    <span class="dt">model =</span> <span class="st">"Exp"</span></span>
+<span id="cb6-41"><a href="#cb6-41"></a>  )</span>
+<span id="cb6-42"><a href="#cb6-42"></a>)</span>
+<span id="cb6-43"><a href="#cb6-43"></a>results[[<span class="st">"n = 250, baseline = Exp, model = Exp"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</span>
+<span id="cb6-44"><a href="#cb6-44"></a>  rbind.data.frame,</span>
+<span id="cb6-45"><a href="#cb6-45"></a>  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</span>
+<span id="cb6-46"><a href="#cb6-46"></a>    <span class="dt">X =</span> data[[<span class="st">"n = 250, baseline = Exp"</span>]],</span>
+<span id="cb6-47"><a href="#cb6-47"></a>    <span class="dt">FUN =</span> fit_models,</span>
+<span id="cb6-48"><a href="#cb6-48"></a>    <span class="dt">model =</span> <span class="st">"Exp"</span></span>
+<span id="cb6-49"><a href="#cb6-49"></a>  )</span>
+<span id="cb6-50"><a href="#cb6-50"></a>)</span>
+<span id="cb6-51"><a href="#cb6-51"></a>results[[<span class="st">"n = 50, baseline = Wei, model = Exp"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</span>
+<span id="cb6-52"><a href="#cb6-52"></a>  rbind.data.frame,</span>
+<span id="cb6-53"><a href="#cb6-53"></a>  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</span>
+<span id="cb6-54"><a href="#cb6-54"></a>    <span class="dt">X =</span> data[[<span class="st">"n = 50, baseline = Wei"</span>]],</span>
+<span id="cb6-55"><a href="#cb6-55"></a>    <span class="dt">FUN =</span> fit_models,</span>
+<span id="cb6-56"><a href="#cb6-56"></a>    <span class="dt">model =</span> <span class="st">"Exp"</span></span>
+<span id="cb6-57"><a href="#cb6-57"></a>  )</span>
+<span id="cb6-58"><a href="#cb6-58"></a>)</span>
+<span id="cb6-59"><a href="#cb6-59"></a>results[[<span class="st">"n = 250, baseline = Wei, model = Exp"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</span>
+<span id="cb6-60"><a href="#cb6-60"></a>  rbind.data.frame,</span>
+<span id="cb6-61"><a href="#cb6-61"></a>  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</span>
+<span id="cb6-62"><a href="#cb6-62"></a>    <span class="dt">X =</span> data[[<span class="st">"n = 250, baseline = Wei"</span>]],</span>
+<span id="cb6-63"><a href="#cb6-63"></a>    <span class="dt">FUN =</span> fit_models,</span>
+<span id="cb6-64"><a href="#cb6-64"></a>    <span class="dt">model =</span> <span class="st">"Exp"</span></span>
+<span id="cb6-65"><a href="#cb6-65"></a>  )</span>
+<span id="cb6-66"><a href="#cb6-66"></a>)</span>
+<span id="cb6-67"><a href="#cb6-67"></a></span>
+<span id="cb6-68"><a href="#cb6-68"></a>results[[<span class="st">"n = 50, baseline = Exp, model = RP(2)"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</span>
+<span id="cb6-69"><a href="#cb6-69"></a>  rbind.data.frame,</span>
+<span id="cb6-70"><a href="#cb6-70"></a>  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</span>
+<span id="cb6-71"><a href="#cb6-71"></a>    <span class="dt">X =</span> data[[<span class="st">"n = 50, baseline = Exp"</span>]],</span>
+<span id="cb6-72"><a href="#cb6-72"></a>    <span class="dt">FUN =</span> fit_models,</span>
+<span id="cb6-73"><a href="#cb6-73"></a>    <span class="dt">model =</span> <span class="st">"RP(2)"</span></span>
+<span id="cb6-74"><a href="#cb6-74"></a>  )</span>
+<span id="cb6-75"><a href="#cb6-75"></a>)</span>
+<span id="cb6-76"><a href="#cb6-76"></a>results[[<span class="st">"n = 250, baseline = Exp, model = RP(2)"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</span>
+<span id="cb6-77"><a href="#cb6-77"></a>  rbind.data.frame,</span>
+<span id="cb6-78"><a href="#cb6-78"></a>  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</span>
+<span id="cb6-79"><a href="#cb6-79"></a>    <span class="dt">X =</span> data[[<span class="st">"n = 250, baseline = Exp"</span>]],</span>
+<span id="cb6-80"><a href="#cb6-80"></a>    <span class="dt">FUN =</span> fit_models,</span>
+<span id="cb6-81"><a href="#cb6-81"></a>    <span class="dt">model =</span> <span class="st">"RP(2)"</span></span>
+<span id="cb6-82"><a href="#cb6-82"></a>  )</span>
+<span id="cb6-83"><a href="#cb6-83"></a>)</span>
+<span id="cb6-84"><a href="#cb6-84"></a>results[[<span class="st">"n = 50, baseline = Wei, model = RP(2)"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</span>
+<span id="cb6-85"><a href="#cb6-85"></a>  rbind.data.frame,</span>
+<span id="cb6-86"><a href="#cb6-86"></a>  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</span>
+<span id="cb6-87"><a href="#cb6-87"></a>    <span class="dt">X =</span> data[[<span class="st">"n = 50, baseline = Wei"</span>]],</span>
+<span id="cb6-88"><a href="#cb6-88"></a>    <span class="dt">FUN =</span> fit_models,</span>
+<span id="cb6-89"><a href="#cb6-89"></a>    <span class="dt">model =</span> <span class="st">"RP(2)"</span></span>
+<span id="cb6-90"><a href="#cb6-90"></a>  )</span>
+<span id="cb6-91"><a href="#cb6-91"></a>)</span>
+<span id="cb6-92"><a href="#cb6-92"></a>results[[<span class="st">"n = 250, baseline = Wei, model = RP(2)"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</span>
+<span id="cb6-93"><a href="#cb6-93"></a>  rbind.data.frame,</span>
+<span id="cb6-94"><a href="#cb6-94"></a>  <span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(</span>
+<span id="cb6-95"><a href="#cb6-95"></a>    <span class="dt">X =</span> data[[<span class="st">"n = 250, baseline = Wei"</span>]],</span>
+<span id="cb6-96"><a href="#cb6-96"></a>    <span class="dt">FUN =</span> fit_models,</span>
+<span id="cb6-97"><a href="#cb6-97"></a>    <span class="dt">model =</span> <span class="st">"RP(2)"</span></span>
+<span id="cb6-98"><a href="#cb6-98"></a>  )</span>
+<span id="cb6-99"><a href="#cb6-99"></a>)</span></code></pre></div>
 </div>
 <div id="aggregating-results" class="section level2">
 <h2 class="hasAnchor">
 <a href="#aggregating-results" class="anchor"></a>Aggregating results</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">relhaz &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</a>
-<a class="sourceLine" id="cb7-2" title="2">  rbind.data.frame,</a>
-<a class="sourceLine" id="cb7-3" title="3">  results</a>
-<a class="sourceLine" id="cb7-4" title="4">)</a>
-<a class="sourceLine" id="cb7-5" title="5"><span class="kw"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span>(relhaz) &lt;-<span class="st"> </span><span class="ot">NULL</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>relhaz &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(</span>
+<span id="cb7-2"><a href="#cb7-2"></a>  rbind.data.frame,</span>
+<span id="cb7-3"><a href="#cb7-3"></a>  results</span>
+<span id="cb7-4"><a href="#cb7-4"></a>)</span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="kw"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span>(relhaz) &lt;-<span class="st"> </span><span class="ot">NULL</span></span></code></pre></div>
 <p>We save the final results, that will be included as an example in the R package <code>rsimsum</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(usethis)</a>
-<a class="sourceLine" id="cb8-2" title="2">usethis<span class="op">::</span><span class="kw"><a href="https://usethis.r-lib.org/reference/use_data.html">use_data</a></span>(relhaz, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(usethis)</span>
+<span id="cb8-2"><a href="#cb8-2"></a>usethis<span class="op">::</span><span class="kw"><a href="https://usethis.r-lib.org/reference/use_data.html">use_data</a></span>(relhaz, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 </div>
 <div id="summarising-results" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summarising-results" class="anchor"></a>Summarising results</h2>
 <p>Finally, we obtain summary statistics by calling the <code>simsum</code> function:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rsimsum)</a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="co">#&gt; Attaching package: 'rsimsum'</span></a>
-<a class="sourceLine" id="cb9-4" title="4"><span class="co">#&gt; The following object is masked _by_ '.GlobalEnv':</span></a>
-<a class="sourceLine" id="cb9-5" title="5"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-6" title="6"><span class="co">#&gt;     relhaz</span></a>
-<a class="sourceLine" id="cb9-7" title="7">s &lt;-<span class="st"> </span>rsimsum<span class="op">::</span><span class="kw"><a href="https://ellessenne.github.io/rsimsum/reference/simsum.html">simsum</a></span>(<span class="dt">data =</span> relhaz, <span class="dt">estvarname =</span> <span class="st">"theta"</span>, <span class="dt">se =</span> <span class="st">"se"</span>, <span class="dt">true =</span> <span class="fl">-0.50</span>, <span class="dt">methodvar =</span> <span class="st">"model"</span>, <span class="dt">ref =</span> <span class="st">"Cox"</span>, <span class="dt">by =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"n"</span>, <span class="st">"baseline"</span>))</a>
-<a class="sourceLine" id="cb9-8" title="8">s</a>
-<a class="sourceLine" id="cb9-9" title="9"><span class="co">#&gt; Summary of a simulation study with a single estimand.</span></a>
-<a class="sourceLine" id="cb9-10" title="10"><span class="co">#&gt; True value of the estimand: -0.5 </span></a>
-<a class="sourceLine" id="cb9-11" title="11"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-12" title="12"><span class="co">#&gt; Method variable: model </span></a>
-<a class="sourceLine" id="cb9-13" title="13"><span class="co">#&gt;  Unique methods: Cox, Exp, RP(2) </span></a>
-<a class="sourceLine" id="cb9-14" title="14"><span class="co">#&gt;  Reference method: Cox </span></a>
-<a class="sourceLine" id="cb9-15" title="15"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-16" title="16"><span class="co">#&gt; By factors: n, baseline </span></a>
-<a class="sourceLine" id="cb9-17" title="17"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-18" title="18"><span class="co">#&gt; Monte Carlo standard errors were computed.</span></a></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(s)</a>
-<a class="sourceLine" id="cb10-2" title="2"><span class="co">#&gt; Values are:</span></a>
-<a class="sourceLine" id="cb10-3" title="3"><span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span></a>
-<a class="sourceLine" id="cb10-4" title="4"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-5" title="5"><span class="co">#&gt; Non-missing point estimates/standard errors:</span></a>
-<a class="sourceLine" id="cb10-6" title="6"><span class="co">#&gt;    n    baseline Cox Exp RP(2)</span></a>
-<a class="sourceLine" id="cb10-7" title="7"><span class="co">#&gt;   50 Exponential 100 100   100</span></a>
-<a class="sourceLine" id="cb10-8" title="8"><span class="co">#&gt;   50     Weibull 100 100   100</span></a>
-<a class="sourceLine" id="cb10-9" title="9"><span class="co">#&gt;  250 Exponential 100 100   100</span></a>
-<a class="sourceLine" id="cb10-10" title="10"><span class="co">#&gt;  250     Weibull 100 100   100</span></a>
-<a class="sourceLine" id="cb10-11" title="11"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-12" title="12"><span class="co">#&gt; Average point estimate:</span></a>
-<a class="sourceLine" id="cb10-13" title="13"><span class="co">#&gt;    n    baseline     Cox     Exp   RP(2)</span></a>
-<a class="sourceLine" id="cb10-14" title="14"><span class="co">#&gt;   50 Exponential -0.4785 -0.4761 -0.4817</span></a>
-<a class="sourceLine" id="cb10-15" title="15"><span class="co">#&gt;   50     Weibull -0.5282 -0.3491 -0.5348</span></a>
-<a class="sourceLine" id="cb10-16" title="16"><span class="co">#&gt;  250 Exponential -0.5215 -0.5214 -0.5227</span></a>
-<a class="sourceLine" id="cb10-17" title="17"><span class="co">#&gt;  250     Weibull -0.5120 -0.3518 -0.5139</span></a>
-<a class="sourceLine" id="cb10-18" title="18"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-19" title="19"><span class="co">#&gt; Median point estimate:</span></a>
-<a class="sourceLine" id="cb10-20" title="20"><span class="co">#&gt;    n    baseline     Cox     Exp   RP(2)</span></a>
-<a class="sourceLine" id="cb10-21" title="21"><span class="co">#&gt;   50 Exponential -0.4507 -0.4571 -0.4574</span></a>
-<a class="sourceLine" id="cb10-22" title="22"><span class="co">#&gt;   50     Weibull -0.5518 -0.3615 -0.5425</span></a>
-<a class="sourceLine" id="cb10-23" title="23"><span class="co">#&gt;  250 Exponential -0.5184 -0.5165 -0.5209</span></a>
-<a class="sourceLine" id="cb10-24" title="24"><span class="co">#&gt;  250     Weibull -0.5145 -0.3633 -0.5078</span></a>
-<a class="sourceLine" id="cb10-25" title="25"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-26" title="26"><span class="co">#&gt; Average variance:</span></a>
-<a class="sourceLine" id="cb10-27" title="27"><span class="co">#&gt;    n    baseline    Cox    Exp  RP(2)</span></a>
-<a class="sourceLine" id="cb10-28" title="28"><span class="co">#&gt;   50 Exponential 0.1014 0.0978 0.1002</span></a>
-<a class="sourceLine" id="cb10-29" title="29"><span class="co">#&gt;   50     Weibull 0.0931 0.0834 0.0898</span></a>
-<a class="sourceLine" id="cb10-30" title="30"><span class="co">#&gt;  250 Exponential 0.0195 0.0191 0.0194</span></a>
-<a class="sourceLine" id="cb10-31" title="31"><span class="co">#&gt;  250     Weibull 0.0174 0.0164 0.0172</span></a>
-<a class="sourceLine" id="cb10-32" title="32"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-33" title="33"><span class="co">#&gt; Median variance:</span></a>
-<a class="sourceLine" id="cb10-34" title="34"><span class="co">#&gt;    n    baseline    Cox    Exp  RP(2)</span></a>
-<a class="sourceLine" id="cb10-35" title="35"><span class="co">#&gt;   50 Exponential 0.1000 0.0972 0.0989</span></a>
-<a class="sourceLine" id="cb10-36" title="36"><span class="co">#&gt;   50     Weibull 0.0914 0.0825 0.0875</span></a>
-<a class="sourceLine" id="cb10-37" title="37"><span class="co">#&gt;  250 Exponential 0.0195 0.0190 0.0194</span></a>
-<a class="sourceLine" id="cb10-38" title="38"><span class="co">#&gt;  250     Weibull 0.0174 0.0164 0.0171</span></a>
-<a class="sourceLine" id="cb10-39" title="39"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-40" title="40"><span class="co">#&gt; Bias in point estimate:</span></a>
-<a class="sourceLine" id="cb10-41" title="41"><span class="co">#&gt;    n    baseline              Cox              Exp            RP(2)</span></a>
-<a class="sourceLine" id="cb10-42" title="42"><span class="co">#&gt;   50 Exponential  0.0215 (0.0328)  0.0239 (0.0326)  0.0183 (0.0331)</span></a>
-<a class="sourceLine" id="cb10-43" title="43"><span class="co">#&gt;   50     Weibull -0.0282 (0.0311)  0.1509 (0.0204) -0.0348 (0.0311)</span></a>
-<a class="sourceLine" id="cb10-44" title="44"><span class="co">#&gt;  250 Exponential -0.0215 (0.0149) -0.0214 (0.0151) -0.0227 (0.0149)</span></a>
-<a class="sourceLine" id="cb10-45" title="45"><span class="co">#&gt;  250     Weibull -0.0120 (0.0133)  0.1482 (0.0093) -0.0139 (0.0137)</span></a>
-<a class="sourceLine" id="cb10-46" title="46"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-47" title="47"><span class="co">#&gt; Empirical standard error:</span></a>
-<a class="sourceLine" id="cb10-48" title="48"><span class="co">#&gt;    n    baseline             Cox             Exp           RP(2)</span></a>
-<a class="sourceLine" id="cb10-49" title="49"><span class="co">#&gt;   50 Exponential 0.3285 (0.0233) 0.3258 (0.0232) 0.3312 (0.0235)</span></a>
-<a class="sourceLine" id="cb10-50" title="50"><span class="co">#&gt;   50     Weibull 0.3115 (0.0221) 0.2041 (0.0145) 0.3111 (0.0221)</span></a>
-<a class="sourceLine" id="cb10-51" title="51"><span class="co">#&gt;  250 Exponential 0.1488 (0.0106) 0.1506 (0.0107) 0.1489 (0.0106)</span></a>
-<a class="sourceLine" id="cb10-52" title="52"><span class="co">#&gt;  250     Weibull 0.1333 (0.0095) 0.0929 (0.0066) 0.1368 (0.0097)</span></a>
-<a class="sourceLine" id="cb10-53" title="53"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-54" title="54"><span class="co">#&gt; % gain in precision relative to method Cox:</span></a>
-<a class="sourceLine" id="cb10-55" title="55"><span class="co">#&gt;    n    baseline              Cox                Exp            RP(2)</span></a>
-<a class="sourceLine" id="cb10-56" title="56"><span class="co">#&gt;   50 Exponential -0.0000 (0.0000)    1.6773 (3.2902) -1.6262 (1.7888)</span></a>
-<a class="sourceLine" id="cb10-57" title="57"><span class="co">#&gt;   50     Weibull -0.0000 (0.0000) 132.7958 (16.4433)  0.2412 (3.7362)</span></a>
-<a class="sourceLine" id="cb10-58" title="58"><span class="co">#&gt;  250 Exponential  0.0000 (0.0000)   -2.3839 (3.0501) -0.1491 (0.9917)</span></a>
-<a class="sourceLine" id="cb10-59" title="59"><span class="co">#&gt;  250     Weibull -0.0000 (0.0000) 105.8426 (12.4932) -4.9534 (2.0649)</span></a>
-<a class="sourceLine" id="cb10-60" title="60"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-61" title="61"><span class="co">#&gt; Mean squared error:</span></a>
-<a class="sourceLine" id="cb10-62" title="62"><span class="co">#&gt;    n    baseline             Cox             Exp           RP(2)</span></a>
-<a class="sourceLine" id="cb10-63" title="63"><span class="co">#&gt;   50 Exponential 0.1073 (0.0149) 0.1056 (0.0146) 0.1089 (0.0154)</span></a>
-<a class="sourceLine" id="cb10-64" title="64"><span class="co">#&gt;   50     Weibull 0.0968 (0.0117) 0.0640 (0.0083) 0.0970 (0.0117)</span></a>
-<a class="sourceLine" id="cb10-65" title="65"><span class="co">#&gt;  250 Exponential 0.0224 (0.0028) 0.0229 (0.0028) 0.0225 (0.0028)</span></a>
-<a class="sourceLine" id="cb10-66" title="66"><span class="co">#&gt;  250     Weibull 0.0177 (0.0027) 0.0305 (0.0033) 0.0187 (0.0028)</span></a>
-<a class="sourceLine" id="cb10-67" title="67"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-68" title="68"><span class="co">#&gt; Model-based standard error:</span></a>
-<a class="sourceLine" id="cb10-69" title="69"><span class="co">#&gt;    n    baseline             Cox             Exp           RP(2)</span></a>
-<a class="sourceLine" id="cb10-70" title="70"><span class="co">#&gt;   50 Exponential 0.3185 (0.0013) 0.3127 (0.0010) 0.3165 (0.0012)</span></a>
-<a class="sourceLine" id="cb10-71" title="71"><span class="co">#&gt;   50     Weibull 0.3052 (0.0014) 0.2888 (0.0005) 0.2996 (0.0012)</span></a>
-<a class="sourceLine" id="cb10-72" title="72"><span class="co">#&gt;  250 Exponential 0.1396 (0.0002) 0.1381 (0.0002) 0.1394 (0.0002)</span></a>
-<a class="sourceLine" id="cb10-73" title="73"><span class="co">#&gt;  250     Weibull 0.1320 (0.0002) 0.1281 (0.0001) 0.1313 (0.0002)</span></a>
-<a class="sourceLine" id="cb10-74" title="74"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-75" title="75"><span class="co">#&gt; Relative % error in standard error:</span></a>
-<a class="sourceLine" id="cb10-76" title="76"><span class="co">#&gt;    n    baseline              Cox               Exp            RP(2)</span></a>
-<a class="sourceLine" id="cb10-77" title="77"><span class="co">#&gt;   50 Exponential -3.0493 (6.8838)  -4.0156 (6.8114) -4.4322 (6.7841)</span></a>
-<a class="sourceLine" id="cb10-78" title="78"><span class="co">#&gt;   50     Weibull -2.0115 (6.9601) 41.4993 (10.0341) -3.6873 (6.8377)</span></a>
-<a class="sourceLine" id="cb10-79" title="79"><span class="co">#&gt;  250 Exponential -6.2002 (6.6512)  -8.3339 (6.4996) -6.4133 (6.6361)</span></a>
-<a class="sourceLine" id="cb10-80" title="80"><span class="co">#&gt;  250     Weibull -0.9728 (7.0220)  37.7762 (9.7671) -4.0199 (6.8056)</span></a>
-<a class="sourceLine" id="cb10-81" title="81"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-82" title="82"><span class="co">#&gt; Coverage of nominal 95% confidence interval:</span></a>
-<a class="sourceLine" id="cb10-83" title="83"><span class="co">#&gt;    n    baseline             Cox             Exp           RP(2)</span></a>
-<a class="sourceLine" id="cb10-84" title="84"><span class="co">#&gt;   50 Exponential 0.9500 (0.0218) 0.9400 (0.0237) 0.9500 (0.0218)</span></a>
-<a class="sourceLine" id="cb10-85" title="85"><span class="co">#&gt;   50     Weibull 0.9700 (0.0171) 0.9900 (0.0099) 0.9500 (0.0218)</span></a>
-<a class="sourceLine" id="cb10-86" title="86"><span class="co">#&gt;  250 Exponential 0.9300 (0.0255) 0.9200 (0.0271) 0.9300 (0.0255)</span></a>
-<a class="sourceLine" id="cb10-87" title="87"><span class="co">#&gt;  250     Weibull 0.9400 (0.0237) 0.8500 (0.0357) 0.9400 (0.0237)</span></a>
-<a class="sourceLine" id="cb10-88" title="88"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-89" title="89"><span class="co">#&gt; Bias-eliminated coverage of nominal 95% confidence interval:</span></a>
-<a class="sourceLine" id="cb10-90" title="90"><span class="co">#&gt;    n    baseline             Cox             Exp           RP(2)</span></a>
-<a class="sourceLine" id="cb10-91" title="91"><span class="co">#&gt;   50 Exponential 0.9500 (0.0218) 0.9500 (0.0218) 0.9500 (0.0218)</span></a>
-<a class="sourceLine" id="cb10-92" title="92"><span class="co">#&gt;   50     Weibull 0.9500 (0.0218) 1.0000 (0.0000) 0.9500 (0.0218)</span></a>
-<a class="sourceLine" id="cb10-93" title="93"><span class="co">#&gt;  250 Exponential 0.9400 (0.0237) 0.9400 (0.0237) 0.9400 (0.0237)</span></a>
-<a class="sourceLine" id="cb10-94" title="94"><span class="co">#&gt;  250     Weibull 0.9500 (0.0218) 0.9900 (0.0099) 0.9400 (0.0237)</span></a>
-<a class="sourceLine" id="cb10-95" title="95"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-96" title="96"><span class="co">#&gt; Power of 5% level test:</span></a>
-<a class="sourceLine" id="cb10-97" title="97"><span class="co">#&gt;    n    baseline             Cox             Exp           RP(2)</span></a>
-<a class="sourceLine" id="cb10-98" title="98"><span class="co">#&gt;   50 Exponential 0.3600 (0.0480) 0.3800 (0.0485) 0.3700 (0.0483)</span></a>
-<a class="sourceLine" id="cb10-99" title="99"><span class="co">#&gt;   50     Weibull 0.4300 (0.0495) 0.0900 (0.0286) 0.4700 (0.0499)</span></a>
-<a class="sourceLine" id="cb10-100" title="100"><span class="co">#&gt;  250 Exponential 0.9800 (0.0140) 0.9900 (0.0099) 0.9900 (0.0099)</span></a>
-<a class="sourceLine" id="cb10-101" title="101"><span class="co">#&gt;  250     Weibull 0.9700 (0.0171) 0.8600 (0.0347) 0.9700 (0.0171)</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rsimsum)</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="co">#&gt; </span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="co">#&gt; Attaching package: 'rsimsum'</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co">#&gt; The following object is masked _by_ '.GlobalEnv':</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="co">#&gt; </span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="co">#&gt;     relhaz</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>s &lt;-<span class="st"> </span>rsimsum<span class="op">::</span><span class="kw"><a href="https://ellessenne.github.io/rsimsum/reference/simsum.html">simsum</a></span>(<span class="dt">data =</span> relhaz, <span class="dt">estvarname =</span> <span class="st">"theta"</span>, <span class="dt">se =</span> <span class="st">"se"</span>, <span class="dt">true =</span> <span class="fl">-0.50</span>, <span class="dt">methodvar =</span> <span class="st">"model"</span>, <span class="dt">ref =</span> <span class="st">"Cox"</span>, <span class="dt">by =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"n"</span>, <span class="st">"baseline"</span>))</span>
+<span id="cb9-8"><a href="#cb9-8"></a>s</span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="co">#&gt; Summary of a simulation study with a single estimand.</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="co">#&gt; True value of the estimand: -0.5 </span></span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="co">#&gt; </span></span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="co">#&gt; Method variable: model </span></span>
+<span id="cb9-13"><a href="#cb9-13"></a><span class="co">#&gt;  Unique methods: Cox, Exp, RP(2) </span></span>
+<span id="cb9-14"><a href="#cb9-14"></a><span class="co">#&gt;  Reference method: Cox </span></span>
+<span id="cb9-15"><a href="#cb9-15"></a><span class="co">#&gt; </span></span>
+<span id="cb9-16"><a href="#cb9-16"></a><span class="co">#&gt; By factors: n, baseline </span></span>
+<span id="cb9-17"><a href="#cb9-17"></a><span class="co">#&gt; </span></span>
+<span id="cb9-18"><a href="#cb9-18"></a><span class="co">#&gt; Monte Carlo standard errors were computed.</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(s)</span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="co">#&gt; Values are:</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co">#&gt; </span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt; Non-missing point estimates/standard errors:</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt;    n    baseline Cox Exp RP(2)</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="co">#&gt;   50 Exponential 100 100   100</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="co">#&gt;   50     Weibull 100 100   100</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="co">#&gt;  250 Exponential 100 100   100</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="co">#&gt;  250     Weibull 100 100   100</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="co">#&gt; </span></span>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="co">#&gt; Average point estimate:</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a><span class="co">#&gt;    n    baseline     Cox     Exp   RP(2)</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a><span class="co">#&gt;   50 Exponential -0.4785 -0.4761 -0.4817</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a><span class="co">#&gt;   50     Weibull -0.5282 -0.3491 -0.5348</span></span>
+<span id="cb10-16"><a href="#cb10-16"></a><span class="co">#&gt;  250 Exponential -0.5215 -0.5214 -0.5227</span></span>
+<span id="cb10-17"><a href="#cb10-17"></a><span class="co">#&gt;  250     Weibull -0.5120 -0.3518 -0.5139</span></span>
+<span id="cb10-18"><a href="#cb10-18"></a><span class="co">#&gt; </span></span>
+<span id="cb10-19"><a href="#cb10-19"></a><span class="co">#&gt; Median point estimate:</span></span>
+<span id="cb10-20"><a href="#cb10-20"></a><span class="co">#&gt;    n    baseline     Cox     Exp   RP(2)</span></span>
+<span id="cb10-21"><a href="#cb10-21"></a><span class="co">#&gt;   50 Exponential -0.4507 -0.4571 -0.4574</span></span>
+<span id="cb10-22"><a href="#cb10-22"></a><span class="co">#&gt;   50     Weibull -0.5518 -0.3615 -0.5425</span></span>
+<span id="cb10-23"><a href="#cb10-23"></a><span class="co">#&gt;  250 Exponential -0.5184 -0.5165 -0.5209</span></span>
+<span id="cb10-24"><a href="#cb10-24"></a><span class="co">#&gt;  250     Weibull -0.5145 -0.3633 -0.5078</span></span>
+<span id="cb10-25"><a href="#cb10-25"></a><span class="co">#&gt; </span></span>
+<span id="cb10-26"><a href="#cb10-26"></a><span class="co">#&gt; Average variance:</span></span>
+<span id="cb10-27"><a href="#cb10-27"></a><span class="co">#&gt;    n    baseline    Cox    Exp  RP(2)</span></span>
+<span id="cb10-28"><a href="#cb10-28"></a><span class="co">#&gt;   50 Exponential 0.1014 0.0978 0.1002</span></span>
+<span id="cb10-29"><a href="#cb10-29"></a><span class="co">#&gt;   50     Weibull 0.0931 0.0834 0.0898</span></span>
+<span id="cb10-30"><a href="#cb10-30"></a><span class="co">#&gt;  250 Exponential 0.0195 0.0191 0.0194</span></span>
+<span id="cb10-31"><a href="#cb10-31"></a><span class="co">#&gt;  250     Weibull 0.0174 0.0164 0.0172</span></span>
+<span id="cb10-32"><a href="#cb10-32"></a><span class="co">#&gt; </span></span>
+<span id="cb10-33"><a href="#cb10-33"></a><span class="co">#&gt; Median variance:</span></span>
+<span id="cb10-34"><a href="#cb10-34"></a><span class="co">#&gt;    n    baseline    Cox    Exp  RP(2)</span></span>
+<span id="cb10-35"><a href="#cb10-35"></a><span class="co">#&gt;   50 Exponential 0.1000 0.0972 0.0989</span></span>
+<span id="cb10-36"><a href="#cb10-36"></a><span class="co">#&gt;   50     Weibull 0.0914 0.0825 0.0875</span></span>
+<span id="cb10-37"><a href="#cb10-37"></a><span class="co">#&gt;  250 Exponential 0.0195 0.0190 0.0194</span></span>
+<span id="cb10-38"><a href="#cb10-38"></a><span class="co">#&gt;  250     Weibull 0.0174 0.0164 0.0171</span></span>
+<span id="cb10-39"><a href="#cb10-39"></a><span class="co">#&gt; </span></span>
+<span id="cb10-40"><a href="#cb10-40"></a><span class="co">#&gt; Bias in point estimate:</span></span>
+<span id="cb10-41"><a href="#cb10-41"></a><span class="co">#&gt;    n    baseline              Cox              Exp            RP(2)</span></span>
+<span id="cb10-42"><a href="#cb10-42"></a><span class="co">#&gt;   50 Exponential  0.0215 (0.0328)  0.0239 (0.0326)  0.0183 (0.0331)</span></span>
+<span id="cb10-43"><a href="#cb10-43"></a><span class="co">#&gt;   50     Weibull -0.0282 (0.0311)  0.1509 (0.0204) -0.0348 (0.0311)</span></span>
+<span id="cb10-44"><a href="#cb10-44"></a><span class="co">#&gt;  250 Exponential -0.0215 (0.0149) -0.0214 (0.0151) -0.0227 (0.0149)</span></span>
+<span id="cb10-45"><a href="#cb10-45"></a><span class="co">#&gt;  250     Weibull -0.0120 (0.0133)  0.1482 (0.0093) -0.0139 (0.0137)</span></span>
+<span id="cb10-46"><a href="#cb10-46"></a><span class="co">#&gt; </span></span>
+<span id="cb10-47"><a href="#cb10-47"></a><span class="co">#&gt; Empirical standard error:</span></span>
+<span id="cb10-48"><a href="#cb10-48"></a><span class="co">#&gt;    n    baseline             Cox             Exp           RP(2)</span></span>
+<span id="cb10-49"><a href="#cb10-49"></a><span class="co">#&gt;   50 Exponential 0.3285 (0.0233) 0.3258 (0.0232) 0.3312 (0.0235)</span></span>
+<span id="cb10-50"><a href="#cb10-50"></a><span class="co">#&gt;   50     Weibull 0.3115 (0.0221) 0.2041 (0.0145) 0.3111 (0.0221)</span></span>
+<span id="cb10-51"><a href="#cb10-51"></a><span class="co">#&gt;  250 Exponential 0.1488 (0.0106) 0.1506 (0.0107) 0.1489 (0.0106)</span></span>
+<span id="cb10-52"><a href="#cb10-52"></a><span class="co">#&gt;  250     Weibull 0.1333 (0.0095) 0.0929 (0.0066) 0.1368 (0.0097)</span></span>
+<span id="cb10-53"><a href="#cb10-53"></a><span class="co">#&gt; </span></span>
+<span id="cb10-54"><a href="#cb10-54"></a><span class="co">#&gt; % gain in precision relative to method Cox:</span></span>
+<span id="cb10-55"><a href="#cb10-55"></a><span class="co">#&gt;    n    baseline              Cox                Exp            RP(2)</span></span>
+<span id="cb10-56"><a href="#cb10-56"></a><span class="co">#&gt;   50 Exponential -0.0000 (0.0000)    1.6773 (3.2902) -1.6262 (1.7888)</span></span>
+<span id="cb10-57"><a href="#cb10-57"></a><span class="co">#&gt;   50     Weibull -0.0000 (0.0000) 132.7958 (16.4433)  0.2412 (3.7362)</span></span>
+<span id="cb10-58"><a href="#cb10-58"></a><span class="co">#&gt;  250 Exponential  0.0000 (0.0000)   -2.3839 (3.0501) -0.1491 (0.9917)</span></span>
+<span id="cb10-59"><a href="#cb10-59"></a><span class="co">#&gt;  250     Weibull -0.0000 (0.0000) 105.8426 (12.4932) -4.9534 (2.0649)</span></span>
+<span id="cb10-60"><a href="#cb10-60"></a><span class="co">#&gt; </span></span>
+<span id="cb10-61"><a href="#cb10-61"></a><span class="co">#&gt; Mean squared error:</span></span>
+<span id="cb10-62"><a href="#cb10-62"></a><span class="co">#&gt;    n    baseline             Cox             Exp           RP(2)</span></span>
+<span id="cb10-63"><a href="#cb10-63"></a><span class="co">#&gt;   50 Exponential 0.1073 (0.0149) 0.1056 (0.0146) 0.1089 (0.0154)</span></span>
+<span id="cb10-64"><a href="#cb10-64"></a><span class="co">#&gt;   50     Weibull 0.0968 (0.0117) 0.0640 (0.0083) 0.0970 (0.0117)</span></span>
+<span id="cb10-65"><a href="#cb10-65"></a><span class="co">#&gt;  250 Exponential 0.0224 (0.0028) 0.0229 (0.0028) 0.0225 (0.0028)</span></span>
+<span id="cb10-66"><a href="#cb10-66"></a><span class="co">#&gt;  250     Weibull 0.0177 (0.0027) 0.0305 (0.0033) 0.0187 (0.0028)</span></span>
+<span id="cb10-67"><a href="#cb10-67"></a><span class="co">#&gt; </span></span>
+<span id="cb10-68"><a href="#cb10-68"></a><span class="co">#&gt; Model-based standard error:</span></span>
+<span id="cb10-69"><a href="#cb10-69"></a><span class="co">#&gt;    n    baseline             Cox             Exp           RP(2)</span></span>
+<span id="cb10-70"><a href="#cb10-70"></a><span class="co">#&gt;   50 Exponential 0.3185 (0.0013) 0.3127 (0.0010) 0.3165 (0.0012)</span></span>
+<span id="cb10-71"><a href="#cb10-71"></a><span class="co">#&gt;   50     Weibull 0.3052 (0.0014) 0.2888 (0.0005) 0.2996 (0.0012)</span></span>
+<span id="cb10-72"><a href="#cb10-72"></a><span class="co">#&gt;  250 Exponential 0.1396 (0.0002) 0.1381 (0.0002) 0.1394 (0.0002)</span></span>
+<span id="cb10-73"><a href="#cb10-73"></a><span class="co">#&gt;  250     Weibull 0.1320 (0.0002) 0.1281 (0.0001) 0.1313 (0.0002)</span></span>
+<span id="cb10-74"><a href="#cb10-74"></a><span class="co">#&gt; </span></span>
+<span id="cb10-75"><a href="#cb10-75"></a><span class="co">#&gt; Relative % error in standard error:</span></span>
+<span id="cb10-76"><a href="#cb10-76"></a><span class="co">#&gt;    n    baseline              Cox               Exp            RP(2)</span></span>
+<span id="cb10-77"><a href="#cb10-77"></a><span class="co">#&gt;   50 Exponential -3.0493 (6.8838)  -4.0156 (6.8114) -4.4322 (6.7841)</span></span>
+<span id="cb10-78"><a href="#cb10-78"></a><span class="co">#&gt;   50     Weibull -2.0115 (6.9601) 41.4993 (10.0341) -3.6873 (6.8377)</span></span>
+<span id="cb10-79"><a href="#cb10-79"></a><span class="co">#&gt;  250 Exponential -6.2002 (6.6512)  -8.3339 (6.4996) -6.4133 (6.6361)</span></span>
+<span id="cb10-80"><a href="#cb10-80"></a><span class="co">#&gt;  250     Weibull -0.9728 (7.0220)  37.7762 (9.7671) -4.0199 (6.8056)</span></span>
+<span id="cb10-81"><a href="#cb10-81"></a><span class="co">#&gt; </span></span>
+<span id="cb10-82"><a href="#cb10-82"></a><span class="co">#&gt; Coverage of nominal 95% confidence interval:</span></span>
+<span id="cb10-83"><a href="#cb10-83"></a><span class="co">#&gt;    n    baseline             Cox             Exp           RP(2)</span></span>
+<span id="cb10-84"><a href="#cb10-84"></a><span class="co">#&gt;   50 Exponential 0.9500 (0.0218) 0.9400 (0.0237) 0.9500 (0.0218)</span></span>
+<span id="cb10-85"><a href="#cb10-85"></a><span class="co">#&gt;   50     Weibull 0.9700 (0.0171) 0.9900 (0.0099) 0.9500 (0.0218)</span></span>
+<span id="cb10-86"><a href="#cb10-86"></a><span class="co">#&gt;  250 Exponential 0.9300 (0.0255) 0.9200 (0.0271) 0.9300 (0.0255)</span></span>
+<span id="cb10-87"><a href="#cb10-87"></a><span class="co">#&gt;  250     Weibull 0.9400 (0.0237) 0.8500 (0.0357) 0.9400 (0.0237)</span></span>
+<span id="cb10-88"><a href="#cb10-88"></a><span class="co">#&gt; </span></span>
+<span id="cb10-89"><a href="#cb10-89"></a><span class="co">#&gt; Bias-eliminated coverage of nominal 95% confidence interval:</span></span>
+<span id="cb10-90"><a href="#cb10-90"></a><span class="co">#&gt;    n    baseline             Cox             Exp           RP(2)</span></span>
+<span id="cb10-91"><a href="#cb10-91"></a><span class="co">#&gt;   50 Exponential 0.9500 (0.0218) 0.9500 (0.0218) 0.9500 (0.0218)</span></span>
+<span id="cb10-92"><a href="#cb10-92"></a><span class="co">#&gt;   50     Weibull 0.9500 (0.0218) 1.0000 (0.0000) 0.9500 (0.0218)</span></span>
+<span id="cb10-93"><a href="#cb10-93"></a><span class="co">#&gt;  250 Exponential 0.9400 (0.0237) 0.9400 (0.0237) 0.9400 (0.0237)</span></span>
+<span id="cb10-94"><a href="#cb10-94"></a><span class="co">#&gt;  250     Weibull 0.9500 (0.0218) 0.9900 (0.0099) 0.9400 (0.0237)</span></span>
+<span id="cb10-95"><a href="#cb10-95"></a><span class="co">#&gt; </span></span>
+<span id="cb10-96"><a href="#cb10-96"></a><span class="co">#&gt; Power of 5% level test:</span></span>
+<span id="cb10-97"><a href="#cb10-97"></a><span class="co">#&gt;    n    baseline             Cox             Exp           RP(2)</span></span>
+<span id="cb10-98"><a href="#cb10-98"></a><span class="co">#&gt;   50 Exponential 0.3600 (0.0480) 0.3800 (0.0485) 0.3700 (0.0483)</span></span>
+<span id="cb10-99"><a href="#cb10-99"></a><span class="co">#&gt;   50     Weibull 0.4300 (0.0495) 0.0900 (0.0286) 0.4700 (0.0499)</span></span>
+<span id="cb10-100"><a href="#cb10-100"></a><span class="co">#&gt;  250 Exponential 0.9800 (0.0140) 0.9900 (0.0099) 0.9900 (0.0099)</span></span>
+<span id="cb10-101"><a href="#cb10-101"></a><span class="co">#&gt;  250     Weibull 0.9700 (0.0171) 0.8600 (0.0347) 0.9700 (0.0171)</span></span></code></pre></div>
 </div>
 </div>
 <div id="conclusions" class="section level1">
@@ -526,7 +526,8 @@
       <li><a href="#performance-measures">Performance measures</a></li>
       <li><a href="#sample-size">Sample size</a></li>
       <li>
-<a href="#running-the-simulation-study">Running the simulation study</a><ul class="nav nav-pills nav-stacked">
+<a href="#running-the-simulation-study">Running the simulation study</a>
+      <ul class="nav nav-pills nav-stacked">
 <li><a href="#generate-data">Generate data</a></li>
       <li><a href="#run-models">Run models</a></li>
       <li><a href="#aggregating-results">Aggregating results</a></li>

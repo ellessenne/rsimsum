@@ -4,6 +4,9 @@
     <loc>https://ellessenne.github.io/rsimsum/index.html</loc>
   </url>
   <url>
+    <loc>https://ellessenne.github.io/rsimsum/reference/MIsim.html</loc>
+  </url>
+  <url>
     <loc>https://ellessenne.github.io/rsimsum/reference/autoplot.multisimsum.html</loc>
   </url>
   <url>
@@ -35,9 +38,6 @@
   </url>
   <url>
     <loc>https://ellessenne.github.io/rsimsum/reference/is.summary.simsum.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/reference/MIsim.html</loc>
   </url>
   <url>
     <loc>https://ellessenne.github.io/rsimsum/reference/multisimsum.html</loc>

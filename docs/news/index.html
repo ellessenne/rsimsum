@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0.9000</span>
       </span>
     </div>
 
@@ -142,9 +142,14 @@
       
     </div>
 
+    <div id="rsimsum-development-version" class="section level1">
+<h1 class="page-header">
+<a href="#rsimsum-development-version" class="anchor"></a>rsimsum (development version)<small> Unreleased </small>
+</h1>
+</div>
     <div id="rsimsum-080" class="section level1">
 <h1 class="page-header">
-<a href="#rsimsum-080" class="anchor"></a>rsimsum 0.8.0<small> Unreleased </small>
+<a href="#rsimsum-080" class="anchor"></a>rsimsum 0.8.0<small> 2020-02-29 </small>
 </h1>
 <div id="improvements" class="section level3">
 <h3 class="hasAnchor">
@@ -152,9 +157,10 @@
 <ul>
 <li><p>Added new argument <code>zoom</code> to <code>autoplot</code> methods: it is now possible to <em>zoom</em> on the top x% of a zip plot to improve readability;</p></li>
 <li><p>Added a new example dataset from a toy simulation study assessing the robustness of the t-test. See <code><a href="../reference/tt.html">?"tt"</a></code> for more details;</p></li>
-<li><p>The <code>true</code> argument of <code>rsimsum</code> and <code>multisimsum</code> now accepts a string that identifies a column in <code>data</code>. This is especially useful in settings where the true value varies across replications, e.g. when it depends on characteristics of the simulated data. See <code><a href="../articles/../../../../../../../Z:/R-Dev/rsimsum/vignettes/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code> for more details and examples;</p></li>
-<li><p>Analogously, the <code>ci.limits</code> argument now accepts a vector of strings that identifies lower and upper limits for custom-defined confidence intervals from columns in <code>data</code>. Once again, more details are included in <code><a href="../articles/../../../../../../../Z:/R-Dev/rsimsum/vignettes/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code>;</p></li>
-<li><p><code>rsimsum</code> now correctly uses <code><a href="https://rdrr.io/r/base/class.html">inherits(obj, "someclass")</a></code> instead of <code>class(obj) == "someclass"</code> (#20).</p></li>
+<li><p>The <code>true</code> argument of <code>rsimsum</code> and <code>multisimsum</code> now accepts a string that identifies a column in <code>data</code>. This is especially useful in settings where the true value varies across replications, e.g. when it depends on characteristics of the simulated data. See <code><a href="../articles/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code> for more details and examples;</p></li>
+<li><p>Analogously, the <code>ci.limits</code> argument now accepts a vector of strings that identifies lower and upper limits for custom-defined confidence intervals from columns in <code>data</code>. Once again, more details are included in <code><a href="../articles/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code>;</p></li>
+<li><p><code>rsimsum</code> now correctly uses <code><a href="https://rdrr.io/r/base/class.html">inherits(obj, "someclass")</a></code> instead of <code>class(obj) == "someclass"</code> (#20);</p></li>
+<li><p>Fixed bugs and errors that appeared when auto-plotting results of simulation studies with no methods being compared (#23).</p></li>
 </ul>
 </div>
 </div>
@@ -453,6 +459,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#rsimsum-development-version">development version</a></li>
         <li><a href="#rsimsum-080">0.8.0</a></li>
         <li><a href="#rsimsum-071">0.7.1</a></li>
         <li><a href="#rsimsum-070">0.7.0</a></li>
