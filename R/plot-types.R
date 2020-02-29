@@ -128,15 +128,19 @@
     theme(legend.position = "bottom")
 
   ### If 'by', use facet_grid; facet_wrap otherwise
-  if (!is.null(by)) {
+  if (!is.null(by) & !is.null(methodvar)) {
     by <- rlang::syms(by)
     methodvar <- rlang::sym(methodvar)
     gg <- gg +
       ggplot2::facet_grid(cols = ggplot2::vars(!!!{{ by }}), rows = ggplot2::vars({{ methodvar }}), labeller = ggplot2::labeller(.rows = ggplot2::label_value, .cols = ggplot2::label_both))
-  } else {
+  } else if (is.null(by) & !is.null(methodvar)) {
     methodvar <- rlang::sym(methodvar)
     gg <- gg +
       ggplot2::facet_wrap(facets = ggplot2::vars({{ methodvar }}))
+  } else if (!is.null(by) & is.null(methodvar)) {
+    by <- rlang::syms(by)
+    gg <- gg +
+      ggplot2::facet_wrap(facets = ggplot2::vars({{ by }}))
   }
 
   ### Zoom (or not)
@@ -150,34 +154,8 @@
 ### Method vs method; supports Bland-Altman type plots
 #' @keywords internal
 .vs_plot <- function(data, b, methodvar, by, fitted, scales, ba) {
-  ### Identify combinations of methodvar
-  cs <- t(utils::combn(x = unique(data[[methodvar]]), m = 2))
-  colnames(cs) <- c("X", "Y")
-
-  ### Split data by 'by' factors
-  data_split <- .split_by(data = data, by = by)
-
-  ### Restructure data
-  internal_df <- list()
-  for (i in seq_along(data_split)) {
-    tmp <- list()
-    for (j in seq(nrow(cs))) {
-      tmp[[j]] <- data.frame(
-        X = data_split[[i]][[b]][data_split[[i]][[methodvar]] == cs[j, "X"]],
-        Y = data_split[[i]][[b]][data_split[[i]][[methodvar]] == cs[j, "Y"]],
-        contrast = ifelse(ba, paste0(cs[j, "X"], " vs ", cs[j, "Y"]), paste0("X: ", cs[j, "X"], " vs Y: ", cs[j, "Y"])),
-        row.names = NULL
-      )
-    }
-    tmp <- .br(tmp)
-    if (!is.null(by)) {
-      for (byval in by) {
-        tmp[[byval]] <- unique(data_split[[i]][[byval]])
-      }
-    }
-    internal_df[[i]] <- tmp
-  }
-  internal_df <- .br(internal_df)
+  ### Compute internal df
+  internal_df <- .make_internal_df(data = data, b = b, methodvar = methodvar, by = by)
 
   ### if Bland-Altman type plot, replace X and Y for mean and diff
   if (ba) {
@@ -244,8 +222,13 @@
 
   ### Build plot
   b <- rlang::sym(b)
-  methodvar <- rlang::sym(methodvar)
-  gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = !!{{ b }}, y = .dgm, color = {{ methodvar }}, fill = {{ methodvar }})) +
+  if (!is.null(methodvar)) {
+    methodvar <- rlang::sym(methodvar)
+    gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = !!{{ b }}, y = .dgm, color = {{ methodvar }}, fill = {{ methodvar }}))
+  } else {
+    gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = !!{{ b }}, y = .dgm))
+  }
+  gg <- gg +
     ggridges::geom_density_ridges(alpha = 0.25) +
     ggplot2::labs(y = "")
 
@@ -265,8 +248,13 @@
   }
 
   ### Build basic plot
-  methodvar <- rlang::sym(methodvar)
-  gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = {{ methodvar }}, y = .dgm, fill = est)) +
+  if (!is.null(methodvar)) {
+    methodvar <- rlang::sym(methodvar)
+    gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = {{ methodvar }}, y = .dgm, fill = est))
+  } else {
+    gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = "Single Method", y = .dgm, fill = est))
+  }
+  gg <- gg +
     ggplot2::geom_tile() +
     ggplot2::labs(y = "", fill = stats)
 
@@ -311,10 +299,17 @@
   }
 
   ### Build basic plot
-  methodvar <- rlang::sym(methodvar)
-  gg <- ggplot2::ggplot(data = data, mapping = ggplot2::aes(x = .scenario, y = est, group = !!methodvar)) +
-    ggplot2::geom_hline(yintercept = target, linetype = "dotted") +
-    ggplot2::geom_step(mapping = ggplot2::aes(color = !!methodvar)) +
+  if (!is.null(methodvar)) {
+    methodvar <- rlang::sym(methodvar)
+    gg <- ggplot2::ggplot(data = data, mapping = ggplot2::aes(x = .scenario, y = est, group = !!methodvar)) +
+      ggplot2::geom_hline(yintercept = target, linetype = "dotted") +
+      ggplot2::geom_step(mapping = ggplot2::aes(color = !!methodvar))
+  } else {
+    gg <- ggplot2::ggplot(data = data, mapping = ggplot2::aes(x = .scenario, y = est)) +
+      ggplot2::geom_hline(yintercept = target, linetype = "dotted") +
+      ggplot2::geom_step()
+  }
+  gg <- gg +
     ggplot2::labs(x = paste0(paste(vapply(X = by, FUN = function(x) length(levels(data[[x]])), FUN.VALUE = numeric(1)), collapse = " x "), " = ", max(data[[".scenario"]]), " ordered scenarios"), y = stats)
 
   ### Build and add legends of nested loop plot
@@ -331,34 +326,8 @@
 
 #' @keywords internal
 .density_plot <- function(data, b, methodvar, by, fitted, scales, hex, density.legend) {
-  ### Identify combinations of methodvar
-  cs <- t(utils::combn(x = unique(data[[methodvar]]), m = 2))
-  colnames(cs) <- c("X", "Y")
-
-  ### Split data by 'by' factors
-  data_split <- .split_by(data = data, by = by)
-
-  ### Restructure data
-  internal_df <- list()
-  for (i in seq_along(data_split)) {
-    tmp <- list()
-    for (j in seq(nrow(cs))) {
-      tmp[[j]] <- data.frame(
-        X = data_split[[i]][[b]][data_split[[i]][[methodvar]] == cs[j, "X"]],
-        Y = data_split[[i]][[b]][data_split[[i]][[methodvar]] == cs[j, "Y"]],
-        contrast = paste0("X: ", cs[j, "X"], " vs Y: ", cs[j, "Y"]),
-        row.names = NULL
-      )
-    }
-    tmp <- .br(tmp)
-    if (!is.null(by)) {
-      for (byval in by) {
-        tmp[[byval]] <- unique(data_split[[i]][[byval]])
-      }
-    }
-    internal_df[[i]] <- tmp
-  }
-  internal_df <- .br(internal_df)
+  ### Compute internal df
+  internal_df <- .make_internal_df(data = data, b = b, methodvar = methodvar, by = by)
 
   ### Build plot
   caption <- paste0("Comparison of variable '", b, "'")

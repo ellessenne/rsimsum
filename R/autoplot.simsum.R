@@ -61,6 +61,9 @@ autoplot.simsum <- function(object, type = "forest", stats = "bias", target = NU
   # Report
   if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
 
+  ### All 'vs' plots not meaningful if there are no 'methodvar' to compare
+  if (type %in% c("est", "se", "est_ba", "se_ba", "est_density", "se_density", "est_hex", "se_hex") & is.null(object[["methodvar"]])) stop("This plot is not meaningful when no methods are compared", call. = FALSE)
+
   ### Nested loop plot not meaningful if there are no 'by' factors
   if (type == "nlp" & is.null(object[["by"]])) stop("Nested loop plot not meaningful when no 'by' factors are defined", call. = FALSE)
 

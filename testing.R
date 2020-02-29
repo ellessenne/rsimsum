@@ -2,7 +2,7 @@ library(rsimsum)
 library(ggplot2)
 data("tt", package = "rsimsum")
 s6 <- simsum(data = tt, estvarname = "diff", se = "se", true = -1, x = TRUE)
-autoplot(s6)
+autoplot(s6, type = "est_ridge")
 
 
 

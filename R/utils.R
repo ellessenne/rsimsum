@@ -155,3 +155,36 @@
   row.names(data) <- NULL
   data
 }
+
+### Make internal_df for 'vs' plots
+#' @keywords internal
+.make_internal_df <- function(data, b, methodvar, by) {
+  ### Identify combinations of methodvar
+  cs <- t(utils::combn(x = unique(data[[methodvar]]), m = 2))
+  colnames(cs) <- c("X", "Y")
+  ### Split data by 'by' factors
+  data_split <- .split_by(data = data, by = by)
+  ### Restructure data
+  internal_df <- list()
+  for (i in seq_along(data_split)) {
+    tmp <- list()
+    for (j in seq(nrow(cs))) {
+      tmp[[j]] <- data.frame(
+        X = data_split[[i]][[b]][data_split[[i]][[methodvar]] == cs[j, "X"]],
+        Y = data_split[[i]][[b]][data_split[[i]][[methodvar]] == cs[j, "Y"]],
+        contrast = paste0("X: ", cs[j, "X"], " vs Y: ", cs[j, "Y"]),
+        row.names = NULL
+      )
+    }
+    tmp <- .br(tmp)
+    if (!is.null(by)) {
+      for (byval in by) {
+        tmp[[byval]] <- unique(data_split[[i]][[byval]])
+      }
+    }
+    internal_df[[i]] <- tmp
+  }
+  internal_df <- .br(internal_df)
+  ### Return
+  return(internal_df)
+}

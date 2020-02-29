@@ -80,7 +80,7 @@
   # Bias-corrected coverage of a nominal (1 - level)% confidence interval
   if (!is.null(se)) {
     if (is.null(ci.limits)) {
-    becover <- 1 / nsim * sum(mean(data[[estvarname]], na.rm = control$na.rm) >= data[[estvarname]] - crit * data[[se]] & mean(data[[estvarname]], na.rm = control$na.rm) <= data[[estvarname]] + crit * data[[se]], na.rm = control$na.rm)
+      becover <- 1 / nsim * sum(mean(data[[estvarname]], na.rm = control$na.rm) >= data[[estvarname]] - crit * data[[se]] & mean(data[[estvarname]], na.rm = control$na.rm) <= data[[estvarname]] + crit * data[[se]], na.rm = control$na.rm)
     } else {
       if (is.character(ci.limits)) {
         becover <- 1 / nsim * sum(mean(data[[estvarname]], na.rm = control$na.rm) >= data[[ci.limits[1]]] & mean(data[[estvarname]], na.rm = control$na.rm) <= data[[ci.limits[2]]], na.rm = control$na.rm)
