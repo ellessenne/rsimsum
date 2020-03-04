@@ -8,7 +8,7 @@
   object,
   par,
   type = "forest",
-  stats = "bias",
+  stats = "nsim",
   target = NULL,
   fitted = TRUE,
   scales = "fixed",

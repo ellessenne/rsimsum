@@ -6,7 +6,8 @@
     methodvar <- rlang::sym(methodvar)
     gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = {{ methodvar }}, y = est))
   } else {
-    gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = "Single Method", y = est))
+    gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = "Single Method", y = est)) +
+      ggplot2::labs(x = "")
   }
   gg <- gg +
     ggplot2::geom_hline(yintercept = target, linetype = "dotted") +
@@ -42,7 +43,8 @@
   } else {
     gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = est, y = "Single Method")) +
       ggplot2::geom_vline(xintercept = target, linetype = "dotted") +
-      ggplot2::geom_segment(aes(xend = target, yend = "Single Method"))
+      ggplot2::geom_segment(aes(xend = target, yend = "Single Method")) +
+      ggplot2::labs(y = "")
   }
   gg <- gg +
     ggplot2::geom_point() +
@@ -252,7 +254,8 @@
     methodvar <- rlang::sym(methodvar)
     gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = {{ methodvar }}, y = .dgm, fill = est))
   } else {
-    gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = "Single Method", y = .dgm, fill = est))
+    gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = "Single Method", y = .dgm, fill = est)) +
+      ggplot2::labs(x = "")
   }
   gg <- gg +
     ggplot2::geom_tile() +

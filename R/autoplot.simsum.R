@@ -65,8 +65,17 @@ autoplot.simsum <- function(object, type = "forest", stats = "nsim", target = NU
   ### All 'vs' plots not meaningful if there are no 'methodvar' to compare
   if (type %in% c("est", "se", "est_ba", "se_ba", "est_density", "se_density", "est_hex", "se_hex") & is.null(object[["methodvar"]])) stop("This plot is not meaningful when no methods are compared", call. = FALSE)
 
+  ### All 'se' plots not meaningful if there is no 'se'
+  if (type %in% c("se", "se_ba", "se_ridge", "se_density", "se_hex") & is.null(object[["se"]])) stop("Plot of standard errors not available without standard errors", call. = FALSE)
+
+  ### Zip plot not meaningful if there are no standard errors
+  if (type == "zip" & (is.null(object[["true"]]) | is.null(object[["se"]]) | !is.numeric(object[["true"]]))) stop("Zip plot not available without a (single numeric) true value or standard errors", call. = FALSE)
+
   ### Nested loop plot not meaningful if there are no 'by' factors
   if (type == "nlp" & is.null(object[["by"]])) stop("Nested loop plot not meaningful when no 'by' factors are defined", call. = FALSE)
+
+  ### Lolly plot with no true values not available for some stats
+  if (type == "lolly" & stats %in% c("thetamean", "thetamedian") & !is.numeric(object[["true"]])) stop("Lolly plot not available for average/median point estimates if 'true' is not defined (as a single numeric value)", call. = FALSE)
 
   ### Extract data
   df <- get_data(object, stats = stats)

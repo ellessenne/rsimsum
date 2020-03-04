@@ -457,3 +457,32 @@ testthat::test_that("putting wrong 'par' (or no 'par' at all) throws an error", 
 testthat::test_that("nlp with no 'by' factors throw an error", {
   testthat::expect_error(object = autoplot(ms, par = "trt", type = "nlp"), regexp = "Nested loop plot not meaningful")
 })
+
+
+### Test better handling of edge cases...
+testthat::test_that("Edge cases for rsimsum >= 0.8.0", {
+  data("tt", package = "rsimsum")
+  tt$true <- -1
+  s1 <- simsum(data = tt, estvarname = "diff", x = TRUE)
+  s2 <- simsum(data = tt, estvarname = "diff", se = "se", x = TRUE)
+  s3 <- simsum(data = tt, estvarname = "diff", true = -1, x = TRUE)
+  s4 <- simsum(data = tt, estvarname = "diff", true = "true", x = TRUE)
+  s5 <- simsum(data = tt, estvarname = "diff", se = "se", true = "true", x = TRUE)
+
+  testthat::expect_error(object = autoplot(s1, type = "zip"))
+  testthat::expect_error(object = autoplot(s2, type = "zip"))
+  testthat::expect_error(object = autoplot(s3, type = "zip"))
+  testthat::expect_error(object = autoplot(s4, type = "zip"))
+  testthat::expect_error(object = autoplot(s5, type = "zip"))
+
+  testthat::expect_error(object = autoplot(s1, type = "se"))
+  testthat::expect_error(object = autoplot(s1, type = "se_ba"))
+  testthat::expect_error(object = autoplot(s1, type = "se_ridge"))
+  testthat::expect_error(object = autoplot(s1, type = "se_density"))
+  testthat::expect_error(object = autoplot(s1, type = "se_hex"))
+
+  testthat::expect_error(object = autoplot(s1, type = "lolly", stats = "thetamean"))
+  testthat::expect_error(object = autoplot(s1, type = "lolly", stats = "thetamedian"))
+  testthat::expect_error(object = autoplot(s4, type = "lolly", stats = "thetamean"))
+  testthat::expect_error(object = autoplot(s4, type = "lolly", stats = "thetamedian"))
+})

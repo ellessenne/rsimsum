@@ -1,6 +1,13 @@
 # rsimsum (development version)
 
+### Changes to default behaviour:
+
+* `autoplot` methods will now plot the number of non-missing point estimates/SEs by default (if the `stat` argument is not set by the user).
+  The previous default was to plot bias, which might not always be available anymore since `rsimsum 0.8.0`.
+
 ### Improvements:
+
+* Handling more plotting edge cases (e.g. when standard errors or true values are not available);
 
 * Improved `multisimsum` example in vignette on custom inputs.
 

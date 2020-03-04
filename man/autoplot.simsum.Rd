@@ -7,7 +7,7 @@
 \method{autoplot}{simsum}(
   object,
   type = "forest",
-  stats = "bias",
+  stats = "nsim",
   target = NULL,
   fitted = TRUE,
   scales = "fixed",
@@ -22,7 +22,8 @@
 
 \item{type}{The type of the plot to be produced. Possible choices are: \code{forest}, \code{lolly}, \code{zip}, \code{est}, \code{se}, \code{est_ba}, \code{se_ba}, \code{est_ridge}, \code{se_ridge}, \code{est_density}, \code{se_density}, \code{est_hex}, \code{se_hex}, \code{heat}, \code{nlp}, with \code{forest} being the default.}
 
-\item{stats}{Summary statistic to plot, defaults to \code{bias}. See \code{\link[=summary.simsum]{summary.simsum()}} for further details on supported summary statistics.}
+\item{stats}{Summary statistic to plot, defaults to \code{nsim} (the number of replications with non-missing point estimates/SEs).
+See \code{\link[=summary.simsum]{summary.simsum()}} for further details on supported summary statistics.}
 
 \item{target}{Target of summary statistic, e.g. 0 for \code{bias}. Defaults to \code{NULL}, in which case target will be inferred.}
 
