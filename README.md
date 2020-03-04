@@ -75,11 +75,11 @@ install.packages("rsimsum")
 ```
 
 Alternatively, it is possible to install the development version from
-GitHub via:
+GitHub using the `remotes` package:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("ellessenne/rsimsum")
+# install.packages("remotes")
+remotes::install_github("ellessenne/rsimsum")
 ```
 
 ## Example
