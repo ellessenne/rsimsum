@@ -30,7 +30,7 @@
 #' autoplot(ms, par = "trt", type = "zip")
 #' autoplot(ms, par = "trt", type = "est_ba")
 #' autoplot(ms, par = "trt", type = "zip")
-autoplot.multisimsum <- function(object, par, type = "forest", stats = "bias", target = NULL, fitted = TRUE, scales = "fixed", top = TRUE, density.legend = TRUE, zoom = 1, ...) {
+autoplot.multisimsum <- function(object, par, type = "forest", stats = "nsim", target = NULL, fitted = TRUE, scales = "fixed", top = TRUE, density.legend = TRUE, zoom = 1, ...) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # 'par' must be one of the values in names(object$true)

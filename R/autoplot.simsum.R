@@ -2,7 +2,8 @@
 #' @description `autoplot` can produce a series of plot to summarise results of simulation studies. See `vignette("plotting", package = "rsimsum")` for further details.
 #' @param object An object of class `simsum`.
 #' @param type The type of the plot to be produced. Possible choices are: `forest`, `lolly`, `zip`, `est`, `se`, `est_ba`, `se_ba`, `est_ridge`, `se_ridge`, `est_density`, `se_density`, `est_hex`, `se_hex`, `heat`, `nlp`, with `forest` being the default.
-#' @param stats Summary statistic to plot, defaults to `bias`. See [summary.simsum()] for further details on supported summary statistics.
+#' @param stats Summary statistic to plot, defaults to `nsim` (the number of replications with non-missing point estimates/SEs).
+#' See [summary.simsum()] for further details on supported summary statistics.
 #' @param target Target of summary statistic, e.g. 0 for `bias`. Defaults to `NULL`, in which case target will be inferred.
 #' @param fitted Superimpose a fitted regression line, useful when `type` = (`est`, `se`, `est_ba`, `se_ba`, `est_density`, `se_density`, `est_hex`, `se_hex`). Defaults to `TRUE`.
 #' @param scales Should scales be fixed (`fixed`, the default), free (`free`), or free in one dimension (`free_x`, `free_y`)?
@@ -34,7 +35,7 @@
 #'   methodvar = "model", by = c("baseline", "ss", "esigma")
 #' )
 #' autoplot(s1, stats = "bias", type = "nlp")
-autoplot.simsum <- function(object, type = "forest", stats = "bias", target = NULL, fitted = TRUE, scales = "fixed", top = TRUE, density.legend = TRUE, zoom = 1, ...) {
+autoplot.simsum <- function(object, type = "forest", stats = "nsim", target = NULL, fitted = TRUE, scales = "fixed", top = TRUE, density.legend = TRUE, zoom = 1, ...) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # 'type' must be a single string value, among those allowed
@@ -42,7 +43,7 @@ autoplot.simsum <- function(object, type = "forest", stats = "bias", target = NU
   checkmate::assert_subset(x = type, choices = c("forest", "lolly", "zip", "est", "se", "est_ba", "se_ba", "est_ridge", "se_ridge", "est_density", "se_density", "est_hex", "se_hex", "heat", "nlp"), empty.ok = FALSE, add = arg_checks)
   # 'stats' must be a single string value, among those allowed
   checkmate::assert_string(x = stats, add = arg_checks)
-  checkmate::assert_subset(x = stats, choices = c("nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "becover", "power"), empty.ok = FALSE, add = arg_checks)
+  checkmate::assert_subset(x = stats, choices = unique(object$summ$stat), empty.ok = FALSE, add = arg_checks)
   # 'target' must be single numeric value, can be null
   checkmate::assert_number(x = target, null.ok = TRUE, na.ok = FALSE, add = arg_checks)
   # 'zoom' needs to be a numeric value between zero and one

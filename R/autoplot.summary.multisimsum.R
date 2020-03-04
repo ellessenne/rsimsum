@@ -21,6 +21,6 @@
 #' autoplot(sms, par = "trt", type = "lolly", stats = "cover")
 #' autoplot(sms, par = "trt", type = "zip")
 #' autoplot(sms, par = "trt", type = "est_ba")
-autoplot.summary.multisimsum <- function(object, par, type = "forest", stats = "bias", target = NULL, fitted = TRUE, scales = "fixed", top = TRUE, density.legend = TRUE, zoom = 1, ...) {
+autoplot.summary.multisimsum <- function(object, par, type = "forest", stats = "nsim", target = NULL, fitted = TRUE, scales = "fixed", top = TRUE, density.legend = TRUE, zoom = 1, ...) {
   autoplot.multisimsum(object = object, par = par, type = type, stats = stats, target = target, fitted = fitted, scales = scales, top = top, density.legend = density.legend, zoom = zoom)
 }
