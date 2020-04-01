@@ -1,5 +1,7 @@
 # rsimsum (development version)
 
+# rsimsum 0.8.1
+
 ### Changes to default behaviour:
 
 * `autoplot` methods will now plot the number of non-missing point estimates/SEs by default (if the `stat` argument is not set by the user).
