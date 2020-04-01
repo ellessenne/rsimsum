@@ -76,7 +76,7 @@
 
 ### Zip plot
 #' @keywords internal
-.zip_plot <- function(data, estvarname, se, true, methodvar, by, control, summ, zoom) {
+.zip_plot <- function(data, estvarname, se, true, methodvar, by, ci.limits, df, control, summ, zoom) {
   ### Extract overall coverage
   summ <- summ[summ$stat == "cover", ]
   summ$cover <- summ$est
@@ -94,24 +94,55 @@
   summ$mcse <- NULL
 
   ### Define critical value utilised to compute coverage probabilities
-  if (is.null(control$df)) {
-    crit <- stats::qnorm(1 - (1 - control$level) / 2)
+  if (is.null(df)) {
+    data[["crit"]] <- stats::qnorm(1 - (1 - control$level) / 2)
   } else {
-    crit <- stats::qt(1 - (1 - control$level) / 2, df = control$df)
+    data[["crit"]] <- stats::qt(1 - (1 - control$level) / 2, df = data[[df]])
+  }
+
+  ### Compute coverage
+  if (is.null(ci.limits)) {
+    data[["lower"]] <- data[[estvarname]] - data[["crit"]] * data[[se]]
+    data[["upper"]] <- data[[estvarname]] + data[["crit"]] * data[[se]]
+  } else if (is.character(ci.limits)) {
+    data[["lower"]] <- data[[ci.limits[1]]]
+    data[["upper"]] <- data[[ci.limits[2]]]
+  } else if (is.numeric(ci.limits)) {
+    data[["lower"]] <- ci.limits[1]
+    data[["upper"]] <- ci.limits[2]
+  }
+  if (is.character(true)) {
+    data[["covering"]] <- (data[[true]] >= data[["lower"]] & data[[true]] <= data[["upper"]])
+  } else {
+    data[["covering"]] <- (true >= data[["lower"]] & true <= data[["upper"]])
+  }
+  data[["covering"]] <- factor(data[["covering"]], levels = c(FALSE, TRUE), labels = c("Non-coverers", "Coverers"))
+
+  ### Compute critical test value
+  if (is.character(true)) {
+    if (is.null(df)) {
+      data[["z"]] <- 2 * pnorm(q = abs(data[[estvarname]] - data[[true]]) / data[[se]])
+    } else {
+      data[["z"]] <- 2 * pt(q = abs(data[[estvarname]] - data[[true]]) / data[[se]], df = data[[df]])
+    }
+  } else {
+    if (is.null(df)) {
+      data[["z"]] <- 2 * pnorm(q = abs(data[[estvarname]] - true) / data[[se]])
+    } else {
+      data[["z"]] <- 2 * pt(q = abs(data[[estvarname]] - true) / data[[se]], df = data[[df]])
+    }
   }
 
   ### Split data by 'methodvar', 'by'
   data <- .split_by(data = data, by = by)
   data <- lapply(data, function(x) .split_by(data = x, by = methodvar))
 
-  ### Compute coverage for each data split
+  ### Compute ranking for each data split
   for (i in seq_along(data)) {
     for (j in seq_along(data[[i]])) {
-      data[[i]][[j]][["z"]] <- (data[[i]][[j]][[estvarname]] - true) / data[[i]][[j]][[se]]
-      data[[i]][[j]][["rank"]] <- rank(abs(data[[i]][[j]][["z"]])) / max(rank(abs(data[[i]][[j]][["z"]])))
-      data[[i]][[j]][["lower"]] <- data[[i]][[j]][[estvarname]] - crit * data[[i]][[j]][[se]]
-      data[[i]][[j]][["upper"]] <- data[[i]][[j]][[estvarname]] + crit * data[[i]][[j]][[se]]
-      data[[i]][[j]][["covering"]] <- factor(ifelse(true < data[[i]][[j]][["lower"]] | true > data[[i]][[j]][["upper"]], FALSE, TRUE), levels = c(FALSE, TRUE), labels = c("Non-coverers", "Coverers"))
+      A <- rank(data[[i]][[j]][["z"]])
+      B <- max(A)
+      data[[i]][[j]][["rank"]] <- A / B
     }
     data[[i]] <- .br(data[[i]])
   }
@@ -120,13 +151,16 @@
   ### Merge back summary statistics
   data <- merge(x = data, y = summ)
 
+  ### Label of the y-axis
+  ylab <- ifelse(is.null(df), "Fractional centile of |z-score|", "Fractional centile of |t-score|")
+
   ### Build plot
   gg <- ggplot2::ggplot(data, ggplot2::aes(y = rank, x = lower, color = covering)) +
     ggplot2::geom_segment(ggplot2::aes(yend = rank, xend = upper)) +
     ggplot2::geom_vline(xintercept = true, color = "yellow", linetype = "dashed") +
     ggplot2::geom_hline(ggplot2::aes(yintercept = cover_lower), color = "yellow", linetype = "dashed") +
     ggplot2::geom_hline(ggplot2::aes(yintercept = cover_upper), color = "yellow", linetype = "dashed") +
-    ggplot2::labs(y = expression(paste("Fractional centile of |z| for z =", (theta[i] - theta) / SE[i])), x = paste0(100 * control$level, "% confidence intervals"), color = "") +
+    ggplot2::labs(y = ylab, x = paste0(100 * control$level, "% confidence intervals"), color = "") +
     theme(legend.position = "bottom")
 
   ### If 'by', use facet_grid; facet_wrap otherwise

@@ -7,6 +7,9 @@
 ### New features:
 
 * New `df` argument, `simsum` and `multisimum` now accept a column in `data` containing a number of degrees of freedom that will be used to calculate confidence intervals for coverage (and bias-eliminated coverage) with t critical values (instead of normal-theory intervals, the default behaviour).
+  Notably, zip plots behave accordingly when calculating and ranking confidence intervals;
+
+* Calculations for zip plots are noticeably faster now.
 
 ### Bug fixes:
 

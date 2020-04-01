@@ -489,3 +489,36 @@ testthat::test_that("Edge cases for rsimsum >= 0.8.0", {
   testthat::expect_error(object = autoplot(s4, type = "lolly", stats = "thetamean"))
   testthat::expect_error(object = autoplot(s4, type = "lolly", stats = "thetamedian"))
 })
+
+### More tests for zip plots...
+testthat::test_that("Testing more zip plot cases", {
+  data("tt", package = "rsimsum")
+
+  s <- simsum(data = tt, estvarname = "diff", se = "se", true = -1, x = TRUE)
+  testthat::expect_s3_class(object = autoplot(s, type = "zip"), class = c("gg", "ggplot"))
+  s <- simsum(data = tt, estvarname = "diff", se = "se", df = "df", true = -1, x = TRUE)
+  testthat::expect_s3_class(object = autoplot(s, type = "zip"), class = c("gg", "ggplot"))
+  s <- simsum(data = tt, estvarname = "diff", se = "se", ci.limits = c("lower", "upper"), true = -1, x = TRUE)
+  testthat::expect_s3_class(object = autoplot(s, type = "zip"), class = c("gg", "ggplot"))
+
+  s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", true = -1, x = TRUE)
+  testthat::expect_s3_class(object = autoplot(s, type = "zip"), class = c("gg", "ggplot"))
+  s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", df = "df", true = -1, x = TRUE)
+  testthat::expect_s3_class(object = autoplot(s, type = "zip"), class = c("gg", "ggplot"))
+  s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", ci.limits = c("lower", "upper"), true = -1, x = TRUE)
+  testthat::expect_s3_class(object = autoplot(s, type = "zip"), class = c("gg", "ggplot"))
+
+  s <- simsum(data = tt, estvarname = "diff", se = "se", by = "dgm", true = -1, x = TRUE)
+  testthat::expect_s3_class(object = autoplot(s, type = "zip"), class = c("gg", "ggplot"))
+  s <- simsum(data = tt, estvarname = "diff", se = "se", by = "dgm", df = "df", true = -1, x = TRUE)
+  testthat::expect_s3_class(object = autoplot(s, type = "zip"), class = c("gg", "ggplot"))
+  s <- simsum(data = tt, estvarname = "diff", se = "se", by = "dgm", ci.limits = c("lower", "upper"), true = -1, x = TRUE)
+  testthat::expect_s3_class(object = autoplot(s, type = "zip"), class = c("gg", "ggplot"))
+
+  s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", true = -1, x = TRUE)
+  testthat::expect_s3_class(object = autoplot(s, type = "zip"), class = c("gg", "ggplot"))
+  s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", df = "df", true = -1, x = TRUE)
+  testthat::expect_s3_class(object = autoplot(s, type = "zip"), class = c("gg", "ggplot"))
+  s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", ci.limits = c("lower", "upper"), true = -1, x = TRUE)
+  testthat::expect_s3_class(object = autoplot(s, type = "zip"), class = c("gg", "ggplot"))
+})
