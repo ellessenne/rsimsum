@@ -72,7 +72,7 @@ $\rho^2_{AB}$ is the correlation of $\hat{\theta}_A$ and $\hat{\theta}_B$.
 
 A measure that takes into account both precision and accuracy of a method is the **mean squared error**, which is the sum of the squared bias and variance of $\hat{\theta}$:
 
-$$\text{MSE} = \frac{1}{n_{\text{sim}}} = \sum_{i = 1} ^ {n_{\text{sim}}} (\hat{\theta}_i - \theta) ^ 2$$
+$$\text{MSE} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} (\hat{\theta}_i - \theta) ^ 2$$
 
 The Monte Carlo standard error is:
 
