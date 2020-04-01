@@ -11,6 +11,10 @@
 
 * Improved `multisimsum` example in vignette on custom inputs.
 
+### Bug fixes:
+
+* Fixed typo in vignette with formulae (#25, thanks @samperochkin).
+
 # rsimsum 0.8.0
 
 ### Improvements:
