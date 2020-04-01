@@ -328,20 +328,23 @@ testthat::test_that("inferring target", {
 })
 
 testthat::test_that("zip with t critical values", {
-  data("MIsim", package = "rsimsum")
-  data("relhaz", package = "rsimsum")
-  single <- rsimsum::simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", ref = "CC", x = TRUE, control = list(df = 10))
-  multi <- rsimsum::simsum(data = relhaz, estvarname = "theta", true = -0.5, se = "se", methodvar = "model", by = c("n", "baseline"), x = TRUE, control = list(df = 10))
+  data("tt", package = "rsimsum")
+  tt1 <- tt2 <- tt
+  tt1$yo <- "One"
+  tt2$yo <- "Two"
+  doublett <- do.call(rbind.data.frame, list(tt1, tt2))
+
+  single <- rsimsum::simsum(data = tt, estvarname = "diff", true = -1, se = "se", methodvar = "method", x = TRUE, df = "df")
+  multi <- rsimsum::multisimsum(data = doublett, par = "yo", estvarname = "diff", true = c(One = -1, Two = -1), se = "se", methodvar = "method", x = TRUE, df = "df")
   singlesum <- summary(single)
   multisum <- summary(multi)
-  # simsum object, no 'by'
+
   testthat::expect_s3_class(object = autoplot(single, type = "zip"), class = c("gg", "ggplot"))
-  # simsum object, with 'by'
-  testthat::expect_s3_class(object = autoplot(multi, type = "zip"), class = c("gg", "ggplot"))
-  # summary.simsum object, no 'by'
+  testthat::expect_s3_class(object = autoplot(multi, par = "One", type = "zip"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(multi, par = "Two", type = "zip"), class = c("gg", "ggplot"))
   testthat::expect_s3_class(object = autoplot(singlesum, type = "zip"), class = c("gg", "ggplot"))
-  # summary.simsum object, with 'by'
-  testthat::expect_s3_class(object = autoplot(multisum, type = "zip"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(multisum, par = "One", type = "zip"), class = c("gg", "ggplot"))
+  testthat::expect_s3_class(object = autoplot(multisum, par = "Two", type = "zip"), class = c("gg", "ggplot"))
 })
 
 data("frailty", package = "rsimsum")
