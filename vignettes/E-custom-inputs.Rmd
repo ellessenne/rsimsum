@@ -67,12 +67,25 @@ summary(s3, stats = "cover")
 
 If you have a better example of the utility of this method please [get in touch](https://twitter.com/ellessenne) - I'd love to hear from you!
 
+By default, `simsum` will calculate confidence intervals using normal-theory, Wald-type intervals.
+It is possible to use t-based critical values by providing a column for the (replication-specific) degrees of freedom (analogously as passing confidence bounds to `ci.limits`):
+
+```{r}
+s4 <- simsum(data = tt, estvarname = "diff", true = -1, se = "se", df = "df", methodvar = "method", by = "dgm")
+```
+
+Given that the confidence intervals in (`lower`, `upper`) are obtained by using critical values from a t distribution, the results of `s4` will be equivalent to the results of `s1`:
+
+```{r}
+all.equal(get_data(s1), get_data(s4))
+```
+
 Finally, we can pass a column of values for `true` as well:
 
 ```{r}
 tt$true <- -1
-s4 <- simsum(data = tt, estvarname = "diff", true = "true", se = "se", ci.limits = c("lower", "upper"), methodvar = "method", by = "dgm")
-summary(s4, stats = "cover")
+s5 <- simsum(data = tt, estvarname = "diff", true = "true", se = "se", ci.limits = c("lower", "upper"), methodvar = "method", by = "dgm")
+summary(s5, stats = "cover")
 ```
 
 Compare with the default settings:
