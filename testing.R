@@ -1,10 +1,12 @@
 library(rsimsum)
 library(ggplot2)
 data("tt", package = "rsimsum")
-s6 <- simsum(data = tt, estvarname = "diff", se = "se", true = -1, x = TRUE)
-autoplot(s6, type = "lolly")
-autoplot(s6, type = "forest")
-autoplot(s6, type = "heat")
+s6 <- simsum(data = tt, estvarname = "diff", se = "se", df = "df", true = -1, x = TRUE)
+ds6 <- get_data(s6)
+s7 <- simsum(data = tt, estvarname = "diff", se = "se", ci.limits = c("lower", "upper"), true = -1, x = TRUE)
+ds7 <- get_data(s7)
+
+all.equal(get_data(s6), get_data(s7))
 
 ### All-in-one testing
 devtools::document()

@@ -4,7 +4,8 @@
 \name{nlp}
 \alias{nlp}
 \title{Example of a simulation study on survival modelling}
-\format{A data frame with 30,000 rows and 10 variables:
+\format{
+A data frame with 30,000 rows and 10 variables:
 \itemize{
 \item \code{dgm} Data-generating mechanism, 1 to 150.
 \item \code{i} Simulated dataset number.
@@ -15,7 +16,8 @@
 \item \code{ss} Sample size of the simulated dataset.
 \item \code{esigma} Standard deviation of the white noise.
 \item \code{pars} (Ancillary) Parameters of the baseline hazard function.
-}}
+}
+}
 \usage{
 nlp
 }

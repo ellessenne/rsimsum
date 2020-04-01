@@ -4,13 +4,15 @@
 \name{MIsim}
 \alias{MIsim}
 \title{Example of a simulation study on missing data}
-\format{A data frame with 3,000 rows and 4 variables:
+\format{
+A data frame with 3,000 rows and 4 variables:
 \itemize{
 \item \code{dataset} Simulated dataset number.
 \item \code{method} Method used (\code{CC}, \code{MI_LOGT} or \code{MI_T}).
 \item \code{b} Point estimate.
 \item \code{se} Standard error of the point estimate.
-}}
+}
+}
 \usage{
 MIsim
 }
