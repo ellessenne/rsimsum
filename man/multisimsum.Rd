@@ -14,6 +14,7 @@ multisimsum(
   ref = NULL,
   by = NULL,
   ci.limits = NULL,
+  df = NULL,
   dropbig = FALSE,
   x = FALSE,
   control = list()
@@ -47,6 +48,9 @@ Only useful if \code{methodvar} is specified.}
 \item{ci.limits}{Can be used to specify the limits (lower and upper) of confidence intervals used to calculate coverage and bias-eliminated coverage.
 Useful for non-Wald type estimators (e.g. bootstrap).
 Defaults to \code{NULL}, where Wald-type confidence intervals based on the provided SEs are calculated for coverage; otherwise, it can be a numeric vector (for fixed confidence intervals) or a vector of strings that identify columns in \code{data} with replication-specific lower and upper limits.
+See \code{vignette("E-custom-inputs", package = "rsimsum")} for more details.}
+
+\item{df}{Can be used to specify that a column containing the replication-specific number of degrees of freedom that will be used to calculate confidence intervals for coverage (and bias-eliminated coverage) assuming t-distributed critical values (rather than normal theory intervals).
 See \code{vignette("E-custom-inputs", package = "rsimsum")} for more details.}
 
 \item{dropbig}{Specifies that point estimates or standard errors beyond the maximum acceptable values should be dropped. Defaults to \code{FALSE}.}
