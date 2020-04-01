@@ -142,7 +142,7 @@
   } else if (!is.null(by) & is.null(methodvar)) {
     by <- rlang::syms(by)
     gg <- gg +
-      ggplot2::facet_wrap(facets = ggplot2::vars({{ by }}))
+      ggplot2::facet_wrap(facets = ggplot2::vars(!!!{{ by }}))
   }
 
   ### Zoom (or not)
