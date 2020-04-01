@@ -113,7 +113,7 @@ simsum <- function(data,
   }
   # 'control' must be a list, with well defined components
   checkmate::assert_list(x = control, add = arg_checks)
-  checkmate::assert_subset(x = names(control), choices = c("mcse", "level", "df", "na.rm", "char.sep", "dropbig.max", "dropbig.semax", "dropbig.robust"), empty.ok = TRUE, add = arg_checks)
+  checkmate::assert_subset(x = names(control), choices = c("mcse", "level", "power_df", "na.rm", "char.sep", "dropbig.max", "dropbig.semax", "dropbig.robust"), empty.ok = TRUE, add = arg_checks)
   checkmate::assert_logical(x = control$mcse, len = 1, null.ok = TRUE, add = arg_checks)
   checkmate::assert_number(x = control$level, lower = 0, upper = 1, null.ok = TRUE, add = arg_checks)
   checkmate::assert_number(x = control$df, null.ok = TRUE, add = arg_checks)
