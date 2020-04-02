@@ -30,6 +30,14 @@ autoplot(s, type = "zip")
 s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", ci.limits = c("lower", "upper"), true = -1, x = TRUE)
 autoplot(s, type = "zip")
 
+tt$true <- -1
+s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", true = "true", x = TRUE)
+autoplot(s, type = "zip")
+s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", df = "df", true = "true", x = TRUE)
+autoplot(s, type = "zip")
+s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", ci.limits = c("lower", "upper"), true = "true", x = TRUE)
+autoplot(s, type = "zip")
+
 ### All-in-one testing
 devtools::document()
 devtools::build_vignettes()

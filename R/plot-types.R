@@ -111,26 +111,14 @@
     data[["lower"]] <- ci.limits[1]
     data[["upper"]] <- ci.limits[2]
   }
-  if (is.character(true)) {
-    data[["covering"]] <- (data[[true]] >= data[["lower"]] & data[[true]] <= data[["upper"]])
-  } else {
-    data[["covering"]] <- (true >= data[["lower"]] & true <= data[["upper"]])
-  }
+  data[["covering"]] <- (true >= data[["lower"]] & true <= data[["upper"]])
   data[["covering"]] <- factor(data[["covering"]], levels = c(FALSE, TRUE), labels = c("Non-coverers", "Coverers"))
 
   ### Compute critical test value
-  if (is.character(true)) {
-    if (is.null(df)) {
-      data[["z"]] <- 2 * pnorm(q = abs(data[[estvarname]] - data[[true]]) / data[[se]])
-    } else {
-      data[["z"]] <- 2 * pt(q = abs(data[[estvarname]] - data[[true]]) / data[[se]], df = data[[df]])
-    }
+  if (is.null(df)) {
+    data[["z"]] <- 2 * pnorm(q = abs(data[[estvarname]] - true) / data[[se]])
   } else {
-    if (is.null(df)) {
-      data[["z"]] <- 2 * pnorm(q = abs(data[[estvarname]] - true) / data[[se]])
-    } else {
-      data[["z"]] <- 2 * pt(q = abs(data[[estvarname]] - true) / data[[se]], df = data[[df]])
-    }
+    data[["z"]] <- 2 * pt(q = abs(data[[estvarname]] - true) / data[[se]], df = data[[df]])
   }
 
   ### Split data by 'methodvar', 'by'
