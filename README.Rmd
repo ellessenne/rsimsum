@@ -12,10 +12,10 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "man/figures/README-",
   fig.align = "center",
-  fig.height = 4,
-  fig.width = 6,
-  out.width = "80%",
-  dpi = 120
+  fig.height = 4.5,
+  fig.width = 6.5,
+  out.width = "85%",
+  dpi = 150
 )
 options(width = 100)
 ```
@@ -162,7 +162,7 @@ citation("rsimsum")
 
 # Warning for RStudio users
 
-If you use RStudio and equations are not displayed properly within the RStudio viewer window, please access the vignette from [the CRAN website](https://CRAN.R-project.org/package=rsimsum) or directly from the R console with the command:
+If you use RStudio and equations are not displayed properly within the RStudio viewer window, please access the vignette from the [CRAN website](https://CRAN.R-project.org/package=rsimsum), the [rsimsum website](https://ellessenne.github.io/rsimsum/), or directly from the R console with the command:
 
 ```r
 vignette(topic = "A-introduction", package = "rsimsum")

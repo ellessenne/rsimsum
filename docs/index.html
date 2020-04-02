@@ -220,22 +220,22 @@
 <p>As of version <code>0.2.0</code>, <code>rsimsum</code> can produce a variety of plots: among others, lolly plots, forest plots, zipper plots, etc.:</p>
 <div class="sourceCode" id="cb7"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">s</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"lolly"</span>, <span class="kw">stats</span> <span class="kw">=</span> <span class="st">"bias"</span>)</pre></div>
-<p><img src="reference/figures/README-lolly-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-lolly-1.png" width="85%" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb8"><pre class="r"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">s</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"zip"</span>)</pre></div>
-<p><img src="reference/figures/README-zipper-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-zipper-1.png" width="85%" style="display: block; margin: auto;"></p>
 <p>With <code>rsimsum</code> <code>0.5.0</code> the plotting functionality has been completely rewritten, and new plot types have been implemented:</p>
 <ul>
 <li>Scatter plots for method-wise comparisons, including Bland-Altman type plots;</li>
 </ul>
 <!-- end list --><div class="sourceCode" id="cb9"><pre class="r"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">s</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"est_ba"</span>)
 <span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span></pre></div>
-<p><img src="reference/figures/README-ba-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-ba-1.png" width="85%" style="display: block; margin: auto;"></p>
 <ul>
 <li>Ridgeline plots.</li>
 </ul>
 <!-- end list --><div class="sourceCode" id="cb10"><pre class="r"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">s</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"est_ridge"</span>)
 <span class="co">#&gt; Picking joint bandwidth of 0.0295</span></pre></div>
-<p><img src="reference/figures/README-ridgeline-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-ridgeline-1.png" width="85%" style="display: block; margin: auto;"></p>
 <p>Nested loop plots have been implemented in <code>rsimsum</code> <code>0.6.0</code>:</p>
 <div class="sourceCode" id="cb11"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"nlp"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"rsimsum"</span>)
 <span class="no">s.nlp</span> <span class="kw">&lt;-</span> <span class="kw pkg">rsimsum</span><span class="kw ns">::</span><span class="fu"><a href="reference/simsum.html">simsum</a></span>(
@@ -244,14 +244,14 @@
 )
 <span class="co">#&gt; 'ref' method was not specified, 1 set as the reference</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">s.nlp</span>, <span class="kw">stats</span> <span class="kw">=</span> <span class="st">"bias"</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"nlp"</span>)</pre></div>
-<p><img src="reference/figures/README-nlp-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-nlp-1.png" width="85%" style="display: block; margin: auto;"></p>
 <p>Finally, as of <code>rsimsum</code> <code>0.7.1</code> contour plots and hexbin plots have been implemented as well:</p>
 <div class="sourceCode" id="cb12"><pre class="r"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">s</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"est_density"</span>)
 <span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span></pre></div>
-<p><img src="reference/figures/README-density-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-density-1.png" width="85%" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb13"><pre class="r"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">s</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"est_hex"</span>)
 <span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span></pre></div>
-<p><img src="reference/figures/README-hex-1.png" width="80%" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-hex-1.png" width="85%" style="display: block; margin: auto;"></p>
 <p>They provide a useful alternative when there are several data points with large overlap (e.g.Â in a scatterplot).</p>
 <p>The plotting functionality now extend the S3 generic <code>autoplot</code>: see <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">?ggplot2::autoplot</a></code> and <code><a href="reference/autoplot.simsum.html">?rsimsum::autoplot.simsum</a></code> for further details.</p>
 <p>More details and information can be found in the vignettes dedicated to plotting:</p>
@@ -296,7 +296,7 @@
 <div id="warning-for-rstudio-users" class="section level1">
 <h1 class="hasAnchor">
 <a href="#warning-for-rstudio-users" class="anchor"></a>Warning for RStudio users</h1>
-<p>If you use RStudio and equations are not displayed properly within the RStudio viewer window, please access the vignette from <a href="https://CRAN.R-project.org/package=rsimsum">the CRAN website</a> or directly from the R console with the command:</p>
+<p>If you use RStudio and equations are not displayed properly within the RStudio viewer window, please access the vignette from the <a href="https://CRAN.R-project.org/package=rsimsum">CRAN website</a>, the <a href="https://ellessenne.github.io/rsimsum/">rsimsum website</a>, or directly from the R console with the command:</p>
 <div class="sourceCode" id="cb16"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="kw">topic</span> <span class="kw">=</span> <span class="st">"A-introduction"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"rsimsum"</span>)</pre></div>
 <p>This is a known issue with RStudio (see <a href="https://github.com/rstudio/rstudio/issues/2253">#2253</a>).</p>
 </div>
