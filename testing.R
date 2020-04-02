@@ -1,10 +1,42 @@
 library(rsimsum)
 library(ggplot2)
 data("tt", package = "rsimsum")
-s6 <- simsum(data = tt, estvarname = "diff", se = "se", true = -1, x = TRUE)
-autoplot(s6, type = "lolly")
-autoplot(s6, type = "forest")
-autoplot(s6, type = "heat")
+
+s <- simsum(data = tt, estvarname = "diff", se = "se", true = -1, x = TRUE)
+autoplot(s, type = "zip")
+s <- simsum(data = tt, estvarname = "diff", se = "se", df = "df", true = -1, x = TRUE)
+autoplot(s, type = "zip")
+s <- simsum(data = tt, estvarname = "diff", se = "se", ci.limits = c("lower", "upper"), true = -1, x = TRUE)
+autoplot(s, type = "zip")
+
+s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", true = -1, x = TRUE)
+autoplot(s, type = "zip")
+s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", df = "df", true = -1, x = TRUE)
+autoplot(s, type = "zip")
+s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", ci.limits = c("lower", "upper"), true = -1, x = TRUE)
+autoplot(s, type = "zip")
+
+s <- simsum(data = tt, estvarname = "diff", se = "se", by = "dgm", true = -1, x = TRUE)
+p <- autoplot(s, type = "zip")
+s <- simsum(data = tt, estvarname = "diff", se = "se", by = "dgm", df = "df", true = -1, x = TRUE)
+autoplot(s, type = "zip")
+s <- simsum(data = tt, estvarname = "diff", se = "se", by = "dgm", ci.limits = c("lower", "upper"), true = -1, x = TRUE)
+autoplot(s, type = "zip")
+
+s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", true = -1, x = TRUE)
+autoplot(s, type = "zip")
+s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", df = "df", true = -1, x = TRUE)
+autoplot(s, type = "zip")
+s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", ci.limits = c("lower", "upper"), true = -1, x = TRUE)
+autoplot(s, type = "zip")
+
+tt$true <- -1
+s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", true = "true", x = TRUE)
+autoplot(s, type = "zip")
+s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", df = "df", true = "true", x = TRUE)
+autoplot(s, type = "zip")
+s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", ci.limits = c("lower", "upper"), true = "true", x = TRUE)
+autoplot(s, type = "zip")
 
 ### All-in-one testing
 devtools::document()

@@ -14,6 +14,7 @@ multisimsum(
   ref = NULL,
   by = NULL,
   ci.limits = NULL,
+  df = NULL,
   dropbig = FALSE,
   x = FALSE,
   control = list()
@@ -49,6 +50,9 @@ Useful for non-Wald type estimators (e.g. bootstrap).
 Defaults to \code{NULL}, where Wald-type confidence intervals based on the provided SEs are calculated for coverage; otherwise, it can be a numeric vector (for fixed confidence intervals) or a vector of strings that identify columns in \code{data} with replication-specific lower and upper limits.
 See \code{vignette("E-custom-inputs", package = "rsimsum")} for more details.}
 
+\item{df}{Can be used to specify that a column containing the replication-specific number of degrees of freedom that will be used to calculate confidence intervals for coverage (and bias-eliminated coverage) assuming t-distributed critical values (rather than normal theory intervals).
+See \code{vignette("E-custom-inputs", package = "rsimsum")} for more details.}
+
 \item{dropbig}{Specifies that point estimates or standard errors beyond the maximum acceptable values should be dropped. Defaults to \code{FALSE}.}
 
 \item{x}{Set to \code{TRUE} to include the \code{data} argument used to calculate summary statistics (i.e. after pre-processing the input dataset e.g. removing values deemed too large via the \code{dropbig} argument) as a slot. Calling \code{simsum} with \code{x = TRUE} is required to produce zipper plots. The downside is that the size of the returned object increases considerably, therefore it is set to \code{FALSE} by default.}
@@ -57,7 +61,7 @@ See \code{vignette("E-custom-inputs", package = "rsimsum")} for more details.}
 \itemize{
 \item \code{mcse}, whether to calculate Monte Carlo standard errors. Defaults to \code{TRUE};
 \item \code{level}, the significance level used for coverage, bias-eliminated coverage, and power. Defaults to 0.95;
-\item \code{df}, whether to use robust critical values from a t distribution with \code{df} degrees of freedom when calculating coverage, bias-eliminated coverage, and power. Defaults to \code{NULL}, in which case a Gaussian distribution is used;
+\item \code{power_df}, whether to use robust critical values from a t distribution with \code{power_df} degrees of freedom when calculating power. Defaults to \code{NULL}, in which case a Gaussian distribution is used;
 \item \code{na.rm}, whether to remove point estimates or standard errors where either (or both) is missing. Defaults to \code{TRUE};
 \item \code{char.sep}, a character utilised when splitting the input dataset \code{data}. Generally, this should not be changed;
 \item \code{dropbig.max}, specifies the maximum acceptable absolute value of the point estimates, after standardisation. Defaults to 10;

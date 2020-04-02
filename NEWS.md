@@ -1,5 +1,22 @@
 # rsimsum (development version)
 
+### Breaking changes:
+
+* The control argument `df` has been renamed to `power_df`, and now affects power calculations only.
+
+### New features:
+
+* New `df` argument, `simsum` and `multisimum` now accept a column in `data` containing a number of degrees of freedom that will be used to calculate confidence intervals for coverage (and bias-eliminated coverage) with t critical values (instead of normal-theory intervals, the default behaviour).
+  Notably, zip plots behave accordingly when calculating and ranking confidence intervals;
+
+* Calculations for zip plots are noticeably faster now.
+
+### Bug fixes:
+
+* Fixed a bug that prevented zip plots with only `by` factors from being plotted.
+
+# rsimsum 0.8.1
+
 ### Changes to default behaviour:
 
 * `autoplot` methods will now plot the number of non-missing point estimates/SEs by default (if the `stat` argument is not set by the user).

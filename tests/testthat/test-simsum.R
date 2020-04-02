@@ -153,3 +153,8 @@ testthat::test_that("simsum without 'se' nor 'true' does not compute se2mean, se
   s <- simsum(data = MIsim, estvarname = "b", methodvar = "method")
   testthat::expect_false(object = any(c("se2mean", "se2median", "modelse", "relerror", "cover", "becover", "power", "bias", "mse") %in% s$summ$stat))
 })
+
+testthat::test_that("simsum with both ci.limits and df throws an error", {
+  data("tt", package = "rsimsum")
+  testthat::expect_error(object = simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", ci.limits = c("lower", "upper"), df = "df"))
+})

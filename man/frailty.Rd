@@ -4,7 +4,8 @@
 \name{frailty}
 \alias{frailty}
 \title{Example of a simulation study on frailty survival models}
-\format{A data frame with 16,000 rows and 6 variables:
+\format{
+A data frame with 16,000 rows and 6 variables:
 \itemize{
 \item \code{i} Simulated dataset number.
 \item \code{b} Point estimate.
@@ -12,7 +13,8 @@
 \item \code{par} The estimand. \code{trt} is the log-treatment effect, \code{fv} is the variance of the frailty.
 \item \code{fv_dist} The true frailty distribution.
 \item \code{model} Method used (\verb{Cox, Gamma}, \verb{Cox, Log-Normal}, \verb{RP(P), Gamma}, or \verb{RP(P), Log-Normal}).
-}}
+}
+}
 \usage{
 frailty
 }

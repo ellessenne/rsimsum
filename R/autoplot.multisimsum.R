@@ -31,17 +31,9 @@
 #' autoplot(ms, par = "trt", type = "est_ba")
 #' autoplot(ms, par = "trt", type = "zip")
 autoplot.multisimsum <- function(object, par, type = "forest", stats = "nsim", target = NULL, fitted = TRUE, scales = "fixed", top = TRUE, density.legend = TRUE, zoom = 1, ...) {
-  ### Check arguments
-  arg_checks <- checkmate::makeAssertCollection()
-  # 'par' must be one of the values in names(object$true)
-  checkmate::assert_choice(x = par, choices = names(object[["true"]]), add = arg_checks)
-  # Report
-  if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
-
   ### Manipulate object to make it a simsum-like object
   object[["summ"]] <- object[["summ"]][object[["summ"]][[object[["par"]]]] == par, ]
   object[["true"]] <- object[["true"]][par]
-
   if (type %in% c("zip", "est", "se", "est_ba", "se_ba", "est_density", "se_density", "est_hex", "se_hex", "est_ridge", "se_ridge")) {
     object[["x"]] <- object[["x"]][object[["x"]][[object[["par"]]]] == par, ]
   }

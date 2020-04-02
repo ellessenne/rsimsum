@@ -1,5 +1,5 @@
 #' @keywords internal
-.performance <- function(data, estvarname, se, true, empse_ref = NULL, rho = NULL, ci.limits, control) {
+.performance <- function(data, estvarname, se, true, empse_ref = NULL, rho = NULL, ci.limits, df, control) {
   ### Make object to return
   obj <- list()
 
@@ -13,7 +13,7 @@
   # Mean, median and variance of betas
   theta_mean <- mean(data[[estvarname]], na.rm = control$na.rm)
   theta_median <- stats::median(data[[estvarname]], na.rm = control$na.rm)
-  theta_var <- stats::var(data[[estvarname]], na.rm = control$na.rm)
+  # theta_var <- stats::var(data[[estvarname]], na.rm = control$na.rm)
   # Mean, median and average of ses
   if (!is.null(se)) {
     se2_mean <- mean(data[[se]]^2, na.rm = control$na.rm)
@@ -49,8 +49,14 @@
   if (!is.null(se)) modelse <- sqrt(1 / nsim * sum(data[[se]]^2, na.rm = control$na.rm))
   # Relative error in model-based standard error
   if (!is.null(se)) relerror <- 100 * (modelse / empse - 1)
-  # Compute critical value from either a normal or a t distribution
-  crit <- ifelse(is.null(control$df), stats::qnorm(1 - (1 - control$level) / 2), stats::qt(1 - (1 - control$level) / 2, df = control$df))
+  # Compute critical values (for coverage) from either a normal or a t distribution
+  if (!is.null(df)) {
+    crit <- stats::qt(1 - (1 - control$level) / 2, df = data[[df]])
+  } else {
+    crit <- stats::qnorm(1 - (1 - control$level) / 2)
+  }
+  # Compute critical value (for power) from either a normal or a t distribution
+  crit_power <- ifelse(is.null(control$power_df), stats::qnorm(1 - (1 - control$level) / 2), stats::qt(1 - (1 - control$level) / 2, df = control$power_df))
   # Coverage of a nominal (1 - level)% confidence interval
   if (!is.null(true) & !is.null(se)) {
     if (is.null(ci.limits)) {
@@ -92,7 +98,7 @@
     }
   }
   # Power of a significance test at the `level` level
-  if (!is.null(se)) power <- 1 / nsim * sum(abs(data[[estvarname]]) >= crit * data[[se]], na.rm = control$na.rm)
+  if (!is.null(se)) power <- 1 / nsim * sum(abs(data[[estvarname]]) >= crit_power * data[[se]], na.rm = control$na.rm)
 
   ### Compute Monte Carlo SEs if requested:
   if (control$mcse) {

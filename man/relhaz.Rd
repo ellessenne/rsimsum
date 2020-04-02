@@ -4,7 +4,8 @@
 \name{relhaz}
 \alias{relhaz}
 \title{Example of a simulation study on survival modelling}
-\format{A data frame with 1,200 rows and 6 variables:
+\format{
+A data frame with 1,200 rows and 6 variables:
 \itemize{
 \item \code{dataset} Simulated dataset number.
 \item \code{n} Sample size of the simulate dataset.
@@ -12,7 +13,8 @@
 \item \code{model} Method used (\code{Cox}, \code{Exp}, or \code{RP(2)}).
 \item \code{theta} Point estimate for the log-hazard ratio.
 \item \code{se} Standard error of the point estimate.
-}}
+}
+}
 \usage{
 relhaz
 }

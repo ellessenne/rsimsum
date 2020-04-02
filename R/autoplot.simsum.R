@@ -98,7 +98,7 @@ autoplot.simsum <- function(object, type = "forest", stats = "nsim", target = NU
   plot <- switch(type,
     "forest" = .forest_plot(data = df, methodvar = object$methodvar, by = object$by, stats = stats, ci = ci, target = target, scales = scales),
     "lolly" = .lolly_plot(data = df, methodvar = object$methodvar, by = object$by, stats = stats, ci = ci, target = target, scales = scales),
-    "zip" = .zip_plot(data = object$x, estvarname = object$estvarname, se = object$se, true = object$true, methodvar = object$methodvar, by = object$by, control = object$control, summ = object$summ, zoom = zoom), # zip for coverage
+    "zip" = .zip_plot(data = object$x, estvarname = object$estvarname, se = object$se, true = object$true, methodvar = object$methodvar, by = object$by, ci.limits = object$ci.limits, df = object$df, control = object$control, summ = object$summ, zoom = zoom), # zip for coverage
     "est" = .vs_plot(data = object$x, b = object$estvarname, methodvar = object$methodvar, by = object$by, fitted = fitted, scales = scales, ba = FALSE),
     "se" = .vs_plot(data = object$x, b = object$se, methodvar = object$methodvar, by = object$by, fitted = fitted, scales = scales, ba = FALSE),
     "est_ba" = .vs_plot(data = object$x, b = object$estvarname, methodvar = object$methodvar, by = object$by, fitted = fitted, scales = scales, ba = TRUE),

@@ -30,6 +30,7 @@ multisimsum <- function(data,
                         ref = NULL,
                         by = NULL,
                         ci.limits = NULL,
+                        df = NULL,
                         dropbig = FALSE,
                         x = FALSE,
                         control = list()) {
@@ -62,7 +63,7 @@ multisimsum <- function(data,
   }
   # 'control' must be a list, with well defined components
   checkmate::assert_list(x = control, add = arg_checks)
-  checkmate::assert_subset(x = names(control), choices = c("mcse", "level", "df", "na.rm", "char.sep", "dropbig.max", "dropbig.semax", "dropbig.robust"), empty.ok = TRUE, add = arg_checks)
+  checkmate::assert_subset(x = names(control), choices = c("mcse", "level", "power_df", "na.rm", "char.sep", "dropbig.max", "dropbig.semax", "dropbig.robust"), empty.ok = TRUE, add = arg_checks)
   checkmate::assert_logical(x = control$mcse, len = 1, null.ok = TRUE, add = arg_checks)
   checkmate::assert_number(x = control$level, lower = 0, upper = 1, null.ok = TRUE, add = arg_checks)
   checkmate::assert_number(x = control$df, null.ok = TRUE, add = arg_checks)
@@ -75,7 +76,7 @@ multisimsum <- function(data,
   if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
 
   ### Set control parameters
-  control.default <- list(mcse = TRUE, level = 0.95, df = NULL, na.rm = TRUE, char.sep = "~", dropbig.max = 10, dropbig.semax = 100, dropbig.robust = TRUE)
+  control.default <- list(mcse = TRUE, level = 0.95, power_df = NULL, na.rm = TRUE, char.sep = "~", dropbig.max = 10, dropbig.semax = 100, dropbig.robust = TRUE)
   control.tmp <- unlist(list(
     control[names(control) %in% names(control.default)],
     control.default[!(names(control.default) %in% names(control))]
@@ -112,7 +113,7 @@ multisimsum <- function(data,
   if (x) par_data <- vector(mode = "list", length = length(par_split))
   for (i in seq_along(par_split)) {
     if (rlang::is_named(true) | is.null(true)) {
-      run <- simsum(data = par_split[[i]], estvarname = estvarname, true = true[names(par_split)[i]], se = se, methodvar = methodvar, ref = ref, by = by, ci.limits = ci.limits, dropbig = dropbig, x = x, control = control)
+      run <- simsum(data = par_split[[i]], estvarname = estvarname, true = true[names(par_split)[i]], se = se, methodvar = methodvar, ref = ref, by = by, ci.limits = ci.limits, df = df, dropbig = dropbig, x = x, control = control)
     } else {
       run <- simsum(data = par_split[[i]], estvarname = estvarname, true = true, se = se, methodvar = methodvar, ref = ref, by = by, ci.limits = ci.limits, dropbig = dropbig, x = x, control = control)
     }
@@ -139,9 +140,8 @@ multisimsum <- function(data,
   obj$methodvar <- methodvar
   obj$ref <- ref
   obj$dropbig <- dropbig
-  if (!is.null(ci.limits)) {
-    obj$ci.limits <- ci.limits
-  }
+  obj$ci.limits <- ci.limits
+  obj$df <- df
   obj$by <- by
   obj$control <- control
   if (x) {
