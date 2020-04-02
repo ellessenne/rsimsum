@@ -24,7 +24,7 @@
 
 ### Improvements:
 
-* Handling more plotting edge cases (e.g. when standard errors or true values are not available);
+* Handling more plotting edge cases, for instance when standard errors or true values are not available;
 
 * Improved `multisimsum` example in vignette on custom inputs.
 
