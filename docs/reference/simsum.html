@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -40,7 +44,6 @@
 Bias, empirical standard error and precision relative to a reference method can be computed for each method.
 If, in addition, model-based standard errors are available then simsum can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, the coverage under the assumption that there is no bias (bias-eliminated coverage), and the power to reject a null hypothesis.
 Monte Carlo errors are available for all estimated quantities." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -68,7 +71,7 @@ Monte Carlo errors are available for all estimated quantities." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -82,7 +85,7 @@ Monte Carlo errors are available for all estimated quantities." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1.9000</span>
       </span>
     </div>
 
@@ -129,7 +132,12 @@ Monte Carlo errors are available for all estimated quantities." />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/ellessenne/rsimsum/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -144,7 +152,7 @@ Monte Carlo errors are available for all estimated quantities." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Analyses of simulation studies including Monte Carlo error</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/ellessenne/rsimsum/blob/master/R/simsum.R'><code>R/simsum.R</code></a></small>
     <div class="hidden name"><code>simsum.Rd</code></div>
     </div>
 
@@ -164,6 +172,7 @@ Monte Carlo errors are available for all estimated quantities.</p>
   <span class='kw'>ref</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>ci.limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>dropbig</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>control</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>()
@@ -190,7 +199,7 @@ It has to be in tidy format, e.g. each variable forms a column and each observat
       <td><p>The true value of the parameter; this is used in calculations of bias, coverage, and mean squared error and is required whenever these performance measures are requested.
 <code>true</code> can be a numeric value or a string that identifies a column in <code>data</code>.
 In the former setting, <code>simsum</code> will assume the same value for all replications; conversely, each replication will use a distinct value for <code>true</code> as identified by each row of <code>data</code>.
-See <code><a href='../articles/../../../../../../../Z:/R-Dev/rsimsum/vignettes/E-custom-inputs.html'>vignette("E-custom-inputs", package = "rsimsum")</a></code> for more details.</p></td>
+See <code><a href='../articles/E-custom-inputs.html'>vignette("E-custom-inputs", package = "rsimsum")</a></code> for more details.</p></td>
     </tr>
     <tr>
       <th>methodvar</th>
@@ -212,7 +221,12 @@ Only useful if <code>methodvar</code> is specified.</p></td>
       <td><p>Can be used to specify the limits (lower and upper) of confidence intervals used to calculate coverage and bias-eliminated coverage.
 Useful for non-Wald type estimators (e.g. bootstrap).
 Defaults to <code>NULL</code>, where Wald-type confidence intervals based on the provided SEs are calculated for coverage; otherwise, it can be a numeric vector (for fixed confidence intervals) or a vector of strings that identify columns in <code>data</code> with replication-specific lower and upper limits.
-See <code><a href='../articles/../../../../../../../Z:/R-Dev/rsimsum/vignettes/E-custom-inputs.html'>vignette("E-custom-inputs", package = "rsimsum")</a></code> for more details.</p></td>
+See <code><a href='../articles/E-custom-inputs.html'>vignette("E-custom-inputs", package = "rsimsum")</a></code> for more details.</p></td>
+    </tr>
+    <tr>
+      <th>df</th>
+      <td><p>Can be used to specify that a column containing the replication-specific number of degrees of freedom that will be used to calculate confidence intervals for coverage (and bias-eliminated coverage) assuming t-distributed critical values (rather than normal theory intervals).
+See <code><a href='../articles/E-custom-inputs.html'>vignette("E-custom-inputs", package = "rsimsum")</a></code> for more details.</p></td>
     </tr>
     <tr>
       <th>dropbig</th>
@@ -227,7 +241,7 @@ See <code><a href='../articles/../../../../../../../Z:/R-Dev/rsimsum/vignettes/E
       <td><p>A list of parameters that control the behaviour of <code>simsum</code>. Possible values are:</p><ul>
 <li><p><code>mcse</code>, whether to calculate Monte Carlo standard errors. Defaults to <code>TRUE</code>;</p></li>
 <li><p><code>level</code>, the significance level used for coverage, bias-eliminated coverage, and power. Defaults to 0.95;</p></li>
-<li><p><code>df</code>, whether to use robust critical values from a t distribution with <code>df</code> degrees of freedom when calculating coverage, bias-eliminated coverage, and power. Defaults to <code>NULL</code>, in which case a Gaussian distribution is used;</p></li>
+<li><p><code>power_df</code>, whether to use robust critical values from a t distribution with <code>power_df</code> degrees of freedom when calculating power. Defaults to <code>NULL</code>, in which case a Gaussian distribution is used;</p></li>
 <li><p><code>na.rm</code>, whether to remove point estimates or standard errors where either (or both) is missing. Defaults to <code>TRUE</code>;</p></li>
 <li><p><code>char.sep</code>, a character utilised when splitting the input dataset <code>data</code>. Generally, this should not be changed;</p></li>
 <li><p><code>dropbig.max</code>, specifies the maximum acceptable absolute value of the point estimates, after standardisation. Defaults to 10;</p></li>
@@ -255,16 +269,10 @@ See <code><a href='../articles/../../../../../../../Z:/R-Dev/rsimsum/vignettes/E
 <span class='co'># If 'ref' is not specified, the reference method is inferred</span>
 <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>simsum</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>MIsim</span>, <span class='kw'>estvarname</span> <span class='kw'>=</span> <span class='st'>"b"</span>, <span class='kw'>true</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>se</span> <span class='kw'>=</span> <span class='st'>"se"</span>, <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='st'>"method"</span>)</div><div class='output co'>#&gt; <span class='message'>'ref' method was not specified, CC set as the reference</span></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -275,7 +283,7 @@ See <code><a href='../articles/../../../../../../../Z:/R-Dev/rsimsum/vignettes/E
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
 </div>
 
       </footer>

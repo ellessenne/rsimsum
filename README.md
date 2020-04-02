@@ -216,6 +216,7 @@ rewritten, and new plot types have been implemented:
 
 ``` r
 autoplot(s, type = "est_ba")
+#> `geom_smooth()` using formula 'y ~ x'
 ```
 
 <img src="man/figures/README-ba-1.png" width="80%" style="display: block; margin: auto;" />
@@ -250,12 +251,14 @@ been implemented as well:
 
 ``` r
 autoplot(s, type = "est_density")
+#> `geom_smooth()` using formula 'y ~ x'
 ```
 
 <img src="man/figures/README-density-1.png" width="80%" style="display: block; margin: auto;" />
 
 ``` r
 autoplot(s, type = "est_hex")
+#> `geom_smooth()` using formula 'y ~ x'
 ```
 
 <img src="man/figures/README-hex-1.png" width="80%" style="display: block; margin: auto;" />

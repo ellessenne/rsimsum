@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -63,7 +67,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -77,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1.9000</span>
       </span>
     </div>
 
@@ -124,7 +128,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/ellessenne/rsimsum/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -138,13 +147,40 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
-      
+      <h1 data-toc-skip>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/ellessenne/rsimsum/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
     <div id="rsimsum-development-version" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="development version">
 <a href="#rsimsum-development-version" class="anchor"></a>rsimsum (development version)<small> Unreleased </small>
+</h1>
+<div id="breaking-changes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking changes:</h3>
+<ul>
+<li>The control argument <code>df</code> has been renamed to <code>power_df</code>, and now affects power calculations only.</li>
+</ul>
+</div>
+<div id="new-features" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features:</h3>
+<ul>
+<li><p>New <code>df</code> argument, <code>simsum</code> and <code>multisimum</code> now accept a column in <code>data</code> containing a number of degrees of freedom that will be used to calculate confidence intervals for coverage (and bias-eliminated coverage) with t critical values (instead of normal-theory intervals, the default behaviour). Notably, zip plots behave accordingly when calculating and ranking confidence intervals;</p></li>
+<li><p>Calculations for zip plots are noticeably faster now.</p></li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes:</h3>
+<ul>
+<li>Fixed a bug that prevented zip plots with only <code>by</code> factors from being plotted.</li>
+</ul>
+</div>
+</div>
+    <div id="rsimsum-081" class="section level1">
+<h1 class="page-header" data-toc-text="0.8.1">
+<a href="#rsimsum-081" class="anchor"></a>rsimsum 0.8.1<small> Unreleased </small>
 </h1>
 <div id="changes-to-default-behaviour" class="section level3">
 <h3 class="hasAnchor">
@@ -158,13 +194,20 @@
 <h3 class="hasAnchor">
 <a href="#improvements" class="anchor"></a>Improvements:</h3>
 <ul>
-<li><p>Handling more plotting edge cases (e.g. when standard errors or true values are not available);</p></li>
+<li><p>Handling more plotting edge cases (e.g.Â when standard errors or true values are not available);</p></li>
 <li><p>Improved <code>multisimsum</code> example in vignette on custom inputs.</p></li>
+</ul>
+</div>
+<div id="bug-fixes-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes:</h3>
+<ul>
+<li>Fixed typo in vignette with formulae (<a href='https://github.com/ellessenne/rsimsum/issues/25'>#25</a>, thanks <a href='https://github.com/samperochkin'>@samperochkin</a>).</li>
 </ul>
 </div>
 </div>
     <div id="rsimsum-080" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.8.0">
 <a href="#rsimsum-080" class="anchor"></a>rsimsum 0.8.0<small> 2020-02-29 </small>
 </h1>
 <div id="improvements-1" class="section level3">
@@ -173,15 +216,15 @@
 <ul>
 <li><p>Added new argument <code>zoom</code> to <code>autoplot</code> methods: it is now possible to <em>zoom</em> on the top x% of a zip plot to improve readability;</p></li>
 <li><p>Added a new example dataset from a toy simulation study assessing the robustness of the t-test. See <code><a href="../reference/tt.html">?"tt"</a></code> for more details;</p></li>
-<li><p>The <code>true</code> argument of <code>rsimsum</code> and <code>multisimsum</code> now accepts a string that identifies a column in <code>data</code>. This is especially useful in settings where the true value varies across replications, e.g. when it depends on characteristics of the simulated data. See <code><a href="../articles/../../../../../../../Z:/R-Dev/rsimsum/vignettes/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code> for more details and examples;</p></li>
-<li><p>Analogously, the <code>ci.limits</code> argument now accepts a vector of strings that identifies lower and upper limits for custom-defined confidence intervals from columns in <code>data</code>. Once again, more details are included in <code><a href="../articles/../../../../../../../Z:/R-Dev/rsimsum/vignettes/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code>;</p></li>
-<li><p><code>rsimsum</code> now correctly uses <code><a href="https://rdrr.io/r/base/class.html">inherits(obj, "someclass")</a></code> instead of <code>class(obj) == "someclass"</code> (#20);</p></li>
-<li><p>Fixed bugs and errors that appeared when auto-plotting results of simulation studies with no methods being compared (#23).</p></li>
+<li><p>The <code>true</code> argument of <code>rsimsum</code> and <code>multisimsum</code> now accepts a string that identifies a column in <code>data</code>. This is especially useful in settings where the true value varies across replications, e.g.Â when it depends on characteristics of the simulated data. See <code><a href="../articles/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code> for more details and examples;</p></li>
+<li><p>Analogously, the <code>ci.limits</code> argument now accepts a vector of strings that identifies lower and upper limits for custom-defined confidence intervals from columns in <code>data</code>. Once again, more details are included in <code><a href="../articles/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code>;</p></li>
+<li><p><code>rsimsum</code> now correctly uses <code><a href="https://rdrr.io/r/base/class.html">inherits(obj, "someclass")</a></code> instead of <code>class(obj) == "someclass"</code> (<a href='https://github.com/ellessenne/rsimsum/issues/20'>#20</a>);</p></li>
+<li><p>Fixed bugs and errors that appeared when auto-plotting results of simulation studies with no methods being compared (<a href='https://github.com/ellessenne/rsimsum/issues/23'>#23</a>).</p></li>
 </ul>
 </div>
 </div>
     <div id="rsimsum-071" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.7.1">
 <a href="#rsimsum-071" class="anchor"></a>rsimsum 0.7.1<small> Unreleased </small>
 </h1>
 <ul>
@@ -190,7 +233,7 @@
 </ul>
 </div>
     <div id="rsimsum-070" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.7.0">
 <a href="#rsimsum-070" class="anchor"></a>rsimsum 0.7.0<small> 2019-11-12 </small>
 </h1>
 <div id="improvements-2" class="section level3">
@@ -203,24 +246,24 @@
 </div>
 </div>
     <div id="rsimsum-062" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.2">
 <a href="#rsimsum-062" class="anchor"></a>rsimsum 0.6.2<small> Unreleased </small>
 </h1>
-<div id="bug-fixes" class="section level3">
+<div id="bug-fixes-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes:</h3>
 <ul>
 <li>Fixed bug introduced in <code>rsimsum</code> 0.6.1 (average and median variances were not printed).</li>
 </ul>
 </div>
 </div>
     <div id="rsimsum-061" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.1">
 <a href="#rsimsum-061" class="anchor"></a>rsimsum 0.6.1<small> 2019-09-12 </small>
 </h1>
-<div id="bug-fixes-1" class="section level3">
+<div id="bug-fixes-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-3" class="anchor"></a>Bug fixes:</h3>
 <ul>
 <li><p>Fixed labelling bug in zipper plots (thanks to <a href='https://github.com/syriop-elisa'>@syriop-elisa</a> for reporting it);</p></li>
 <li><p>Clarified that <code>simsum</code> and <code>multisimsum</code> report average (or median) estimated variances, not standard errors (thanks to Ian R. White for reporting this).</p></li>
@@ -228,7 +271,7 @@
 </div>
 </div>
     <div id="rsimsum-060" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.6.0">
 <a href="#rsimsum-060" class="anchor"></a>rsimsum 0.6.0<small> 2019-07-15 </small>
 </h1>
 <div id="improvements-3" class="section level3">
@@ -241,9 +284,9 @@
 <li><p>Improved ordering of vignettes.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-2" class="section level3">
+<div id="bug-fixes-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-4" class="anchor"></a>Bug fixes:</h3>
 <ul>
 <li><p>Updated unquoting for compatibility with <code>rlang</code> 0.4.0;</p></li>
 <li><p>Fixed missing details and options in the documentation of <code>autoplot.multisimsum</code> and <code>autoplot.summary.multisimsum</code>.</p></li>
@@ -251,31 +294,31 @@
 </div>
 </div>
     <div id="rsimsum-052" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5.2">
 <a href="#rsimsum-052" class="anchor"></a>rsimsum 0.5.2<small> 2019-04-25 </small>
 </h1>
-<div id="bug-fixes-3" class="section level3">
+<div id="bug-fixes-5" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-3" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-5" class="anchor"></a>Bug fixes:</h3>
 <ul>
-<li>Fixed labelling when facetting for some plot types, now all defaults to <code><a href="https://ggplot2.tidyverse.org/reference/labellers.html">ggplot2::label_both</a></code> for ‘by’ factors (when included).</li>
+<li>Fixed labelling when facetting for some plot types, now all defaults to <code><a href="https://ggplot2.tidyverse.org/reference/labellers.html">ggplot2::label_both</a></code> for âbyâ factors (when included).</li>
 </ul>
 </div>
 </div>
     <div id="rsimsum-051" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5.1">
 <a href="#rsimsum-051" class="anchor"></a>rsimsum 0.5.1<small> 2019-03-15 </small>
 </h1>
-<div id="bug-fixes-4" class="section level3">
+<div id="bug-fixes-6" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-4" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-6" class="anchor"></a>Bug fixes:</h3>
 <ul>
-<li>Fixed calculations for “Relative % increase in precision” (thanks to Ian R. White for reporting this).</li>
+<li>Fixed calculations for âRelative % increase in precisionâ (thanks to Ian R. White for reporting this).</li>
 </ul>
 </div>
 </div>
     <div id="rsimsum-050" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.5.0">
 <a href="#rsimsum-050" class="anchor"></a>rsimsum 0.5.0<small> 2019-02-21 </small>
 </h1>
 <div id="improvements-4" class="section level3">
@@ -290,16 +333,16 @@
 <li>Improved code coverage.</li>
 </ul>
 </div>
-<div id="bug-fixes-5" class="section level3">
+<div id="bug-fixes-7" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-5" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-7" class="anchor"></a>Bug fixes:</h3>
 <ul>
 <li>Fixed a bug in <code>autoplot</code> caused by premature slicing of <code>by</code> arguments, where no <code>by</code> arguments were included.</li>
 </ul>
 </div>
 </div>
     <div id="rsimsum-042" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.2">
 <a href="#rsimsum-042" class="anchor"></a>rsimsum 0.4.2<small> Unreleased </small>
 </h1>
 <p>Implemented <code>autoplot</code> method for <code>simsum</code> and <code>summary.simsum</code> objects; when calling <code>autoplot</code> on <code>summary.simsum</code> objects, confidence intervals based on Monte Carlo standard errors will be included as well (if sensible).</p>
@@ -308,20 +351,20 @@
 <li>forest plot of estimated summary statistics;</li>
 <li>lolly plot of summary statistics;</li>
 <li>zip plot for coverage probability;</li>
-<li>scatter plot of methods-wise comparison (e.g. X vs Y) of point estimates and standard errors, per replication;</li>
+<li>scatter plot of methods-wise comparison (e.g.Â X vs Y) of point estimates and standard errors, per replication;</li>
 <li>same as the above, but implemented as a Bland-Altman type plot;</li>
 <li>ridgeline plot of estimates, standard errors to compare the distribution of estimates, standard errors by method.</li>
 </ul>
 <p>Several options to customise the behaviour of <code>autoplot</code>, see <code><a href="../reference/autoplot.simsum.html">?autoplot.simsum</a></code> and <code><a href="../reference/autoplot.summary.simsum.html">?autoplot.summary.simsum</a></code> for further details.</p>
 </div>
     <div id="rsimsum-041" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.1">
 <a href="#rsimsum-041" class="anchor"></a>rsimsum 0.4.1<small> Unreleased </small>
 </h1>
 <p>Fixed a bug in <code>dropbig</code> and related internal function that was returning standardised values instead of actual observed values.</p>
 </div>
     <div id="rsimsum-040" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.4.0">
 <a href="#rsimsum-040" class="anchor"></a>rsimsum 0.4.0<small> Unreleased </small>
 </h1>
 <p><code>rsimsum</code> 0.4.0 is a large refactoring of <code>rsimsum</code>. There are several improvements and breaking changes, outlined below.</p>
@@ -330,14 +373,14 @@
 <a href="#improvements-5" class="anchor"></a>Improvements</h3>
 <ul>
 <li>
-<code>rsimsum</code> is more robust to using factor variables (e.g. as <code>methodvar</code> or <code>by</code> factor), with ordering that will be preserved if defined in the dataset passed to <code>simsum</code> (or <code>multisimsum</code>);</li>
-<li>Confidence intervals based on Monte Carlo standard errors can be now computed using quantiles from a t distribution; see <code><a href="https://rdrr.io/r/utils/help.html">help(summary.simsum)</a></code> for more details;</li>
-<li>Added comparison with results from Stata’s <code>simsum</code> for testing purposes - differences are negligible, and there are some calculations in <code>simsum</code> that are wrong (already reported). Most differences can be attributed to calculations (and conversions, for comparison) on different scales.</li>
+<code>rsimsum</code> is more robust to using factor variables (e.g.Â as <code>methodvar</code> or <code>by</code> factor), with ordering that will be preserved if defined in the dataset passed to <code>simsum</code> (or <code>multisimsum</code>);</li>
+<li>Confidence intervals based on Monte Carlo standard errors can be now computed using quantiles from a t distribution; see <code><a href="../reference/summary.simsum.html">help(summary.simsum)</a></code> for more details;</li>
+<li>Added comparison with results from Stataâs <code>simsum</code> for testing purposes - differences are negligible, and there are some calculations in <code>simsum</code> that are wrong (already reported). Most differences can be attributed to calculations (and conversions, for comparison) on different scales.</li>
 </ul>
 </div>
-<div id="breaking-changes" class="section level3">
+<div id="breaking-changes-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#breaking-changes" class="anchor"></a>Breaking changes</h3>
+<a href="#breaking-changes-1" class="anchor"></a>Breaking changes</h3>
 <ul>
 <li>The syntax of <code>simsum</code> and <code>multisimsum</code> has been slightly changed, with some arguments being removed and others being moved to a <code>control</code> list with several tuning parameters. Please check the updated examples for more details;</li>
 <li>
@@ -350,28 +393,28 @@
 </div>
 </div>
     <div id="rsimsum-035" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.5">
 <a href="#rsimsum-035" class="anchor"></a>rsimsum 0.3.5<small> Unreleased </small>
 </h1>
-<div id="breaking-changes-1" class="section level3">
+<div id="breaking-changes-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#breaking-changes-1" class="anchor"></a>Breaking changes</h3>
+<a href="#breaking-changes-2" class="anchor"></a>Breaking changes</h3>
 <ul>
 <li>The <code>zip</code> method has been renamed to <code>zipper()</code> to avoid name collision with <code><a href="https://rdrr.io/r/utils/zip.html">utils::zip()</a></code>.</li>
 </ul>
 </div>
 </div>
     <div id="rsimsum-034" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.4">
 <a href="#rsimsum-034" class="anchor"></a>rsimsum 0.3.4<small> Unreleased </small>
 </h1>
 <ul>
-<li>Added ability to define custom confidence interval limits for calculating coverage via the <code>ci.limits</code> argument (#6, <a href='https://github.com/MvanSmeden'>@MvanSmeden</a>). This functionality is to be considered experimental, hence feedback would be much appreciated;</li>
+<li>Added ability to define custom confidence interval limits for calculating coverage via the <code>ci.limits</code> argument (<a href='https://github.com/ellessenne/rsimsum/issues/6'>#6</a>, <a href='https://github.com/MvanSmeden'>@MvanSmeden</a>). This functionality is to be considered experimental, hence feedback would be much appreciated;</li>
 <li>Updated <em>Simulating a simulation study</em> vignette and therefore the <code>relhaz</code> dataset bundled with <code>rsimsum</code>.</li>
 </ul>
 </div>
     <div id="rsimsum-033" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.3">
 <a href="#rsimsum-033" class="anchor"></a>rsimsum 0.3.3<small> 2018-06-20 </small>
 </h1>
 <p><code>rsimsum</code> 0.3.3 focuses on improving the documentation of the package.</p>
@@ -379,8 +422,8 @@
 <ul>
 <li>Improved printing of confidence intervals for summary statistics based on Monte Carlo standard errors;</li>
 <li>Added a <code>description</code> argument to each <code>get_data</code> method, to append a column with a description of each summary statistics exported; defaults to <code>FALSE</code>;</li>
-<li>Improved documentation and introductory vignette to clarify several points (#3, <a href='https://github.com/lebebr01'>@lebebr01</a>);</li>
-<li>Improved plotting vignette to document how to customise plots (#4, <a href='https://github.com/lebebr01'>@lebebr01</a>).</li>
+<li>Improved documentation and introductory vignette to clarify several points (<a href='https://github.com/ellessenne/rsimsum/issues/3'>#3</a>, <a href='https://github.com/lebebr01'>@lebebr01</a>);</li>
+<li>Improved plotting vignette to document how to customise plots (<a href='https://github.com/ellessenne/rsimsum/issues/4'>#4</a>, <a href='https://github.com/lebebr01'>@lebebr01</a>).</li>
 </ul>
 <p>New:</p>
 <ul>
@@ -388,17 +431,17 @@
 </ul>
 </div>
     <div id="rsimsum-032" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.2">
 <a href="#rsimsum-032" class="anchor"></a>rsimsum 0.3.2<small> Unreleased </small>
 </h1>
 <p><code>rsimsum</code> 0.3.2 is a small maintenance release:</p>
 <ul>
-<li>Merged pull request #1 from <a href='https://github.com/mllg'>@mllg</a> adapting to new version of the <code>checkmate</code> package;</li>
+<li>Merged pull request <a href='https://github.com/ellessenne/rsimsum/issues/1'>#1</a> from <a href='https://github.com/mllg'>@mllg</a> adapting to new version of the <code>checkmate</code> package;</li>
 <li>Fixed a bug where automatic labels in <code><a href="https://rdrr.io/r/grDevices/plotmath.html">bar()</a></code> and <code>forest()</code> were not selected properly.</li>
 </ul>
 </div>
     <div id="rsimsum-031" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.1">
 <a href="#rsimsum-031" class="anchor"></a>rsimsum 0.3.1<small> 2018-04-04 </small>
 </h1>
 <p>Bug fixes:</p>
@@ -413,7 +456,7 @@
 <p>Removed dependency on the <code>tidyverse</code> package (thanks Mara Averick).</p>
 </div>
     <div id="rsimsum-030" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.3.0">
 <a href="#rsimsum-030" class="anchor"></a>rsimsum 0.3.0<small> 2018-02-22 </small>
 </h1>
 <p>Bug fixes:</p>
@@ -436,7 +479,7 @@
 <p>Added <code>CONTRIBUTING.md</code> and <code>CONDUCT.md</code>.</p>
 </div>
     <div id="rsimsum-020" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.0">
 <a href="#rsimsum-020" class="anchor"></a>rsimsum 0.2.0<small> 2018-02-15 </small>
 </h1>
 <p>Internal housekeeping.</p>
@@ -456,7 +499,7 @@
 <p>Added a <code>miss</code> function for obtaining basic information on missingness in simulation results. <code>miss</code> has methods <code>print</code> and <code>get_data</code>.</p>
 </div>
     <div id="rsimsum-010" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1.0">
 <a href="#rsimsum-010" class="anchor"></a>rsimsum 0.1.0<small> 2018-02-05 </small>
 </h1>
 <p>First submission to CRAN. <code>rsimsum</code> can handle:</p>
@@ -464,40 +507,17 @@
 <li>simulation studies with a single estimand</li>
 <li>simulation studies with multiple estimands</li>
 <li>simulation studies with multiple methods to compare</li>
-<li>simulation studies with multiple data-generating mechanisms (e.g. ‘by’ factors)</li>
+<li>simulation studies with multiple data-generating mechanisms (e.g.Â âbyâ factors)</li>
 </ul>
 <p>Summary statistics that can be computed are: bias, empirical standard error, mean squared error, percentage gain in precision relative to a reference method, model-based standard error, coverage, bias-corrected coverage, and power.</p>
 <p>Monte Carlo standard errors for each summary statistic can be computed as well.</p>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#rsimsum-development-version">development version</a></li>
-        <li><a href="#rsimsum-080">0.8.0</a></li>
-        <li><a href="#rsimsum-071">0.7.1</a></li>
-        <li><a href="#rsimsum-070">0.7.0</a></li>
-        <li><a href="#rsimsum-062">0.6.2</a></li>
-        <li><a href="#rsimsum-061">0.6.1</a></li>
-        <li><a href="#rsimsum-060">0.6.0</a></li>
-        <li><a href="#rsimsum-052">0.5.2</a></li>
-        <li><a href="#rsimsum-051">0.5.1</a></li>
-        <li><a href="#rsimsum-050">0.5.0</a></li>
-        <li><a href="#rsimsum-042">0.4.2</a></li>
-        <li><a href="#rsimsum-041">0.4.1</a></li>
-        <li><a href="#rsimsum-040">0.4.0</a></li>
-        <li><a href="#rsimsum-035">0.3.5</a></li>
-        <li><a href="#rsimsum-034">0.3.4</a></li>
-        <li><a href="#rsimsum-033">0.3.3</a></li>
-        <li><a href="#rsimsum-032">0.3.2</a></li>
-        <li><a href="#rsimsum-031">0.3.1</a></li>
-        <li><a href="#rsimsum-030">0.3.0</a></li>
-        <li><a href="#rsimsum-020">0.2.0</a></li>
-        <li><a href="#rsimsum-010">0.1.0</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
@@ -509,7 +529,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
 </div>
 
       </footer>
