@@ -106,7 +106,7 @@
       <h1 data-toc-skip>rsimsum and the tidyverse</h1>
                         <h4 class="author">Alessandro Gasparini</h4>
             
-            <h4 class="date">2020-04-02</h4>
+            <h4 class="date">2020-04-08</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/rsimsum/blob/master/vignettes/F-rsimsumtidyverse.Rmd"><code>vignettes/F-rsimsumtidyverse.Rmd</code></a></small>
       <div class="hidden name"><code>F-rsimsumtidyverse.Rmd</code></div>
@@ -127,14 +127,19 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     intersect, setdiff, setequal, union</span>
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">knitr</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">knitr</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'knitr'</span>
+<span class="co">#&gt; The following object is masked from 'package:rsimsum':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     kable</span></pre></body></html></div>
 <p>For instance, it is possible to chain functions using the piping operator <code><a href="https://dplyr.tidyverse.org/reference/reexports.html">%&gt;%</a></code> to obtain tables and plots with a single call:</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"MIsim"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"rsimsum"</span>)
 <span class="no">MIsim</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/simsum.html">simsum</a></span>(<span class="kw">estvarname</span> <span class="kw">=</span> <span class="st">"b"</span>, <span class="kw">se</span> <span class="kw">=</span> <span class="st">"se"</span>, <span class="kw">methodvar</span> <span class="kw">=</span> <span class="st">"method"</span>, <span class="kw">true</span> <span class="kw">=</span> <span class="fl">0.5</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>() <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/get_data.html">get_data</a></span>() <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>()
+  <span class="fu"><a href="../reference/kable.simsum.html">kable</a></span>()
 <span class="co">#&gt; 'ref' method was not specified, CC set as the reference</span></pre></body></html></div>
 <table class="table">
 <thead><tr class="header">
