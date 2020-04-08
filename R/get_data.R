@@ -53,6 +53,9 @@ get_data <- function(x, stats = NULL, ...) {
     x$summ <- x$summ[x$summ$stat %in% stats, ]
   }
 
+  ### Remove row.names
+  row.names(x$summ) <- NULL
+
   ### Return data
   return(x$summ)
 }
