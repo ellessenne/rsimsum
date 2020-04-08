@@ -2,41 +2,24 @@ library(rsimsum)
 library(ggplot2)
 data("tt", package = "rsimsum")
 
-s <- simsum(data = tt, estvarname = "diff", se = "se", true = -1, x = TRUE)
-autoplot(s, type = "zip")
-s <- simsum(data = tt, estvarname = "diff", se = "se", df = "df", true = -1, x = TRUE)
-autoplot(s, type = "zip")
-s <- simsum(data = tt, estvarname = "diff", se = "se", ci.limits = c("lower", "upper"), true = -1, x = TRUE)
-autoplot(s, type = "zip")
+s <- simsum(data = tt, estvarname = "diff", methodvar = "method", se = "se", true = -1, x = TRUE)
+kable(s)
+kable(s, stats = "bias")
+kable(summary(s), stats = "bias")
 
-s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", true = -1, x = TRUE)
-autoplot(s, type = "zip")
-s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", df = "df", true = -1, x = TRUE)
-autoplot(s, type = "zip")
-s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", ci.limits = c("lower", "upper"), true = -1, x = TRUE)
-autoplot(s, type = "zip")
+class(kable(s))
+class(kable(s, format = "latex"))
 
-s <- simsum(data = tt, estvarname = "diff", se = "se", by = "dgm", true = -1, x = TRUE)
-p <- autoplot(s, type = "zip")
-s <- simsum(data = tt, estvarname = "diff", se = "se", by = "dgm", df = "df", true = -1, x = TRUE)
-autoplot(s, type = "zip")
-s <- simsum(data = tt, estvarname = "diff", se = "se", by = "dgm", ci.limits = c("lower", "upper"), true = -1, x = TRUE)
-autoplot(s, type = "zip")
-
-s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", true = -1, x = TRUE)
-autoplot(s, type = "zip")
-s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", df = "df", true = -1, x = TRUE)
-autoplot(s, type = "zip")
-s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", ci.limits = c("lower", "upper"), true = -1, x = TRUE)
-autoplot(s, type = "zip")
-
-tt$true <- -1
-s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", true = "true", x = TRUE)
-autoplot(s, type = "zip")
-s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", df = "df", true = "true", x = TRUE)
-autoplot(s, type = "zip")
-s <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", ci.limits = c("lower", "upper"), true = "true", x = TRUE)
-autoplot(s, type = "zip")
+data("frailty", package = "rsimsum")
+ms <- multisimsum(
+  data = frailty,
+  par = "par", true = c(trt = -0.50, fv = 0.75),
+  estvarname = "b", se = "se", methodvar = "model",
+  by = "fv_dist"
+)
+kable(ms)
+kable(ms, stats = "bias")
+kable(summary(ms), stats = "bias")
 
 ### All-in-one testing
 devtools::document()

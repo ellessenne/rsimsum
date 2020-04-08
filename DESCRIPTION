@@ -23,6 +23,7 @@ Imports:
  checkmate,
  ggridges,
  ggplot2,
+ knitr,
  rlang (>= 0.4.0),
  scales,
  stats
@@ -31,7 +32,6 @@ Suggests:
  devtools,
  dplyr,
  eha,
- knitr,
  rmarkdown,
  rstpm2,
  survival,
