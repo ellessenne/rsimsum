@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.0.9000</span>
       </span>
     </div>
 
@@ -155,6 +155,11 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#rsimsum-development-version" class="anchor"></a>rsimsum (development version)<small> Unreleased </small>
 </h1>
+</div>
+    <div id="rsimsum-090" class="section level1">
+<h1 class="page-header" data-toc-text="0.9.0">
+<a href="#rsimsum-090" class="anchor"></a>rsimsum 0.9.0<small> Unreleased </small>
+</h1>
 <div id="breaking-changes" class="section level3">
 <h3 class="hasAnchor">
 <a href="#breaking-changes" class="anchor"></a>Breaking changes:</h3>
@@ -217,7 +222,7 @@
 <ul>
 <li><p>Added new argument <code>zoom</code> to <code>autoplot</code> methods: it is now possible to <em>zoom</em> on the top x% of a zip plot to improve readability;</p></li>
 <li><p>Added a new example dataset from a toy simulation study assessing the robustness of the t-test. See <code><a href="../reference/tt.html">?"tt"</a></code> for more details;</p></li>
-<li><p>The <code>true</code> argument of <code>rsimsum</code> and <code>multisimsum</code> now accepts a string that identifies a column in <code>data</code>. This is especially useful in settings where the true value varies across replications, e.g.Â when it depends on characteristics of the simulated data. See <code><a href="../articles/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code> for more details and examples;</p></li>
+<li><p>The <code>true</code> argument of <code>rsimsum</code> and <code>multisimsum</code> now accepts a string that identifies a column in <code>data</code>. This is especially useful in settings where the true value varies across replications, e.g. when it depends on characteristics of the simulated data. See <code><a href="../articles/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code> for more details and examples;</p></li>
 <li><p>Analogously, the <code>ci.limits</code> argument now accepts a vector of strings that identifies lower and upper limits for custom-defined confidence intervals from columns in <code>data</code>. Once again, more details are included in <code><a href="../articles/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code>;</p></li>
 <li><p><code>rsimsum</code> now correctly uses <code><a href="https://rdrr.io/r/base/class.html">inherits(obj, "someclass")</a></code> instead of <code>class(obj) == "someclass"</code> (<a href='https://github.com/ellessenne/rsimsum/issues/20'>#20</a>);</p></li>
 <li><p>Fixed bugs and errors that appeared when auto-plotting results of simulation studies with no methods being compared (<a href='https://github.com/ellessenne/rsimsum/issues/23'>#23</a>).</p></li>
@@ -302,7 +307,7 @@
 <h3 class="hasAnchor">
 <a href="#bug-fixes-5" class="anchor"></a>Bug fixes:</h3>
 <ul>
-<li>Fixed labelling when facetting for some plot types, now all defaults to <code><a href="https://ggplot2.tidyverse.org/reference/labellers.html">ggplot2::label_both</a></code> for âbyâ factors (when included).</li>
+<li>Fixed labelling when facetting for some plot types, now all defaults to <code><a href="https://ggplot2.tidyverse.org/reference/labellers.html">ggplot2::label_both</a></code> for ‘by’ factors (when included).</li>
 </ul>
 </div>
 </div>
@@ -314,7 +319,7 @@
 <h3 class="hasAnchor">
 <a href="#bug-fixes-6" class="anchor"></a>Bug fixes:</h3>
 <ul>
-<li>Fixed calculations for âRelative % increase in precisionâ (thanks to Ian R. White for reporting this).</li>
+<li>Fixed calculations for “Relative % increase in precision” (thanks to Ian R. White for reporting this).</li>
 </ul>
 </div>
 </div>
@@ -352,7 +357,7 @@
 <li>forest plot of estimated summary statistics;</li>
 <li>lolly plot of summary statistics;</li>
 <li>zip plot for coverage probability;</li>
-<li>scatter plot of methods-wise comparison (e.g.Â X vs Y) of point estimates and standard errors, per replication;</li>
+<li>scatter plot of methods-wise comparison (e.g. X vs Y) of point estimates and standard errors, per replication;</li>
 <li>same as the above, but implemented as a Bland-Altman type plot;</li>
 <li>ridgeline plot of estimates, standard errors to compare the distribution of estimates, standard errors by method.</li>
 </ul>
@@ -374,9 +379,9 @@
 <a href="#improvements-5" class="anchor"></a>Improvements</h3>
 <ul>
 <li>
-<code>rsimsum</code> is more robust to using factor variables (e.g.Â as <code>methodvar</code> or <code>by</code> factor), with ordering that will be preserved if defined in the dataset passed to <code>simsum</code> (or <code>multisimsum</code>);</li>
+<code>rsimsum</code> is more robust to using factor variables (e.g. as <code>methodvar</code> or <code>by</code> factor), with ordering that will be preserved if defined in the dataset passed to <code>simsum</code> (or <code>multisimsum</code>);</li>
 <li>Confidence intervals based on Monte Carlo standard errors can be now computed using quantiles from a t distribution; see <code><a href="../reference/summary.simsum.html">help(summary.simsum)</a></code> for more details;</li>
-<li>Added comparison with results from Stataâs <code>simsum</code> for testing purposes - differences are negligible, and there are some calculations in <code>simsum</code> that are wrong (already reported). Most differences can be attributed to calculations (and conversions, for comparison) on different scales.</li>
+<li>Added comparison with results from Stata’s <code>simsum</code> for testing purposes - differences are negligible, and there are some calculations in <code>simsum</code> that are wrong (already reported). Most differences can be attributed to calculations (and conversions, for comparison) on different scales.</li>
 </ul>
 </div>
 <div id="breaking-changes-1" class="section level3">
@@ -508,7 +513,7 @@
 <li>simulation studies with a single estimand</li>
 <li>simulation studies with multiple estimands</li>
 <li>simulation studies with multiple methods to compare</li>
-<li>simulation studies with multiple data-generating mechanisms (e.g.Â âbyâ factors)</li>
+<li>simulation studies with multiple data-generating mechanisms (e.g. ‘by’ factors)</li>
 </ul>
 <p>Summary statistics that can be computed are: bias, empirical standard error, mean squared error, percentage gain in precision relative to a reference method, model-based standard error, coverage, bias-corrected coverage, and power.</p>
 <p>Monte Carlo standard errors for each summary statistic can be computed as well.</p>
@@ -530,7 +535,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
