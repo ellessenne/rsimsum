@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
   fig.height = 4.5,
   fig.width = 6.5,
   out.width = "85%",
-  dpi = 150
+  dpi = 120
 )
 options(width = 100)
 ```
