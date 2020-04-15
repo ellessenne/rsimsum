@@ -1,4 +1,4 @@
-# rsimsum (development version)
+# rsimsum 0.9.0
 
 ### Breaking changes:
 
