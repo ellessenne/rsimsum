@@ -80,7 +80,7 @@ $$\text{MCSE(MSE)} = \sqrt{\frac{\sum_{i = 1} ^ {n_{\text{sim}}} \left[ (\hat{\t
 
 The **model based standard error** is computed by averaging the estimated standard errors for each replication:
 
-$$\text{Model SE} = \sqrt{\frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} \widehat{\text{Var}}(\hat{\theta}_i))}$$
+$$\text{Model SE} = \sqrt{\frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} \widehat{\text{Var}}(\hat{\theta}_i)}$$
 
 Its (approximated) Monte Carlo standard error is computed as:
 

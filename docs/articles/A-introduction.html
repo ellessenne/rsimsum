@@ -165,7 +165,7 @@
 <p>The Monte Carlo standard error is:</p>
 <p><span class="math display">\[\text{MCSE(MSE)} = \sqrt{\frac{\sum_{i = 1} ^ {n_{\text{sim}}} \left[ (\hat{\theta}_i - \theta) ^2 - \text{MSE} \right] ^ 2}{n_{\text{sim}} (n_{\text{sim}} - 1)}}\]</span></p>
 <p>The <strong>model based standard error</strong> is computed by averaging the estimated standard errors for each replication:</p>
-<p><span class="math display">\[\text{Model SE} = \sqrt{\frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} \widehat{\text{Var}}(\hat{\theta}_i))}\]</span></p>
+<p><span class="math display">\[\text{Model SE} = \sqrt{\frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} \widehat{\text{Var}}(\hat{\theta}_i)}\]</span></p>
 <p>Its (approximated) Monte Carlo standard error is computed as:</p>
 <p><span class="math display">\[\text{MCSE(Model SE)} \simeq \sqrt{\frac{\text{Var}[\widehat{\text{Var}}(\hat{\theta}_i)]}{4 n_{\text{sim}} \widehat{\text{Model SE}}}}\]</span></p>
 <p>The model standard error targets the empirical standard error. Hence, the <strong>relative error in the model standard error</strong> is an informative performance measure:</p>

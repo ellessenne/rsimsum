@@ -1,5 +1,9 @@
 # rsimsum (development version)
 
+### Bug fixes:
+
+* Fixed a typo in introductory vignette.
+
 # rsimsum 0.9.0
 
 ### Breaking changes:
