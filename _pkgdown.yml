@@ -2,6 +2,5 @@ url: https://ellessenne.github.io/rsimsum
 template:
   params:
     bootswatch: flatly
-    ganalytics: UA-55201181-2
 home:
   title: Analysis of Simulation Studies Including Monte Carlo Error
