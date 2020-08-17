@@ -114,169 +114,169 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install <code>rsimsum</code> from CRAN:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"rsimsum"</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">install.packages</span>(<span class="st">"rsimsum"</span>)</span></code></pre></div>
 <p>Alternatively, it is possible to install the development version from GitHub using the <code>remotes</code> package:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="co"># install.packages("remotes")</span>
-<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"ellessenne/rsimsum"</span>)</pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="co"># install.packages("remotes")</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"ellessenne/rsimsum"</span>)</span></code></pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>This is a basic example using data from a simulation study on missing data (type <code><a href="reference/MIsim.html">help("MIsim", package = "rsimsum")</a></code> in the R console for more information):</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rsimsum</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"MIsim"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"rsimsum"</span>)
-<span class="no">s</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/simsum.html">simsum</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">MIsim</span>, <span class="kw">estvarname</span> <span class="kw">=</span> <span class="st">"b"</span>, <span class="kw">true</span> <span class="kw">=</span> <span class="fl">0.5</span>, <span class="kw">se</span> <span class="kw">=</span> <span class="st">"se"</span>, <span class="kw">methodvar</span> <span class="kw">=</span> <span class="st">"method"</span>, <span class="kw">x</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="co">#&gt; 'ref' method was not specified, CC set as the reference</span>
-<span class="no">s</span>
-<span class="co">#&gt; Summary of a simulation study with a single estimand.</span>
-<span class="co">#&gt; True value of the estimand: 0.5 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Method variable: method </span>
-<span class="co">#&gt;  Unique methods: CC, MI_LOGT, MI_T </span>
-<span class="co">#&gt;  Reference method: CC </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; By factors: none</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Monte Carlo standard errors were computed.</span></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">library</span>(rsimsum)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="kw">data</span>(<span class="st">"MIsim"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>s &lt;-<span class="st"> </span><span class="kw">simsum</span>(<span class="dt">data =</span> MIsim, <span class="dt">estvarname =</span> <span class="st">"b"</span>, <span class="dt">true =</span> <span class="fl">0.5</span>, <span class="dt">se =</span> <span class="st">"se"</span>, <span class="dt">methodvar =</span> <span class="st">"method"</span>, <span class="dt">x =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="co">#&gt; 'ref' method was not specified, CC set as the reference</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>s</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a><span class="co">#&gt; Summary of a simulation study with a single estimand.</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a><span class="co">#&gt; True value of the estimand: 0.5 </span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a><span class="co">#&gt; Method variable: method </span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a><span class="co">#&gt;  Unique methods: CC, MI_LOGT, MI_T </span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a><span class="co">#&gt;  Reference method: CC </span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a><span class="co">#&gt; By factors: none</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a><span class="co">#&gt; Monte Carlo standard errors were computed.</span></span></code></pre></div>
 <p>We set <code>x = TRUE</code> as it will be required for some plot types.</p>
 <p>Summarising the results:</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">s</span>)
-<span class="co">#&gt; Values are:</span>
-<span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Non-missing point estimates/standard errors:</span>
-<span class="co">#&gt;    CC MI_LOGT MI_T</span>
-<span class="co">#&gt;  1000    1000 1000</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Average point estimate:</span>
-<span class="co">#&gt;      CC MI_LOGT   MI_T</span>
-<span class="co">#&gt;  0.5168  0.5009 0.4988</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Median point estimate:</span>
-<span class="co">#&gt;      CC MI_LOGT   MI_T</span>
-<span class="co">#&gt;  0.5070  0.4969 0.4939</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Average variance:</span>
-<span class="co">#&gt;      CC MI_LOGT   MI_T</span>
-<span class="co">#&gt;  0.0216  0.0182 0.0179</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Median variance:</span>
-<span class="co">#&gt;      CC MI_LOGT   MI_T</span>
-<span class="co">#&gt;  0.0211  0.0172 0.0169</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Bias in point estimate:</span>
-<span class="co">#&gt;               CC         MI_LOGT             MI_T</span>
-<span class="co">#&gt;  0.0168 (0.0048) 0.0009 (0.0042) -0.0012 (0.0043)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Empirical standard error:</span>
-<span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
-<span class="co">#&gt;  0.1511 (0.0034) 0.1320 (0.0030) 0.1344 (0.0030)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; % gain in precision relative to method CC:</span>
-<span class="co">#&gt;               CC          MI_LOGT             MI_T</span>
-<span class="co">#&gt;  0.0000 (0.0000) 31.0463 (3.9375) 26.3682 (3.8424)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Mean squared error:</span>
-<span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
-<span class="co">#&gt;  0.0231 (0.0011) 0.0174 (0.0009) 0.0181 (0.0009)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Model-based standard error:</span>
-<span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
-<span class="co">#&gt;  0.1471 (0.0005) 0.1349 (0.0006) 0.1338 (0.0006)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Relative % error in standard error:</span>
-<span class="co">#&gt;                CC         MI_LOGT             MI_T</span>
-<span class="co">#&gt;  -2.6594 (2.2049) 2.2233 (2.3318) -0.4412 (2.2690)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coverage of nominal 95% confidence interval:</span>
-<span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
-<span class="co">#&gt;  0.9430 (0.0073) 0.9490 (0.0070) 0.9430 (0.0073)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Bias-eliminated coverage of nominal 95% confidence interval:</span>
-<span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
-<span class="co">#&gt;  0.9400 (0.0075) 0.9490 (0.0070) 0.9430 (0.0073)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Power of 5% level test:</span>
-<span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
-<span class="co">#&gt;  0.9460 (0.0071) 0.9690 (0.0055) 0.9630 (0.0060)</span></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">summary</span>(s)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="co">#&gt; Values are:</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a><span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a><span class="co">#&gt; Non-missing point estimates/standard errors:</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true"></a><span class="co">#&gt;    CC MI_LOGT MI_T</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true"></a><span class="co">#&gt;  1000    1000 1000</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true"></a><span class="co">#&gt; Average point estimate:</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true"></a><span class="co">#&gt;      CC MI_LOGT   MI_T</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true"></a><span class="co">#&gt;  0.5168  0.5009 0.4988</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true"></a><span class="co">#&gt; Median point estimate:</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true"></a><span class="co">#&gt;      CC MI_LOGT   MI_T</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true"></a><span class="co">#&gt;  0.5070  0.4969 0.4939</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true"></a><span class="co">#&gt; Average variance:</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true"></a><span class="co">#&gt;      CC MI_LOGT   MI_T</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true"></a><span class="co">#&gt;  0.0216  0.0182 0.0179</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true"></a><span class="co">#&gt; Median variance:</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true"></a><span class="co">#&gt;      CC MI_LOGT   MI_T</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true"></a><span class="co">#&gt;  0.0211  0.0172 0.0169</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true"></a><span class="co">#&gt; Bias in point estimate:</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true"></a><span class="co">#&gt;               CC         MI_LOGT             MI_T</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true"></a><span class="co">#&gt;  0.0168 (0.0048) 0.0009 (0.0042) -0.0012 (0.0043)</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true"></a><span class="co">#&gt; Empirical standard error:</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true"></a><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true"></a><span class="co">#&gt;  0.1511 (0.0034) 0.1320 (0.0030) 0.1344 (0.0030)</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true"></a><span class="co">#&gt; % gain in precision relative to method CC:</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true"></a><span class="co">#&gt;               CC          MI_LOGT             MI_T</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true"></a><span class="co">#&gt;  0.0000 (0.0000) 31.0463 (3.9375) 26.3682 (3.8424)</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true"></a><span class="co">#&gt; Mean squared error:</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true"></a><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true"></a><span class="co">#&gt;  0.0231 (0.0011) 0.0174 (0.0009) 0.0181 (0.0009)</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true"></a><span class="co">#&gt; Model-based standard error:</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true"></a><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true"></a><span class="co">#&gt;  0.1471 (0.0005) 0.1349 (0.0006) 0.1338 (0.0006)</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true"></a><span class="co">#&gt; Relative % error in standard error:</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true"></a><span class="co">#&gt;                CC         MI_LOGT             MI_T</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true"></a><span class="co">#&gt;  -2.6594 (2.2049) 2.2233 (2.3318) -0.4412 (2.2690)</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true"></a><span class="co">#&gt; Coverage of nominal 95% confidence interval:</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true"></a><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true"></a><span class="co">#&gt;  0.9430 (0.0073) 0.9490 (0.0070) 0.9430 (0.0073)</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true"></a><span class="co">#&gt; Bias-eliminated coverage of nominal 95% confidence interval:</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true"></a><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true"></a><span class="co">#&gt;  0.9400 (0.0075) 0.9490 (0.0070) 0.9430 (0.0073)</span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true"></a><span class="co">#&gt; Power of 5% level test:</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true"></a><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true"></a><span class="co">#&gt;  0.9460 (0.0071) 0.9690 (0.0055) 0.9630 (0.0060)</span></span></code></pre></div>
 </div>
 <div id="vignettes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#vignettes" class="anchor"></a>Vignettes</h2>
 <p><code>rsimsum</code> comes with 5 vignettes. In particular, check out the introductory one:</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="kw">topic</span> <span class="kw">=</span> <span class="st">"A-introduction"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"rsimsum"</span>)</pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">vignette</span>(<span class="dt">topic =</span> <span class="st">"A-introduction"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span></code></pre></div>
 <p>The list of vignettes could be obtained by typing the following in the R console:</p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="kw">package</span> <span class="kw">=</span> <span class="st">"rsimsum"</span>)</pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">vignette</span>(<span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span></code></pre></div>
 </div>
 <div id="visualising-results" class="section level2">
 <h2 class="hasAnchor">
 <a href="#visualising-results" class="anchor"></a>Visualising results</h2>
 <p>As of version <code>0.2.0</code>, <code>rsimsum</code> can produce a variety of plots: among others, lolly plots, forest plots, zipper plots, etc.:</p>
-<div class="sourceCode" id="cb7"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">s</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"lolly"</span>, <span class="kw">stats</span> <span class="kw">=</span> <span class="st">"bias"</span>)</pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="kw">autoplot</span>(s, <span class="dt">type =</span> <span class="st">"lolly"</span>, <span class="dt">stats =</span> <span class="st">"bias"</span>)</span></code></pre></div>
 <p><img src="reference/figures/README-lolly-1.png" width="85%" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb8"><pre class="r"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">s</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"zip"</span>)</pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">autoplot</span>(s, <span class="dt">type =</span> <span class="st">"zip"</span>)</span></code></pre></div>
 <p><img src="reference/figures/README-zipper-1.png" width="85%" style="display: block; margin: auto;"></p>
 <p>With <code>rsimsum</code> <code>0.5.0</code> the plotting functionality has been completely rewritten, and new plot types have been implemented:</p>
 <ul>
 <li>Scatter plots for method-wise comparisons, including Bland-Altman type plots;</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb9"><pre class="r"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">s</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"est_ba"</span>)
-<span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span></pre></div>
+<!-- --><div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="kw">autoplot</span>(s, <span class="dt">type =</span> <span class="st">"est_ba"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span></span></code></pre></div>
 <p><img src="reference/figures/README-ba-1.png" width="85%" style="display: block; margin: auto;"></p>
 <ul>
 <li>Ridgeline plots.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb10"><pre class="r"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">s</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"est_ridge"</span>)
-<span class="co">#&gt; Picking joint bandwidth of 0.0295</span></pre></div>
+<!-- --><div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="kw">autoplot</span>(s, <span class="dt">type =</span> <span class="st">"est_ridge"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="co">#&gt; Picking joint bandwidth of 0.0295</span></span></code></pre></div>
 <p><img src="reference/figures/README-ridgeline-1.png" width="85%" style="display: block; margin: auto;"></p>
 <p>Nested loop plots have been implemented in <code>rsimsum</code> <code>0.6.0</code>:</p>
-<div class="sourceCode" id="cb11"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"nlp"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"rsimsum"</span>)
-<span class="no">s.nlp</span> <span class="kw">&lt;-</span> <span class="kw pkg">rsimsum</span><span class="kw ns">::</span><span class="fu"><a href="reference/simsum.html">simsum</a></span>(
-  <span class="kw">data</span> <span class="kw">=</span> <span class="no">nlp</span>, <span class="kw">estvarname</span> <span class="kw">=</span> <span class="st">"b"</span>, <span class="kw">true</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">se</span> <span class="kw">=</span> <span class="st">"se"</span>,
-  <span class="kw">methodvar</span> <span class="kw">=</span> <span class="st">"model"</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"baseline"</span>, <span class="st">"ss"</span>, <span class="st">"esigma"</span>)
-)
-<span class="co">#&gt; 'ref' method was not specified, 1 set as the reference</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">s.nlp</span>, <span class="kw">stats</span> <span class="kw">=</span> <span class="st">"bias"</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"nlp"</span>)</pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="kw">data</span>(<span class="st">"nlp"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>s.nlp &lt;-<span class="st"> </span>rsimsum<span class="op">::</span><span class="kw">simsum</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>  <span class="dt">data =</span> nlp, <span class="dt">estvarname =</span> <span class="st">"b"</span>, <span class="dt">true =</span> <span class="dv">0</span>, <span class="dt">se =</span> <span class="st">"se"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>  <span class="dt">methodvar =</span> <span class="st">"model"</span>, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">"baseline"</span>, <span class="st">"ss"</span>, <span class="st">"esigma"</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a><span class="co">#&gt; 'ref' method was not specified, 1 set as the reference</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a><span class="kw">autoplot</span>(s.nlp, <span class="dt">stats =</span> <span class="st">"bias"</span>, <span class="dt">type =</span> <span class="st">"nlp"</span>)</span></code></pre></div>
 <p><img src="reference/figures/README-nlp-1.png" width="85%" style="display: block; margin: auto;"></p>
 <p>Finally, as of <code>rsimsum</code> <code>0.7.1</code> contour plots and hexbin plots have been implemented as well:</p>
-<div class="sourceCode" id="cb12"><pre class="r"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">s</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"est_density"</span>)
-<span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="kw">autoplot</span>(s, <span class="dt">type =</span> <span class="st">"est_density"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span></span></code></pre></div>
 <p><img src="reference/figures/README-density-1.png" width="85%" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb13"><pre class="r"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">s</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"est_hex"</span>)
-<span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a><span class="kw">autoplot</span>(s, <span class="dt">type =</span> <span class="st">"est_hex"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true"></a><span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span></span></code></pre></div>
 <p><img src="reference/figures/README-hex-1.png" width="85%" style="display: block; margin: auto;"></p>
 <p>They provide a useful alternative when there are several data points with large overlap (e.g. in a scatterplot).</p>
 <p>The plotting functionality now extend the S3 generic <code>autoplot</code>: see <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">?ggplot2::autoplot</a></code> and <code><a href="reference/autoplot.simsum.html">?rsimsum::autoplot.simsum</a></code> for further details.</p>
 <p>More details and information can be found in the vignettes dedicated to plotting:</p>
-<div class="sourceCode" id="cb14"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="kw">topic</span> <span class="kw">=</span> <span class="st">"C-plotting"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"rsimsum"</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="kw">topic</span> <span class="kw">=</span> <span class="st">"D-nlp"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"rsimsum"</span>)</pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="kw">vignette</span>(<span class="dt">topic =</span> <span class="st">"C-plotting"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true"></a><span class="kw">vignette</span>(<span class="dt">topic =</span> <span class="st">"D-nlp"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="citation" class="section level1">
 <h1 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h1>
 <p>If you find <code>rsimsum</code> useful, please cite it in your publications:</p>
-<div class="sourceCode" id="cb15"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"rsimsum"</span>)
-<span class="co">#&gt; </span>
-<span class="co">#&gt; To cite the rsimsum package in publications, please use:</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   Gasparini, (2018). rsimsum: Summarise results from Monte Carlo simulation studies.</span>
-<span class="co">#&gt;   Journal of Open Source Software, 3(26), 739, https://doi.org/10.21105/joss.00739</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   @Article{,</span>
-<span class="co">#&gt;     author = {Alessandro Gasparini},</span>
-<span class="co">#&gt;     title = {rsimsum: Summarise results from Monte Carlo simulation studies},</span>
-<span class="co">#&gt;     journal = {Journal of Open Source Software},</span>
-<span class="co">#&gt;     year = {2018},</span>
-<span class="co">#&gt;     volume = {3},</span>
-<span class="co">#&gt;     issue = {26},</span>
-<span class="co">#&gt;     pages = {739},</span>
-<span class="co">#&gt;     doi = {10.21105/joss.00739},</span>
-<span class="co">#&gt;     url = {https://doi.org/10.21105/joss.00739},</span>
-<span class="co">#&gt;   }</span></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="kw">citation</span>(<span class="st">"rsimsum"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a><span class="co">#&gt; To cite the rsimsum package in publications, please use:</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a><span class="co">#&gt;   Gasparini, (2018). rsimsum: Summarise results from Monte Carlo simulation studies.</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a><span class="co">#&gt;   Journal of Open Source Software, 3(26), 739, https://doi.org/10.21105/joss.00739</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true"></a><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true"></a><span class="co">#&gt; </span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true"></a><span class="co">#&gt;   @Article{,</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true"></a><span class="co">#&gt;     author = {Alessandro Gasparini},</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true"></a><span class="co">#&gt;     title = {rsimsum: Summarise results from Monte Carlo simulation studies},</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true"></a><span class="co">#&gt;     journal = {Journal of Open Source Software},</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true"></a><span class="co">#&gt;     year = {2018},</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true"></a><span class="co">#&gt;     volume = {3},</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true"></a><span class="co">#&gt;     issue = {26},</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true"></a><span class="co">#&gt;     pages = {739},</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true"></a><span class="co">#&gt;     doi = {10.21105/joss.00739},</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true"></a><span class="co">#&gt;     url = {https://doi.org/10.21105/joss.00739},</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true"></a><span class="co">#&gt;   }</span></span></code></pre></div>
 </div>
 <div id="references" class="section level1">
 <h1 class="hasAnchor">
@@ -291,7 +291,7 @@
 <h1 class="hasAnchor">
 <a href="#warning-for-rstudio-users" class="anchor"></a>Warning for RStudio users</h1>
 <p>If you use RStudio and equations are not displayed properly within the RStudio viewer window, please access the vignette from the <a href="https://CRAN.R-project.org/package=rsimsum">CRAN website</a>, the <a href="https://ellessenne.github.io/rsimsum/">rsimsum website</a>, or directly from the R console with the command:</p>
-<div class="sourceCode" id="cb16"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="kw">topic</span> <span class="kw">=</span> <span class="st">"A-introduction"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"rsimsum"</span>)</pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="kw">vignette</span>(<span class="dt">topic =</span> <span class="st">"A-introduction"</span>, <span class="dt">package =</span> <span class="st">"rsimsum"</span>)</span></code></pre></div>
 <p>This is a known issue with RStudio (see <a href="https://github.com/rstudio/rstudio/issues/2253">#2253</a>).</p>
 </div>
 
@@ -347,7 +347,6 @@
 <li><a href="https://cran.r-project.org/package=rsimsum"><img src="http://cranlogs.r-pkg.org/badges/rsimsum" alt="CRAN_Logs_Badge"></a></li>
 <li><a href="https://cran.r-project.org/package=rsimsum"><img src="http://cranlogs.r-pkg.org/badges/grand-total/rsimsum" alt="CRAN_Logs_Badge_Total"></a></li>
 <li><a href="https://doi.org/10.21105/joss.00739"><img src="http://joss.theoj.org/papers/10.21105/joss.00739/status.svg" alt="JOSS DOI"></a></li>
-<li><a href="https://zenodo.org/badge/latestdoi/92379170"><img src="https://zenodo.org/badge/92379170.svg" alt="Zenodo DOI"></a></li>
 <li><a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome"></a></li>
 </ul>
 </div>

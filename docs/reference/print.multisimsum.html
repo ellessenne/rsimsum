@@ -183,6 +183,19 @@
 #&gt; 
 #&gt; By factors: fv_dist 
 #&gt; 
+#&gt; Monte Carlo standard errors were computed.</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"frailty"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"rsimsum"</span>)
+<span class='no'>frailty</span>$<span class='no'>true</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>frailty</span>$<span class='no'>par</span> <span class='kw'>==</span> <span class='st'>"trt"</span>, -<span class='fl'>0.50</span>, <span class='fl'>0.75</span>)
+<span class='no'>ms</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='multisimsum.html'>multisimsum</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>frailty</span>, <span class='kw'>par</span> <span class='kw'>=</span> <span class='st'>"par"</span>, <span class='kw'>estvarname</span> <span class='kw'>=</span> <span class='st'>"b"</span>, <span class='kw'>true</span> <span class='kw'>=</span> <span class='st'>"true"</span>)
+<span class='no'>ms</span></div><div class='output co'>#&gt; 
+#&gt; Estimands variable: par 
+#&gt; 	Unique estimands: fv, trt 
+#&gt; 	True values from column  'true' 
+#&gt; 
+#&gt; Method variable: none
+#&gt; 
+#&gt; By factors: none
+#&gt; 
 #&gt; Monte Carlo standard errors were computed.</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
