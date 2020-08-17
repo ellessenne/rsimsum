@@ -24,4 +24,9 @@ ms <- multisimsum(
   by = "fv_dist"
 )
 ms
+
+data("frailty", package = "rsimsum")
+frailty$true <- ifelse(frailty$par == "trt", -0.50, 0.75)
+ms <- multisimsum(data = frailty, par = "par", estvarname = "b", true = "true")
+ms
 }

@@ -14,13 +14,26 @@
 #'   by = "fv_dist"
 #' )
 #' ms
+#'
+#' data("frailty", package = "rsimsum")
+#' frailty$true <- ifelse(frailty$par == "trt", -0.50, 0.75)
+#' ms <- multisimsum(data = frailty, par = "par", estvarname = "b", true = "true")
+#' ms
 print.multisimsum <- function(x, ...) {
   ### Print `par`, possible estimands
   cat("\nEstimands variable:", x$par, "\n")
   estimands <- unique(x$summ[[x$par]])
   cat("\tUnique estimands:", paste(estimands, collapse = ", "), "\n")
   if (!is.null(x$true)) {
-    cat("\tTrue values:", paste(estimands, "=", x$true[estimands], collapse = ", "), "\n")
+    if (rlang::is_named(x$true)) {
+      cat("\tTrue values:", paste(estimands, "=", x$true[estimands], collapse = ", "), "\n")
+    } else {
+      if (is.character(x$true)) {
+        cat("\tTrue values from column ", paste0("'", x$true, "'"), "\n")
+      } else {
+        cat("\tTrue values fixed at value", x$true, "\n")
+      }
+    }
   } else {
     cat("\tTrue value of the estimands not defined: bias, coverage, and mean squared error were not computed.\n")
   }

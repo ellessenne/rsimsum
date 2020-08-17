@@ -11,10 +11,18 @@
 #'   methodvar = "method"
 #' )
 #' x
+#'
+#' MIsim$true <- 0.5
+#' x <- simsum(data = MIsim, estvarname = "b", true = "true", se = "se")
+#' x
 print.simsum <- function(x, ...) {
   cat("Summary of a simulation study with a single estimand.\n")
   if (!is.null(x$true)) {
-    cat("True value of the estimand:", x$true, "\n")
+    if (is.character(x$true)) {
+      cat("\tTrue values from column ", paste0("'", x$true, "'"), "\n")
+    } else {
+      cat("True value of the estimand:", x$true, "\n")
+    }
   } else {
     cat("True value of the estimand not defined: bias, coverage, and mean squared error were not computed.\n")
   }

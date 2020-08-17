@@ -21,4 +21,8 @@ x <- simsum(
   methodvar = "method"
 )
 x
+
+MIsim$true <- 0.5
+x <- simsum(data = MIsim, estvarname = "b", true = "true", se = "se")
+x
 }
