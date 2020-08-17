@@ -29,7 +29,7 @@ print.multisimsum <- function(x, ...) {
       cat("\tTrue values:", paste(estimands, "=", x$true[estimands], collapse = ", "), "\n")
     } else {
       if (is.character(x$true)) {
-        cat("\tTrue values from column ", paste0("'", x$true, "'"), "\n")
+        cat("\tTrue values from column", paste0("'", x$true, "'"), "\n")
       } else {
         cat("\tTrue values fixed at value", x$true, "\n")
       }
