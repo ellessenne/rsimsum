@@ -19,7 +19,7 @@ print.simsum <- function(x, ...) {
   cat("Summary of a simulation study with a single estimand.\n")
   if (!is.null(x$true)) {
     if (is.character(x$true)) {
-      cat("\tTrue values from column", paste0("'", x$true, "'"), "\n")
+      cat("True value of the estimand from column", paste0("'", x$true, "'"), "\n")
     } else {
       cat("True value of the estimand:", x$true, "\n")
     }
