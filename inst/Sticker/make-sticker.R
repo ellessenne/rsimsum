@@ -1,8 +1,6 @@
 library(tidyverse)
 library(ggridges)
 library(hexSticker)
-# Using dev version of hexSticker from:
-# devtools::install_github("GuangchuangYu/hexSticker")
 library(sysfonts)
 
 set.seed(20181212)
@@ -58,7 +56,7 @@ sticker(
   p_family = p_family,
   p_size = 8,
   h_size = 0,
-  h_fill = "black",
+  h_fill = "#212529",
   #  url = "github.com/ellessenne/rsimsum",
   #  u_color = "#FDE725",
   #  u_family = u_family,
@@ -80,7 +78,7 @@ sticker(
   p_family = p_family,
   p_size = 8,
   h_size = 0,
-  h_fill = "black",
+  h_fill = "#212529",
   #  url = "github.com/ellessenne/rsimsum",
   #  u_color = "#FDE725",
   #  u_family = u_family,
