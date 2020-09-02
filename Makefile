@@ -2,6 +2,7 @@
 
 pre_submission_test:
 	R -e "devtools::document()"
+	R -e "devtools::build_readme()"
 	R -e "devtools::build_vignettes()"
 	R -e "pkgdown::build_site()"
 	R -e "devtools::check()"
