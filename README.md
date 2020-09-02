@@ -285,7 +285,7 @@ References
 
 -   White, I.R. 2010. *simsum: Analyses of simulation studies including
     Monte Carlo error*. The Stata Journal 10(3): 369-385
-    &lt;<http://www.stata-journal.com/article.html?article=st0200>&gt;
+    &lt;<https://www.stata-journal.com/article.html?article=st0200>&gt;
 -   Morris, T.P., White, I.R. and Crowther, M.J. 2019. *Using simulation
     studies to evaluate statistical methods*. Statistics in Medicine,
     &lt;[doi:10.1002/sim.8086](https://doi.org/10.1002/sim.8086)&gt;

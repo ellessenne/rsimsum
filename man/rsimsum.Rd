@@ -8,7 +8,7 @@
 Summarise results from simulation studies and compute Monte Carlo
 standard errors of commonly used summary statistics. This package is modelled
 on the 'simsum' user-written command in 'Stata' (See White I.R., 2010
-\url{http://www.stata-journal.com/article.html?article=st0200}).
+\url{https://www.stata-journal.com/article.html?article=st0200}).
 }
 \author{
 Alessandro Gasparini (alessandro.gasparini@ki.se)

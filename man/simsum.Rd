@@ -84,7 +84,7 @@ s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "
 s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
 }
 \references{
-White, I.R. 2010. simsum: Analyses of simulation studies including Monte Carlo error. The Stata Journal 10(3): 369-385. \url{http://www.stata-journal.com/article.html?article=st0200}
+White, I.R. 2010. simsum: Analyses of simulation studies including Monte Carlo error. The Stata Journal 10(3): 369-385. \url{https://www.stata-journal.com/article.html?article=st0200}
 
 Morris, T.P., White, I.R. and Crowther, M.J. 2019. \emph{Using simulation studies to evaluate statistical methods}. Statistics in Medicine, \doi{10.1002/sim.8086}
 

@@ -35,7 +35,7 @@
 #' * `dropbig.semax`, specifies the maximum acceptable absolute value of the standard error, after standardisation. Defaults to 100
 #' * `dropbig.robust`, specifies whether to use robust standardisation (using median and inter-quartile range) rather than normal standardisation (using mean and standard deviation). Defaults to `TRUE`, in which case robust standardisation will be used for `dropbig`.
 #' @return An object of class `simsum`.
-#' @references White, I.R. 2010. simsum: Analyses of simulation studies including Monte Carlo error. The Stata Journal 10(3): 369-385. \url{http://www.stata-journal.com/article.html?article=st0200}
+#' @references White, I.R. 2010. simsum: Analyses of simulation studies including Monte Carlo error. The Stata Journal 10(3): 369-385. \url{https://www.stata-journal.com/article.html?article=st0200}
 #' @references Morris, T.P., White, I.R. and Crowther, M.J. 2019. _Using simulation studies to evaluate statistical methods_. Statistics in Medicine, \doi{10.1002/sim.8086}
 #' @references Gasparini, A. 2018. rsimsum: Summarise results from Monte Carlo simulation studies. Journal of Open Source Software 3(26):739, \doi{10.21105/joss.00739}
 #' @export
