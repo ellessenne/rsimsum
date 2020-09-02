@@ -1,14 +1,16 @@
-# Test environments
-* local macOS install (Catalina 10.15.4), R 3.6.3
-* ubuntu (via Travis-CI), R-oldrelease, R-release, R-devel
-* macOS (via Travis-CI), R-oldrelease, R-release
-* windows (via AppVeyor)
-* win-builder (R-oldrelease, R-release, R-devel)
-* r-hub (via rhub::check_for_cran())
-* macOS (via rhub::check_on_macos())
+## Test environments
 
-# R CMD check results (on all platforms)
-0 errors | 0 warnings | 0 notes
+* local R installation, R 4.0.2, macOS Catalina 10.15.6
+* ubuntu (on travis-ci, devel, release, oldrelease)
+* windows (via win-builder, devel, release, oldrelease)
+* windows (via appveyor)
+* rhub (with rhub::check_for_cran())
 
-# Reverse dependencies
-There are no reverse dependencies
+## R CMD check results
+
+0 errors | 0 warnings | 1 note
+
+* checking for future file timestamps ... NOTE
+  unable to verify current time
+
+I get this note on R-hub (and local checks) but not on win-builder (nor on CI platforms); I think it's unrelated to this package?
