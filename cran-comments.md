@@ -1,3 +1,5 @@
+This is a resubmission, after replacing a <http> URL with <https>.
+
 ## Test environments
 
 * local R installation, R 4.0.2, macOS Catalina 10.15.6
