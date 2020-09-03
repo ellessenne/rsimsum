@@ -4,7 +4,9 @@
 
 * Improved printing for simulation studies with 'non-standard' way of passing true values (see e.g. #28 on GitHub);
 
-* Fixed a typo in introductory vignette.
+* Fixed a typo in introductory vignette;
+
+* Some internal housekeeping.
 
 # rsimsum 0.9.0
 
