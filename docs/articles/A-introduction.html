@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000</span>
       </span>
     </div>
 
@@ -94,13 +94,14 @@
 
       
 
-      </header><script src="A-introduction_files/header-attrs-2.3/header-attrs.js"></script><div class="row">
+      </header><script src="A-introduction_files/header-attrs-2.5/header-attrs.js"></script><link href="A-introduction_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="A-introduction_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to rsimsum</h1>
                         <h4 class="author">Alessandro Gasparini</h4>
             
-            <h4 class="date">2020-09-03</h4>
+            <h4 class="date">2020-11-26</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/rsimsum/blob/master/vignettes/A-introduction.Rmd"><code>vignettes/A-introduction.Rmd</code></a></small>
       <div class="hidden name"><code>A-introduction.Rmd</code></div>
@@ -196,10 +197,12 @@
 <a href="#example-1-simulation-study-on-missing-data" class="anchor"></a>Example 1: Simulation study on missing data</h1>
 <p>With this example dataset included in <code>rsimsum</code> we aim to summarise a simulation study comparing different ways to handle missing covariates when fitting a Cox model (White and Royston, 2009). One thousand datasets were simulated, each containing normally distributed covariates <span class="math inline">\(x\)</span> and <span class="math inline">\(z\)</span> and time-to-event outcome. Both covariates has <span class="math inline">\(20\%\)</span> of their values deleted independently of all other variables so the data became missing completely at random (Little and Rubin, 2002). Each simulated dataset was analysed in three ways. A Cox model was fit to the complete cases (<code>CC</code>). Then two methods of multiple imputation using chained equations (van Buuren, Boshuizen, and Knook, 1999) were used. The <code>MI_LOGT</code> method multiply imputes the missing values of <span class="math inline">\(x\)</span> and <span class="math inline">\(z\)</span> with the outcome included as <span class="math inline">\(\log(t)\)</span> and <span class="math inline">\(d\)</span>, where <span class="math inline">\(t\)</span> is the survival time and <span class="math inline">\(d\)</span> is the event indicator. The <code>MI_T</code> method is the same except that <span class="math inline">\(\log(t)\)</span> is replaced by <span class="math inline">\(t\)</span> in the imputation model.</p>
 <p>We load the data in the usual way:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rsimsum</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"MIsim"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"rsimsum"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ellessenne.github.io/rsimsum/">rsimsum</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"MIsim"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span></code></pre></div>
 <p>Let’s have a look at the first 10 rows of the dataset:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">MIsim</span>, <span class="kw">n</span> <span class="kw">=</span> <span class="fl">10</span>)
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">MIsim</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 10 x 4</span>
 <span class="co">#&gt;    dataset method      b    se</span>
 <span class="co">#&gt;      &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
@@ -212,15 +215,16 @@
 <span class="co">#&gt;  7       3 CC      0.650 0.152</span>
 <span class="co">#&gt;  8       3 MI_T    0.503 0.130</span>
 <span class="co">#&gt;  9       3 MI_LOGT 0.560 0.117</span>
-<span class="co">#&gt; 10       4 CC      0.432 0.126</span></pre></body></html></div>
+<span class="co">#&gt; 10       4 CC      0.432 0.126</span></code></pre></div>
 <p>The included variables are:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">MIsim</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">MIsim</span><span class="op">)</span>
 <span class="co">#&gt; tibble [3,000 × 4] (S3: tbl_df/tbl/data.frame)</span>
 <span class="co">#&gt;  $ dataset: num [1:3000] 1 1 1 2 2 2 3 3 3 4 ...</span>
 <span class="co">#&gt;  $ method : chr [1:3000] "CC" "MI_T" "MI_LOGT" "CC" ...</span>
 <span class="co">#&gt;  $ b      : num [1:3000] 0.707 0.684 0.712 0.349 0.406 ...</span>
 <span class="co">#&gt;  $ se     : num [1:3000] 0.147 0.126 0.141 0.16 0.141 ...</span>
-<span class="co">#&gt;  - attr(*, "label")= chr "simsum example: data from a simulation study comparing 3 ways to handle missing"</span></pre></body></html></div>
+<span class="co">#&gt;  - attr(*, "label")= chr "simsum example: data from a simulation study comparing 3 ways to handle missing"</span></code></pre></div>
 <ul>
 <li><p><code>dataset</code>, the number of the simulated dataset;</p></li>
 <li><p><code>method</code>, the method used (<code>CC</code>, <code>MI_LOGT</code> or <code>MI_T</code>);</p></li>
@@ -228,12 +232,14 @@
 <li><p><code>se</code>, the standard error of the point estimate.</p></li>
 </ul>
 <p>We summarise the results of the simulation study by method using the <code>simsum</code> function:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">s1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">MIsim</span>, <span class="kw">estvarname</span> <span class="kw">=</span> <span class="st">"b"</span>, <span class="kw">true</span> <span class="kw">=</span> <span class="fl">0.50</span>, <span class="kw">se</span> <span class="kw">=</span> <span class="st">"se"</span>, <span class="kw">methodvar</span> <span class="kw">=</span> <span class="st">"method"</span>, <span class="kw">ref</span> <span class="kw">=</span> <span class="st">"CC"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">MIsim</span>, estvarname <span class="op">=</span> <span class="st">"b"</span>, true <span class="op">=</span> <span class="fl">0.50</span>, se <span class="op">=</span> <span class="st">"se"</span>, methodvar <span class="op">=</span> <span class="st">"method"</span>, ref <span class="op">=</span> <span class="st">"CC"</span><span class="op">)</span></code></pre></div>
 <p>We set <code>true = 0.50</code> as the true value of the point estimate <code>b</code> - under which the data was simulated - is 0.50. We select <code>CC</code> as the reference method as we consider the complete cases analysis the reference method to benchmark against; if we do not set a reference method, <code>simsum</code> picks one automatically.</p>
 <p>Using the default settings, Monte Carlo standard errors are computed and returned.</p>
 <p>Summarising a <code>simsum</code> object, we obtain the following output:</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">ss1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">s1</span>)
-<span class="no">ss1</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ss1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span>
+<span class="va">ss1</span>
 <span class="co">#&gt; Values are:</span>
 <span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span>
 <span class="co">#&gt; </span>
@@ -291,9 +297,10 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Power of 5% level test:</span>
 <span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
-<span class="co">#&gt;  0.9460 (0.0071) 0.9690 (0.0055) 0.9630 (0.0060)</span></pre></body></html></div>
+<span class="co">#&gt;  0.9460 (0.0071) 0.9690 (0.0055) 0.9630 (0.0060)</span></code></pre></div>
 <p>The output begins with a brief overview of the setting of the simulation study (e.g. the method variable, unique methods, etc.), and continues with each summary statistic by method (if defined, as in this case). The values that are reported are point estimates with Monte Carlo standard errors in brackets; however, it is also possible to require confidence intervals based on Monte Carlo standard errors to be reported instead:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">ss1</span>, <span class="kw">mcse</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">ss1</span>, mcse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="co">#&gt; Values are:</span>
 <span class="co">#&gt;  Point Estimate (95% Confidence Interval based on Monte Carlo Standard Errors)</span>
 <span class="co">#&gt; </span>
@@ -351,7 +358,7 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Power of 5% level test:</span>
 <span class="co">#&gt;                       CC                 MI_LOGT                    MI_T</span>
-<span class="co">#&gt;  0.9460 (0.9320, 0.9600) 0.9690 (0.9583, 0.9797) 0.9630 (0.9513, 0.9747)</span></pre></body></html></div>
+<span class="co">#&gt;  0.9460 (0.9320, 0.9600) 0.9690 (0.9583, 0.9797) 0.9630 (0.9513, 0.9747)</span></code></pre></div>
 <p>Highlighting some points of interest from the summary results above:</p>
 <ol style="list-style-type: decimal">
 <li>The <code>CC</code> method has small-sample bias away from the null (point estimate 0.0168, with 95% confidence interval: 0.0074 - 0.0261);</li>
@@ -366,13 +373,14 @@
 <h2 class="hasAnchor">
 <a href="#tabulating-summary-statistics" class="anchor"></a>Tabulating summary statistics</h2>
 <p>It is straightforward to produce a table of summary statistics for use in an R Markdown document:</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">knitr</span>)
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'knitr'</span>
 <span class="co">#&gt; The following object is masked from 'package:rsimsum':</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     kable</span>
-<span class="fu"><a href="../reference/kable.simsum.html">kable</a></span>(<span class="fu"><a href="../reference/get_data.html">get_data</a></span>(<span class="no">ss1</span>))</pre></body></html></div>
+<span class="fu"><a href="../reference/kable.simsum.html">kable</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_data.html">get_data</a></span><span class="op">(</span><span class="va">ss1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">stat</th>
@@ -729,22 +737,24 @@
 <a href="#plotting-summary-statistics" class="anchor"></a>Plotting summary statistics</h2>
 <p>In this section, we show how to plot and compare summary statistics using the popular R package <a href="https://CRAN.R-project.org/package=ggplot2">ggplot</a>.</p>
 <p>Plotting bias by method with <span class="math inline">\(95\%\)</span> confidence intervals based on Monte Carlo standard errors:</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="fu"><a href="../reference/get_data.html">get_data</a></span>(<span class="no">ss1</span>, <span class="kw">stats</span> <span class="kw">=</span> <span class="st">"bias"</span>), <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">method</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">est</span>, <span class="kw">ymin</span> <span class="kw">=</span> <span class="no">lower</span>, <span class="kw">ymax</span> <span class="kw">=</span> <span class="no">upper</span>)) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span>(<span class="kw">yintercept</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="st">"red"</span>, <span class="kw">lty</span> <span class="kw">=</span> <span class="st">"dashed"</span>) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span>(<span class="kw">width</span> <span class="kw">=</span> <span class="fl">1</span> / <span class="fl">3</span>) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span>() +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="st">"Method"</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="st">"Bias"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_data.html">get_data</a></span><span class="op">(</span><span class="va">ss1</span>, stats <span class="op">=</span> <span class="st">"bias"</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">method</span>, y <span class="op">=</span> <span class="va">est</span>, ymin <span class="op">=</span> <span class="va">lower</span>, ymax <span class="op">=</span> <span class="va">upper</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, color <span class="op">=</span> <span class="st">"red"</span>, lty <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Method"</span>, y <span class="op">=</span> <span class="st">"Bias"</span><span class="op">)</span></code></pre></div>
 <p><img src="A-introduction_files/figure-html/ex1-plot-bias-1.png" width="75%" style="display: block; margin: auto;"></p>
 <p>Conversely, say we want to visually compare coverage for the three methods compared with this simulation study:</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="fu"><a href="../reference/get_data.html">get_data</a></span>(<span class="no">ss1</span>, <span class="kw">stats</span> <span class="kw">=</span> <span class="st">"cover"</span>), <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">method</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">est</span>, <span class="kw">ymin</span> <span class="kw">=</span> <span class="no">lower</span>, <span class="kw">ymax</span> <span class="kw">=</span> <span class="no">upper</span>)) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span>(<span class="kw">yintercept</span> <span class="kw">=</span> <span class="fl">0.95</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="st">"red"</span>, <span class="kw">lty</span> <span class="kw">=</span> <span class="st">"dashed"</span>) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span>(<span class="kw">width</span> <span class="kw">=</span> <span class="fl">1</span> / <span class="fl">3</span>) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span>(<span class="kw">ylim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">1</span>)) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span>() +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="st">"Method"</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="st">"Coverage"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_data.html">get_data</a></span><span class="op">(</span><span class="va">ss1</span>, stats <span class="op">=</span> <span class="st">"cover"</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">method</span>, y <span class="op">=</span> <span class="va">est</span>, ymin <span class="op">=</span> <span class="va">lower</span>, ymax <span class="op">=</span> <span class="va">upper</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0.95</span>, color <span class="op">=</span> <span class="st">"red"</span>, lty <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Method"</span>, y <span class="op">=</span> <span class="st">"Coverage"</span><span class="op">)</span></code></pre></div>
 <p><img src="A-introduction_files/figure-html/ex1-plot-cov-1.png" width="75%" style="display: block; margin: auto;"></p>
 </div>
 <div id="dropping-large-estimates-and-standard-errors" class="section level2">
@@ -753,17 +763,20 @@
 <p><code>rsimsum</code> allows to automatically drop estimates and standard errors that are larger than a predefined value. Specifically, the argument of <code>simsum</code> that control this behaviour is <code>dropbig</code>, with tuning parameters <code>dropbig.max</code> and <code>dropbig.semax</code> that can be passed via the <code>control</code> argument.</p>
 <p>Set <code>dropbig</code> to <code>TRUE</code> and standardised estimates larger than <code>max</code> in absolute value will be dropped; standard errors larger than <code>semax</code> times the average standard error will be dropped too. By default, robust standardisation is used (based on median and inter-quartile range); however, it is also possible to request regular standardisation (based on mean and standard deviation) by setting the control parameter <code>dropbig.robust = FALSE</code>.</p>
 <p>For instance, say we want to drop standardised estimates larger than <span class="math inline">\(3\)</span> in absolute value and standard errors larger than <span class="math inline">\(1.5\)</span> times the average standard error:</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">s1.2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">MIsim</span>, <span class="kw">estvarname</span> <span class="kw">=</span> <span class="st">"b"</span>, <span class="kw">true</span> <span class="kw">=</span> <span class="fl">0.50</span>, <span class="kw">se</span> <span class="kw">=</span> <span class="st">"se"</span>, <span class="kw">methodvar</span> <span class="kw">=</span> <span class="st">"method"</span>, <span class="kw">ref</span> <span class="kw">=</span> <span class="st">"CC"</span>, <span class="kw">dropbig</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">control</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">dropbig.max</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">dropbig.semax</span> <span class="kw">=</span> <span class="fl">1.5</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">s1.2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">MIsim</span>, estvarname <span class="op">=</span> <span class="st">"b"</span>, true <span class="op">=</span> <span class="fl">0.50</span>, se <span class="op">=</span> <span class="st">"se"</span>, methodvar <span class="op">=</span> <span class="st">"method"</span>, ref <span class="op">=</span> <span class="st">"CC"</span>, dropbig <span class="op">=</span> <span class="cn">TRUE</span>, control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>dropbig.max <span class="op">=</span> <span class="fl">4</span>, dropbig.semax <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Some estimates were dropped, as we can see from the number of non-missing point estimates, standard errors:</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">s1.2</span>, <span class="kw">stats</span> <span class="kw">=</span> <span class="st">"nsim"</span>)
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">s1.2</span>, stats <span class="op">=</span> <span class="st">"nsim"</span><span class="op">)</span>
 <span class="co">#&gt; Values are:</span>
 <span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Non-missing point estimates/standard errors:</span>
 <span class="co">#&gt;   CC MI_LOGT MI_T</span>
-<span class="co">#&gt;  958     951  944</span></pre></body></html></div>
+<span class="co">#&gt;  958     951  944</span></code></pre></div>
 <p>Everything else works analogously as before; for instance, to summarise the results:</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">s1.2</span>)
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">s1.2</span><span class="op">)</span>
 <span class="co">#&gt; Values are:</span>
 <span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span>
 <span class="co">#&gt; </span>
@@ -821,15 +834,17 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Power of 5% level test:</span>
 <span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
-<span class="co">#&gt;  0.9457 (0.0073) 0.9685 (0.0057) 0.9661 (0.0059)</span></pre></body></html></div>
+<span class="co">#&gt;  0.9457 (0.0073) 0.9685 (0.0057) 0.9661 (0.0059)</span></code></pre></div>
 </div>
 </div>
 <div id="example-2-simulation-study-on-survival-modelling" class="section level1">
 <h1 class="hasAnchor">
 <a href="#example-2-simulation-study-on-survival-modelling" class="anchor"></a>Example 2: Simulation study on survival modelling</h1>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"relhaz"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"rsimsum"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"relhaz"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span></code></pre></div>
 <p>Let’s have a look at the first 10 rows of the dataset:</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">relhaz</span>, <span class="kw">n</span> <span class="kw">=</span> <span class="fl">10</span>)
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">relhaz</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
 <span class="co">#&gt;    dataset  n    baseline       theta        se model</span>
 <span class="co">#&gt; 1        1 50 Exponential -0.88006151 0.3330172   Cox</span>
 <span class="co">#&gt; 2        2 50 Exponential -0.81460242 0.3253010   Cox</span>
@@ -840,16 +855,17 @@
 <span class="co">#&gt; 7        7 50 Exponential -0.23578090 0.3121350   Cox</span>
 <span class="co">#&gt; 8        8 50 Exponential -0.05046332 0.3136058   Cox</span>
 <span class="co">#&gt; 9        9 50 Exponential -0.22378715 0.3066037   Cox</span>
-<span class="co">#&gt; 10      10 50 Exponential -0.45326446 0.3330173   Cox</span></pre></body></html></div>
+<span class="co">#&gt; 10      10 50 Exponential -0.45326446 0.3330173   Cox</span></code></pre></div>
 <p>The included variables are:</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">relhaz</span>)
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">relhaz</span><span class="op">)</span>
 <span class="co">#&gt; 'data.frame':    1200 obs. of  6 variables:</span>
 <span class="co">#&gt;  $ dataset : int  1 2 3 4 5 6 7 8 9 10 ...</span>
 <span class="co">#&gt;  $ n       : num  50 50 50 50 50 50 50 50 50 50 ...</span>
 <span class="co">#&gt;  $ baseline: chr  "Exponential" "Exponential" "Exponential" "Exponential" ...</span>
 <span class="co">#&gt;  $ theta   : num  -0.88 -0.815 -0.143 -0.333 -0.483 ...</span>
 <span class="co">#&gt;  $ se      : num  0.333 0.325 0.305 0.314 0.306 ...</span>
-<span class="co">#&gt;  $ model   : chr  "Cox" "Cox" "Cox" "Cox" ...</span></pre></body></html></div>
+<span class="co">#&gt;  $ model   : chr  "Cox" "Cox" "Cox" "Cox" ...</span></code></pre></div>
 <ul>
 <li><p><code>dataset</code>, simulated dataset number;</p></li>
 <li><p><code>n</code>, sample size of the simulate dataset;</p></li>
@@ -860,9 +876,10 @@
 </ul>
 <p><code>rsimsum</code> can summarise results from simulation studies with several data-generating mechanisms. For instance, with this example we show how to compute summary statistics by baseline hazard function and sample size.</p>
 <p>In order to summarise results by data-generating factors, it is sufficient to define the “by” factors in the call to <code>simsum</code>:</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">s2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">relhaz</span>, <span class="kw">estvarname</span> <span class="kw">=</span> <span class="st">"theta"</span>, <span class="kw">true</span> <span class="kw">=</span> -<span class="fl">0.50</span>, <span class="kw">se</span> <span class="kw">=</span> <span class="st">"se"</span>, <span class="kw">methodvar</span> <span class="kw">=</span> <span class="st">"model"</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"baseline"</span>, <span class="st">"n"</span>))
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">relhaz</span>, estvarname <span class="op">=</span> <span class="st">"theta"</span>, true <span class="op">=</span> <span class="op">-</span><span class="fl">0.50</span>, se <span class="op">=</span> <span class="st">"se"</span>, methodvar <span class="op">=</span> <span class="st">"model"</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"n"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; 'ref' method was not specified, Cox set as the reference</span>
-<span class="no">s2</span>
+<span class="va">s2</span>
 <span class="co">#&gt; Summary of a simulation study with a single estimand.</span>
 <span class="co">#&gt; True value of the estimand: -0.5 </span>
 <span class="co">#&gt; </span>
@@ -872,11 +889,12 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; By factors: baseline, n </span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Monte Carlo standard errors were computed.</span></pre></body></html></div>
+<span class="co">#&gt; Monte Carlo standard errors were computed.</span></code></pre></div>
 <p>The difference between <code>methodvar</code> and <code>by</code> is as follows: <code>methodvar</code> represents methods (e.g. the two models, in this example) compared with this simulation study, while <code>by</code> represents all possible data-generating factors that varied when simulating data (in this case, sample size and the true baseline hazard function).</p>
 <p>Summarising the results will be printed out for each method and combination of data-generating factors:</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">ss2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">s2</span>)
-<span class="no">ss2</span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ss2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span>
+<span class="va">ss2</span>
 <span class="co">#&gt; Values are:</span>
 <span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span>
 <span class="co">#&gt; </span>
@@ -976,19 +994,20 @@
 <span class="co">#&gt;  Exponential  50 0.3600 (0.0480) 0.3800 (0.0485) 0.3700 (0.0483)</span>
 <span class="co">#&gt;  Exponential 250 0.9800 (0.0140) 0.9900 (0.0099) 0.9900 (0.0099)</span>
 <span class="co">#&gt;      Weibull  50 0.4300 (0.0495) 0.0900 (0.0286) 0.4700 (0.0499)</span>
-<span class="co">#&gt;      Weibull 250 0.9700 (0.0171) 0.8600 (0.0347) 0.9700 (0.0171)</span></pre></body></html></div>
+<span class="co">#&gt;      Weibull 250 0.9700 (0.0171) 0.8600 (0.0347) 0.9700 (0.0171)</span></code></pre></div>
 <div id="plotting-summary-statistics-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plotting-summary-statistics-1" class="anchor"></a>Plotting summary statistics</h2>
 <p>Tables could get cumbersome when there are many different data-generating mechanisms. Plots are generally easier to interpret, and can be generated as easily as before.</p>
 <p>Say we want to compare bias for each method by baseline hazard function and sample size using faceting:</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="fu"><a href="../reference/get_data.html">get_data</a></span>(<span class="no">ss2</span>, <span class="kw">stats</span> <span class="kw">=</span> <span class="st">"bias"</span>), <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="no">model</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="no">est</span>, <span class="kw">ymin</span> <span class="kw">=</span> <span class="no">lower</span>, <span class="kw">ymax</span> <span class="kw">=</span> <span class="no">upper</span>)) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span>(<span class="kw">yintercept</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="st">"red"</span>, <span class="kw">lty</span> <span class="kw">=</span> <span class="st">"dashed"</span>) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span>(<span class="kw">width</span> <span class="kw">=</span> <span class="fl">1</span> / <span class="fl">3</span>) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span>(<span class="no">baseline</span> ~ <span class="no">n</span>) +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span>() +
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="st">"Method"</span>, <span class="kw">y</span> <span class="kw">=</span> <span class="st">"Bias"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_data.html">get_data</a></span><span class="op">(</span><span class="va">ss2</span>, stats <span class="op">=</span> <span class="st">"bias"</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">model</span>, y <span class="op">=</span> <span class="va">est</span>, ymin <span class="op">=</span> <span class="va">lower</span>, ymax <span class="op">=</span> <span class="va">upper</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, color <span class="op">=</span> <span class="st">"red"</span>, lty <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_errorbar</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">baseline</span> <span class="op">~</span> <span class="va">n</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Method"</span>, y <span class="op">=</span> <span class="st">"Bias"</span><span class="op">)</span></code></pre></div>
 <p><img src="A-introduction_files/figure-html/ex2-plot-bias-1.png" width="75%" style="display: block; margin: auto;"></p>
 </div>
 </div>
@@ -1020,7 +1039,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

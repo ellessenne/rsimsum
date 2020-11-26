@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000</span>
       </span>
     </div>
 
@@ -148,7 +148,7 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for summary.multisimsum</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>mcse</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, digits <span class='op'>=</span> <span class='fl'>4</span>, mcse <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -173,15 +173,17 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>frailty</span>)
-<span class='no'>ms</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='multisimsum.html'>multisimsum</a></span>(
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>frailty</span>, <span class='kw'>par</span> <span class='kw'>=</span> <span class='st'>"par"</span>, <span class='kw'>true</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
-    <span class='kw'>trt</span> <span class='kw'>=</span> -<span class='fl'>0.50</span>,
-    <span class='kw'>fv</span> <span class='kw'>=</span> <span class='fl'>0.75</span>
-  ), <span class='kw'>estvarname</span> <span class='kw'>=</span> <span class='st'>"b"</span>, <span class='kw'>se</span> <span class='kw'>=</span> <span class='st'>"se"</span>, <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='st'>"model"</span>,
-  <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"fv_dist"</span>
-)</div><div class='output co'>#&gt; <span class='message'>'ref' method was not specified, Cox, Gamma set as the reference</span></div><div class='input'><span class='no'>sms</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ms</span>, <span class='kw'>stats</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bias"</span>, <span class='st'>"cover"</span>, <span class='st'>"mse"</span>))
-<span class='no'>sms</span></div><div class='output co'>#&gt; Values are:
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>frailty</span><span class='op'>)</span>
+<span class='va'>ms</span> <span class='op'>&lt;-</span> <span class='fu'><a href='multisimsum.html'>multisimsum</a></span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='va'>frailty</span>, par <span class='op'>=</span> <span class='st'>"par"</span>, true <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
+    trt <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.50</span>,
+    fv <span class='op'>=</span> <span class='fl'>0.75</span>
+  <span class='op'>)</span>, estvarname <span class='op'>=</span> <span class='st'>"b"</span>, se <span class='op'>=</span> <span class='st'>"se"</span>, methodvar <span class='op'>=</span> <span class='st'>"model"</span>,
+  by <span class='op'>=</span> <span class='st'>"fv_dist"</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>'ref' method was not specified, Cox, Gamma set as the reference</span></div><div class='input'><span class='va'>sms</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ms</span>, stats <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"bias"</span>, <span class='st'>"cover"</span>, <span class='st'>"mse"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>sms</span>
+</div><div class='output co'>#&gt; Values are:
 #&gt; 	Point Estimate (Monte Carlo Standard Error)
 #&gt; 
 #&gt;    
@@ -227,7 +229,8 @@
 #&gt;       Gamma 0.9500 (0.0069) 0.9490 (0.0070) 0.9506 (0.0070)   0.9500 (0.0069)
 #&gt;  Log-Normal 0.9410 (0.0075) 0.9420 (0.0074) 0.9428 (0.0074)   0.9430 (0.0073)</div><div class='input'>
 <span class='co'># Printing less significant digits:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>sms</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt; Values are:
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>sms</span>, digits <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Values are:
 #&gt; 	Point Estimate (Monte Carlo Standard Error)
 #&gt; 
 #&gt;    
@@ -267,7 +270,8 @@
 #&gt;       Gamma 0.950 (0.007)   0.949 (0.007) 0.951 (0.007)     0.950 (0.007)
 #&gt;  Log-Normal 0.941 (0.007)   0.942 (0.007) 0.943 (0.007)     0.943 (0.007)</div><div class='input'>
 <span class='co'># Printing confidence intervals:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>sms</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>mcse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; Values are:
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>sms</span>, digits <span class='op'>=</span> <span class='fl'>3</span>, mcse <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Values are:
 #&gt; 	Point Estimate (95% Confidence Interval based on Monte Carlo Standard Errors)
 #&gt; 
 #&gt;    
@@ -325,7 +329,8 @@
 #&gt;  0.950 (0.936, 0.964)
 #&gt;  0.943 (0.929, 0.957)</div><div class='input'>
 <span class='co'># Printing values only:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>sms</span>, <span class='kw'>mcse</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt; Values are:
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>sms</span>, mcse <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Values are:
 #&gt; 	Point Estimate
 #&gt; 
 #&gt;    
@@ -379,7 +384,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

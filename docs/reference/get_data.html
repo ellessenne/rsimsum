@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000</span>
       </span>
     </div>
 
@@ -147,7 +147,7 @@
     <p>Extract data slots from an object of class <code>simsum</code>, <code>summary.simsum</code>, <code>multisimsum</code>, or <code>summary.multisimsum</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_data</span>(<span class='no'>x</span>, <span class='kw'>stats</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>get_data</span><span class='op'>(</span><span class='va'>x</span>, stats <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -187,11 +187,13 @@ Defaults to <code>NULL</code>, in which case all summary statistics are returned
     <p>A <code>data.frame</code> containing summary statistics from a simulation study.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>MIsim</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='simsum.html'>simsum</a></span>(
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>MIsim</span>, <span class='kw'>estvarname</span> <span class='kw'>=</span> <span class='st'>"b"</span>, <span class='kw'>true</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>se</span> <span class='kw'>=</span> <span class='st'>"se"</span>,
-  <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='st'>"method"</span>
-)</div><div class='output co'>#&gt; <span class='message'>'ref' method was not specified, CC set as the reference</span></div><div class='input'><span class='fu'>get_data</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;           stat           est         mcse  method
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>MIsim</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='simsum.html'>simsum</a></span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='va'>MIsim</span>, estvarname <span class='op'>=</span> <span class='st'>"b"</span>, true <span class='op'>=</span> <span class='fl'>0.5</span>, se <span class='op'>=</span> <span class='st'>"se"</span>,
+  methodvar <span class='op'>=</span> <span class='st'>"method"</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>'ref' method was not specified, CC set as the reference</span></div><div class='input'><span class='fu'>get_data</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;           stat           est         mcse  method
 #&gt; 1         nsim  1.000000e+03           NA      CC
 #&gt; 2    thetamean  5.167662e-01           NA      CC
 #&gt; 3  thetamedian  5.069935e-01           NA      CC
@@ -235,15 +237,17 @@ Defaults to <code>NULL</code>, in which case all summary statistics are returned
 #&gt; 41     becover  9.430000e-01 0.0073315073    MI_T
 #&gt; 42       power  9.630000e-01 0.0059691708    MI_T</div><div class='input'>
 <span class='co'># Extracting only bias and coverage:</span>
-<span class='fu'>get_data</span>(<span class='no'>x</span>, <span class='kw'>stats</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"bias"</span>, <span class='st'>"cover"</span>))</div><div class='output co'>#&gt;    stat           est        mcse  method
+<span class='fu'>get_data</span><span class='op'>(</span><span class='va'>x</span>, stats <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"bias"</span>, <span class='st'>"cover"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    stat           est        mcse  method
 #&gt; 1  bias  0.0167661608 0.004778676      CC
 #&gt; 2 cover  0.9430000000 0.007331507      CC
 #&gt; 3  bias  0.0009230987 0.004174410 MI_LOGT
 #&gt; 4 cover  0.9490000000 0.006956939 MI_LOGT
 #&gt; 5  bias -0.0011908351 0.004250977    MI_T
 #&gt; 6 cover  0.9430000000 0.007331507    MI_T</div><div class='input'>
-<span class='no'>xs</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>x</span>)
-<span class='fu'>get_data</span>(<span class='no'>xs</span>)</div><div class='output co'>#&gt;           stat           est         mcse  method        lower        upper
+<span class='va'>xs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='fu'>get_data</span><span class='op'>(</span><span class='va'>xs</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;           stat           est         mcse  method        lower        upper
 #&gt; 1         nsim  1.000000e+03           NA      CC           NA           NA
 #&gt; 2    thetamean  5.167662e-01           NA      CC           NA           NA
 #&gt; 3  thetamedian  5.069935e-01           NA      CC           NA           NA
@@ -301,7 +305,7 @@ Defaults to <code>NULL</code>, in which case all summary statistics are returned
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

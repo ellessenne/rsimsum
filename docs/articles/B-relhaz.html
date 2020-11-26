@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000</span>
       </span>
     </div>
 
@@ -94,13 +94,14 @@
 
       
 
-      </header><script src="B-relhaz_files/header-attrs-2.3/header-attrs.js"></script><div class="row">
+      </header><script src="B-relhaz_files/header-attrs-2.5/header-attrs.js"></script><link href="B-relhaz_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="B-relhaz_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Simulating a simulation study</h1>
                         <h4 class="author">Alessandro Gasparini</h4>
             
-            <h4 class="date">2020-09-03</h4>
+            <h4 class="date">2020-11-26</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/rsimsum/blob/master/vignettes/B-relhaz.Rmd"><code>vignettes/B-relhaz.Rmd</code></a></small>
       <div class="hidden name"><code>B-relhaz.Rmd</code></div>
@@ -123,11 +124,12 @@
 <h1 class="hasAnchor">
 <a href="#data-generating-mechanisms" class="anchor"></a>Data generating mechanisms</h1>
 <p>We simulate an hypothetical trial with a binary treatment. We fix the log-treatment effect to <span class="math inline">\(-0.50\)</span>, and we generate a treatment indicator variable for each simulated individual via a <span class="math inline">\(Binom(1, 0.5)\)</span> random variable. We simulate two different sample sizes (50 and 250 individuals) and we assume two different baseline hazard functions: exponential with scale parameter <span class="math inline">\(\lambda = 0.5\)</span>, and Weibull with scale parameter <span class="math inline">\(\lambda = 0.5\)</span> and shape parameter <span class="math inline">\(\gamma = 1.5\)</span>. Finally, we apply administrative censoring at time <span class="math inline">\(t = 5\)</span>.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">exp_basehaz</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">t</span>, <span class="no">lambda</span> <span class="kw">=</span> <span class="fl">0.5</span>) <span class="no">lambda</span> * <span class="fl">1</span> * <span class="no">t</span>^<span class="fl">0</span>
-<span class="no">exp_weibull</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">t</span>, <span class="no">lambda</span> <span class="kw">=</span> <span class="fl">0.5</span>, <span class="no">gamma</span> <span class="kw">=</span> <span class="fl">1.5</span>) <span class="no">lambda</span> * <span class="no">gamma</span> * <span class="no">t</span>^(<span class="no">gamma</span> - <span class="fl">1</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/curve.html">curve</a></span>(<span class="no">exp_basehaz</span>, <span class="kw">from</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">lty</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">ylim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">2</span>), <span class="kw">ylab</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span>(<span class="no">h</span>[<span class="fl">0</span>](<span class="no">t</span>)), <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">"Follow-up time t"</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/curve.html">curve</a></span>(<span class="no">exp_weibull</span>, <span class="kw">from</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">to</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">lty</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">add</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span>(<span class="kw">x</span> <span class="kw">=</span> <span class="st">"topleft"</span>, <span class="kw">lty</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">2</span>, <span class="kw">legend</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Exponential baseline hazard"</span>, <span class="st">"Weibull baseline hazard"</span>), <span class="kw">bty</span> <span class="kw">=</span> <span class="st">"n"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">exp_basehaz</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">lambda</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="va">lambda</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">*</span> <span class="va">t</span><span class="op">^</span><span class="fl">0</span>
+<span class="va">exp_weibull</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">lambda</span> <span class="op">=</span> <span class="fl">0.5</span>, <span class="va">gamma</span> <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="va">lambda</span> <span class="op">*</span> <span class="va">gamma</span> <span class="op">*</span> <span class="va">t</span><span class="op">^</span><span class="op">(</span><span class="va">gamma</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/curve.html">curve</a></span><span class="op">(</span><span class="va">exp_basehaz</span>, from <span class="op">=</span> <span class="fl">0</span>, to <span class="op">=</span> <span class="fl">5</span>, lty <span class="op">=</span> <span class="fl">1</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span>, ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="va">h</span><span class="op">[</span><span class="fl">0</span><span class="op">]</span><span class="op">(</span><span class="va">t</span><span class="op">)</span><span class="op">)</span>, xlab <span class="op">=</span> <span class="st">"Follow-up time t"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/curve.html">curve</a></span><span class="op">(</span><span class="va">exp_weibull</span>, from <span class="op">=</span> <span class="fl">0</span>, to <span class="op">=</span> <span class="fl">5</span>, lty <span class="op">=</span> <span class="fl">2</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"topleft"</span>, lty <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Exponential baseline hazard"</span>, <span class="st">"Weibull baseline hazard"</span><span class="op">)</span>, bty <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></code></pre></div>
 <p><img src="B-relhaz_files/figure-html/baseline-hazards-1.png" width="75%" style="display: block; margin: auto;"></p>
 <p>The survival times are estimated using the approach of Bender <em>et al</em>. (2005), based on drawing from a <span class="math inline">\(U(0, 1)\)</span> random variable and applying the following transformations:</p>
 <ol style="list-style-type: decimal">
@@ -135,29 +137,30 @@
 <li><p>for a Weibull baseline hazard, the survival time <span class="math inline">\(t\)</span> is simulated as: <span class="math display">\[t = \left(-\frac{log(U)}{\lambda \exp(\beta ^ T X)}\right) ^ {1 / \gamma}\]</span></p></li>
 </ol>
 <p>The R function to simulate a dataset for our simulation study is defined as follows:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">simulate_data</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">dataset</span>, <span class="no">n</span>, <span class="no">baseline</span>, <span class="no">params</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(), <span class="no">coveff</span> <span class="kw">=</span> -<span class="fl">0.50</span>) {
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">simulate_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span>, <span class="va">n</span>, <span class="va">baseline</span>, <span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">coveff</span> <span class="op">=</span> <span class="op">-</span><span class="fl">0.50</span><span class="op">)</span> <span class="op">{</span>
   <span class="co"># Simulate treatment indicator variable</span>
-  <span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span>(<span class="kw">n</span> <span class="kw">=</span> <span class="no">n</span>, <span class="kw">size</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">prob</span> <span class="kw">=</span> <span class="fl">0.5</span>)
+  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span>, size <span class="op">=</span> <span class="fl">1</span>, prob <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>
   <span class="co"># Draw from a U(0,1) random variable</span>
-  <span class="no">u</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="no">n</span>)
+  <span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>
   <span class="co"># Simulate survival times depending on the baseline hazard</span>
-  <span class="kw">if</span> (<span class="no">baseline</span> <span class="kw">==</span> <span class="st">"Exponential"</span>) {
-    <span class="no">t</span> <span class="kw">&lt;-</span> -<span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(<span class="no">u</span>) / (<span class="no">params</span>$<span class="no">lambda</span> * <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span>(<span class="no">x</span> * <span class="no">coveff</span>))
-  } <span class="kw">else</span> {
-    <span class="no">t</span> <span class="kw">&lt;-</span> (-<span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(<span class="no">u</span>) / (<span class="no">params</span>$<span class="no">lambda</span> * <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span>(<span class="no">x</span> * <span class="no">coveff</span>)))^(<span class="fl">1</span> / <span class="no">params</span>$<span class="no">gamma</span>)
-  }
+  <span class="kw">if</span> <span class="op">(</span><span class="va">baseline</span> <span class="op">==</span> <span class="st">"Exponential"</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">t</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">params</span><span class="op">$</span><span class="va">lambda</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">x</span> <span class="op">*</span> <span class="va">coveff</span><span class="op">)</span><span class="op">)</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="va">t</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">params</span><span class="op">$</span><span class="va">lambda</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">x</span> <span class="op">*</span> <span class="va">coveff</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="va">params</span><span class="op">$</span><span class="va">gamma</span><span class="op">)</span>
+  <span class="op">}</span>
   <span class="co"># Winsorising tiny values for t (smaller than one day on a yearly-scale, e.g. 1 / 365.242), and adding a tiny amount of white noise not to have too many concurrent values</span>
-  <span class="no">t</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="no">t</span> <span class="kw">&lt;</span> <span class="fl">1</span> / <span class="fl">365.242</span>, <span class="fl">1</span> / <span class="fl">365.242</span>, <span class="no">t</span>)
-  <span class="no">t</span>[<span class="no">t</span> <span class="kw">==</span> <span class="fl">1</span> / <span class="fl">365.242</span>] <span class="kw">&lt;-</span> <span class="no">t</span>[<span class="no">t</span> <span class="kw">==</span> <span class="fl">1</span> / <span class="fl">365.242</span>] + <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">t</span>[<span class="no">t</span> <span class="kw">==</span> <span class="fl">1</span> / <span class="fl">365.242</span>]), <span class="kw">mean</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">sd</span> <span class="kw">=</span> <span class="fl">1e-4</span>)
+  <span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">t</span> <span class="op">&lt;</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">365.242</span>, <span class="fl">1</span> <span class="op">/</span> <span class="fl">365.242</span>, <span class="va">t</span><span class="op">)</span>
+  <span class="va">t</span><span class="op">[</span><span class="va">t</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">365.242</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">t</span><span class="op">[</span><span class="va">t</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">365.242</span><span class="op">]</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">t</span><span class="op">[</span><span class="va">t</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">365.242</span><span class="op">]</span><span class="op">)</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1e-4</span><span class="op">)</span>
   <span class="co"># ...and make sure that the resulting value is positive</span>
-  <span class="no">t</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="no">t</span>)
+  <span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>
 
   <span class="co"># Make event indicator variable applying administrative censoring at t = 5</span>
-  <span class="no">d</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="no">t</span> <span class="kw">&lt;</span> <span class="fl">5</span>)
-  <span class="no">t</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">pmin</a></span>(<span class="no">t</span>, <span class="fl">5</span>)
+  <span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">t</span> <span class="op">&lt;</span> <span class="fl">5</span><span class="op">)</span>
+  <span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">pmin</a></span><span class="op">(</span><span class="va">t</span>, <span class="fl">5</span><span class="op">)</span>
   <span class="co"># Return a data.frame</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">dataset</span> <span class="kw">=</span> <span class="no">dataset</span>, <span class="kw">x</span> <span class="kw">=</span> <span class="no">x</span>, <span class="kw">t</span> <span class="kw">=</span> <span class="no">t</span>, <span class="kw">d</span> <span class="kw">=</span> <span class="no">d</span>, <span class="kw">n</span> <span class="kw">=</span> <span class="no">n</span>, <span class="kw">baseline</span> <span class="kw">=</span> <span class="no">baseline</span>, <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-}</pre></body></html></div>
+  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">dataset</span>, x <span class="op">=</span> <span class="va">x</span>, t <span class="op">=</span> <span class="va">t</span>, d <span class="op">=</span> <span class="va">d</span>, n <span class="op">=</span> <span class="va">n</span>, baseline <span class="op">=</span> <span class="va">baseline</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
 </div>
 <div id="methods" class="section level1">
 <h1 class="hasAnchor">
@@ -192,199 +195,206 @@
 <a href="#generate-data" class="anchor"></a>Generate data</h2>
 <p>We generate <span class="math inline">\(100\)</span> datasets for each data-generating mechanism.</p>
 <p>First, we set a random seed for reproducibility:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">755353002</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">755353002</span><span class="op">)</span></code></pre></div>
 <p>Then, we simulate the data:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">reps</span> <span class="kw">&lt;-</span> <span class="fl">1</span>:<span class="fl">100</span>
-<span class="no">data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>()
-<span class="no">data</span><span class="kw">[[</span><span class="st">"n = 50, baseline = Exp"</span>]] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(
-  <span class="kw">X</span> <span class="kw">=</span> <span class="no">reps</span>,
-  <span class="kw">FUN</span> <span class="kw">=</span> <span class="no">simulate_data</span>,
-  <span class="kw">n</span> <span class="kw">=</span> <span class="fl">50</span>,
-  <span class="kw">baseline</span> <span class="kw">=</span> <span class="st">"Exponential"</span>,
-  <span class="kw">params</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">lambda</span> <span class="kw">=</span> <span class="fl">0.5</span>)
-)
-<span class="no">data</span><span class="kw">[[</span><span class="st">"n = 250, baseline = Exp"</span>]] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(
-  <span class="kw">X</span> <span class="kw">=</span> <span class="no">reps</span>,
-  <span class="kw">FUN</span> <span class="kw">=</span> <span class="no">simulate_data</span>,
-  <span class="kw">n</span> <span class="kw">=</span> <span class="fl">250</span>,
-  <span class="kw">baseline</span> <span class="kw">=</span> <span class="st">"Exponential"</span>,
-  <span class="kw">params</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">lambda</span> <span class="kw">=</span> <span class="fl">0.5</span>)
-)
-<span class="no">data</span><span class="kw">[[</span><span class="st">"n = 50, baseline = Wei"</span>]] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(
-  <span class="kw">X</span> <span class="kw">=</span> <span class="no">reps</span>,
-  <span class="kw">FUN</span> <span class="kw">=</span> <span class="no">simulate_data</span>,
-  <span class="kw">n</span> <span class="kw">=</span> <span class="fl">50</span>,
-  <span class="kw">baseline</span> <span class="kw">=</span> <span class="st">"Weibull"</span>,
-  <span class="kw">params</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">lambda</span> <span class="kw">=</span> <span class="fl">0.5</span>, <span class="kw">gamma</span> <span class="kw">=</span> <span class="fl">1.5</span>)
-)
-<span class="no">data</span><span class="kw">[[</span><span class="st">"n = 250, baseline = Wei"</span>]] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(
-  <span class="kw">X</span> <span class="kw">=</span> <span class="no">reps</span>,
-  <span class="kw">FUN</span> <span class="kw">=</span> <span class="no">simulate_data</span>,
-  <span class="kw">n</span> <span class="kw">=</span> <span class="fl">250</span>,
-  <span class="kw">baseline</span> <span class="kw">=</span> <span class="st">"Weibull"</span>,
-  <span class="kw">params</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">lambda</span> <span class="kw">=</span> <span class="fl">0.5</span>, <span class="kw">gamma</span> <span class="kw">=</span> <span class="fl">1.5</span>)
-)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">reps</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">100</span>
+<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">data</span><span class="op">[[</span><span class="st">"n = 50, baseline = Exp"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>
+  X <span class="op">=</span> <span class="va">reps</span>,
+  FUN <span class="op">=</span> <span class="va">simulate_data</span>,
+  n <span class="op">=</span> <span class="fl">50</span>,
+  baseline <span class="op">=</span> <span class="st">"Exponential"</span>,
+  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>lambda <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>
+<span class="op">)</span>
+<span class="va">data</span><span class="op">[[</span><span class="st">"n = 250, baseline = Exp"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>
+  X <span class="op">=</span> <span class="va">reps</span>,
+  FUN <span class="op">=</span> <span class="va">simulate_data</span>,
+  n <span class="op">=</span> <span class="fl">250</span>,
+  baseline <span class="op">=</span> <span class="st">"Exponential"</span>,
+  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>lambda <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>
+<span class="op">)</span>
+<span class="va">data</span><span class="op">[[</span><span class="st">"n = 50, baseline = Wei"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>
+  X <span class="op">=</span> <span class="va">reps</span>,
+  FUN <span class="op">=</span> <span class="va">simulate_data</span>,
+  n <span class="op">=</span> <span class="fl">50</span>,
+  baseline <span class="op">=</span> <span class="st">"Weibull"</span>,
+  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>lambda <span class="op">=</span> <span class="fl">0.5</span>, gamma <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span>
+<span class="op">)</span>
+<span class="va">data</span><span class="op">[[</span><span class="st">"n = 250, baseline = Wei"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>
+  X <span class="op">=</span> <span class="va">reps</span>,
+  FUN <span class="op">=</span> <span class="va">simulate_data</span>,
+  n <span class="op">=</span> <span class="fl">250</span>,
+  baseline <span class="op">=</span> <span class="st">"Weibull"</span>,
+  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>lambda <span class="op">=</span> <span class="fl">0.5</span>, gamma <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
 </div>
 <div id="run-models" class="section level2">
 <h2 class="hasAnchor">
 <a href="#run-models" class="anchor"></a>Run models</h2>
 <p>We define a function to fit the models of interest:</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">survival</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rstpm2</span>)
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival">survival</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://github.com/mclements/rstpm2">rstpm2</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: splines</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'rstpm2'</span>
 <span class="co">#&gt; The following object is masked from 'package:survival':</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     colon</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">eha</span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://goranbrostrom.github.io/eha/">eha</a></span><span class="op">)</span>
 
-<span class="no">fit_models</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">data</span>, <span class="no">model</span>) {
+<span class="va">fit_models</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">model</span><span class="op">)</span> <span class="op">{</span>
   <span class="co"># Fit model</span>
-  <span class="kw">if</span> (<span class="no">model</span> <span class="kw">==</span> <span class="st">"Cox"</span>) {
-    <span class="no">fit</span> <span class="kw">&lt;-</span> <span class="kw pkg">survival</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/coxph.html">coxph</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span>(<span class="no">t</span>, <span class="no">d</span>) ~ <span class="no">x</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">data</span>)
-  } <span class="kw">else</span> <span class="kw">if</span> (<span class="no">model</span> <span class="kw">==</span> <span class="st">"RP(2)"</span>) {
-    <span class="no">fit</span> <span class="kw">&lt;-</span> <span class="kw pkg">rstpm2</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/rstpm2/man/gsm.html">stpm2</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span>(<span class="no">t</span>, <span class="no">d</span>) ~ <span class="no">x</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">data</span>, <span class="kw">df</span> <span class="kw">=</span> <span class="fl">2</span>)
-  } <span class="kw">else</span> {
-    <span class="no">fit</span> <span class="kw">&lt;-</span> <span class="kw pkg">eha</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/eha/man/phreg.html">phreg</a></span>(<span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span>(<span class="no">t</span>, <span class="no">d</span>) ~ <span class="no">x</span>, <span class="kw">data</span> <span class="kw">=</span> <span class="no">data</span>, <span class="kw">dist</span> <span class="kw">=</span> <span class="st">"weibull"</span>, <span class="kw">shape</span> <span class="kw">=</span> <span class="fl">1</span>)
-  }
+  <span class="kw">if</span> <span class="op">(</span><span class="va">model</span> <span class="op">==</span> <span class="st">"Cox"</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">survival</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/coxph.html">coxph</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">d</span><span class="op">)</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">model</span> <span class="op">==</span> <span class="st">"RP(2)"</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">rstpm2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rstpm2/man/gsm.html">stpm2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">d</span><span class="op">)</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">data</span>, df <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">eha</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/eha/man/phreg.html">phreg</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">d</span><span class="op">)</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">data</span>, dist <span class="op">=</span> <span class="st">"weibull"</span>, shape <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+  <span class="op">}</span>
   <span class="co"># Return relevant coefficients</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
-    <span class="kw">dataset</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="no">data</span>$<span class="no">dataset</span>),
-    <span class="kw">n</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="no">data</span>$<span class="no">n</span>),
-    <span class="kw">baseline</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="no">data</span>$<span class="no">baseline</span>),
-    <span class="kw">theta</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span>(<span class="no">fit</span>)[<span class="st">"x"</span>],
-    <span class="kw">se</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="no">model</span> <span class="kw">==</span> <span class="st">"Exp"</span>, <span class="no">fit</span>$<span class="no">var</span>[<span class="st">"x"</span>, <span class="st">"x"</span>], <span class="fu"><a href="https://rdrr.io/r/stats/vcov.html">vcov</a></span>(<span class="no">fit</span>)[<span class="st">"x"</span>, <span class="st">"x"</span>])),
-    <span class="kw">model</span> <span class="kw">=</span> <span class="no">model</span>,
-    <span class="kw">stringsAsFactors</span> <span class="kw">=</span> <span class="fl">FALSE</span>,
-    <span class="kw">row.names</span> <span class="kw">=</span> <span class="kw">NULL</span>
-  )
-}</pre></body></html></div>
+  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
+    dataset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">dataset</span><span class="op">)</span>,
+    n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">n</span><span class="op">)</span>,
+    baseline <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">baseline</span><span class="op">)</span>,
+    theta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">[</span><span class="st">"x"</span><span class="op">]</span>,
+    se <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">model</span> <span class="op">==</span> <span class="st">"Exp"</span>, <span class="va">fit</span><span class="op">$</span><span class="va">var</span><span class="op">[</span><span class="st">"x"</span>, <span class="st">"x"</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/stats/vcov.html">vcov</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">[</span><span class="st">"x"</span>, <span class="st">"x"</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,
+    model <span class="op">=</span> <span class="va">model</span>,
+    stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span>,
+    row.names <span class="op">=</span> <span class="cn">NULL</span>
+  <span class="op">)</span>
+<span class="op">}</span></code></pre></div>
 <p>We now run the models for each simulated dataset:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">results</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>()
-<span class="no">results</span><span class="kw">[[</span><span class="st">"n = 50, baseline = Exp, model = Cox"</span>]] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(
-  <span class="no">rbind.data.frame</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(
-    <span class="kw">X</span> <span class="kw">=</span> <span class="no">data</span><span class="kw">[[</span><span class="st">"n = 50, baseline = Exp"</span>]],
-    <span class="kw">FUN</span> <span class="kw">=</span> <span class="no">fit_models</span>,
-    <span class="kw">model</span> <span class="kw">=</span> <span class="st">"Cox"</span>
-  )
-)
-<span class="no">results</span><span class="kw">[[</span><span class="st">"n = 250, baseline = Exp, model = Cox"</span>]] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(
-  <span class="no">rbind.data.frame</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(
-    <span class="kw">X</span> <span class="kw">=</span> <span class="no">data</span><span class="kw">[[</span><span class="st">"n = 250, baseline = Exp"</span>]],
-    <span class="kw">FUN</span> <span class="kw">=</span> <span class="no">fit_models</span>,
-    <span class="kw">model</span> <span class="kw">=</span> <span class="st">"Cox"</span>
-  )
-)
-<span class="no">results</span><span class="kw">[[</span><span class="st">"n = 50, baseline = Wei, model = Cox"</span>]] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(
-  <span class="no">rbind.data.frame</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(
-    <span class="kw">X</span> <span class="kw">=</span> <span class="no">data</span><span class="kw">[[</span><span class="st">"n = 50, baseline = Wei"</span>]],
-    <span class="kw">FUN</span> <span class="kw">=</span> <span class="no">fit_models</span>,
-    <span class="kw">model</span> <span class="kw">=</span> <span class="st">"Cox"</span>
-  )
-)
-<span class="no">results</span><span class="kw">[[</span><span class="st">"n = 250, baseline = Wei, model = Cox"</span>]] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(
-  <span class="no">rbind.data.frame</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(
-    <span class="kw">X</span> <span class="kw">=</span> <span class="no">data</span><span class="kw">[[</span><span class="st">"n = 250, baseline = Wei"</span>]],
-    <span class="kw">FUN</span> <span class="kw">=</span> <span class="no">fit_models</span>,
-    <span class="kw">model</span> <span class="kw">=</span> <span class="st">"Cox"</span>
-  )
-)
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">results</span><span class="op">[[</span><span class="st">"n = 50, baseline = Exp, model = Cox"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span>
+  <span class="va">rbind.data.frame</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>
+    X <span class="op">=</span> <span class="va">data</span><span class="op">[[</span><span class="st">"n = 50, baseline = Exp"</span><span class="op">]</span><span class="op">]</span>,
+    FUN <span class="op">=</span> <span class="va">fit_models</span>,
+    model <span class="op">=</span> <span class="st">"Cox"</span>
+  <span class="op">)</span>
+<span class="op">)</span>
+<span class="va">results</span><span class="op">[[</span><span class="st">"n = 250, baseline = Exp, model = Cox"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span>
+  <span class="va">rbind.data.frame</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>
+    X <span class="op">=</span> <span class="va">data</span><span class="op">[[</span><span class="st">"n = 250, baseline = Exp"</span><span class="op">]</span><span class="op">]</span>,
+    FUN <span class="op">=</span> <span class="va">fit_models</span>,
+    model <span class="op">=</span> <span class="st">"Cox"</span>
+  <span class="op">)</span>
+<span class="op">)</span>
+<span class="va">results</span><span class="op">[[</span><span class="st">"n = 50, baseline = Wei, model = Cox"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span>
+  <span class="va">rbind.data.frame</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>
+    X <span class="op">=</span> <span class="va">data</span><span class="op">[[</span><span class="st">"n = 50, baseline = Wei"</span><span class="op">]</span><span class="op">]</span>,
+    FUN <span class="op">=</span> <span class="va">fit_models</span>,
+    model <span class="op">=</span> <span class="st">"Cox"</span>
+  <span class="op">)</span>
+<span class="op">)</span>
+<span class="va">results</span><span class="op">[[</span><span class="st">"n = 250, baseline = Wei, model = Cox"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span>
+  <span class="va">rbind.data.frame</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>
+    X <span class="op">=</span> <span class="va">data</span><span class="op">[[</span><span class="st">"n = 250, baseline = Wei"</span><span class="op">]</span><span class="op">]</span>,
+    FUN <span class="op">=</span> <span class="va">fit_models</span>,
+    model <span class="op">=</span> <span class="st">"Cox"</span>
+  <span class="op">)</span>
+<span class="op">)</span>
 
-<span class="no">results</span><span class="kw">[[</span><span class="st">"n = 50, baseline = Exp, model = Exp"</span>]] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(
-  <span class="no">rbind.data.frame</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(
-    <span class="kw">X</span> <span class="kw">=</span> <span class="no">data</span><span class="kw">[[</span><span class="st">"n = 50, baseline = Exp"</span>]],
-    <span class="kw">FUN</span> <span class="kw">=</span> <span class="no">fit_models</span>,
-    <span class="kw">model</span> <span class="kw">=</span> <span class="st">"Exp"</span>
-  )
-)
-<span class="no">results</span><span class="kw">[[</span><span class="st">"n = 250, baseline = Exp, model = Exp"</span>]] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(
-  <span class="no">rbind.data.frame</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(
-    <span class="kw">X</span> <span class="kw">=</span> <span class="no">data</span><span class="kw">[[</span><span class="st">"n = 250, baseline = Exp"</span>]],
-    <span class="kw">FUN</span> <span class="kw">=</span> <span class="no">fit_models</span>,
-    <span class="kw">model</span> <span class="kw">=</span> <span class="st">"Exp"</span>
-  )
-)
-<span class="no">results</span><span class="kw">[[</span><span class="st">"n = 50, baseline = Wei, model = Exp"</span>]] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(
-  <span class="no">rbind.data.frame</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(
-    <span class="kw">X</span> <span class="kw">=</span> <span class="no">data</span><span class="kw">[[</span><span class="st">"n = 50, baseline = Wei"</span>]],
-    <span class="kw">FUN</span> <span class="kw">=</span> <span class="no">fit_models</span>,
-    <span class="kw">model</span> <span class="kw">=</span> <span class="st">"Exp"</span>
-  )
-)
-<span class="no">results</span><span class="kw">[[</span><span class="st">"n = 250, baseline = Wei, model = Exp"</span>]] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(
-  <span class="no">rbind.data.frame</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(
-    <span class="kw">X</span> <span class="kw">=</span> <span class="no">data</span><span class="kw">[[</span><span class="st">"n = 250, baseline = Wei"</span>]],
-    <span class="kw">FUN</span> <span class="kw">=</span> <span class="no">fit_models</span>,
-    <span class="kw">model</span> <span class="kw">=</span> <span class="st">"Exp"</span>
-  )
-)
+<span class="va">results</span><span class="op">[[</span><span class="st">"n = 50, baseline = Exp, model = Exp"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span>
+  <span class="va">rbind.data.frame</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>
+    X <span class="op">=</span> <span class="va">data</span><span class="op">[[</span><span class="st">"n = 50, baseline = Exp"</span><span class="op">]</span><span class="op">]</span>,
+    FUN <span class="op">=</span> <span class="va">fit_models</span>,
+    model <span class="op">=</span> <span class="st">"Exp"</span>
+  <span class="op">)</span>
+<span class="op">)</span>
+<span class="va">results</span><span class="op">[[</span><span class="st">"n = 250, baseline = Exp, model = Exp"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span>
+  <span class="va">rbind.data.frame</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>
+    X <span class="op">=</span> <span class="va">data</span><span class="op">[[</span><span class="st">"n = 250, baseline = Exp"</span><span class="op">]</span><span class="op">]</span>,
+    FUN <span class="op">=</span> <span class="va">fit_models</span>,
+    model <span class="op">=</span> <span class="st">"Exp"</span>
+  <span class="op">)</span>
+<span class="op">)</span>
+<span class="va">results</span><span class="op">[[</span><span class="st">"n = 50, baseline = Wei, model = Exp"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span>
+  <span class="va">rbind.data.frame</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>
+    X <span class="op">=</span> <span class="va">data</span><span class="op">[[</span><span class="st">"n = 50, baseline = Wei"</span><span class="op">]</span><span class="op">]</span>,
+    FUN <span class="op">=</span> <span class="va">fit_models</span>,
+    model <span class="op">=</span> <span class="st">"Exp"</span>
+  <span class="op">)</span>
+<span class="op">)</span>
+<span class="va">results</span><span class="op">[[</span><span class="st">"n = 250, baseline = Wei, model = Exp"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span>
+  <span class="va">rbind.data.frame</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>
+    X <span class="op">=</span> <span class="va">data</span><span class="op">[[</span><span class="st">"n = 250, baseline = Wei"</span><span class="op">]</span><span class="op">]</span>,
+    FUN <span class="op">=</span> <span class="va">fit_models</span>,
+    model <span class="op">=</span> <span class="st">"Exp"</span>
+  <span class="op">)</span>
+<span class="op">)</span>
 
-<span class="no">results</span><span class="kw">[[</span><span class="st">"n = 50, baseline = Exp, model = RP(2)"</span>]] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(
-  <span class="no">rbind.data.frame</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(
-    <span class="kw">X</span> <span class="kw">=</span> <span class="no">data</span><span class="kw">[[</span><span class="st">"n = 50, baseline = Exp"</span>]],
-    <span class="kw">FUN</span> <span class="kw">=</span> <span class="no">fit_models</span>,
-    <span class="kw">model</span> <span class="kw">=</span> <span class="st">"RP(2)"</span>
-  )
-)
-<span class="no">results</span><span class="kw">[[</span><span class="st">"n = 250, baseline = Exp, model = RP(2)"</span>]] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(
-  <span class="no">rbind.data.frame</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(
-    <span class="kw">X</span> <span class="kw">=</span> <span class="no">data</span><span class="kw">[[</span><span class="st">"n = 250, baseline = Exp"</span>]],
-    <span class="kw">FUN</span> <span class="kw">=</span> <span class="no">fit_models</span>,
-    <span class="kw">model</span> <span class="kw">=</span> <span class="st">"RP(2)"</span>
-  )
-)
-<span class="no">results</span><span class="kw">[[</span><span class="st">"n = 50, baseline = Wei, model = RP(2)"</span>]] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(
-  <span class="no">rbind.data.frame</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(
-    <span class="kw">X</span> <span class="kw">=</span> <span class="no">data</span><span class="kw">[[</span><span class="st">"n = 50, baseline = Wei"</span>]],
-    <span class="kw">FUN</span> <span class="kw">=</span> <span class="no">fit_models</span>,
-    <span class="kw">model</span> <span class="kw">=</span> <span class="st">"RP(2)"</span>
-  )
-)
-<span class="no">results</span><span class="kw">[[</span><span class="st">"n = 250, baseline = Wei, model = RP(2)"</span>]] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(
-  <span class="no">rbind.data.frame</span>,
-  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(
-    <span class="kw">X</span> <span class="kw">=</span> <span class="no">data</span><span class="kw">[[</span><span class="st">"n = 250, baseline = Wei"</span>]],
-    <span class="kw">FUN</span> <span class="kw">=</span> <span class="no">fit_models</span>,
-    <span class="kw">model</span> <span class="kw">=</span> <span class="st">"RP(2)"</span>
-  )
-)</pre></body></html></div>
+<span class="va">results</span><span class="op">[[</span><span class="st">"n = 50, baseline = Exp, model = RP(2)"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span>
+  <span class="va">rbind.data.frame</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>
+    X <span class="op">=</span> <span class="va">data</span><span class="op">[[</span><span class="st">"n = 50, baseline = Exp"</span><span class="op">]</span><span class="op">]</span>,
+    FUN <span class="op">=</span> <span class="va">fit_models</span>,
+    model <span class="op">=</span> <span class="st">"RP(2)"</span>
+  <span class="op">)</span>
+<span class="op">)</span>
+<span class="va">results</span><span class="op">[[</span><span class="st">"n = 250, baseline = Exp, model = RP(2)"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span>
+  <span class="va">rbind.data.frame</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>
+    X <span class="op">=</span> <span class="va">data</span><span class="op">[[</span><span class="st">"n = 250, baseline = Exp"</span><span class="op">]</span><span class="op">]</span>,
+    FUN <span class="op">=</span> <span class="va">fit_models</span>,
+    model <span class="op">=</span> <span class="st">"RP(2)"</span>
+  <span class="op">)</span>
+<span class="op">)</span>
+<span class="va">results</span><span class="op">[[</span><span class="st">"n = 50, baseline = Wei, model = RP(2)"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span>
+  <span class="va">rbind.data.frame</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>
+    X <span class="op">=</span> <span class="va">data</span><span class="op">[[</span><span class="st">"n = 50, baseline = Wei"</span><span class="op">]</span><span class="op">]</span>,
+    FUN <span class="op">=</span> <span class="va">fit_models</span>,
+    model <span class="op">=</span> <span class="st">"RP(2)"</span>
+  <span class="op">)</span>
+<span class="op">)</span>
+<span class="va">results</span><span class="op">[[</span><span class="st">"n = 250, baseline = Wei, model = RP(2)"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span>
+  <span class="va">rbind.data.frame</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span>
+    X <span class="op">=</span> <span class="va">data</span><span class="op">[[</span><span class="st">"n = 250, baseline = Wei"</span><span class="op">]</span><span class="op">]</span>,
+    FUN <span class="op">=</span> <span class="va">fit_models</span>,
+    model <span class="op">=</span> <span class="st">"RP(2)"</span>
+  <span class="op">)</span>
+<span class="op">)</span></code></pre></div>
 </div>
 <div id="aggregating-results" class="section level2">
 <h2 class="hasAnchor">
 <a href="#aggregating-results" class="anchor"></a>Aggregating results</h2>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">relhaz</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(
-  <span class="no">rbind.data.frame</span>,
-  <span class="no">results</span>
-)
-<span class="fu"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span>(<span class="no">relhaz</span>) <span class="kw">&lt;-</span> <span class="kw">NULL</span></pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">relhaz</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span>
+  <span class="va">rbind.data.frame</span>,
+  <span class="va">results</span>
+<span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span><span class="op">(</span><span class="va">relhaz</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></code></pre></div>
 <p>We save the final results, that will be included as an example in the R package <code>rsimsum</code>.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">usethis</span>)
-<span class="kw pkg">usethis</span><span class="kw ns">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_data.html">use_data</a></span>(<span class="no">relhaz</span>, <span class="kw">overwrite</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://usethis.r-lib.org">usethis</a></span><span class="op">)</span>
+<span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_data.html">use_data</a></span><span class="op">(</span><span class="va">relhaz</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="summarising-results" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summarising-results" class="anchor"></a>Summarising results</h2>
 <p>Finally, we obtain summary statistics by calling the <code>simsum</code> function:</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rsimsum</span>)
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ellessenne.github.io/rsimsum/">rsimsum</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'rsimsum'</span>
 <span class="co">#&gt; The following object is masked _by_ '.GlobalEnv':</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     relhaz</span>
-<span class="no">s</span> <span class="kw">&lt;-</span> <span class="kw pkg">rsimsum</span><span class="kw ns">::</span><span class="fu"><a href="../reference/simsum.html">simsum</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="no">relhaz</span>, <span class="kw">estvarname</span> <span class="kw">=</span> <span class="st">"theta"</span>, <span class="kw">se</span> <span class="kw">=</span> <span class="st">"se"</span>, <span class="kw">true</span> <span class="kw">=</span> -<span class="fl">0.50</span>, <span class="kw">methodvar</span> <span class="kw">=</span> <span class="st">"model"</span>, <span class="kw">ref</span> <span class="kw">=</span> <span class="st">"Cox"</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"n"</span>, <span class="st">"baseline"</span>))
-<span class="no">s</span>
+<span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">rsimsum</span><span class="fu">::</span><span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">relhaz</span>, estvarname <span class="op">=</span> <span class="st">"theta"</span>, se <span class="op">=</span> <span class="st">"se"</span>, true <span class="op">=</span> <span class="op">-</span><span class="fl">0.50</span>, methodvar <span class="op">=</span> <span class="st">"model"</span>, ref <span class="op">=</span> <span class="st">"Cox"</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"baseline"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">s</span>
 <span class="co">#&gt; Summary of a simulation study with a single estimand.</span>
 <span class="co">#&gt; True value of the estimand: -0.5 </span>
 <span class="co">#&gt; </span>
@@ -394,8 +404,9 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; By factors: n, baseline </span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Monte Carlo standard errors were computed.</span></pre></body></html></div>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">s</span>)
+<span class="co">#&gt; Monte Carlo standard errors were computed.</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span>
 <span class="co">#&gt; Values are:</span>
 <span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span>
 <span class="co">#&gt; </span>
@@ -495,7 +506,7 @@
 <span class="co">#&gt;   50 Exponential 0.3600 (0.0480) 0.3800 (0.0485) 0.3700 (0.0483)</span>
 <span class="co">#&gt;   50     Weibull 0.4300 (0.0495) 0.0900 (0.0286) 0.4700 (0.0499)</span>
 <span class="co">#&gt;  250 Exponential 0.9800 (0.0140) 0.9900 (0.0099) 0.9900 (0.0099)</span>
-<span class="co">#&gt;  250     Weibull 0.9700 (0.0171) 0.8600 (0.0347) 0.9700 (0.0171)</span></pre></body></html></div>
+<span class="co">#&gt;  250     Weibull 0.9700 (0.0171) 0.8600 (0.0347) 0.9700 (0.0171)</span></code></pre></div>
 </div>
 </div>
 <div id="conclusions" class="section level1">
@@ -529,7 +540,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000</span>
       </span>
     </div>
 
@@ -148,19 +148,19 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for summary.multisimsum</span>
-<span class='fu'>autoplot</span>(
-  <span class='no'>object</span>,
-  <span class='no'>par</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"forest"</span>,
-  <span class='kw'>stats</span> <span class='kw'>=</span> <span class='st'>"nsim"</span>,
-  <span class='kw'>target</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fitted</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
-  <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>density.legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>zoom</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span>
+  <span class='va'>object</span>,
+  <span class='va'>par</span>,
+  type <span class='op'>=</span> <span class='st'>"forest"</span>,
+  stats <span class='op'>=</span> <span class='st'>"nsim"</span>,
+  target <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fitted <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  scales <span class='op'>=</span> <span class='st'>"fixed"</span>,
+  top <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  density.legend <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  zoom <span class='op'>=</span> <span class='fl'>1</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -216,16 +216,21 @@
     <p>A <code>ggplot</code> object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"frailty"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"rsimsum"</span>)
-<span class='no'>ms</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='multisimsum.html'>multisimsum</a></span>(
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>frailty</span>,
-  <span class='kw'>par</span> <span class='kw'>=</span> <span class='st'>"par"</span>, <span class='kw'>true</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>trt</span> <span class='kw'>=</span> -<span class='fl'>0.50</span>, <span class='kw'>fv</span> <span class='kw'>=</span> <span class='fl'>0.75</span>),
-  <span class='kw'>estvarname</span> <span class='kw'>=</span> <span class='st'>"b"</span>, <span class='kw'>se</span> <span class='kw'>=</span> <span class='st'>"se"</span>, <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='st'>"model"</span>,
-  <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"fv_dist"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</div><div class='output co'>#&gt; <span class='message'>'ref' method was not specified, Cox, Gamma set as the reference</span></div><div class='input'><span class='no'>sms</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>ms</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"frailty"</span>, package <span class='op'>=</span> <span class='st'>"rsimsum"</span><span class='op'>)</span>
+<span class='va'>ms</span> <span class='op'>&lt;-</span> <span class='fu'><a href='multisimsum.html'>multisimsum</a></span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='va'>frailty</span>,
+  par <span class='op'>=</span> <span class='st'>"par"</span>, true <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>trt <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.50</span>, fv <span class='op'>=</span> <span class='fl'>0.75</span><span class='op'>)</span>,
+  estvarname <span class='op'>=</span> <span class='st'>"b"</span>, se <span class='op'>=</span> <span class='st'>"se"</span>, methodvar <span class='op'>=</span> <span class='st'>"model"</span>,
+  by <span class='op'>=</span> <span class='st'>"fv_dist"</span>, x <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>'ref' method was not specified, Cox, Gamma set as the reference</span></div><div class='input'><span class='va'>sms</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ms</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>)
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>sms</span>, <span class='kw'>par</span> <span class='kw'>=</span> <span class='st'>"trt"</span>)</div><div class='img'><img src='autoplot.summary.multisimsum-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>sms</span>, <span class='kw'>par</span> <span class='kw'>=</span> <span class='st'>"trt"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"lolly"</span>, <span class='kw'>stats</span> <span class='kw'>=</span> <span class='st'>"cover"</span>)</div><div class='img'><img src='autoplot.summary.multisimsum-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>sms</span>, <span class='kw'>par</span> <span class='kw'>=</span> <span class='st'>"trt"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"zip"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 32 rows containing missing values (geom_segment).</span></div><div class='img'><img src='autoplot.summary.multisimsum-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>sms</span>, <span class='kw'>par</span> <span class='kw'>=</span> <span class='st'>"trt"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"est_ba"</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 96 rows containing non-finite values (stat_smooth).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 96 rows containing missing values (geom_point).</span></div><div class='img'><img src='autoplot.summary.multisimsum-4.png' alt='' width='700' height='433' /></div></pre>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span><span class='va'>sms</span>, par <span class='op'>=</span> <span class='st'>"trt"</span><span class='op'>)</span>
+</div><div class='img'><img src='autoplot.summary.multisimsum-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span><span class='va'>sms</span>, par <span class='op'>=</span> <span class='st'>"trt"</span>, type <span class='op'>=</span> <span class='st'>"lolly"</span>, stats <span class='op'>=</span> <span class='st'>"cover"</span><span class='op'>)</span>
+</div><div class='img'><img src='autoplot.summary.multisimsum-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span><span class='va'>sms</span>, par <span class='op'>=</span> <span class='st'>"trt"</span>, type <span class='op'>=</span> <span class='st'>"zip"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 32 rows containing missing values (geom_segment).</span></div><div class='img'><img src='autoplot.summary.multisimsum-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span><span class='va'>sms</span>, par <span class='op'>=</span> <span class='st'>"trt"</span>, type <span class='op'>=</span> <span class='st'>"est_ba"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 96 rows containing non-finite values (stat_smooth).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 96 rows containing missing values (geom_point).</span></div><div class='img'><img src='autoplot.summary.multisimsum-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -241,7 +246,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

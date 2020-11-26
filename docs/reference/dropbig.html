@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000</span>
       </span>
     </div>
 
@@ -147,16 +147,16 @@
     <p><code>dropbig</code> is useful to identify replications with large point estimates or standard errors. Large values are defined as standardised values above a given threshold, as defined when calling <code>dropbig</code>. Regular standardisation using mean and standard deviation is implemented, as well as robust standardisation using median and inter-quartile range. Further to that, the  standardisation process is stratified by data-generating mechanism if <code>by</code> factors are defined.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>dropbig</span>(
-  <span class='no'>data</span>,
-  <span class='no'>estvarname</span>,
-  <span class='kw'>se</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>semax</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>dropbig</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>estvarname</span>,
+  se <span class='op'>=</span> <span class='cn'>NULL</span>,
+  methodvar <span class='op'>=</span> <span class='cn'>NULL</span>,
+  by <span class='op'>=</span> <span class='cn'>NULL</span>,
+  max <span class='op'>=</span> <span class='fl'>10</span>,
+  semax <span class='op'>=</span> <span class='fl'>100</span>,
+  robust <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -200,14 +200,15 @@
     <p>The same <code>data.frame</code> given as input with an additional column named <code>.dropbig</code> identifying rows that are classified as large (<code>.dropbig = TRUE</code>) according to the specified criterion.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='st'>"frailty"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"rsimsum"</span>)
-<span class='no'>frailty2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>frailty</span>, <span class='no'>par</span> <span class='kw'>==</span> <span class='st'>"fv"</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"frailty"</span>, package <span class='op'>=</span> <span class='st'>"rsimsum"</span><span class='op'>)</span>
+<span class='va'>frailty2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>frailty</span>, <span class='va'>par</span> <span class='op'>==</span> <span class='st'>"fv"</span><span class='op'>)</span>
 
 <span class='co'># Using low values of max, semax for illustration purposes:</span>
-<span class='fu'>dropbig</span>(
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>frailty2</span>, <span class='kw'>estvarname</span> <span class='kw'>=</span> <span class='st'>"b"</span>, <span class='kw'>se</span> <span class='kw'>=</span> <span class='st'>"se"</span>,
-  <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='st'>"model"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"fv_dist"</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>semax</span> <span class='kw'>=</span> <span class='fl'>2</span>
-)</div><div class='output co'>#&gt;          i         b          se par    fv_dist             model .dropbig
+<span class='fu'>dropbig</span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='va'>frailty2</span>, estvarname <span class='op'>=</span> <span class='st'>"b"</span>, se <span class='op'>=</span> <span class='st'>"se"</span>,
+  methodvar <span class='op'>=</span> <span class='st'>"model"</span>, by <span class='op'>=</span> <span class='st'>"fv_dist"</span>, max <span class='op'>=</span> <span class='fl'>2</span>, semax <span class='op'>=</span> <span class='fl'>2</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt;          i         b          se par    fv_dist             model .dropbig
 #&gt; 1        1 0.6569546 0.125696425  fv      Gamma        Cox, Gamma    FALSE
 #&gt; 17       2 0.6613376 0.129510423  fv      Gamma        Cox, Gamma    FALSE
 #&gt; 33       3 1.0953274 0.206427350  fv      Gamma        Cox, Gamma     TRUE
@@ -8209,10 +8210,11 @@
 #&gt; 15976  999 0.8016289 0.171180170  fv Log-Normal RP(P), Log-Normal    FALSE
 #&gt; 15992 1000 0.7201794 0.155276856  fv Log-Normal RP(P), Log-Normal    FALSE</div><div class='input'>
 <span class='co'># Using regular standardisation:</span>
-<span class='fu'>dropbig</span>(
-  <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>frailty2</span>, <span class='kw'>estvarname</span> <span class='kw'>=</span> <span class='st'>"b"</span>, <span class='kw'>se</span> <span class='kw'>=</span> <span class='st'>"se"</span>,
-  <span class='kw'>methodvar</span> <span class='kw'>=</span> <span class='st'>"model"</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"fv_dist"</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>semax</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>robust</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</div><div class='output co'>#&gt;          i         b          se par    fv_dist             model .dropbig
+<span class='fu'>dropbig</span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='va'>frailty2</span>, estvarname <span class='op'>=</span> <span class='st'>"b"</span>, se <span class='op'>=</span> <span class='st'>"se"</span>,
+  methodvar <span class='op'>=</span> <span class='st'>"model"</span>, by <span class='op'>=</span> <span class='st'>"fv_dist"</span>, max <span class='op'>=</span> <span class='fl'>2</span>, semax <span class='op'>=</span> <span class='fl'>2</span>, robust <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt;          i         b          se par    fv_dist             model .dropbig
 #&gt; 1        1 0.6569546 0.125696425  fv      Gamma        Cox, Gamma    FALSE
 #&gt; 17       2 0.6613376 0.129510423  fv      Gamma        Cox, Gamma    FALSE
 #&gt; 33       3 1.0953274 0.206427350  fv      Gamma        Cox, Gamma     TRUE
@@ -16228,7 +16230,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
