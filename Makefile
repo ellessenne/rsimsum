@@ -1,10 +1,7 @@
 .PHONY: pre_submission_test docs
 
 pre_submission_test:
-	R -e "devtools::document()"
-	R -e "devtools::build_readme()"
-	R -e "devtools::build_vignettes()"
-	R -e "pkgdown::build_site()"
+	make docs
 	R -e "devtools::check()"
 	R -e "devtools::check_win_devel(quiet = TRUE)"
 	R -e "devtools::check_win_oldrelease(quiet = TRUE)"
