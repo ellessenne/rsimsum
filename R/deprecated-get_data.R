@@ -62,30 +62,3 @@ get_data <- function(x, stats = NULL, ...) {
   ### Return data
   return(x$summ)
 }
-
-#' @export
-fortify.simsum <- function(model, data, stats = NULL, ...) {
-  ### Check arguments
-  arg_checks <- checkmate::makeAssertCollection()
-
-  # 'x' must be an object of class 'simsum', 'summary.simsum', 'multisimsum', 'summary.multisimsum' (any)
-  checkmate::assert_true(x = inherits(x = model, what = c("simsum", "summary.simsum", "multisimsum", "summary.multisimsum")), add = arg_checks)
-
-  # 'stats' must be one of the possible choices
-  checkmate::assert_character(x = stats, null.ok = TRUE, add = arg_checks)
-  checkmate::assert_subset(x = stats, choices = c("nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "becover", "power"), add = arg_checks)
-
-  ### Report if there are any errors
-  if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
-
-  ### Select only summary statistics on interest
-  if (!is.null(stats)) {
-    model$summ <- model$summ[model$summ$stat %in% stats, ]
-  }
-
-  ### Remove row.names
-  row.names(model$summ) <- NULL
-
-  ### Return data
-  return(model$summ)
-}
