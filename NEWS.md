@@ -1,5 +1,9 @@
 # rsimsum (development version)
 
+### Breaking changes:
+
+* `get_data()` is now deprecated in favour of `tidy()`; `get_data()` still works (and is fully tested), but now throws a warning and will be fully removed in a later version of `rsimsum`.
+
 # rsimsum 0.9.1
 
 ### Bug fixes:

@@ -77,7 +77,7 @@ s4 <- simsum(data = tt, estvarname = "diff", true = -1, se = "se", df = "df", me
 Given that the confidence intervals in (`lower`, `upper`) are obtained by using critical values from a t distribution, the results of `s4` will be equivalent to the results of `s1`:
 
 ```{r}
-all.equal(get_data(s1), get_data(s4))
+all.equal(tidy(s1), tidy(s4))
 ```
 
 Finally, we can pass a column of values for `true` as well:
@@ -134,7 +134,7 @@ summary(ms2, stats = "bias")
 We can confirm that we obtain the same results with the two approaches:
 
 ```{r}
-identical(get_data(ms1), get_data(ms2))
+identical(tidy(ms1), tidy(ms2))
 ```
 
 This approach is particularly useful when the true value might vary across replications (e.g. when it depends on the simulated dataset).

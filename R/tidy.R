@@ -1,5 +1,5 @@
-#' @title get_data
-#' @description Extract data slots from an object of class `simsum`, `summary.simsum`, `multisimsum`, or `summary.multisimsum`.
+#' @title Turn an object into a tidy dataset
+#' @description Extract a tidy dataset with results from an object of class `simsum`, `summary.simsum`, `multisimsum`, or `summary.multisimsum`.
 #' @param x An object of class `simsum`.
 #' @param stats Summary statistics to include; can be a scalar value or a vector. Possible choices are:
 #' * `nsim`, the number of replications with non-missing point estimates and standard error.
@@ -20,6 +20,7 @@
 #' @param ... Ignored.
 #' @return A `data.frame` containing summary statistics from a simulation study.
 #' @export
+#' @rdname tidy
 #'
 #' @examples
 #' data(MIsim)
@@ -27,35 +28,41 @@
 #'   data = MIsim, estvarname = "b", true = 0.5, se = "se",
 #'   methodvar = "method"
 #' )
-#' get_data(x)
+#' tidy(x)
 #'
 #' # Extracting only bias and coverage:
-#' get_data(x, stats = c("bias", "cover"))
+#' tidy(x, stats = c("bias", "cover"))
 #'
 #' xs <- summary(x)
-#' get_data(xs)
-get_data <- function(x, stats = NULL, ...) {
+#' tidy(xs)
+tidy.simsum <- function(x, stats = NULL, ...) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
-
-  # 'x' must be an object of class 'simsum', 'summary.simsum', 'multisimsum', 'summary.multisimsum' (any)
+  # '.x' must be an object of class 'simsum', 'summary.simsum', 'multisimsum', 'summary.multisimsum' (any)
   checkmate::assert_true(x = inherits(x = x, what = c("simsum", "summary.simsum", "multisimsum", "summary.multisimsum")), add = arg_checks)
-
-  # 'stats' must be one of the possible choices
+  # '.stats' must be one of the possible choices
   checkmate::assert_character(x = stats, null.ok = TRUE, add = arg_checks)
   checkmate::assert_subset(x = stats, choices = c("nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "becover", "power"), add = arg_checks)
-
   ### Report if there are any errors
   if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
-
   ### Select only summary statistics on interest
   if (!is.null(stats)) {
     x$summ <- x$summ[x$summ$stat %in% stats, ]
   }
-
   ### Remove row.names
   row.names(x$summ) <- NULL
-
   ### Return data
   return(x$summ)
 }
+
+#' @export
+#' @rdname tidy
+tidy.summary.simsum <- function(x, stats = NULL, ...) tidy.simsum(x, stats, ...)
+
+#' @export
+#' @rdname tidy
+tidy.multisimsum <- function(x, stats = NULL, ...) tidy.simsum(x, stats, ...)
+
+#' @export
+#' @rdname tidy
+tidy.summary.multisimsum <- function(x, stats = NULL, ...) tidy.simsum(x, stats, ...)

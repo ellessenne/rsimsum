@@ -78,7 +78,7 @@ autoplot.simsum <- function(object, type = "forest", stats = "nsim", target = NU
   if (type == "lolly" & stats %in% c("thetamean", "thetamedian") & !is.numeric(object[["true"]])) stop("Lolly plot not available for average/median point estimates if 'true' is not defined (as a single numeric value)", call. = FALSE)
 
   ### Extract data
-  df <- get_data(object, stats = stats)
+  df <- tidy(object, stats = stats)
 
   ### Infer target
   if (is.null(target)) {

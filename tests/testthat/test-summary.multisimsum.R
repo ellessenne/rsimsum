@@ -53,17 +53,17 @@ testthat::test_that("summary.multisimsum with wrong arguments throws an error", 
 testthat::test_that("summary.multisimsum with t distribution, results differ with default settings", {
   data("frailty")
   x <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
-  testthat::expect_false(object = all(get_data(summary(x))[["lower"]] == get_data(summary(x, df = 3))[["lower"]]))
-  testthat::expect_false(object = all(get_data(summary(x, df = 3))[["lower"]] == get_data(summary(x, df = 10))[["lower"]]))
-  testthat::expect_false(object = all(get_data(summary(x))[["upper"]] == get_data(summary(x, df = 3))[["upper"]]))
-  testthat::expect_false(object = all(get_data(summary(x, df = 3))[["upper"]] == get_data(summary(x, df = 10))[["upper"]]))
+  testthat::expect_false(object = all(tidy(summary(x))[["lower"]] == tidy(summary(x, df = 3))[["lower"]]))
+  testthat::expect_false(object = all(tidy(summary(x, df = 3))[["lower"]] == tidy(summary(x, df = 10))[["lower"]]))
+  testthat::expect_false(object = all(tidy(summary(x))[["upper"]] == tidy(summary(x, df = 3))[["upper"]]))
+  testthat::expect_false(object = all(tidy(summary(x, df = 3))[["upper"]] == tidy(summary(x, df = 10))[["upper"]]))
 })
 
 testthat::test_that("summary.multisimsum returns selected stats only", {
   data("frailty")
   x <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
-  testthat::expect_true(object = all(get_data(summary(x, stats = "bias"))[["stat"]] == "bias"))
-  testthat::expect_true(object = all(get_data(summary(x, stats = c("bias", "cover")))[["stat"]] %in% c("bias", "cover")))
+  testthat::expect_true(object = all(tidy(summary(x, stats = "bias"))[["stat"]] == "bias"))
+  testthat::expect_true(object = all(tidy(summary(x, stats = c("bias", "cover")))[["stat"]] %in% c("bias", "cover")))
 })
 
 testthat::test_that("print.summary.multisimsum complains if users ask for the moon", {

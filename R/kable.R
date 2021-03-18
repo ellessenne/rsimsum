@@ -3,14 +3,14 @@
 #' @description Create tables in LaTeX, HTML, Markdown, or reStructuredText from objects of class `simsum`, `summary.simsum`, `multisimsum`, `summary.multisimsum`.
 #'
 #' @param x An object of class `simsum`, `summary.simsum`, `multisimsum`, `summary.multisimsum`;
-#' @param stats Summary statistics to include. See [get_data()] for more details;
+#' @param stats Summary statistics to include. See [tidy()] for more details;
 #' @param digits Maximum number of digits for numeric columns;
 #' @param ... Further arguments passed to [knitr::kable()].
 #' @seealso [knitr::kable()]
 #' @export
 kable.simsum <- function(x, stats = NULL, digits = max(3, getOption("digits") - 3), ...) {
   # Get dataset
-  out <- get_data(x, stats = stats)
+  out <- tidy(x, stats = stats)
   # Pass dataset to knitr::kable
   knitr::kable(x = out, digits = digits, ...)
 }

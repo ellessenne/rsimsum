@@ -21,7 +21,7 @@ kable(x, ...)
 \arguments{
 \item{x}{An object of class \code{simsum}, \code{summary.simsum}, \code{multisimsum}, \code{summary.multisimsum};}
 
-\item{stats}{Summary statistics to include. See \code{\link[=get_data]{get_data()}} for more details;}
+\item{stats}{Summary statistics to include. See \code{\link[=tidy]{tidy()}} for more details;}
 
 \item{digits}{Maximum number of digits for numeric columns;}
 

@@ -1,5 +1,5 @@
 Package: rsimsum
-Version: 0.9.1.9000
+Version: 0.10.0.9000
 Title: Analysis of Simulation Studies Including Monte Carlo Error
 Description: Summarise results from simulation studies and compute Monte Carlo
   standard errors of commonly used summary statistics. This package is modelled 
@@ -21,9 +21,11 @@ Depends:
  R (>= 2.10)
 Imports:
  checkmate,
+ generics,
  ggridges,
  ggplot2,
  knitr,
+ lifecycle,
  rlang (>= 0.4.0),
  scales,
  stats

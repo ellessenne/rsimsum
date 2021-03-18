@@ -16,9 +16,9 @@ testthat::test_that("ci.limits works ok with string or numeric vectors", {
 
 testthat::test_that("ci.limits with string vector yields different values of coverage than the default", {
   s <- rsimsum::simsum(data = tt, estvarname = "diff", true = -1, se = "se", ci.limits = c("lower", "upper"), methodvar = "method", by = "dgm")
-  s <- get_data(s, stats = "cover")
+  s <- tidy(s, stats = "cover")
   sdef <- rsimsum::simsum(data = tt, estvarname = "diff", true = -1, se = "se", methodvar = "method", by = "dgm")
-  sdef <- get_data(sdef, stats = "cover")
+  sdef <- tidy(sdef, stats = "cover")
 
   testthat::expect_false(object = all(s == sdef))
 })

@@ -65,7 +65,7 @@ $$\text{Relative % increase in precision} = 100 \left[ \left( \frac{\widehat{\te
 
 Its (approximated) Monte Carlo standard error is:
 
-$$\text{MCSE(Relative % increase in precision)} \simeq 200 \left( \frac{\widehat{\text{Emp. SE}}_A}{\widehat{\text{Emp. SE}}_B} \right) \sqrt{\frac{1 - \rho^2_{AB}}{n_{\text{sim}} - 1}}$$
+$$\text{MCSE(Relative % increase in precision)} \simeq 200 \left( \frac{\widehat{\text{Emp. SE}}_A}{\widehat{\text{Emp. SE}}_B} \right)^2 \sqrt{\frac{1 - \rho^2_{AB}}{n_{\text{sim}} - 1}}$$
 
 $\rho^2_{AB}$ is the correlation of $\hat{\theta}_A$ and $\hat{\theta}_B$.
 
@@ -199,10 +199,10 @@ It is straightforward to produce a table of summary statistics for use in an R M
 
 ```{r ex1-table}
 library(knitr)
-kable(get_data(ss1))
+kable(tidy(ss1))
 ```
 
-Using `get_data()` in combination with R packages such as [xtable](https://cran.r-project.org/package=xtable), [kableExtra](https://cran.r-project.org/package=kableExtra), [tables](https://cran.r-project.org/package=tables) can yield a variety of tables that should suit most purposes.
+Using `tidy()` in combination with R packages such as [xtable](https://cran.r-project.org/package=xtable), [kableExtra](https://cran.r-project.org/package=kableExtra), [tables](https://cran.r-project.org/package=tables) can yield a variety of tables that should suit most purposes.
 
 More information on producing tables directly from R can be found in the [CRAN Task View on Reproducible Research](https://CRAN.R-project.org/view=ReproducibleResearch).
 
@@ -214,7 +214,7 @@ Plotting bias by method with $95\%$ confidence intervals based on Monte Carlo st
 
 ```{r ex1-plot-bias}
 library(ggplot2)
-ggplot(get_data(ss1, stats = "bias"), aes(x = method, y = est, ymin = lower, ymax = upper)) +
+ggplot(tidy(ss1, stats = "bias"), aes(x = method, y = est, ymin = lower, ymax = upper)) +
   geom_hline(yintercept = 0, color = "red", lty = "dashed") +
   geom_point() +
   geom_errorbar(width = 1 / 3) +
@@ -225,7 +225,7 @@ ggplot(get_data(ss1, stats = "bias"), aes(x = method, y = est, ymin = lower, yma
 Conversely, say we want to visually compare coverage for the three methods compared with this simulation study:
 
 ```{r ex1-plot-cov}
-ggplot(get_data(ss1, stats = "cover"), aes(x = method, y = est, ymin = lower, ymax = upper)) +
+ggplot(tidy(ss1, stats = "cover"), aes(x = method, y = est, ymin = lower, ymax = upper)) +
   geom_hline(yintercept = 0.95, color = "red", lty = "dashed") +
   geom_point() +
   geom_errorbar(width = 1 / 3) +
@@ -314,7 +314,7 @@ Tables could get cumbersome when there are many different data-generating mechan
 Say we want to compare bias for each method by baseline hazard function and sample size using faceting:
 
 ```{r ex2-plot-bias}
-ggplot(get_data(ss2, stats = "bias"), aes(x = model, y = est, ymin = lower, ymax = upper)) +
+ggplot(tidy(ss2, stats = "bias"), aes(x = model, y = est, ymin = lower, ymax = upper)) +
   geom_hline(yintercept = 0, color = "red", lty = "dashed") +
   geom_point() +
   geom_errorbar(width = 1 / 3) +
