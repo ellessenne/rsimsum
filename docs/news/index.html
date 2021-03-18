@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0.9000</span>
       </span>
     </div>
 
@@ -79,7 +79,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -120,7 +120,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/ellessenne/rsimsum/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -145,6 +145,14 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#rsimsum-development-version" class="anchor"></a>rsimsum (development version)<small> Unreleased </small>
 </h1>
+<div id="breaking-changes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking changes:</h3>
+<ul>
+<li>
+<code><a href="../reference/get_data.html">get_data()</a></code> is now deprecated in favour of <code><a href="https://generics.r-lib.org/reference/tidy.html">tidy()</a></code>; <code><a href="../reference/get_data.html">get_data()</a></code> still works (and is fully tested), but now throws a warning and will be fully removed in a later version of <code>rsimsum</code>.</li>
+</ul>
+</div>
 </div>
     <div id="rsimsum-091" class="section level1">
 <h1 class="page-header" data-toc-text="0.9.1">
@@ -164,9 +172,9 @@
 <h1 class="page-header" data-toc-text="0.9.0">
 <a href="#rsimsum-090" class="anchor"></a>rsimsum 0.9.0<small> 2020-04-15 </small>
 </h1>
-<div id="breaking-changes" class="section level3">
+<div id="breaking-changes-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#breaking-changes" class="anchor"></a>Breaking changes:</h3>
+<a href="#breaking-changes-1" class="anchor"></a>Breaking changes:</h3>
 <ul>
 <li>The control argument <code>df</code> has been renamed to <code>power_df</code>, and now affects power calculations only.</li>
 </ul>
@@ -388,9 +396,9 @@
 <li>Added comparison with results from Stata’s <code>simsum</code> for testing purposes - differences are negligible, and there are some calculations in <code>simsum</code> that are wrong (already reported). Most differences can be attributed to calculations (and conversions, for comparison) on different scales.</li>
 </ul>
 </div>
-<div id="breaking-changes-1" class="section level3">
+<div id="breaking-changes-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#breaking-changes-1" class="anchor"></a>Breaking changes</h3>
+<a href="#breaking-changes-2" class="anchor"></a>Breaking changes</h3>
 <ul>
 <li>The syntax of <code>simsum</code> and <code>multisimsum</code> has been slightly changed, with some arguments being removed and others being moved to a <code>control</code> list with several tuning parameters. Please check the updated examples for more details;</li>
 <li>
@@ -406,9 +414,9 @@
 <h1 class="page-header" data-toc-text="0.3.5">
 <a href="#rsimsum-035" class="anchor"></a>rsimsum 0.3.5<small> Unreleased </small>
 </h1>
-<div id="breaking-changes-2" class="section level3">
+<div id="breaking-changes-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#breaking-changes-2" class="anchor"></a>Breaking changes</h3>
+<a href="#breaking-changes-3" class="anchor"></a>Breaking changes</h3>
 <ul>
 <li>The <code>zip</code> method has been renamed to <code>zipper()</code> to avoid name collision with <code><a href="https://rdrr.io/r/utils/zip.html">utils::zip()</a></code>.</li>
 </ul>

@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0.9000</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -80,7 +80,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/ellessenne/rsimsum/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -94,14 +94,13 @@
 
       
 
-      </header><script src="B-relhaz_files/header-attrs-2.5/header-attrs.js"></script><link href="B-relhaz_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="B-relhaz_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="B-relhaz_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Simulating a simulation study</h1>
                         <h4 class="author">Alessandro Gasparini</h4>
             
-            <h4 class="date">2020-11-26</h4>
+            <h4 class="date">2021-03-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/rsimsum/blob/master/vignettes/B-relhaz.Rmd"><code>vignettes/B-relhaz.Rmd</code></a></small>
       <div class="hidden name"><code>B-relhaz.Rmd</code></div>
@@ -236,14 +235,14 @@
 <p>We define a function to fit the models of interest:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival">survival</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://github.com/mclements/rstpm2">rstpm2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mclements/rstpm2">rstpm2</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: splines</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'rstpm2'</span>
 <span class="co">#&gt; The following object is masked from 'package:survival':</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     colon</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://goranbrostrom.github.io/eha/">eha</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ehar.se/r/eha/">eha</a></span><span class="op">)</span>
 
 <span class="va">fit_models</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">model</span><span class="op">)</span> <span class="op">{</span>
   <span class="co"># Fit model</span>
@@ -252,7 +251,7 @@
   <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">model</span> <span class="op">==</span> <span class="st">"RP(2)"</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">rstpm2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rstpm2/man/gsm.html">stpm2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">d</span><span class="op">)</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">data</span>, df <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
   <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
-    <span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">eha</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/eha/man/phreg.html">phreg</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">d</span><span class="op">)</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">data</span>, dist <span class="op">=</span> <span class="st">"weibull"</span>, shape <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+    <span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">eha</span><span class="fu">::</span><span class="fu"><a href="http://ehar.se/r/eha/reference/phreg.html">phreg</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span><span class="op">(</span><span class="va">t</span>, <span class="va">d</span><span class="op">)</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">data</span>, dist <span class="op">=</span> <span class="st">"weibull"</span>, shape <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
   <span class="op">}</span>
   <span class="co"># Return relevant coefficients</span>
   <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
@@ -460,11 +459,11 @@
 <span class="co">#&gt;  250     Weibull 0.1333 (0.0095) 0.0929 (0.0066) 0.1368 (0.0097)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; % gain in precision relative to method Cox:</span>
-<span class="co">#&gt;    n    baseline              Cox                Exp            RP(2)</span>
-<span class="co">#&gt;   50 Exponential -0.0000 (0.0000)    1.6773 (3.2902) -1.6262 (1.7888)</span>
-<span class="co">#&gt;   50     Weibull -0.0000 (0.0000) 132.7958 (16.4433)  0.2412 (3.7362)</span>
-<span class="co">#&gt;  250 Exponential  0.0000 (0.0000)   -2.3839 (3.0501) -0.1491 (0.9917)</span>
-<span class="co">#&gt;  250     Weibull -0.0000 (0.0000) 105.8426 (12.4932) -4.9534 (2.0649)</span>
+<span class="co">#&gt;    n    baseline             Cox                Exp            RP(2)</span>
+<span class="co">#&gt;   50 Exponential 0.0000 (0.0000)    1.6773 (3.2902) -1.6262 (1.7888)</span>
+<span class="co">#&gt;   50     Weibull 0.0000 (0.0000) 132.7958 (16.4433)  0.2412 (3.7362)</span>
+<span class="co">#&gt;  250 Exponential 0.0000 (0.0000)   -2.3839 (3.0501) -0.1491 (0.9917)</span>
+<span class="co">#&gt;  250     Weibull 0.0000 (0.0000) 105.8426 (12.4932) -4.9534 (2.0649)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Mean squared error:</span>
 <span class="co">#&gt;    n    baseline             Cox             Exp           RP(2)</span>

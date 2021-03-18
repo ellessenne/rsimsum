@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0.9000</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -80,7 +80,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/ellessenne/rsimsum/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -94,14 +94,13 @@
 
       
 
-      </header><script src="E-custom-inputs_files/header-attrs-2.5/header-attrs.js"></script><link href="E-custom-inputs_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="E-custom-inputs_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="E-custom-inputs_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Custom input values for confidence intervals and true values</h1>
                         <h4 class="author">Alessandro Gasparini</h4>
             
-            <h4 class="date">2020-11-26</h4>
+            <h4 class="date">2021-03-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/rsimsum/blob/master/vignettes/E-custom-inputs.Rmd"><code>vignettes/E-custom-inputs.Rmd</code></a></small>
       <div class="hidden name"><code>E-custom-inputs.Rmd</code></div>
@@ -190,7 +189,7 @@
 <span class="co">#&gt; 'ref' method was not specified, 1 set as the reference</span></code></pre></div>
 <p>Given that the confidence intervals in (<code>lower</code>, <code>upper</code>) are obtained by using critical values from a t distribution, the results of <code>s4</code> will be equivalent to the results of <code>s1</code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_data.html">get_data</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span>, <span class="fu"><a href="../reference/get_data.html">get_data</a></span><span class="op">(</span><span class="va">s4</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span>, <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">s4</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
 <p>Finally, we can pass a column of values for <code>true</code> as well:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -296,7 +295,7 @@
 <span class="co">#&gt;  Log-Normal -0.0006 (0.0015) -0.0014 (0.0015) -0.0006 (0.0015)  -0.0016 (0.0015)</span></code></pre></div>
 <p>We can confirm that we obtain the same results with the two approaches:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_data.html">get_data</a></span><span class="op">(</span><span class="va">ms1</span><span class="op">)</span>, <span class="fu"><a href="../reference/get_data.html">get_data</a></span><span class="op">(</span><span class="va">ms2</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">ms1</span><span class="op">)</span>, <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">ms2</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
 <p>This approach is particularly useful when the true value might vary across replications (e.g. when it depends on the simulated dataset).</p>
 <p>Of course, it can be combined with custom confidence interval limits for coverage as well:</p>
