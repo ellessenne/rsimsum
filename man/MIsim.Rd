@@ -14,7 +14,7 @@ A data frame with 3,000 rows and 4 variables:
 \item \code{se} Standard error of the point estimate.
 }
 
-An object of class \code{data.frame} with 3000 rows and 5 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3000 rows and 5 columns.
 }
 \usage{
 MIsim
