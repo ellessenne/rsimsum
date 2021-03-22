@@ -40,7 +40,7 @@
 #' @references Gasparini, A. 2018. rsimsum: Summarise results from Monte Carlo simulation studies. Journal of Open Source Software 3(26):739, \doi{10.21105/joss.00739}
 #' @export
 #' @details
-#' The following names are not allowed for `estvarname`, `se`, `methodvar`, `by`: `stat`, `est`, `mcse`, `lower`, `upper`.
+#' The following names are not allowed for `estvarname`, `se`, `methodvar`, `by`: `stat`, `est`, `mcse`, `lower`, `upper`, `:methodvar`.
 #'
 #' @examples
 #' data("MIsim", package = "rsimsum")
@@ -66,7 +66,6 @@ simsum <- function(data,
   # 'estvarname', 'se', 'methodvar', 'ref' must be a single string value
   checkmate::assert_string(x = estvarname, add = arg_checks)
   checkmate::assert_string(x = se, null.ok = TRUE, add = arg_checks)
-  checkmate::assert_string(x = methodvar, null.ok = TRUE, add = arg_checks)
   checkmate::assert_string(x = ref, null.ok = TRUE, add = arg_checks)
   checkmate::assert_string(x = df, null.ok = TRUE, add = arg_checks)
   # 'true' must be a single numeric value, or a string that identifies a column in 'data'
@@ -82,7 +81,8 @@ simsum <- function(data,
   # 'dropbig', 'mcse', 'x' must be single logical value
   checkmate::assert_logical(x = dropbig, len = 1, add = arg_checks)
   checkmate::assert_logical(x = x, len = 1, add = arg_checks)
-  # 'by' must be a vector of strings; can be NULL
+  # 'by' and 'methodvar' must be a vector of strings; can be NULL
+  checkmate::assert_character(x = methodvar, null.ok = TRUE, add = arg_checks)
   checkmate::assert_character(x = by, null.ok = TRUE, add = arg_checks)
   # 'estvarname', 'se' must be in 'data'; all elements of 'by' must be in 'data'; 'methodvar' must be in 'data'; 'df' must be in 'data'
   checkmate::assert_subset(x = estvarname, choices = names(data), add = arg_checks)
@@ -90,16 +90,25 @@ simsum <- function(data,
   checkmate::assert_subset(x = by, choices = names(data), add = arg_checks)
   checkmate::assert_subset(x = methodvar, choices = names(data), add = arg_checks)
   checkmate::assert_subset(x = df, choices = names(data), add = arg_checks)
+  # 'estvarname', 'se', 'methodvar', 'by' , 'df' must not be any in ('stat', 'est', 'mcse', 'lower', 'upper', ':methodvar')
+  .private_names <- c("stat", "est", "mcse", "lower", "upper", ":methodvar")
+  checkmate::assert_false(x = (estvarname %in% .private_names), add = arg_checks)
+  if (!is.null(se)) checkmate::assert_false(x = (se %in% .private_names), add = arg_checks)
+  if (!is.null(methodvar)) checkmate::assert_false(x = any(methodvar %in% .private_names), add = arg_checks)
+  if (!is.null(by)) checkmate::assert_false(x = any(by %in% .private_names), add = arg_checks)
+  if (!is.null(df)) checkmate::assert_false(x = any(df %in% .private_names), add = arg_checks)
+  # Process vector of 'methodvar' if a vector
+  user_methodvar <- NULL
+  if (length(methodvar) > 1) {
+    reftable <- .compact_method_columns(data = data, methodvar = methodvar)$reftable
+    data <- .compact_method_columns(data = data, methodvar = methodvar)$data
+    user_methodvar <- methodvar
+    methodvar <- ":methodvar"
+  }
   # 'ref' must be one of the options in 'methodvar'
   if (!is.null(methodvar)) {
     checkmate::assert_subset(x = ref, choices = as.character(unique(data[[methodvar]])), add = arg_checks)
   }
-  # 'estvarname', 'se', 'methodvar', 'by' , 'df' must not be any in ('stat', 'est', 'mcse', 'lower', 'upper')
-  checkmate::assert_false(x = (estvarname %in% c("stat", "est", "mcse", "lower", "upper")), add = arg_checks)
-  if (!is.null(se)) checkmate::assert_false(x = (se %in% c("stat", "est", "mcse", "lower", "upper")), add = arg_checks)
-  if (!is.null(methodvar)) checkmate::assert_false(x = (methodvar %in% c("stat", "est", "mcse", "lower", "upper")), add = arg_checks)
-  if (!is.null(by)) checkmate::assert_false(x = any(by %in% c("stat", "est", "mcse", "lower", "upper")), add = arg_checks)
-  if (!is.null(df)) checkmate::assert_false(x = any(df %in% c("stat", "est", "mcse", "lower", "upper")), add = arg_checks)
   # 'ci.limits' must be either a numeric vector of length 2 or a string vector with column names in 'data'
   if (!is.null(ci.limits)) {
     checkmate::assert_true(x = inherits(x = ci.limits, what = c("character", "numeric", "integer")), add = arg_checks)
@@ -199,6 +208,12 @@ simsum <- function(data,
     out.out
   })
   summ <- .br(summ)
+
+  # If vector of 'methodvar', restore input data
+  if (!is.null(user_methodvar)) {
+    summ <- merge(summ, reftable, by = methodvar, all.x = TRUE, sort = FALSE)
+    summ[, methodvar] <- NULL
+  }
 
   ### Include stuff into object to return
   obj <- list()

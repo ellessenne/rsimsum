@@ -75,7 +75,7 @@ If, in addition, model-based standard errors are available then \code{simsum} ca
 Monte Carlo errors are available for all estimated quantities.
 }
 \details{
-The following names are not allowed for \code{estvarname}, \code{se}, \code{methodvar}, \code{by}: \code{stat}, \code{est}, \code{mcse}, \code{lower}, \code{upper}.
+The following names are not allowed for \code{estvarname}, \code{se}, \code{methodvar}, \code{by}: \code{stat}, \code{est}, \code{mcse}, \code{lower}, \code{upper}, \verb{:methodvar}.
 }
 \examples{
 data("MIsim", package = "rsimsum")
