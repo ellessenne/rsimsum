@@ -5,17 +5,20 @@
 
 <!-- badges: start -->
 
-[![R build
-status](https://github.com/ellessenne/rsimsum/workflows/R-CMD-check/badge.svg)](https://github.com/ellessenne/rsimsum/actions)
-[![Codecov test
-coverage](https://codecov.io/gh/ellessenne/rsimsum/branch/master/graph/badge.svg)](https://codecov.io/gh/ellessenne/rsimsum?branch=master)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/rsimsum)](https://cran.r-project.org/package=rsimsum)
-[![CRAN\_Logs\_Badge](http://cranlogs.r-pkg.org/badges/rsimsum)](https://cran.r-project.org/package=rsimsum)
-[![CRAN\_Logs\_Badge\_Total](http://cranlogs.r-pkg.org/badges/grand-total/rsimsum)](https://cran.r-project.org/package=rsimsum)
+[![R Build
+Status](https://github.com/ellessenne/rsimsum/workflows/R-CMD-check/badge.svg)](https://github.com/ellessenne/rsimsum/actions)
+[![Codecov Test
+Coverage](https://codecov.io/gh/ellessenne/rsimsum/branch/master/graph/badge.svg)](https://codecov.io/gh/ellessenne/rsimsum?branch=master)
+[![CRAN
+Status](https://www.r-pkg.org/badges/version/rsimsum)](https://CRAN.R-project.org/package=rsimsum)
+[![CRAN Logs Monthly
+Downloads](https://cranlogs.r-pkg.org/badges/rsimsum)](https://CRAN.R-project.org/package=rsimsum)
+[![CRAN Logs Total
+Downloads](https://cranlogs.r-pkg.org/badges/grand-total/rsimsum)](https://CRAN.R-project.org/package=rsimsum)
 [![JOSS
-DOI](http://joss.theoj.org/papers/10.21105/joss.00739/status.svg)](https://doi.org/10.21105/joss.00739)
-[![PRs
-Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+DOI](https://joss.theoj.org/papers/10.21105/joss.00739/status.svg)](https://doi.org/10.21105/joss.00739)
+[![Lifecycle:
+Stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
 `rsimsum` is an R package that can compute summary statistics from

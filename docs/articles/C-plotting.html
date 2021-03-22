@@ -100,7 +100,7 @@
       <h1 data-toc-skip>Visualising results from rsimsum</h1>
                         <h4 class="author">Alessandro Gasparini</h4>
             
-            <h4 class="date">2021-03-18</h4>
+            <h4 class="date">2021-03-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/rsimsum/blob/master/vignettes/C-plotting.Rmd"><code>vignettes/C-plotting.Rmd</code></a></small>
       <div class="hidden name"><code>C-plotting.Rmd</code></div>
@@ -344,12 +344,12 @@
 <div id="zipper-plots" class="section level1">
 <h1 class="hasAnchor">
 <a href="#zipper-plots" class="anchor"></a>Zipper plots</h1>
-<p>Zipper plots (or zip plots), introduced in Morris <em>et al</em>. (2019), help understand coverage by visualising the confidence intervals directly. For each data-generating mechanism and method, the confidence intervals are centile-ranked according to their significance against the null hypothesis (H_0: ) = (_{}), assessed via a Wald-type test. This ranking is used for the vertical axis and is plotted against the intervals themselves.</p>
+<p>Zipper plots (or zip plots), introduced in Morris <em>et al</em>. (2019), help understand coverage by visualising the confidence intervals directly. For each data-generating mechanism and method, the confidence intervals are centile-ranked according to their significance against the null hypothesis <span class="math inline">\(H_0: \theta\)</span> = <span class="math inline">\(\theta_{\text{true}}\)</span>, assessed via a Wald-type test. This ranking is used for the vertical axis and is plotted against the intervals themselves.</p>
 <p>When a method has 95% coverage, the colour of the intervals switches at 95 on the vertical axis. Finally, the horizontal lines represent confidence intervals for the estimated coverage based on Monte Carlo standard errors.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">s1</span>, type <span class="op">=</span> <span class="st">"zip"</span><span class="op">)</span></code></pre></div>
 <p><img src="C-plotting_files/figure-html/zipper-1-1.png" width="90%" style="display: block; margin: auto;"></p>
-<p>The zipper plot for the exponential model with n = 50 and a true Weibull baseline hazard shows that coverage is approximately 95%; however, there are more intervals to the right of () = -0.50 than to the left: this indicates that the model standard errors must be overestimating the empirical standard error, because coverage is appropriate despite bias.</p>
+<p>The zipper plot for the exponential model with n = 50 and a true Weibull baseline hazard shows that coverage is approximately 95%; however, there are more intervals to the right of <span class="math inline">\(\theta\)</span> = -0.50 than to the left: this indicates that the model standard errors must be overestimating the empirical standard error, because coverage is appropriate despite bias.</p>
 <p>It is also possible to <em>zoom</em> on the top x% of the zip plot to increase readability, e.g. on the top 30%:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">s1</span>, type <span class="op">=</span> <span class="st">"zip"</span>, zoom <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></code></pre></div>
