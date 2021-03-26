@@ -211,8 +211,11 @@ simsum <- function(data,
 
   # If vector of 'methodvar', restore input data
   if (!is.null(user_methodvar)) {
-    summ <- merge(summ, reftable, by = methodvar, all.x = TRUE, sort = FALSE)
+    summ[[".nr"]] <- seq(nrow(summ))
+    summ <- merge(summ, reftable, by = methodvar)
+    summ <- summ[order(summ[[".nr"]]), ]
     summ[, methodvar] <- NULL
+    summ[, ".nr"] <- NULL
   }
 
   ### Include stuff into object to return
