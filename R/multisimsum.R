@@ -11,7 +11,7 @@
 #' @return An object of class `multisimsum`.
 #' @export
 #' @details
-#' The following names are not allowed for `estvarname`, `se`, `methodvar`, `by`, `par`: `stat`, `est`, `mcse`, `lower`, `upper`.
+#' The following names are not allowed for `estvarname`, `se`, `methodvar`, `by`, `par`: `stat`, `est`, `mcse`, `lower`, `upper`, `:methodvar`.
 #' @examples
 #' data("frailty", package = "rsimsum")
 #' ms <- multisimsum(

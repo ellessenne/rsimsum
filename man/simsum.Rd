@@ -34,7 +34,8 @@ See \code{vignette("E-custom-inputs", package = "rsimsum")} for more details.}
 
 \item{methodvar}{The name of the variable containing the methods to compare.
 For instance, methods could be the models compared within a simulation study.
-Can be \code{NULL}.}
+Can be \code{NULL}.
+If a vector of column names is passed to \code{simsum()}, those columns will be combined into a single column named \verb{:methodvar} using the \code{\link[base:interaction]{base::interaction()}} function before computing all performance measures.}
 
 \item{ref}{Specifies the reference method against which relative precision will be calculated.
 Only useful if \code{methodvar} is specified.}
@@ -69,9 +70,9 @@ See \code{vignette("E-custom-inputs", package = "rsimsum")} for more details.}
 An object of class \code{simsum}.
 }
 \description{
-\code{simsum} computes performance measures for simulation studies in which each simulated data set yields point estimates by one or more analysis methods.
+\code{simsum()} computes performance measures for simulation studies in which each simulated data set yields point estimates by one or more analysis methods.
 Bias, empirical standard error and precision relative to a reference method can be computed for each method.
-If, in addition, model-based standard errors are available then \code{simsum} can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, the coverage under the assumption that there is no bias (bias-eliminated coverage), and the power to reject a null hypothesis.
+If, in addition, model-based standard errors are available then \code{simsum()} can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, the coverage under the assumption that there is no bias (bias-eliminated coverage), and the power to reject a null hypothesis.
 Monte Carlo errors are available for all estimated quantities.
 }
 \details{

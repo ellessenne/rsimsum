@@ -38,7 +38,8 @@ See \code{vignette("E-custom-inputs", package = "rsimsum")} for more details.}
 
 \item{methodvar}{The name of the variable containing the methods to compare.
 For instance, methods could be the models compared within a simulation study.
-Can be \code{NULL}.}
+Can be \code{NULL}.
+If a vector of column names is passed to \code{simsum()}, those columns will be combined into a single column named \verb{:methodvar} using the \code{\link[base:interaction]{base::interaction()}} function before computing all performance measures.}
 
 \item{ref}{Specifies the reference method against which relative precision will be calculated.
 Only useful if \code{methodvar} is specified.}
@@ -81,7 +82,7 @@ Otherwise, constant values (or values identified by a column in \code{data}) wil
 See \code{vignette("E-custom-inputs", package = "rsimsum")} for more details.
 }
 \details{
-The following names are not allowed for \code{estvarname}, \code{se}, \code{methodvar}, \code{by}, \code{par}: \code{stat}, \code{est}, \code{mcse}, \code{lower}, \code{upper}.
+The following names are not allowed for \code{estvarname}, \code{se}, \code{methodvar}, \code{by}, \code{par}: \code{stat}, \code{est}, \code{mcse}, \code{lower}, \code{upper}, \verb{:methodvar}.
 }
 \examples{
 data("frailty", package = "rsimsum")
