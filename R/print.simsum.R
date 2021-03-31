@@ -31,8 +31,8 @@ print.simsum <- function(x, ...) {
   if (!is.null(x$methodvar)) {
     if (length(x$methodvar) > 1) {
       cat("\nColumns identifying methods:", paste(x$methodvar, collapse = ", "), "\n")
-      reftable <- .compact_method_columns(data = tidy(x), methodvar = x$methodvar)$data[[":methodvar"]]
-      cat("Unique methods identified:", paste(unique(reftable), collapse = ", "), "\n")
+      reftable <- .compact_method_columns(data = tidy.simsum(x), methodvar = x$methodvar)$data[[":methodvar"]]
+      cat("\tUnique methods:", paste(unique(reftable), collapse = ", "), "\n")
     } else {
       cat("\nMethod variable:", x$methodvar, "\n")
       methods <- unique(x$summ[[x$methodvar]])
