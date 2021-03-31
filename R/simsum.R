@@ -217,6 +217,7 @@ simsum <- function(data,
     summ <- summ[order(summ[[".nr"]]), ]
     summ[, methodvar] <- NULL
     summ[, ".nr"] <- NULL
+    methodvar <- user_methodvar
   }
 
   ### Include stuff into object to return
