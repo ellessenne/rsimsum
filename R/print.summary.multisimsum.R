@@ -58,6 +58,12 @@ print.summary.multisimsum <- function(x, digits = 4, mcse = TRUE, ...) {
   ### Order data.frame with results
   x$summ <- .order(data = x$summ, by = c("Performance Measure", x$par, x$methodvar, x$by))
 
+  ### If length(methodvar) > 1 then process multiple columns into one...
+  if (length(x$methodvar) > 1) {
+    x$summ <- .compact_method_columns(data = x$summ, methodvar = x$methodvar)$data
+    x$methodvar <- ":methodvar"
+  }
+
   ### Split summary table by parameter
   par_split <- .split_by(data = x$summ, by = x$par)
 
