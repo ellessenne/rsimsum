@@ -4,6 +4,11 @@
 
 * `get_data()` is now deprecated in favour of `tidy()`; `get_data()` still works (and is fully tested), but now throws a warning and will be fully removed in a later version of `rsimsum`.
 
+### New features:
+
+* Two new datasets, `MIsim2` and `frailty2`, are now bundled with `rsimsum`. 
+  They correspond to `MIsim` and `frailty`, respectively, with the only difference being that the column identifying distinct methods is now split into two distinct columns.
+
 # rsimsum 0.9.1
 
 ### Bug fixes:
