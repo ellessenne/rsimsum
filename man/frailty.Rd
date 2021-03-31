@@ -3,6 +3,7 @@
 \docType{data}
 \name{frailty}
 \alias{frailty}
+\alias{frailty2}
 \title{Example of a simulation study on frailty survival models}
 \format{
 A data frame with 16,000 rows and 6 variables:
@@ -14,14 +15,22 @@ A data frame with 16,000 rows and 6 variables:
 \item \code{fv_dist} The true frailty distribution.
 \item \code{model} Method used (\verb{Cox, Gamma}, \verb{Cox, Log-Normal}, \verb{RP(P), Gamma}, or \verb{RP(P), Log-Normal}).
 }
+
+An object of class \code{data.frame} with 16000 rows and 7 columns.
 }
 \usage{
 frailty
+
+frailty2
 }
 \description{
 A dataset from a simulation study comparing frailty flexible parametric models fitted using penalised likelihood to semiparametric frailty models. Both models are fitted assuming a Gamma and a log-Normal frailty. One thousand datasets were simulated, each containing a binary treatment variable with a log-hazard ratio of -0.50. Clustered survival data was simulated assuming 50 clusters of 50 individuals each, with a mixture Weibull baseline hazard function and a frailty following either a Gamma or a Log-Normal distribution. The comparison involves estimates of the log-treatment effect, and estimates of heterogeneity (i.e. the estimated frailty variance).
 }
+\note{
+\code{frailty2} is a version of the same dataset with the \code{model} column split into two columns, \code{m_baseline} and \code{m_frailty}.
+}
 \examples{
 data("frailty", package = "rsimsum")
+data("frailty2", package = "rsimsum")
 }
 \keyword{datasets}

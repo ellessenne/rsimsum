@@ -43,10 +43,16 @@
 #' * `par` The estimand. `trt` is the log-treatment effect, `fv` is the variance of the frailty.
 #' * `fv_dist` The true frailty distribution.
 #' * `model` Method used (`Cox, Gamma`, `Cox, Log-Normal`, `RP(P), Gamma`, or `RP(P), Log-Normal`).
+#' @rdname frailty
+#' @note `frailty2` is a version of the same dataset with the `model` column split into two columns, `m_baseline` and `m_frailty`.
 #'
 #' @examples
 #' data("frailty", package = "rsimsum")
+#' data("frailty2", package = "rsimsum")
 "frailty"
+
+#' @rdname frailty
+"frailty2"
 
 #' @title Example of a simulation study on survival modelling
 #' @description A dataset from a simulation study with 150 data-generating mechanisms, useful to illustrate nested loop plots. This simulation study aims to compare the Cox model and flexible parametric models in a variety of scenarios: different baseline hazard functions, sample size, and varying amount of heterogeneity unaccounted for in the model (simulated as white noise with a given variance). A Cox model and a Royston-Parmar model with 5 degrees of freedom are fit to each replication.

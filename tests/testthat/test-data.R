@@ -31,6 +31,21 @@ testthat::test_that("loading frailty works", {
   testthat::expect_s3_class(object = frailty, class = "data.frame")
 })
 
+testthat::test_that("loading frailty2 works", {
+  data("frailty2", package = "rsimsum")
+  testthat::expect_s3_class(object = frailty2, class = "data.frame")
+})
+
+testthat::test_that("frailty and frailty2 are the same (if we forget about the model stuff)", {
+  data("frailty", package = "rsimsum")
+  data("frailty2", package = "rsimsum")
+  testthat::expect_equal(object = nrow(frailty), expected = nrow(frailty2))
+  .columns <- c("i", "b", "se", "par", "fv_dist")
+  frailty_small <- frailty[, .columns]
+  frailty2_small <- frailty2[, .columns]
+  testthat::expect_equal(object = frailty_small, expected = frailty2_small)
+})
+
 testthat::test_that("loading nlp works", {
   data("nlp", package = "rsimsum")
   testthat::expect_s3_class(object = nlp, class = "data.frame")
