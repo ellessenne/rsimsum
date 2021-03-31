@@ -40,10 +40,16 @@ print.multisimsum <- function(x, ...) {
 
   ### Print `methodvar` (if any), possible methods, and reference method
   if (!is.null(x$methodvar)) {
-    cat("\nMethod variable:", x$methodvar, "\n")
-    methods <- unique(x$summ[[x$methodvar]])
-    cat("\tUnique methods:", paste(methods, collapse = ", "), "\n")
-    cat("\tReference method:", x$ref, "\n")
+    if (length(x$methodvar) > 1) {
+      cat("\nColumns identifying methods:", paste(x$methodvar, collapse = ", "), "\n")
+      reftable <- .compact_method_columns(data = tidy.multisimsum(x), methodvar = x$methodvar)$data[[":methodvar"]]
+      cat("\tUnique methods:", paste(unique(reftable), collapse = ", "), "\n")
+    } else {
+      cat("\nMethod variable:", x$methodvar, "\n")
+      methods <- unique(x$summ[[x$methodvar]])
+      cat("\tUnique methods:", paste(methods, collapse = ", "), "\n")
+      cat("\tReference method:", x$ref, "\n")
+    }
   } else {
     cat("\nMethod variable: none\n")
   }

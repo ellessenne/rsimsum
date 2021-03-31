@@ -61,12 +61,15 @@ multisimsum <- function(data,
 
   ### Set reference method if 'ref' is not specified
   if (!is.null(methodvar)) {
-    methods <- levels(data[[methodvar]])
     if (is.null(ref)) {
-      ref <- methods[1]
+      if (length(methodvar) > 1) {
+        ref <- .compact_method_columns(data = data, methodvar = methodvar)$reftable[[":methodvar"]][1]
+      } else {
+        ref <- levels(data[[methodvar]])[1]
+        data[[methodvar]] <- relevel(data[[methodvar]], ref = ref)
+      }
       message(paste("'ref' method was not specified,", ref, "set as the reference"))
     }
-    data[[methodvar]] <- relevel(data[[methodvar]], ref = ref)
   }
 
   ### Throw a warning if `ref` is specified and `methodvar` is not
