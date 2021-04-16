@@ -139,6 +139,6 @@ testthat::test_that("multisimsum with multiple columns as 'methodvar' yields sam
   s1 <- multisimsum(data = frailty, par = "par", estvarname = "b", methodvar = "model", by = "fv_dist")
   data("frailty2")
   s2 <- multisimsum(data = frailty2, par = "par", estvarname = "b", methodvar = c("m_baseline", "m_frailty"), by = "fv_dist")
-  testthat::expect_equal(object = rsimsum::tidy.multisimsum(s2)$est, expected = rsimsum::tidy.multisimsum(s1)$est)
-  testthat::expect_equal(object = rsimsum::tidy.multisimsum(s2)$mcse, expected = rsimsum::tidy.multisimsum(s1)$mcse)
+  testthat::expect_equal(object = tidy(s2)$est, expected = tidy(s1)$est)
+  testthat::expect_equal(object = tidy(s2)$mcse, expected = tidy(s1)$mcse)
 })
