@@ -100,7 +100,7 @@
       <h1 data-toc-skip>Visualising results from rsimsum</h1>
                         <h4 class="author">Alessandro Gasparini</h4>
             
-            <h4 class="date">2021-03-31</h4>
+            <h4 class="date">2021-04-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/rsimsum/blob/master/vignettes/C-plotting.Rmd"><code>vignettes/C-plotting.Rmd</code></a></small>
       <div class="hidden name"><code>C-plotting.Rmd</code></div>
@@ -423,13 +423,13 @@
 <p>We also mentioned before that the colour palette of heat plots should be customised. Say we want to use the default viridis colour palette:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">s1</span>, type <span class="op">=</span> <span class="st">"heat"</span>, stats <span class="op">=</span> <span class="st">"bias"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/viridis/man/scale_viridis.html">scale_fill_viridis</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+  <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridis/reference/scale_viridis.html">scale_fill_viridis</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="C-plotting_files/figure-html/heat-bias-viridis-1.png" width="90%" style="display: block; margin: auto;"></p>
 <p>Analogously, say we want to customise the colour palette of ridgeline plots, again using the viridis colour palette:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">s1</span>, type <span class="op">=</span> <span class="st">"est_ridge"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/viridis/man/scale_viridis.html">scale_fill_viridis</a></span><span class="op">(</span>discrete <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/viridis/man/scale_viridis.html">scale_colour_viridis</a></span><span class="op">(</span>discrete <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+  <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridis/reference/scale_viridis.html">scale_fill_viridis</a></span><span class="op">(</span>discrete <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">viridis</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridis/reference/scale_viridis.html">scale_colour_viridis</a></span><span class="op">(</span>discrete <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; Picking joint bandwidth of 0.077</span></code></pre></div>
 <p><img src="C-plotting_files/figure-html/colour-palette-1.png" width="90%" style="display: block; margin: auto;"></p>
 </div>
