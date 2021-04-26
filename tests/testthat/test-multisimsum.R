@@ -122,13 +122,13 @@ testthat::test_that("multisimsum without 'true' does not compute bias, cover, ms
   testthat::expect_false(object = any(c("bias", "cover", "mse") %in% s$summ$stat))
 })
 
-testthat::test_that("simsum without 'se' does not compute se2mean, se2median, modelse, relerror, cover, becover, power", {
+testthat::test_that("multisimsum without 'se' does not compute se2mean, se2median, modelse, relerror, cover, becover, power", {
   data("frailty")
   s <- multisimsum(data = frailty, par = "par", estvarname = "b", true = c(trt = -0.50, fv = 0.75), methodvar = "model", by = "fv_dist")
   testthat::expect_false(object = any(c("se2mean", "se2median", "modelse", "relerror", "cover", "becover", "power") %in% s$summ$stat))
 })
 
-testthat::test_that("simsum without 'se' nor 'true' does not compute se2mean, se2median, modelse, relerror, cover, becover, power, bias, mse", {
+testthat::test_that("multisimsum without 'se' nor 'true' does not compute se2mean, se2median, modelse, relerror, cover, becover, power, bias, mse", {
   data("frailty")
   s <- multisimsum(data = frailty, par = "par", estvarname = "b", methodvar = "model", by = "fv_dist")
   testthat::expect_false(object = any(c("se2mean", "se2median", "modelse", "relerror", "cover", "becover", "power", "bias", "mse") %in% s$summ$stat))

@@ -153,6 +153,13 @@
 <code><a href="../reference/get_data.html">get_data()</a></code> is now deprecated in favour of <code><a href="https://generics.r-lib.org/reference/tidy.html">tidy()</a></code>; <code><a href="../reference/get_data.html">get_data()</a></code> still works (and is fully tested), but now throws a warning and will be fully removed in a later version of <code>rsimsum</code>.</li>
 </ul>
 </div>
+<div id="new-features" class="section level3">
+<h3 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features:</h3>
+<ul>
+<li>Two new datasets, <code>MIsim2</code> and <code>frailty2</code>, are now bundled with <code>rsimsum</code>. They correspond to <code>MIsim</code> and <code>frailty</code>, respectively, with the only difference being that the column identifying distinct methods is now split into two distinct columns.</li>
+</ul>
+</div>
 </div>
     <div id="rsimsum-091" class="section level1">
 <h1 class="page-header" data-toc-text="0.9.1">
@@ -179,9 +186,9 @@
 <li>The control argument <code>df</code> has been renamed to <code>power_df</code>, and now affects power calculations only.</li>
 </ul>
 </div>
-<div id="new-features" class="section level3">
+<div id="new-features-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New features:</h3>
+<a href="#new-features-1" class="anchor"></a>New features:</h3>
 <ul>
 <li><p>New <code>df</code> argument, <code>simsum</code> and <code>multisimum</code> now accept a column in <code>data</code> containing a number of degrees of freedom that will be used to calculate confidence intervals for coverage (and bias-eliminated coverage) with t critical values (instead of normal-theory intervals, the default behaviour). Notably, zip plots behave accordingly when calculating and ranking confidence intervals;</p></li>
 <li><p>Calculations for zip plots are noticeably faster now;</p></li>

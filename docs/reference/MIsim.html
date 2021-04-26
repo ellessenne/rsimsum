@@ -147,7 +147,9 @@
     <p>A dataset from a simulation study comparing different ways to handle missing covariates when fitting a Cox model (White and Royston, 2009). One thousand datasets were simulated, each containing normally distributed covariates \(x\) and \(z\) and time-to-event outcome. Both covariates has 20\<!-- % of their values deleted independently of all other variables so the data became missing completely at random (Little and Rubin, 2002). Each simulated dataset was analysed in three ways. A Cox model was fit to the complete cases (\code{CC}). Then two methods of multiple imputation using chained equations (van Buuren, Boshuizen, and Knook, 1999) were used. The \code{MI_LOGT} method multiply imputes the missing values of \eqn{x} and \eqn{z} with the outcome included as \eqn{\log (t)} and \eqn{d}, where \eqn{t} is the survival time and \eqn{d} is the event indicator. The \code{MI_T} method is the same except that \eqn{\log (t)} is replaced by \eqn{t} in the imputation model. The results are stored in long format. --></p>
     </div>
 
-    <pre class="usage"><span class='va'>MIsim</span></pre>
+    <pre class="usage"><span class='va'>MIsim</span>
+
+<span class='va'>MIsim2</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
@@ -159,6 +161,10 @@
 <li><p><code>se</code> Standard error of the point estimate.</p></li>
 </ul>
 
+<p>An object of class <code>tbl_df</code> (inherits from <code>tbl</code>, <code>data.frame</code>) with 3000 rows and 5 columns.</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p><code>MIsim2</code> is a version of the same dataset with the <code>method</code> column split into two columns, <code>m1</code> and <code>m2</code>.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>White, I.R., and P. Royston. 2009. Imputing missing covariate values for the Cox model. Statistics in Medicine 28(15):1982-1998 doi: <a href='https://doi.org/10.1002/sim.3618'>10.1002/sim.3618</a></p>
@@ -166,6 +172,7 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"MIsim"</span>, package <span class='op'>=</span> <span class='st'>"rsimsum"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"MIsim2"</span>, package <span class='op'>=</span> <span class='st'>"rsimsum"</span><span class='op'>)</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

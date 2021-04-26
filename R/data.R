@@ -5,12 +5,18 @@
 #' * `method` Method used (`CC`, `MI_LOGT` or `MI_T`).
 #' * `b` Point estimate.
 #' * `se` Standard error of the point estimate.
+#' @rdname MIsim
+#' @note `MIsim2` is a version of the same dataset with the `method` column split into two columns, `m1` and `m2`.
 #'
 #' @examples
 #' data("MIsim", package = "rsimsum")
+#' data("MIsim2", package = "rsimsum")
 #' @references White, I.R., and P. Royston. 2009. Imputing missing covariate values for the Cox model. Statistics in Medicine 28(15):1982-1998 \doi{10.1002/sim.3618}
 #' @references Little, R.J.A., and D.B. Rubin. 2002. Statistical analysis with missing data. 2nd ed. Hoboken, NJ: Wiley \doi{10.1002/9781119013563}
 "MIsim"
+
+#' @rdname MIsim
+"MIsim2"
 
 #' @title Example of a simulation study on survival modelling
 #' @description A dataset from a simulation study assessing the impact of misspecifying the baseline hazard in survival models on regression coefficients. One thousand datasets were simulated, each containing a binary treatment variable with a log-hazard ratio of -0.50. Survival data was simulated for two different sample sizes, 50 and 250 individuals, and under two different baseline hazard functions, exponential and Weibull. Consequently, a Cox model (Cox, 1972), a fully parametric exponential model, and a Royston-Parmar (Royston and Parmar, 2002) model with two degrees of freedom were fit to each simulated dataset. See `vignette("relhaz", package = "rsimsum")` for more information.
@@ -37,10 +43,16 @@
 #' * `par` The estimand. `trt` is the log-treatment effect, `fv` is the variance of the frailty.
 #' * `fv_dist` The true frailty distribution.
 #' * `model` Method used (`Cox, Gamma`, `Cox, Log-Normal`, `RP(P), Gamma`, or `RP(P), Log-Normal`).
+#' @rdname frailty
+#' @note `frailty2` is a version of the same dataset with the `model` column split into two columns, `m_baseline` and `m_frailty`.
 #'
 #' @examples
 #' data("frailty", package = "rsimsum")
+#' data("frailty2", package = "rsimsum")
 "frailty"
+
+#' @rdname frailty
+"frailty2"
 
 #' @title Example of a simulation study on survival modelling
 #' @description A dataset from a simulation study with 150 data-generating mechanisms, useful to illustrate nested loop plots. This simulation study aims to compare the Cox model and flexible parametric models in a variety of scenarios: different baseline hazard functions, sample size, and varying amount of heterogeneity unaccounted for in the model (simulated as white noise with a given variance). A Cox model and a Royston-Parmar model with 5 degrees of freedom are fit to each replication.

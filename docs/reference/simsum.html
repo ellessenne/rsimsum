@@ -40,9 +40,9 @@
 
 
 <meta property="og:title" content="Analyses of simulation studies including Monte Carlo error — simsum" />
-<meta property="og:description" content="simsum computes performance measures for simulation studies in which each simulated data set yields point estimates by one or more analysis methods.
+<meta property="og:description" content="simsum() computes performance measures for simulation studies in which each simulated data set yields point estimates by one or more analysis methods.
 Bias, empirical standard error and precision relative to a reference method can be computed for each method.
-If, in addition, model-based standard errors are available then simsum can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, the coverage under the assumption that there is no bias (bias-eliminated coverage), and the power to reject a null hypothesis.
+If, in addition, model-based standard errors are available then simsum() can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, the coverage under the assumption that there is no bias (bias-eliminated coverage), and the power to reject a null hypothesis.
 Monte Carlo errors are available for all estimated quantities." />
 
 
@@ -147,9 +147,9 @@ Monte Carlo errors are available for all estimated quantities." />
     </div>
 
     <div class="ref-description">
-    <p><code>simsum</code> computes performance measures for simulation studies in which each simulated data set yields point estimates by one or more analysis methods.
+    <p><code>simsum()</code> computes performance measures for simulation studies in which each simulated data set yields point estimates by one or more analysis methods.
 Bias, empirical standard error and precision relative to a reference method can be computed for each method.
-If, in addition, model-based standard errors are available then <code>simsum</code> can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, the coverage under the assumption that there is no bias (bias-eliminated coverage), and the power to reject a null hypothesis.
+If, in addition, model-based standard errors are available then <code>simsum()</code> can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, the coverage under the assumption that there is no bias (bias-eliminated coverage), and the power to reject a null hypothesis.
 Monte Carlo errors are available for all estimated quantities.</p>
     </div>
 
@@ -195,7 +195,8 @@ See <code><a href='../articles/E-custom-inputs.html'>vignette("E-custom-inputs",
       <th>methodvar</th>
       <td><p>The name of the variable containing the methods to compare.
 For instance, methods could be the models compared within a simulation study.
-Can be <code>NULL</code>.</p></td>
+Can be <code>NULL</code>.
+If a vector of column names is passed to <code>simsum()</code>, those columns will be combined into a single column named <code>:methodvar</code> using the <code><a href='https://rdrr.io/r/base/interaction.html'>base::interaction()</a></code> function before computing all performance measures.</p></td>
     </tr>
     <tr>
       <th>ref</th>
@@ -246,7 +247,7 @@ See <code><a href='../articles/E-custom-inputs.html'>vignette("E-custom-inputs",
     <p>An object of class <code>simsum</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The following names are not allowed for <code>estvarname</code>, <code>se</code>, <code>methodvar</code>, <code>by</code>: <code>stat</code>, <code>est</code>, <code>mcse</code>, <code>lower</code>, <code>upper</code>.</p>
+    <p>The following names are not allowed for <code>estvarname</code>, <code>se</code>, <code>methodvar</code>, <code>by</code>: <code>stat</code>, <code>est</code>, <code>mcse</code>, <code>lower</code>, <code>upper</code>, <code>:methodvar</code>.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>White, I.R. 2010. simsum: Analyses of simulation studies including Monte Carlo error. The Stata Journal 10(3): 369-385. <a href='https://www.stata-journal.com/article.html?article=st0200'>https://www.stata-journal.com/article.html?article=st0200</a></p>

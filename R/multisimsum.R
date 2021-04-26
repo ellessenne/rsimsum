@@ -11,7 +11,7 @@
 #' @return An object of class `multisimsum`.
 #' @export
 #' @details
-#' The following names are not allowed for `estvarname`, `se`, `methodvar`, `by`, `par`: `stat`, `est`, `mcse`, `lower`, `upper`.
+#' The following names are not allowed for `estvarname`, `se`, `methodvar`, `by`, `par`: `stat`, `est`, `mcse`, `lower`, `upper`, `:methodvar`.
 #' @examples
 #' data("frailty", package = "rsimsum")
 #' ms <- multisimsum(
@@ -37,43 +37,13 @@ multisimsum <- function(data,
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # 'methodvar', 'ref', 'par' must be a single string value
-  checkmate::assert_string(x = methodvar, null.ok = TRUE, add = arg_checks)
-  checkmate::assert_string(x = ref, null.ok = TRUE, add = arg_checks)
   checkmate::assert_string(x = par, add = arg_checks)
   # 'methodvar', 'par' must be in 'data'
   checkmate::assert_subset(x = methodvar, choices = names(data), add = arg_checks)
   checkmate::assert_subset(x = par, choices = names(data), add = arg_checks)
-  # 'ref' must be one of the options in 'methodvar'
-  if (!is.null(methodvar)) {
-    checkmate::assert_subset(x = ref, choices = as.character(unique(data[[methodvar]])), add = arg_checks)
-  }
-  # 'methodvar', 'par' must not be any in ('stat', 'est', 'mcse', 'lower', 'upper')
-  if (!is.null(methodvar)) checkmate::assert_false(x = (methodvar %in% c("stat", "est", "mcse", "lower", "upper")))
-  checkmate::assert_false(x = (par %in% c("stat", "est", "mcse", "lower", "upper")), add = arg_checks)
-  # 'true' can be a named vector, with numeric values
-  # its length must be equal to the number of unique elements in 'par'
-  # the names must be the same unique values in 'par'
-  # N.B.: if not, then pass everything onto simsum
-  if (!is.null(true)) {
-    if (rlang::is_named(true)) {
-      checkmate::assert_named(x = true, add = arg_checks)
-      checkmate::assert_true(x = (length(unique(data[[par]])) == length(true)), add = arg_checks)
-      checkmate::assert_true(x = all(names(true) %in% unique(data[[par]])), add = arg_checks)
-    }
-  }
-  # 'control' must be a list, with well defined components
-  checkmate::assert_list(x = control, add = arg_checks)
-  checkmate::assert_subset(x = names(control), choices = c("mcse", "level", "power_df", "na.rm", "char.sep", "dropbig.max", "dropbig.semax", "dropbig.robust"), empty.ok = TRUE, add = arg_checks)
-  checkmate::assert_logical(x = control$mcse, len = 1, null.ok = TRUE, add = arg_checks)
-  checkmate::assert_number(x = control$level, lower = 0, upper = 1, null.ok = TRUE, add = arg_checks)
-  checkmate::assert_number(x = control$df, null.ok = TRUE, add = arg_checks)
-  checkmate::assert_logical(x = control$na.rm, len = 1, null.ok = TRUE, add = arg_checks)
-  checkmate::assert_string(x = control$char.sep, null.ok = TRUE, add = arg_checks)
-  checkmate::assert_number(x = control$dropbig.max, null.ok = TRUE, add = arg_checks)
-  checkmate::assert_number(x = control$dropbig.semax, null.ok = TRUE, add = arg_checks)
-  checkmate::assert_logical(x = control$dropbig.robust, len = 1, null.ok = TRUE, add = arg_checks)
   # Report
   if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
+  ### <- The above assumes that the other checks will be run by repeated calls to simsum() below
 
   ### Set control parameters
   control.default <- list(mcse = TRUE, level = 0.95, power_df = NULL, na.rm = TRUE, char.sep = "~", dropbig.max = 10, dropbig.semax = 100, dropbig.robust = TRUE)
@@ -91,12 +61,15 @@ multisimsum <- function(data,
 
   ### Set reference method if 'ref' is not specified
   if (!is.null(methodvar)) {
-    methods <- levels(data[[methodvar]])
     if (is.null(ref)) {
-      ref <- methods[1]
+      if (length(methodvar) > 1) {
+        ref <- .compact_method_columns(data = data, methodvar = methodvar)$reftable[[":methodvar"]][1]
+      } else {
+        ref <- levels(data[[methodvar]])[1]
+        data[[methodvar]] <- relevel(data[[methodvar]], ref = ref)
+      }
       message(paste("'ref' method was not specified,", ref, "set as the reference"))
     }
-    data[[methodvar]] <- relevel(data[[methodvar]], ref = ref)
   }
 
   ### Throw a warning if `ref` is specified and `methodvar` is not
