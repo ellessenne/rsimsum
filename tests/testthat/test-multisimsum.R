@@ -133,12 +133,3 @@ testthat::test_that("multisimsum without 'se' nor 'true' does not compute se2mea
   s <- multisimsum(data = frailty, par = "par", estvarname = "b", methodvar = "model", by = "fv_dist")
   testthat::expect_false(object = any(c("se2mean", "se2median", "modelse", "relerror", "cover", "becover", "power", "bias", "mse") %in% s$summ$stat))
 })
-
-testthat::test_that("multisimsum with multiple columns as 'methodvar' yields same results", {
-  data("frailty")
-  s1 <- multisimsum(data = frailty, par = "par", estvarname = "b", methodvar = "model", by = "fv_dist")
-  data("frailty2")
-  s2 <- multisimsum(data = frailty2, par = "par", estvarname = "b", methodvar = c("m_baseline", "m_frailty"), by = "fv_dist")
-  testthat::expect_equal(object = tidy(s2)$est, expected = tidy(s1)$est)
-  testthat::expect_equal(object = tidy(s2)$mcse, expected = tidy(s1)$mcse)
-})
