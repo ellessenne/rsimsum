@@ -76,6 +76,7 @@ jobs:
       - name: Install dependencies
         run: |
           install.packages("stringi", type = "source")
+          install.packages("rstpm2", type = "source")
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
