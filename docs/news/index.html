@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
       </span>
     </div>
 
@@ -141,9 +141,9 @@
       <small>Source: <a href='https://github.com/ellessenne/rsimsum/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="rsimsum-development-version" class="section level1">
-<h1 class="page-header" data-toc-text="development version">
-<a href="#rsimsum-development-version" class="anchor"></a>rsimsum (development version)<small> Unreleased </small>
+    <div id="rsimsum-0100" class="section level1">
+<h1 class="page-header" data-toc-text="0.10.0">
+<a href="#rsimsum-0100" class="anchor"></a>rsimsum 0.10.0<small> Unreleased </small>
 </h1>
 <div id="breaking-changes" class="section level3">
 <h3 class="hasAnchor">
@@ -157,7 +157,8 @@
 <h3 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features:</h3>
 <ul>
-<li>Two new datasets, <code>MIsim2</code> and <code>frailty2</code>, are now bundled with <code>rsimsum</code>. They correspond to <code>MIsim</code> and <code>frailty</code>, respectively, with the only difference being that the column identifying distinct methods is now split into two distinct columns.</li>
+<li><p><code><a href="../reference/simsum.html">simsum()</a></code> and <code><a href="../reference/multisimsum.html">multisimsum()</a></code> now accept multiple column inputs that identify unique methods (see e.g. <a href='https://github.com/ellessenne/rsimsum/issues/24'>#24</a>, <a href='https://github.com/ellessenne/rsimsum/issues/30'>#30</a>). Internally, this combines the unique values from each column factorially using the <code><a href="https://rdrr.io/r/base/interaction.html">interaction()</a></code>; then, methods are reported as such. See <code><a href="../articles/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code> for some examples.</p></li>
+<li><p>Two new datasets, <code>MIsim2</code> and <code>frailty2</code>, are now bundled with <code>rsimsum</code> to test the new functionality introduced above. They correspond to <code>MIsim</code> and <code>frailty</code>, respectively, with the only difference being that the column identifying distinct methods is now split into two distinct columns.</p></li>
 </ul>
 </div>
 </div>

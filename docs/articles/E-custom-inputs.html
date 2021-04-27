@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
       </span>
     </div>
 
@@ -100,7 +100,7 @@
       <h1 data-toc-skip>Custom input values for confidence intervals and true values</h1>
                         <h4 class="author">Alessandro Gasparini</h4>
             
-            <h4 class="date">2021-04-26</h4>
+            <h4 class="date">2021-04-27</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/rsimsum/blob/master/vignettes/E-custom-inputs.Rmd"><code>vignettes/E-custom-inputs.Rmd</code></a></small>
       <div class="hidden name"><code>E-custom-inputs.Rmd</code></div>
@@ -191,7 +191,7 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span>, <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">s4</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
-<p>Finally, we can pass a column of values for <code>true</code> as well:</p>
+<p>We can pass a column of values for <code>true</code> as well:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tt</span><span class="op">$</span><span class="va">true</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span>
 <span class="va">s5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">tt</span>, estvarname <span class="op">=</span> <span class="st">"diff"</span>, true <span class="op">=</span> <span class="st">"true"</span>, se <span class="op">=</span> <span class="st">"se"</span>, ci.limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lower"</span>, <span class="st">"upper"</span><span class="op">)</span>, methodvar <span class="op">=</span> <span class="st">"method"</span>, by <span class="op">=</span> <span class="st">"dgm"</span><span class="op">)</span>
@@ -218,12 +218,69 @@
 <span class="co">#&gt;    2 0.8680 (0.0151) 0.9320 (0.0113)</span>
 <span class="co">#&gt;    3 0.9380 (0.0108) 0.9420 (0.0105)</span>
 <span class="co">#&gt;    4 0.8940 (0.0138) 0.9360 (0.0109)</span></code></pre></div>
+<p>Finally, we could have multiple columns identifying methods as well. This uses the <code>MIsim</code> and <code>MIsim2</code> datasets, which are bundled with {rsimsum}:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"MIsim"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"MIsim2"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">MIsim</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 6 x 4</span>
+<span class="co">#&gt;   dataset method      b    se</span>
+<span class="co">#&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1       1 CC      0.707 0.147</span>
+<span class="co">#&gt; 2       1 MI_T    0.684 0.126</span>
+<span class="co">#&gt; 3       1 MI_LOGT 0.712 0.141</span>
+<span class="co">#&gt; 4       2 CC      0.349 0.160</span>
+<span class="co">#&gt; 5       2 MI_T    0.406 0.141</span>
+<span class="co">#&gt; 6       2 MI_LOGT 0.429 0.136</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">MIsim2</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 6 x 5</span>
+<span class="co">#&gt;   dataset m1    m2         b    se</span>
+<span class="co">#&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1       1 CC    ""     0.707 0.147</span>
+<span class="co">#&gt; 2       1 MI    "T"    0.684 0.126</span>
+<span class="co">#&gt; 3       1 MI    "LOGT" 0.712 0.141</span>
+<span class="co">#&gt; 4       2 CC    ""     0.349 0.160</span>
+<span class="co">#&gt; 5       2 MI    "T"    0.406 0.141</span>
+<span class="co">#&gt; 6       2 MI    "LOGT" 0.429 0.136</span></code></pre></div>
+<p>The syntax when calling <code><a href="../reference/simsum.html">simsum()</a></code> is pretty much the same:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">s6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">MIsim</span>, estvarname <span class="op">=</span> <span class="st">"b"</span>, true <span class="op">=</span> <span class="fl">0.50</span>, se <span class="op">=</span> <span class="st">"se"</span>, methodvar <span class="op">=</span> <span class="st">"method"</span><span class="op">)</span>
+<span class="co">#&gt; 'ref' method was not specified, CC set as the reference</span>
+<span class="va">s7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">MIsim2</span>, estvarname <span class="op">=</span> <span class="st">"b"</span>, true <span class="op">=</span> <span class="fl">0.50</span>, se <span class="op">=</span> <span class="st">"se"</span>, methodvar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m1"</span>, <span class="st">"m2"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; 'ref' method was not specified, CC: set as the reference</span></code></pre></div>
+<p>See the inferred methods:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">s6</span><span class="op">)</span>
+<span class="co">#&gt; Summary of a simulation study with a single estimand.</span>
+<span class="co">#&gt; True value of the estimand: 0.5 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Method variable: method </span>
+<span class="co">#&gt;  Unique methods: CC, MI_LOGT, MI_T </span>
+<span class="co">#&gt;  Reference method: CC </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; By factors: none</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Monte Carlo standard errors were computed.</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">s7</span><span class="op">)</span>
+<span class="co">#&gt; Summary of a simulation study with a single estimand.</span>
+<span class="co">#&gt; True value of the estimand: 0.5 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Columns identifying methods: m1, m2 </span>
+<span class="co">#&gt;  Unique methods: CC:, MI:LOGT, MI:T </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; By factors: none</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Monte Carlo standard errors were computed.</span></code></pre></div>
+<p>And of course, the estimated performance measures are the same:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">s6</span><span class="op">)</span><span class="op">$</span><span class="va">est</span>, <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">s7</span><span class="op">)</span><span class="op">$</span><span class="va">est</span><span class="op">)</span>
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
 </div>
 <div id="multiple-estimands-at-once" class="section level1">
 <h1 class="hasAnchor">
 <a href="#multiple-estimands-at-once" class="anchor"></a>Multiple Estimands at Once</h1>
 <p><code>multisimsum</code> can be as flexible as <code>simsum</code>. Remember the default behaviour:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"frailty"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span>
 <span class="va">ms1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/multisimsum.html">multisimsum</a></span><span class="op">(</span>
   data <span class="op">=</span> <span class="va">frailty</span>,
@@ -254,7 +311,7 @@
 <span class="co">#&gt;  Log-Normal -0.0006 (0.0015) -0.0014 (0.0015) -0.0006 (0.0015)  -0.0016 (0.0015)</span></code></pre></div>
 <p>In this example, we pass the true values of each estimand as the named vector <code><a href="https://rdrr.io/r/base/c.html">c(trt = -0.50, fv = 0.75)</a></code>.</p>
 <p>Say instead we stored the true value of each estimand as a column in our dataset:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">frailty</span><span class="op">$</span><span class="va">true</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">frailty</span><span class="op">$</span><span class="va">par</span> <span class="op">==</span> <span class="st">"trt"</span>, <span class="op">-</span><span class="fl">0.50</span>, <span class="fl">0.75</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">frailty</span><span class="op">)</span>
 <span class="co">#&gt;   i         b        se par    fv_dist             model true</span>
@@ -265,7 +322,7 @@
 <span class="co">#&gt; 5 1 0.6394722 0.1223808  fv Log-Normal        Cox, Gamma 0.75</span>
 <span class="co">#&gt; 6 1 0.7573628 0.1235062  fv Log-Normal   Cox, Log-Normal 0.75</span></code></pre></div>
 <p>With this data structure, we can pass a string value to <code>multisimsum</code> that will identify the <code>true</code> column in our dataset:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ms2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/multisimsum.html">multisimsum</a></span><span class="op">(</span>
   data <span class="op">=</span> <span class="va">frailty</span>,
   par <span class="op">=</span> <span class="st">"par"</span>, true <span class="op">=</span> <span class="st">"true"</span>,
@@ -294,12 +351,12 @@
 <span class="co">#&gt;       Gamma -0.0006 (0.0016) -0.0013 (0.0016) -0.0003 (0.0016)  -0.0015 (0.0016)</span>
 <span class="co">#&gt;  Log-Normal -0.0006 (0.0015) -0.0014 (0.0015) -0.0006 (0.0015)  -0.0016 (0.0015)</span></code></pre></div>
 <p>We can confirm that we obtain the same results with the two approaches:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">ms1</span><span class="op">)</span>, <span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">ms2</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
 <p>This approach is particularly useful when the true value might vary across replications (e.g. when it depends on the simulated dataset).</p>
 <p>Of course, it can be combined with custom confidence interval limits for coverage as well:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">frailty</span><span class="op">$</span><span class="va">lower</span> <span class="op">&lt;-</span> <span class="va">frailty</span><span class="op">$</span><span class="va">b</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">qt</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">0.05</span> <span class="op">/</span> <span class="fl">2</span>, df <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">*</span> <span class="va">frailty</span><span class="op">$</span><span class="va">se</span>
 <span class="va">frailty</span><span class="op">$</span><span class="va">upper</span> <span class="op">&lt;-</span> <span class="va">frailty</span><span class="op">$</span><span class="va">b</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">qt</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">0.05</span> <span class="op">/</span> <span class="fl">2</span>, df <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">*</span> <span class="va">frailty</span><span class="op">$</span><span class="va">se</span>
 
@@ -332,7 +389,7 @@
 <span class="co">#&gt;       Gamma 0.9730 (0.0051) 0.9710 (0.0053) 0.9732 (0.0052)   0.9710 (0.0053)</span>
 <span class="co">#&gt;  Log-Normal 0.9710 (0.0053) 0.9690 (0.0055) 0.9719 (0.0052)   0.9690 (0.0055)</span></code></pre></div>
 <p>This will be completely different than before:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ms2</span>, stats <span class="op">=</span> <span class="st">"cover"</span><span class="op">)</span>
 <span class="co">#&gt; Values are:</span>
 <span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span>
@@ -353,6 +410,7 @@
 <span class="co">#&gt;     fv_dist      Cox, Gamma Cox, Log-Normal    RP(P), Gamma RP(P), Log-Normal</span>
 <span class="co">#&gt;       Gamma 0.9500 (0.0069) 0.9490 (0.0070) 0.9506 (0.0070)   0.9500 (0.0069)</span>
 <span class="co">#&gt;  Log-Normal 0.9410 (0.0075) 0.9420 (0.0074) 0.9428 (0.0074)   0.9430 (0.0073)</span></code></pre></div>
+<p>Multiple columns identifying methods are supported with <code><a href="../reference/multisimsum.html">multisimsum()</a></code> as well; examples are omitted here, but it works analogously as with <code><a href="../reference/simsum.html">simsum()</a></code>.</p>
 </div>
   </div>
 
