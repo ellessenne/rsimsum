@@ -2,7 +2,7 @@
 
 pre_submission_test:
 	make docs
-	R -e "devtools::check()"
+	R -e "devtools::check(remote = TRUE, manual = TRUE)"
 	R -e "devtools::check_win_devel(quiet = TRUE)"
 	R -e "devtools::check_win_oldrelease(quiet = TRUE)"
 	R -e "devtools::check_win_release(quiet = TRUE)"
