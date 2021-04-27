@@ -52,7 +52,7 @@ jobs:
 
       - name: Query dependencies
         run: |
-          install.packages('remotes')
+          install.packages("remotes", type = "source')
           saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
           writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
         shell: Rscript {0}
@@ -76,6 +76,7 @@ jobs:
       - name: Install dependencies
         run: |
           install.packages("stringi", type = "source")
+          install.packages("deSolve", type = "source")
           install.packages("rstpm2", type = "source")
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
