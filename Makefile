@@ -1,4 +1,4 @@
-.PHONY: pre_submission_test docs
+.PHONY: pre_submission_test docs style revdep
 
 pre_submission_test:
 	make docs
@@ -17,3 +17,7 @@ docs:
 
 style:
 	R -e "styler::style_dir(filetype = c('r', 'rmd'))"
+
+revdep:
+	R -e "revdepcheck::revdep_reset()"
+	R -e "revdepcheck::revdep_check(num_workers = 4)"
