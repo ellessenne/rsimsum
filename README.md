@@ -308,13 +308,13 @@ citation("rsimsum")
 
 -   White, I.R. 2010. *simsum: Analyses of simulation studies including
     Monte Carlo error*. The Stata Journal 10(3): 369-385
-    &lt;<https://www.stata-journal.com/article.html?article=st0200>&gt;
+    \<<https://www.stata-journal.com/article.html?article=st0200>\>
 -   Morris, T.P., White, I.R. and Crowther, M.J. 2019. *Using simulation
     studies to evaluate statistical methods*. Statistics in Medicine,
-    &lt;[doi:10.1002/sim.8086](https://doi.org/10.1002/sim.8086)&gt;
+    \<[doi:10.1002/sim.8086](https://doi.org/10.1002/sim.8086)\>
 -   Gasparini, A. 2018. *rsimsum: Summarise results from Monte Carlo
     simulation studies*. Journal of Open Source Software, 3(26):739
-    &lt;[10.21105/joss.00739](https://doi.org/10.21105/joss.00739)&gt;
+    \<[10.21105/joss.00739](https://doi.org/10.21105/joss.00739)\>
 
 # Warning for RStudio users
 
@@ -329,4 +329,4 @@ vignette(topic = "A-introduction", package = "rsimsum")
 ```
 
 This is a known issue with RStudio (see
-[\#2253](https://github.com/rstudio/rstudio/issues/2253)).
+[#2253](https://github.com/rstudio/rstudio/issues/2253)).
