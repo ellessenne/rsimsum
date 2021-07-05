@@ -126,7 +126,7 @@ simsum <- function(data,
   checkmate::assert_subset(x = names(control), choices = c("mcse", "level", "power_df", "na.rm", "char.sep", "dropbig.max", "dropbig.semax", "dropbig.robust"), empty.ok = TRUE, add = arg_checks)
   checkmate::assert_logical(x = control$mcse, len = 1, null.ok = TRUE, add = arg_checks)
   checkmate::assert_number(x = control$level, lower = 0, upper = 1, null.ok = TRUE, add = arg_checks)
-  checkmate::assert_number(x = control$df, null.ok = TRUE, add = arg_checks)
+  checkmate::assert_number(x = control$power_df, null.ok = TRUE, add = arg_checks)
   checkmate::assert_logical(x = control$na.rm, len = 1, null.ok = TRUE, add = arg_checks)
   checkmate::assert_string(x = control$char.sep, null.ok = TRUE, add = arg_checks)
   checkmate::assert_number(x = control$dropbig.max, null.ok = TRUE, add = arg_checks)
@@ -139,7 +139,7 @@ simsum <- function(data,
   if (!is.null(ci.limits) & !is.null(df)) stop("Only one of 'ci.limits' and 'df' can be specified.", call. = FALSE)
 
   ### Set control parameters
-  control.default <- list(mcse = TRUE, level = 0.95, df = NULL, na.rm = TRUE, char.sep = "~", dropbig.max = 10, dropbig.semax = 100, dropbig.robust = TRUE)
+  control.default <- list(mcse = TRUE, level = 0.95, power_df = NULL, na.rm = TRUE, char.sep = "~", dropbig.max = 10, dropbig.semax = 100, dropbig.robust = TRUE)
   control.tmp <- unlist(list(
     control[names(control) %in% names(control.default)],
     control.default[!(names(control.default) %in% names(control))]
