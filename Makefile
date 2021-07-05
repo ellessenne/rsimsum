@@ -5,10 +5,11 @@ pre_submission_test:
 	R -e "urlchecker::url_check()"
 	R -e "devtools::check(remote = TRUE, manual = TRUE)"
 	R -e "devtools::check_win_devel(quiet = TRUE)"
-	R -e "devtools::check_win_oldrelease(quiet = TRUE)"
 	R -e "devtools::check_win_release(quiet = TRUE)"
+	R -e "devtools::check_win_oldrelease(quiet = TRUE)"
 	R -e "rhub::check_for_cran()"
 	make revdep
+	make style
 
 docs:
 	make style
@@ -23,3 +24,4 @@ style:
 revdep:
 	R -e "revdepcheck::revdep_reset()"
 	R -e "revdepcheck::revdep_check(num_workers = 4)"
+	R -e "revdepcheck::revdep_reset()"
