@@ -1,4 +1,8 @@
-# rsimsum (development version)
+# rsimsum 0.10.1
+
+### Bug fixes:
+
+* Even if `power_df` was passed to the `control` argument, it was not used (regression introduced in {rsimsum} 0.9.0). Now fixed, thanks to @Kaladani (#33).
 
 # rsimsum 0.10.0
 
