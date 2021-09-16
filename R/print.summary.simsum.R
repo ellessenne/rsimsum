@@ -76,4 +76,11 @@ print.summary.simsum <- function(x, digits = 4, mcse = TRUE, ...) {
     output[[i]][["Performance Measure"]] <- NULL
     print(output[[i]], row.names = FALSE)
   }
+
+  ### Return output invisibly
+  output <- lapply(X = output, FUN = function(x) {
+    row.names(x) <- NULL
+    return(x)
+  })
+  return(invisible(output))
 }

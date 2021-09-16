@@ -1,5 +1,17 @@
 # rsimsum (development version)
 
+### New features:
+
+* `print.summary.simsum()` now return (invisibly) a list with each section of the output, e.g. by performance measure.
+  This is useful for printing small sections of the output, e.g. using `kable()` (see discussion in #22):
+  ```r
+  library(rsimsum)
+  s2 <- simsum(data = relhaz, estvarname = "theta", true = -0.50, se = "se", methodvar = "model", by = c("baseline", "n"))
+  out <- print(summary(s2, stats = "bias"))
+  library(knitr)
+  kable(out[[1]], caption = names(out)[1], align = "r")
+  ```
+
 # rsimsum 0.10.1
 
 ### Bug fixes:
