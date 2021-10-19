@@ -67,6 +67,10 @@ print.summary.multisimsum <- function(x, digits = 4, mcse = TRUE, ...) {
   ### Split summary table by parameter
   par_split <- .split_by(data = x$summ, by = x$par)
 
+  ### Create a list of printed stuff to invisibly return
+  full_output <- vector(mode = "list", length = length(par_split))
+  names(full_output) <- names(par_split)
+
   ### Loop printing by parameter
   for (i in seq_along(par_split)) {
     cat(paste("\n", ifelse(i > 1, paste(rep("-", times = options()$width), collapse = ""), ""), ifelse(i > 1, "\n", ""), "\nParameter:", names(par_split)[i], "\n"))
@@ -79,10 +83,17 @@ print.summary.multisimsum <- function(x, digits = 4, mcse = TRUE, ...) {
     par_split[[i]][["Performance Measure"]] <- droplevels(par_split[[i]][["Performance Measure"]])
     output <- .split_by(data = par_split[[i]], by = "Performance Measure")
 
-    for (i in seq_along(output)) {
-      cat(paste0("\n", names(output)[i], ":\n"))
-      output[[i]][["Performance Measure"]] <- NULL
-      print(output[[i]], row.names = FALSE)
+    for (ii in seq_along(output)) {
+      cat(paste0("\n", names(output)[ii], ":\n"))
+      output[[ii]][["Performance Measure"]] <- NULL
+      print(output[[ii]], row.names = FALSE)
     }
+
+    ### Add to output to return invisibly
+    full_output[[i]] <- lapply(X = output, FUN = function(x) {
+      row.names(x) <- NULL
+      return(x)
+    })
   }
+  return(invisible(full_output))
 }
