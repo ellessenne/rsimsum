@@ -24,7 +24,10 @@ frailty
 frailty2
 }
 \description{
-A dataset from a simulation study comparing frailty flexible parametric models fitted using penalised likelihood to semiparametric frailty models. Both models are fitted assuming a Gamma and a log-Normal frailty. One thousand datasets were simulated, each containing a binary treatment variable with a log-hazard ratio of -0.50. Clustered survival data was simulated assuming 50 clusters of 50 individuals each, with a mixture Weibull baseline hazard function and a frailty following either a Gamma or a Log-Normal distribution. The comparison involves estimates of the log-treatment effect, and estimates of heterogeneity (i.e. the estimated frailty variance).
+A dataset from a simulation study comparing frailty flexible parametric models fitted using penalised likelihood to semiparametric frailty models.
+Both models are fitted assuming a Gamma and a log-Normal frailty.
+One thousand datasets were simulated, each containing a binary treatment variable with a log-hazard ratio of -0.50. Clustered survival data was simulated assuming 50 clusters of 50 individuals each, with a mixture Weibull baseline hazard function and a frailty following either a Gamma or a Log-Normal distribution.
+The comparison involves estimates of the log-treatment effect, and estimates of heterogeneity (i.e. the estimated frailty variance).
 }
 \note{
 \code{frailty2} is a version of the same dataset with the \code{model} column split into two columns, \code{m_baseline} and \code{m_frailty}.

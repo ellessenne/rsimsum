@@ -1,5 +1,5 @@
 #' @title autoplot method for simsum objects
-#' @description `autoplot` can produce a series of plot to summarise results of simulation studies. See `vignette("plotting", package = "rsimsum")` for further details.
+#' @description `autoplot` can produce a series of plot to summarise results of simulation studies. See `vignette("C-plotting", package = "rsimsum")` for further details.
 #' @param object An object of class `simsum`.
 #' @param type The type of the plot to be produced. Possible choices are: `forest`, `lolly`, `zip`, `est`, `se`, `est_ba`, `se_ba`, `est_ridge`, `se_ridge`, `est_density`, `se_density`, `est_hex`, `se_hex`, `heat`, `nlp`, with `forest` being the default.
 #' @param stats Summary statistic to plot, defaults to `nsim` (the number of replications with non-missing point estimates/SEs).
