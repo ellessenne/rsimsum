@@ -38,8 +38,7 @@ Suggests:
  rstpm2,
  survival,
  testthat,
- usethis,
- viridis
+ usethis
 URL: https://ellessenne.github.io/rsimsum/
 BugReports: https://github.com/ellessenne/rsimsum/issues
 VignetteBuilder: knitr

@@ -234,13 +234,13 @@ We also mentioned before that the colour palette of heat plots should be customi
 
 ```{r heat-bias-viridis}
 autoplot(s1, type = "heat", stats = "bias") +
-  viridis::scale_fill_viridis()
+  ggplot2::scale_fill_viridis_c()
 ```
 
 Analogously, say we want to customise the colour palette of ridgeline plots, again using the viridis colour palette:
 
 ```{r colour-palette}
 autoplot(s1, type = "est_ridge") +
-  viridis::scale_fill_viridis(discrete = TRUE) +
-  viridis::scale_colour_viridis(discrete = TRUE)
+  scale_fill_viridis_d() +
+  scale_colour_viridis_d()
 ```

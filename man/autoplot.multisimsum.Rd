@@ -61,5 +61,4 @@ autoplot(ms, par = "trt")
 autoplot(ms, par = "trt", type = "lolly", stats = "cover")
 autoplot(ms, par = "trt", type = "zip")
 autoplot(ms, par = "trt", type = "est_ba")
-autoplot(ms, par = "trt", type = "zip")
 }

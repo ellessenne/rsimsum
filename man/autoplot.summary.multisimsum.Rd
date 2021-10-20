@@ -59,7 +59,4 @@ sms <- summary(ms)
 
 library(ggplot2)
 autoplot(sms, par = "trt")
-autoplot(sms, par = "trt", type = "lolly", stats = "cover")
-autoplot(sms, par = "trt", type = "zip")
-autoplot(sms, par = "trt", type = "est_ba")
 }
