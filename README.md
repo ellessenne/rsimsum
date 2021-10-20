@@ -8,7 +8,7 @@
 [![R Build
 Status](https://github.com/ellessenne/rsimsum/workflows/R-CMD-check/badge.svg)](https://github.com/ellessenne/rsimsum/actions)
 [![Codecov Test
-Coverage](https://codecov.io/gh/ellessenne/rsimsum/branch/master/graph/badge.svg)](https://codecov.io/gh/ellessenne/rsimsum?branch=master)
+Coverage](https://codecov.io/gh/ellessenne/rsimsum/branch/master/graph/badge.svg)](https://app.codecov.io/gh/ellessenne/rsimsum?branch=master)
 [![CRAN
 Status](https://www.r-pkg.org/badges/version/rsimsum)](https://CRAN.R-project.org/package=rsimsum)
 [![CRAN Logs Monthly

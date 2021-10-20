@@ -24,7 +24,7 @@ options(width = 100)
  
 <!-- badges: start -->
 [![R Build Status](https://github.com/ellessenne/rsimsum/workflows/R-CMD-check/badge.svg)](https://github.com/ellessenne/rsimsum/actions)
-[![Codecov Test Coverage](https://codecov.io/gh/ellessenne/rsimsum/branch/master/graph/badge.svg)](https://codecov.io/gh/ellessenne/rsimsum?branch=master)
+[![Codecov Test Coverage](https://codecov.io/gh/ellessenne/rsimsum/branch/master/graph/badge.svg)](https://app.codecov.io/gh/ellessenne/rsimsum?branch=master)
 [![CRAN Status](https://www.r-pkg.org/badges/version/rsimsum)](https://CRAN.R-project.org/package=rsimsum)
 [![CRAN Logs Monthly Downloads](https://cranlogs.r-pkg.org/badges/rsimsum)](https://CRAN.R-project.org/package=rsimsum)
 [![CRAN Logs Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/rsimsum)](https://CRAN.R-project.org/package=rsimsum)
