@@ -77,11 +77,6 @@ testthat::test_that("multisimsum with by factors returns error when 'by' name is
   })
 })
 
-testthat::test_that("multisimsum with by factors works fine", {
-  data("frailty")
-  ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
-})
-
 testthat::test_that("multisimsum with by factors returns a data.frame with results", {
   data("frailty")
   ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
