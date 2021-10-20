@@ -29,7 +29,6 @@
 #' autoplot(ms, par = "trt", type = "lolly", stats = "cover")
 #' autoplot(ms, par = "trt", type = "zip")
 #' autoplot(ms, par = "trt", type = "est_ba")
-#' autoplot(ms, par = "trt", type = "zip")
 autoplot.multisimsum <- function(object, par, type = "forest", stats = "nsim", target = NULL, fitted = TRUE, scales = "fixed", top = TRUE, density.legend = TRUE, zoom = 1, ...) {
   ### Manipulate object to make it a simsum-like object
   object[["summ"]] <- object[["summ"]][object[["summ"]][[object[["par"]]]] == par, ]
