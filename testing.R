@@ -1,11 +1,15 @@
 devtools::load_all()
 
-library(rsimsum)
-s2 <- simsum(data = relhaz, estvarname = "theta", true = -0.50, se = "se", methodvar = "model", by = c("baseline", "n"))
-a <- print(summary(s2, stats = "bias"))
+library(broom)
 
-library(knitr)
-kable(a[[1]], caption = names(a)[1], align = "r")
+data("MIsim", package = "rsimsum")
+s <- rsimsum::simsum(
+	data = MIsim, estvarname = "b", true = 0.5, se = "se",
+	methodvar = "method", x = TRUE
+)
+
+library(ggplot2)
+autoplot(s, type = "lolly")
 
 ### All-in-one testing
 devtools::document()
