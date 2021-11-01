@@ -145,6 +145,19 @@
 <h1 class="page-header" data-toc-text="development version">
 <a href="#rsimsum-development-version" class="anchor"></a>rsimsum (development version)<small> Unreleased </small>
 </h1>
+<div id="bug-fixes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes:</h3>
+<ul>
+<li>
+<p>Fixed conflicts with <code><a href="https://generics.r-lib.org/reference/tidy.html">tidy()</a></code> function from the {broom} package when both {broom} and {rsimsum} are loaded at the same time. This could lead to an error of this kind:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="co">#&gt; Error: No tidy method recognized for this list.</span></code></pre></div>
+<p>Thanks to Theodosia Salika for reporting this.</p>
+</li>
+</ul>
+</div>
 </div>
     <div id="rsimsum-0110" class="section level1">
 <h1 class="page-header" data-toc-text="0.11.0">
@@ -156,7 +169,7 @@
 <ul>
 <li>
 <p><code><a href="../reference/print.summary.simsum.html">print.summary.simsum()</a></code> now return (invisibly) a list with each section of the output, e.g. by performance measure. This is useful for printing small sections of the output, e.g. using <code><a href="../reference/kable.simsum.html">kable()</a></code> (thanks <a href='https://github.com/ge-li'>@ge-li</a>, see discussion in <a href='https://github.com/ellessenne/rsimsum/issues/22'>#22</a>):</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ellessenne.github.io/rsimsum/">rsimsum</a></span><span class="op">)</span>
 <span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">relhaz</span>, estvarname <span class="op">=</span> <span class="st">"theta"</span>, true <span class="op">=</span> <span class="op">-</span><span class="fl">0.50</span>, se <span class="op">=</span> <span class="st">"se"</span>, methodvar <span class="op">=</span> <span class="st">"model"</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"n"</span><span class="op">)</span><span class="op">)</span>
@@ -179,9 +192,9 @@
 <h1 class="page-header" data-toc-text="0.10.1">
 <a href="#rsimsum-0101" class="anchor"></a>rsimsum 0.10.1<small> 2021-07-05 </small>
 </h1>
-<div id="bug-fixes" class="section level3">
+<div id="bug-fixes-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-1" class="anchor"></a>Bug fixes:</h3>
 <ul>
 <li>Even if <code>power_df</code> was passed to the <code>control</code> argument, it was not used (regression introduced in {rsimsum} 0.9.0). Now fixed, thanks to <a href='https://github.com/Kaladani'>@Kaladani</a> (<a href='https://github.com/ellessenne/rsimsum/issues/33'>#33</a>).</li>
 </ul>
@@ -212,9 +225,9 @@
 <h1 class="page-header" data-toc-text="0.9.1">
 <a href="#rsimsum-091" class="anchor"></a>rsimsum 0.9.1<small> 2020-09-03 </small>
 </h1>
-<div id="bug-fixes-1" class="section level3">
+<div id="bug-fixes-2" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-1" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-2" class="anchor"></a>Bug fixes:</h3>
 <ul>
 <li><p>Improved printing for simulation studies with ‘non-standard’ way of passing true values (see e.g. <a href='https://github.com/ellessenne/rsimsum/issues/28'>#28</a> on GitHub);</p></li>
 <li><p>Fixed a typo in introductory vignette;</p></li>
@@ -242,9 +255,9 @@
 <li><p>Added a simple <code>kable</code> method for objects of class <code>simsum</code>, <code>summary.simsum</code>, <code>multisimsum</code>, <code>summary.multisimsum</code> to ease the creation of LaTeX/HTML/Markdown/reStructuredText tables.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-2" class="section level3">
+<div id="bug-fixes-3" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-2" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-3" class="anchor"></a>Bug fixes:</h3>
 <ul>
 <li>Fixed a bug that prevented zip plots with only <code>by</code> factors from being plotted.</li>
 </ul>
@@ -270,9 +283,9 @@
 <li><p>Improved <code>multisimsum</code> example in vignette on custom inputs.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-3" class="section level3">
+<div id="bug-fixes-4" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-3" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-4" class="anchor"></a>Bug fixes:</h3>
 <ul>
 <li>Fixed typo in vignette with formulae (<a href='https://github.com/ellessenne/rsimsum/issues/25'>#25</a>, thanks <a href='https://github.com/samperochkin'>@samperochkin</a>).</li>
 </ul>
@@ -321,9 +334,9 @@
 <h1 class="page-header" data-toc-text="0.6.2">
 <a href="#rsimsum-062" class="anchor"></a>rsimsum 0.6.2<small> Unreleased </small>
 </h1>
-<div id="bug-fixes-4" class="section level3">
+<div id="bug-fixes-5" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-4" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-5" class="anchor"></a>Bug fixes:</h3>
 <ul>
 <li>Fixed bug introduced in <code>rsimsum</code> 0.6.1 (average and median variances were not printed).</li>
 </ul>
@@ -333,9 +346,9 @@
 <h1 class="page-header" data-toc-text="0.6.1">
 <a href="#rsimsum-061" class="anchor"></a>rsimsum 0.6.1<small> 2019-09-12 </small>
 </h1>
-<div id="bug-fixes-5" class="section level3">
+<div id="bug-fixes-6" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-5" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-6" class="anchor"></a>Bug fixes:</h3>
 <ul>
 <li><p>Fixed labelling bug in zipper plots (thanks to <a href='https://github.com/syriop-elisa'>@syriop-elisa</a> for reporting it);</p></li>
 <li><p>Clarified that <code>simsum</code> and <code>multisimsum</code> report average (or median) estimated variances, not standard errors (thanks to Ian R. White for reporting this).</p></li>
@@ -356,9 +369,9 @@
 <li><p>Improved ordering of vignettes.</p></li>
 </ul>
 </div>
-<div id="bug-fixes-6" class="section level3">
+<div id="bug-fixes-7" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-6" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-7" class="anchor"></a>Bug fixes:</h3>
 <ul>
 <li><p>Updated unquoting for compatibility with <code>rlang</code> 0.4.0;</p></li>
 <li><p>Fixed missing details and options in the documentation of <code>autoplot.multisimsum</code> and <code>autoplot.summary.multisimsum</code>.</p></li>
@@ -369,9 +382,9 @@
 <h1 class="page-header" data-toc-text="0.5.2">
 <a href="#rsimsum-052" class="anchor"></a>rsimsum 0.5.2<small> 2019-04-25 </small>
 </h1>
-<div id="bug-fixes-7" class="section level3">
+<div id="bug-fixes-8" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-7" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-8" class="anchor"></a>Bug fixes:</h3>
 <ul>
 <li>Fixed labelling when facetting for some plot types, now all defaults to <code><a href="https://ggplot2.tidyverse.org/reference/labellers.html">ggplot2::label_both</a></code> for ‘by’ factors (when included).</li>
 </ul>
@@ -381,9 +394,9 @@
 <h1 class="page-header" data-toc-text="0.5.1">
 <a href="#rsimsum-051" class="anchor"></a>rsimsum 0.5.1<small> 2019-03-15 </small>
 </h1>
-<div id="bug-fixes-8" class="section level3">
+<div id="bug-fixes-9" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-8" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-9" class="anchor"></a>Bug fixes:</h3>
 <ul>
 <li>Fixed calculations for “Relative % increase in precision” (thanks to Ian R. White for reporting this).</li>
 </ul>
@@ -405,9 +418,9 @@
 <li>Improved code coverage.</li>
 </ul>
 </div>
-<div id="bug-fixes-9" class="section level3">
+<div id="bug-fixes-10" class="section level3">
 <h3 class="hasAnchor">
-<a href="#bug-fixes-9" class="anchor"></a>Bug fixes:</h3>
+<a href="#bug-fixes-10" class="anchor"></a>Bug fixes:</h3>
 <ul>
 <li>Fixed a bug in <code>autoplot</code> caused by premature slicing of <code>by</code> arguments, where no <code>by</code> arguments were included.</li>
 </ul>
