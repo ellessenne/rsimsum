@@ -165,41 +165,44 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>frailty</span><span class='op'>)</span>
-<span class='va'>ms</span> <span class='op'>&lt;-</span> <span class='fu'><a href='multisimsum.html'>multisimsum</a></span><span class='op'>(</span>
-  data <span class='op'>=</span> <span class='va'>frailty</span>, par <span class='op'>=</span> <span class='st'>"par"</span>, true <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-    trt <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.50</span>,
-    fv <span class='op'>=</span> <span class='fl'>0.75</span>
-  <span class='op'>)</span>, estvarname <span class='op'>=</span> <span class='st'>"b"</span>, se <span class='op'>=</span> <span class='st'>"se"</span>, methodvar <span class='op'>=</span> <span class='st'>"model"</span>,
-  by <span class='op'>=</span> <span class='st'>"fv_dist"</span>
-<span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>'ref' method was not specified, Cox, Gamma set as the reference</span></div><div class='input'><span class='va'>ms</span>
-</div><div class='output co'>#&gt; 
-#&gt; Estimands variable: par 
-#&gt; 	Unique estimands: fv, trt 
-#&gt; 	True values: fv = -0.5, trt = 0.75 
-#&gt; 
-#&gt; Method variable: model 
-#&gt; 	Unique methods: Cox, Gamma, Cox, Log-Normal, RP(P), Gamma, RP(P), Log-Normal 
-#&gt; 	Reference method: Cox, Gamma 
-#&gt; 
-#&gt; By factors: fv_dist 
-#&gt; 
-#&gt; Monte Carlo standard errors were computed.</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"frailty"</span>, package <span class='op'>=</span> <span class='st'>"rsimsum"</span><span class='op'>)</span>
-<span class='va'>frailty</span><span class='op'>$</span><span class='va'>true</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>frailty</span><span class='op'>$</span><span class='va'>par</span> <span class='op'>==</span> <span class='st'>"trt"</span>, <span class='op'>-</span><span class='fl'>0.50</span>, <span class='fl'>0.75</span><span class='op'>)</span>
-<span class='va'>ms</span> <span class='op'>&lt;-</span> <span class='fu'><a href='multisimsum.html'>multisimsum</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>frailty</span>, par <span class='op'>=</span> <span class='st'>"par"</span>, estvarname <span class='op'>=</span> <span class='st'>"b"</span>, true <span class='op'>=</span> <span class='st'>"true"</span><span class='op'>)</span>
-<span class='va'>ms</span>
-</div><div class='output co'>#&gt; 
-#&gt; Estimands variable: par 
-#&gt; 	Unique estimands: fv, trt 
-#&gt; 	True values from column 'true' 
-#&gt; 
-#&gt; Method variable: none
-#&gt; 
-#&gt; By factors: none
-#&gt; 
-#&gt; Monte Carlo standard errors were computed.</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>frailty</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ms</span> <span class='op'>&lt;-</span> <span class='fu'><a href='multisimsum.html'>multisimsum</a></span><span class='op'>(</span></span>
+<span class='r-in'>  data <span class='op'>=</span> <span class='va'>frailty</span>, par <span class='op'>=</span> <span class='st'>"par"</span>, true <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span class='r-in'>    trt <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.50</span>,</span>
+<span class='r-in'>    fv <span class='op'>=</span> <span class='fl'>0.75</span></span>
+<span class='r-in'>  <span class='op'>)</span>, estvarname <span class='op'>=</span> <span class='st'>"b"</span>, se <span class='op'>=</span> <span class='st'>"se"</span>, methodvar <span class='op'>=</span> <span class='st'>"model"</span>,</span>
+<span class='r-in'>  by <span class='op'>=</span> <span class='st'>"fv_dist"</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 'ref' method was not specified, Cox, Gamma set as the reference</span>
+<span class='r-in'><span class='va'>ms</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Estimands variable: par </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Unique estimands: fv, trt </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	True values: fv = -0.5, trt = 0.75 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Method variable: model </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Unique methods: Cox, Gamma, Cox, Log-Normal, RP(P), Gamma, RP(P), Log-Normal </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Reference method: Cox, Gamma </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> By factors: fv_dist </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Monte Carlo standard errors were computed.</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"frailty"</span>, package <span class='op'>=</span> <span class='st'>"rsimsum"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>frailty</span><span class='op'>$</span><span class='va'>true</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>frailty</span><span class='op'>$</span><span class='va'>par</span> <span class='op'>==</span> <span class='st'>"trt"</span>, <span class='op'>-</span><span class='fl'>0.50</span>, <span class='fl'>0.75</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ms</span> <span class='op'>&lt;-</span> <span class='fu'><a href='multisimsum.html'>multisimsum</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>frailty</span>, par <span class='op'>=</span> <span class='st'>"par"</span>, estvarname <span class='op'>=</span> <span class='st'>"b"</span>, true <span class='op'>=</span> <span class='st'>"true"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ms</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Estimands variable: par </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Unique estimands: fv, trt </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	True values from column 'true' </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Method variable: none</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> By factors: none</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Monte Carlo standard errors were computed.</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

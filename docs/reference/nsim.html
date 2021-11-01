@@ -182,16 +182,18 @@ where \(\delta\) is the specified level of accuracy of the estimate of interest 
     <p>Burton, A., Douglas G. Altman, P. Royston. et al. 2006. The design of simulation studies in medical statistics. Statistics in Medicine 25: 4279-4292 doi: <a href='https://doi.org/10.1002/sim.2673'>10.1002/sim.2673</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Number of simulations required to produce an estimate to within 5%</span>
-<span class='co'># accuracy of the true coefficient of 0.349 with a 5% significance level,</span>
-<span class='co'># assuming the variance of the estimate is 0.0166 and 50% power:</span>
-<span class='fu'>nsim</span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.05</span>, sigma <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fl'>0.0166</span><span class='op'>)</span>, delta <span class='op'>=</span> <span class='fl'>0.349</span> <span class='op'>*</span> <span class='fl'>5</span> <span class='op'>/</span> <span class='fl'>100</span>, power <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 209.4177</div><div class='input'>
-<span class='co'># Number of simulations required to produce an estimate to within 1%</span>
-<span class='co'># accuracy of the true coefficient of 0.349 with a 5% significance level,</span>
-<span class='co'># assuming the variance of the estimate is 0.0166 and 50% power:</span>
-<span class='fu'>nsim</span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.05</span>, sigma <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fl'>0.0166</span><span class='op'>)</span>, delta <span class='op'>=</span> <span class='fl'>0.349</span> <span class='op'>*</span> <span class='fl'>1</span> <span class='op'>/</span> <span class='fl'>100</span>, power <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 5235.443</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># Number of simulations required to produce an estimate to within 5%</span></span>
+<span class='r-in'><span class='co'># accuracy of the true coefficient of 0.349 with a 5% significance level,</span></span>
+<span class='r-in'><span class='co'># assuming the variance of the estimate is 0.0166 and 50% power:</span></span>
+<span class='r-in'><span class='fu'>nsim</span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.05</span>, sigma <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fl'>0.0166</span><span class='op'>)</span>, delta <span class='op'>=</span> <span class='fl'>0.349</span> <span class='op'>*</span> <span class='fl'>5</span> <span class='op'>/</span> <span class='fl'>100</span>, power <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 209.4177</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Number of simulations required to produce an estimate to within 1%</span></span>
+<span class='r-in'><span class='co'># accuracy of the true coefficient of 0.349 with a 5% significance level,</span></span>
+<span class='r-in'><span class='co'># assuming the variance of the estimate is 0.0166 and 50% power:</span></span>
+<span class='r-in'><span class='fu'>nsim</span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fl'>0.05</span>, sigma <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span><span class='op'>(</span><span class='fl'>0.0166</span><span class='op'>)</span>, delta <span class='op'>=</span> <span class='fl'>0.349</span> <span class='op'>*</span> <span class='fl'>1</span> <span class='op'>/</span> <span class='fl'>100</span>, power <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 5235.443</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

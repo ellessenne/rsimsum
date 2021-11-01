@@ -38,9 +38,9 @@ autoplot.multisimsum <- function(object, par, type = "forest", stats = "nsim", t
   }
   #
   if (inherits(object, "summary.multisimsum")) {
-    class(object) <- c("list", "summary.simsum")
+    class(object) <- c("summary.simsum", "list")
   } else {
-    class(object) <- c("list", "simsum")
+    class(object) <- c("simsum", "list")
   }
 
   # Call autoplot.simsum on the subset of results for a given parameter:

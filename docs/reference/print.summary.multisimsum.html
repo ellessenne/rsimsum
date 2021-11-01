@@ -173,202 +173,207 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>frailty</span><span class='op'>)</span>
-<span class='va'>ms</span> <span class='op'>&lt;-</span> <span class='fu'><a href='multisimsum.html'>multisimsum</a></span><span class='op'>(</span>
-  data <span class='op'>=</span> <span class='va'>frailty</span>, par <span class='op'>=</span> <span class='st'>"par"</span>, true <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
-    trt <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.50</span>,
-    fv <span class='op'>=</span> <span class='fl'>0.75</span>
-  <span class='op'>)</span>, estvarname <span class='op'>=</span> <span class='st'>"b"</span>, se <span class='op'>=</span> <span class='st'>"se"</span>, methodvar <span class='op'>=</span> <span class='st'>"model"</span>,
-  by <span class='op'>=</span> <span class='st'>"fv_dist"</span>
-<span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>'ref' method was not specified, Cox, Gamma set as the reference</span></div><div class='input'><span class='va'>sms</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ms</span>, stats <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"bias"</span>, <span class='st'>"cover"</span>, <span class='st'>"mse"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>sms</span>
-</div><div class='output co'>#&gt; Values are:
-#&gt; 	Point Estimate (Monte Carlo Standard Error)
-#&gt; 
-#&gt;    
-#&gt; Parameter: fv 
-#&gt; 
-#&gt; Bias in point estimate:
-#&gt;     fv_dist       Cox, Gamma  Cox, Log-Normal     RP(P), Gamma
-#&gt;       Gamma -0.0124 (0.0045)  0.2299 (0.0076) -0.0179 (0.0044)
-#&gt;  Log-Normal -0.1064 (0.0043) -0.0175 (0.0049) -0.1066 (0.0041)
-#&gt;  RP(P), Log-Normal
-#&gt;    0.2347 (0.0077)
-#&gt;   -0.0152 (0.0050)
-#&gt; 
-#&gt; Mean squared error:
-#&gt;     fv_dist      Cox, Gamma Cox, Log-Normal    RP(P), Gamma RP(P), Log-Normal
-#&gt;       Gamma 0.0203 (0.0010) 0.1107 (0.0055) 0.0195 (0.0009)   0.1145 (0.0057)
-#&gt;  Log-Normal 0.0287 (0.0010) 0.0244 (0.0011) 0.0284 (0.0010)   0.0248 (0.0012)
-#&gt; 
-#&gt; Coverage of nominal 95% confidence interval:
-#&gt;     fv_dist      Cox, Gamma Cox, Log-Normal    RP(P), Gamma RP(P), Log-Normal
-#&gt;       Gamma 0.9201 (0.0087) 0.9220 (0.0085) 0.9300 (0.0082)   0.9030 (0.0094)
-#&gt;  Log-Normal 0.7503 (0.0140) 0.9020 (0.0094) 0.7683 (0.0134)   0.9280 (0.0082)
-#&gt; 
-#&gt;  -------------------------------------------------------------------------------- 
-#&gt;  
-#&gt; Parameter: trt 
-#&gt; 
-#&gt; Bias in point estimate:
-#&gt;     fv_dist       Cox, Gamma  Cox, Log-Normal     RP(P), Gamma
-#&gt;       Gamma -0.0006 (0.0016) -0.0013 (0.0016) -0.0003 (0.0016)
-#&gt;  Log-Normal -0.0006 (0.0015) -0.0014 (0.0015) -0.0006 (0.0015)
-#&gt;  RP(P), Log-Normal
-#&gt;   -0.0015 (0.0016)
-#&gt;   -0.0016 (0.0015)
-#&gt; 
-#&gt; Mean squared error:
-#&gt;     fv_dist      Cox, Gamma Cox, Log-Normal    RP(P), Gamma RP(P), Log-Normal
-#&gt;       Gamma 0.0026 (0.0001) 0.0026 (0.0001) 0.0026 (0.0001)   0.0026 (0.0001)
-#&gt;  Log-Normal 0.0022 (0.0001) 0.0022 (0.0001) 0.0022 (0.0001)   0.0022 (0.0001)
-#&gt; 
-#&gt; Coverage of nominal 95% confidence interval:
-#&gt;     fv_dist      Cox, Gamma Cox, Log-Normal    RP(P), Gamma RP(P), Log-Normal
-#&gt;       Gamma 0.9500 (0.0069) 0.9490 (0.0070) 0.9506 (0.0070)   0.9500 (0.0069)
-#&gt;  Log-Normal 0.9410 (0.0075) 0.9420 (0.0074) 0.9428 (0.0074)   0.9430 (0.0073)</div><div class='input'>
-<span class='co'># Printing less significant digits:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>sms</span>, digits <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Values are:
-#&gt; 	Point Estimate (Monte Carlo Standard Error)
-#&gt; 
-#&gt;    
-#&gt; Parameter: fv 
-#&gt; 
-#&gt; Bias in point estimate:
-#&gt;     fv_dist     Cox, Gamma Cox, Log-Normal   RP(P), Gamma RP(P), Log-Normal
-#&gt;       Gamma -0.012 (0.005)   0.230 (0.008) -0.018 (0.004)     0.235 (0.008)
-#&gt;  Log-Normal -0.106 (0.004)  -0.017 (0.005) -0.107 (0.004)    -0.015 (0.005)
-#&gt; 
-#&gt; Mean squared error:
-#&gt;     fv_dist    Cox, Gamma Cox, Log-Normal  RP(P), Gamma RP(P), Log-Normal
-#&gt;       Gamma 0.020 (0.001)   0.111 (0.005) 0.020 (0.001)     0.114 (0.006)
-#&gt;  Log-Normal 0.029 (0.001)   0.024 (0.001) 0.028 (0.001)     0.025 (0.001)
-#&gt; 
-#&gt; Coverage of nominal 95% confidence interval:
-#&gt;     fv_dist    Cox, Gamma Cox, Log-Normal  RP(P), Gamma RP(P), Log-Normal
-#&gt;       Gamma 0.920 (0.009)   0.922 (0.008) 0.930 (0.008)     0.903 (0.009)
-#&gt;  Log-Normal 0.750 (0.014)   0.902 (0.009) 0.768 (0.013)     0.928 (0.008)
-#&gt; 
-#&gt;  -------------------------------------------------------------------------------- 
-#&gt;  
-#&gt; Parameter: trt 
-#&gt; 
-#&gt; Bias in point estimate:
-#&gt;     fv_dist     Cox, Gamma Cox, Log-Normal   RP(P), Gamma RP(P), Log-Normal
-#&gt;       Gamma -0.001 (0.002)  -0.001 (0.002) -0.000 (0.002)    -0.002 (0.002)
-#&gt;  Log-Normal -0.001 (0.001)  -0.001 (0.001) -0.001 (0.001)    -0.002 (0.001)
-#&gt; 
-#&gt; Mean squared error:
-#&gt;     fv_dist    Cox, Gamma Cox, Log-Normal  RP(P), Gamma RP(P), Log-Normal
-#&gt;       Gamma 0.003 (0.000)   0.003 (0.000) 0.003 (0.000)     0.003 (0.000)
-#&gt;  Log-Normal 0.002 (0.000)   0.002 (0.000) 0.002 (0.000)     0.002 (0.000)
-#&gt; 
-#&gt; Coverage of nominal 95% confidence interval:
-#&gt;     fv_dist    Cox, Gamma Cox, Log-Normal  RP(P), Gamma RP(P), Log-Normal
-#&gt;       Gamma 0.950 (0.007)   0.949 (0.007) 0.951 (0.007)     0.950 (0.007)
-#&gt;  Log-Normal 0.941 (0.007)   0.942 (0.007) 0.943 (0.007)     0.943 (0.007)</div><div class='input'>
-<span class='co'># Printing confidence intervals:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>sms</span>, digits <span class='op'>=</span> <span class='fl'>3</span>, mcse <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Values are:
-#&gt; 	Point Estimate (95% Confidence Interval based on Monte Carlo Standard Errors)
-#&gt; 
-#&gt;    
-#&gt; Parameter: fv 
-#&gt; 
-#&gt; Bias in point estimate:
-#&gt;     fv_dist              Cox, Gamma         Cox, Log-Normal
-#&gt;       Gamma -0.012 (-0.021, -0.003)    0.230 (0.215, 0.245)
-#&gt;  Log-Normal -0.106 (-0.115, -0.098) -0.017 (-0.027, -0.008)
-#&gt;             RP(P), Gamma       RP(P), Log-Normal
-#&gt;  -0.018 (-0.027, -0.009)    0.235 (0.220, 0.250)
-#&gt;  -0.107 (-0.115, -0.098) -0.015 (-0.025, -0.006)
-#&gt; 
-#&gt; Mean squared error:
-#&gt;     fv_dist           Cox, Gamma      Cox, Log-Normal         RP(P), Gamma
-#&gt;       Gamma 0.020 (0.018, 0.022) 0.111 (0.100, 0.121) 0.020 (0.018, 0.021)
-#&gt;  Log-Normal 0.029 (0.027, 0.031) 0.024 (0.022, 0.027) 0.028 (0.026, 0.030)
-#&gt;     RP(P), Log-Normal
-#&gt;  0.114 (0.103, 0.126)
-#&gt;  0.025 (0.023, 0.027)
-#&gt; 
-#&gt; Coverage of nominal 95% confidence interval:
-#&gt;     fv_dist           Cox, Gamma      Cox, Log-Normal         RP(P), Gamma
-#&gt;       Gamma 0.920 (0.903, 0.937) 0.922 (0.905, 0.939) 0.930 (0.914, 0.946)
-#&gt;  Log-Normal 0.750 (0.723, 0.778) 0.902 (0.884, 0.920) 0.768 (0.742, 0.794)
-#&gt;     RP(P), Log-Normal
-#&gt;  0.903 (0.885, 0.921)
-#&gt;  0.928 (0.912, 0.944)
-#&gt; 
-#&gt;  -------------------------------------------------------------------------------- 
-#&gt;  
-#&gt; Parameter: trt 
-#&gt; 
-#&gt; Bias in point estimate:
-#&gt;     fv_dist             Cox, Gamma        Cox, Log-Normal
-#&gt;       Gamma -0.001 (-0.004, 0.003) -0.001 (-0.004, 0.002)
-#&gt;  Log-Normal -0.001 (-0.004, 0.002) -0.001 (-0.004, 0.002)
-#&gt;            RP(P), Gamma      RP(P), Log-Normal
-#&gt;  -0.000 (-0.003, 0.003) -0.002 (-0.005, 0.002)
-#&gt;  -0.001 (-0.004, 0.002) -0.002 (-0.005, 0.001)
-#&gt; 
-#&gt; Mean squared error:
-#&gt;     fv_dist           Cox, Gamma      Cox, Log-Normal         RP(P), Gamma
-#&gt;       Gamma 0.003 (0.002, 0.003) 0.003 (0.002, 0.003) 0.003 (0.002, 0.003)
-#&gt;  Log-Normal 0.002 (0.002, 0.002) 0.002 (0.002, 0.002) 0.002 (0.002, 0.002)
-#&gt;     RP(P), Log-Normal
-#&gt;  0.003 (0.002, 0.003)
-#&gt;  0.002 (0.002, 0.002)
-#&gt; 
-#&gt; Coverage of nominal 95% confidence interval:
-#&gt;     fv_dist           Cox, Gamma      Cox, Log-Normal         RP(P), Gamma
-#&gt;       Gamma 0.950 (0.936, 0.964) 0.949 (0.935, 0.963) 0.951 (0.937, 0.964)
-#&gt;  Log-Normal 0.941 (0.926, 0.956) 0.942 (0.928, 0.956) 0.943 (0.928, 0.957)
-#&gt;     RP(P), Log-Normal
-#&gt;  0.950 (0.936, 0.964)
-#&gt;  0.943 (0.929, 0.957)</div><div class='input'>
-<span class='co'># Printing values only:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>sms</span>, mcse <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Values are:
-#&gt; 	Point Estimate
-#&gt; 
-#&gt;    
-#&gt; Parameter: fv 
-#&gt; 
-#&gt; Bias in point estimate:
-#&gt;     fv_dist Cox, Gamma Cox, Log-Normal RP(P), Gamma RP(P), Log-Normal
-#&gt;       Gamma    -0.0124          0.2299      -0.0179            0.2347
-#&gt;  Log-Normal    -0.1064         -0.0175      -0.1066           -0.0152
-#&gt; 
-#&gt; Mean squared error:
-#&gt;     fv_dist Cox, Gamma Cox, Log-Normal RP(P), Gamma RP(P), Log-Normal
-#&gt;       Gamma     0.0203          0.1107       0.0195            0.1145
-#&gt;  Log-Normal     0.0287          0.0244       0.0284            0.0248
-#&gt; 
-#&gt; Coverage of nominal 95% confidence interval:
-#&gt;     fv_dist Cox, Gamma Cox, Log-Normal RP(P), Gamma RP(P), Log-Normal
-#&gt;       Gamma     0.9201          0.9220       0.9300            0.9030
-#&gt;  Log-Normal     0.7503          0.9020       0.7683            0.9280
-#&gt; 
-#&gt;  -------------------------------------------------------------------------------- 
-#&gt;  
-#&gt; Parameter: trt 
-#&gt; 
-#&gt; Bias in point estimate:
-#&gt;     fv_dist Cox, Gamma Cox, Log-Normal RP(P), Gamma RP(P), Log-Normal
-#&gt;       Gamma    -0.0006         -0.0013      -0.0003           -0.0015
-#&gt;  Log-Normal    -0.0006         -0.0014      -0.0006           -0.0016
-#&gt; 
-#&gt; Mean squared error:
-#&gt;     fv_dist Cox, Gamma Cox, Log-Normal RP(P), Gamma RP(P), Log-Normal
-#&gt;       Gamma     0.0026          0.0026       0.0026            0.0026
-#&gt;  Log-Normal     0.0022          0.0022       0.0022            0.0022
-#&gt; 
-#&gt; Coverage of nominal 95% confidence interval:
-#&gt;     fv_dist Cox, Gamma Cox, Log-Normal RP(P), Gamma RP(P), Log-Normal
-#&gt;       Gamma     0.9500          0.9490       0.9506            0.9500
-#&gt;  Log-Normal     0.9410          0.9420       0.9428            0.9430</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>frailty</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ms</span> <span class='op'>&lt;-</span> <span class='fu'><a href='multisimsum.html'>multisimsum</a></span><span class='op'>(</span></span>
+<span class='r-in'>  data <span class='op'>=</span> <span class='va'>frailty</span>, par <span class='op'>=</span> <span class='st'>"par"</span>, true <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span></span>
+<span class='r-in'>    trt <span class='op'>=</span> <span class='op'>-</span><span class='fl'>0.50</span>,</span>
+<span class='r-in'>    fv <span class='op'>=</span> <span class='fl'>0.75</span></span>
+<span class='r-in'>  <span class='op'>)</span>, estvarname <span class='op'>=</span> <span class='st'>"b"</span>, se <span class='op'>=</span> <span class='st'>"se"</span>, methodvar <span class='op'>=</span> <span class='st'>"model"</span>,</span>
+<span class='r-in'>  by <span class='op'>=</span> <span class='st'>"fv_dist"</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 'ref' method was not specified, Cox, Gamma set as the reference</span>
+<span class='r-in'><span class='va'>sms</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>ms</span>, stats <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"bias"</span>, <span class='st'>"cover"</span>, <span class='st'>"mse"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>sms</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Values are:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Point Estimate (Monte Carlo Standard Error)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter: fv </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bias in point estimate:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist       Cox, Gamma  Cox, Log-Normal     RP(P), Gamma</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma -0.0124 (0.0045)  0.2299 (0.0076) -0.0179 (0.0044)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal -0.1064 (0.0043) -0.0175 (0.0049) -0.1066 (0.0041)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    0.2347 (0.0077)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   -0.0152 (0.0050)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mean squared error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist      Cox, Gamma Cox, Log-Normal    RP(P), Gamma RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma 0.0203 (0.0010) 0.1107 (0.0055) 0.0195 (0.0009)   0.1145 (0.0057)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal 0.0287 (0.0010) 0.0244 (0.0011) 0.0284 (0.0010)   0.0248 (0.0012)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Coverage of nominal 95% confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist      Cox, Gamma Cox, Log-Normal    RP(P), Gamma RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma 0.9201 (0.0087) 0.9220 (0.0085) 0.9300 (0.0082)   0.9030 (0.0094)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal 0.7503 (0.0140) 0.9020 (0.0094) 0.7683 (0.0134)   0.9280 (0.0082)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -------------------------------------------------------------------------------- </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter: trt </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bias in point estimate:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist       Cox, Gamma  Cox, Log-Normal     RP(P), Gamma</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma -0.0006 (0.0016) -0.0013 (0.0016) -0.0003 (0.0016)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal -0.0006 (0.0015) -0.0014 (0.0015) -0.0006 (0.0015)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   -0.0015 (0.0016)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   -0.0016 (0.0015)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mean squared error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist      Cox, Gamma Cox, Log-Normal    RP(P), Gamma RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma 0.0026 (0.0001) 0.0026 (0.0001) 0.0026 (0.0001)   0.0026 (0.0001)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal 0.0022 (0.0001) 0.0022 (0.0001) 0.0022 (0.0001)   0.0022 (0.0001)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Coverage of nominal 95% confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist      Cox, Gamma Cox, Log-Normal    RP(P), Gamma RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma 0.9500 (0.0069) 0.9490 (0.0070) 0.9506 (0.0070)   0.9500 (0.0069)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal 0.9410 (0.0075) 0.9420 (0.0074) 0.9428 (0.0074)   0.9430 (0.0073)</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Printing less significant digits:</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>sms</span>, digits <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Values are:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Point Estimate (Monte Carlo Standard Error)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter: fv </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bias in point estimate:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist     Cox, Gamma Cox, Log-Normal   RP(P), Gamma RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma -0.012 (0.005)   0.230 (0.008) -0.018 (0.004)     0.235 (0.008)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal -0.106 (0.004)  -0.017 (0.005) -0.107 (0.004)    -0.015 (0.005)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mean squared error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist    Cox, Gamma Cox, Log-Normal  RP(P), Gamma RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma 0.020 (0.001)   0.111 (0.005) 0.020 (0.001)     0.114 (0.006)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal 0.029 (0.001)   0.024 (0.001) 0.028 (0.001)     0.025 (0.001)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Coverage of nominal 95% confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist    Cox, Gamma Cox, Log-Normal  RP(P), Gamma RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma 0.920 (0.009)   0.922 (0.008) 0.930 (0.008)     0.903 (0.009)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal 0.750 (0.014)   0.902 (0.009) 0.768 (0.013)     0.928 (0.008)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -------------------------------------------------------------------------------- </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter: trt </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bias in point estimate:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist     Cox, Gamma Cox, Log-Normal   RP(P), Gamma RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma -0.001 (0.002)  -0.001 (0.002) -0.000 (0.002)    -0.002 (0.002)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal -0.001 (0.001)  -0.001 (0.001) -0.001 (0.001)    -0.002 (0.001)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mean squared error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist    Cox, Gamma Cox, Log-Normal  RP(P), Gamma RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma 0.003 (0.000)   0.003 (0.000) 0.003 (0.000)     0.003 (0.000)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal 0.002 (0.000)   0.002 (0.000) 0.002 (0.000)     0.002 (0.000)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Coverage of nominal 95% confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist    Cox, Gamma Cox, Log-Normal  RP(P), Gamma RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma 0.950 (0.007)   0.949 (0.007) 0.951 (0.007)     0.950 (0.007)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal 0.941 (0.007)   0.942 (0.007) 0.943 (0.007)     0.943 (0.007)</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Printing confidence intervals:</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>sms</span>, digits <span class='op'>=</span> <span class='fl'>3</span>, mcse <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Values are:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Point Estimate (95% Confidence Interval based on Monte Carlo Standard Errors)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter: fv </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bias in point estimate:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist              Cox, Gamma         Cox, Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma -0.012 (-0.021, -0.003)    0.230 (0.215, 0.245)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal -0.106 (-0.115, -0.098) -0.017 (-0.027, -0.008)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             RP(P), Gamma       RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -0.018 (-0.027, -0.009)    0.235 (0.220, 0.250)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -0.107 (-0.115, -0.098) -0.015 (-0.025, -0.006)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mean squared error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist           Cox, Gamma      Cox, Log-Normal         RP(P), Gamma</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma 0.020 (0.018, 0.022) 0.111 (0.100, 0.121) 0.020 (0.018, 0.021)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal 0.029 (0.027, 0.031) 0.024 (0.022, 0.027) 0.028 (0.026, 0.030)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.114 (0.103, 0.126)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.025 (0.023, 0.027)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Coverage of nominal 95% confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist           Cox, Gamma      Cox, Log-Normal         RP(P), Gamma</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma 0.920 (0.903, 0.937) 0.922 (0.905, 0.939) 0.930 (0.914, 0.946)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal 0.750 (0.723, 0.778) 0.902 (0.884, 0.920) 0.768 (0.742, 0.794)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.903 (0.885, 0.921)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.928 (0.912, 0.944)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -------------------------------------------------------------------------------- </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter: trt </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bias in point estimate:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist             Cox, Gamma        Cox, Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma -0.001 (-0.004, 0.003) -0.001 (-0.004, 0.002)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal -0.001 (-0.004, 0.002) -0.001 (-0.004, 0.002)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            RP(P), Gamma      RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -0.000 (-0.003, 0.003) -0.002 (-0.005, 0.002)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -0.001 (-0.004, 0.002) -0.002 (-0.005, 0.001)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mean squared error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist           Cox, Gamma      Cox, Log-Normal         RP(P), Gamma</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma 0.003 (0.002, 0.003) 0.003 (0.002, 0.003) 0.003 (0.002, 0.003)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal 0.002 (0.002, 0.002) 0.002 (0.002, 0.002) 0.002 (0.002, 0.002)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.003 (0.002, 0.003)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.002 (0.002, 0.002)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Coverage of nominal 95% confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist           Cox, Gamma      Cox, Log-Normal         RP(P), Gamma</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma 0.950 (0.936, 0.964) 0.949 (0.935, 0.963) 0.951 (0.937, 0.964)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal 0.941 (0.926, 0.956) 0.942 (0.928, 0.956) 0.943 (0.928, 0.957)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.950 (0.936, 0.964)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.943 (0.929, 0.957)</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Printing values only:</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>sms</span>, mcse <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Values are:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Point Estimate</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter: fv </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bias in point estimate:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist Cox, Gamma Cox, Log-Normal RP(P), Gamma RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma    -0.0124          0.2299      -0.0179            0.2347</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal    -0.1064         -0.0175      -0.1066           -0.0152</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mean squared error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist Cox, Gamma Cox, Log-Normal RP(P), Gamma RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma     0.0203          0.1107       0.0195            0.1145</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal     0.0287          0.0244       0.0284            0.0248</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Coverage of nominal 95% confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist Cox, Gamma Cox, Log-Normal RP(P), Gamma RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma     0.9201          0.9220       0.9300            0.9030</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal     0.7503          0.9020       0.7683            0.9280</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -------------------------------------------------------------------------------- </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Parameter: trt </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bias in point estimate:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist Cox, Gamma Cox, Log-Normal RP(P), Gamma RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma    -0.0006         -0.0013      -0.0003           -0.0015</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal    -0.0006         -0.0014      -0.0006           -0.0016</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mean squared error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist Cox, Gamma Cox, Log-Normal RP(P), Gamma RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma     0.0026          0.0026       0.0026            0.0026</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal     0.0022          0.0022       0.0022            0.0022</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Coverage of nominal 95% confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     fv_dist Cox, Gamma Cox, Log-Normal RP(P), Gamma RP(P), Log-Normal</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       Gamma     0.9500          0.9490       0.9506            0.9500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  Log-Normal     0.9410          0.9420       0.9428            0.9430</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

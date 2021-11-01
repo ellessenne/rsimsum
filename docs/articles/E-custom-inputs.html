@@ -100,7 +100,7 @@
       <h1 data-toc-skip>Custom input values for confidence intervals and true values</h1>
                         <h4 class="author">Alessandro Gasparini</h4>
             
-            <h4 class="date">2021-10-21</h4>
+            <h4 class="date">2021-11-01</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/rsimsum/blob/master/vignettes/E-custom-inputs.Rmd"><code>vignettes/E-custom-inputs.Rmd</code></a></small>
       <div class="hidden name"><code>E-custom-inputs.Rmd</code></div>
@@ -309,7 +309,7 @@
 <span class="co">#&gt;     fv_dist       Cox, Gamma  Cox, Log-Normal     RP(P), Gamma RP(P), Log-Normal</span>
 <span class="co">#&gt;       Gamma -0.0006 (0.0016) -0.0013 (0.0016) -0.0003 (0.0016)  -0.0015 (0.0016)</span>
 <span class="co">#&gt;  Log-Normal -0.0006 (0.0015) -0.0014 (0.0015) -0.0006 (0.0015)  -0.0016 (0.0015)</span></code></pre></div>
-<p>In this example, we pass the true values of each estimand as the named vector <code><a href="https://rdrr.io/r/base/c.html">c(trt = -0.50, fv = 0.75)</a></code>.</p>
+<p>In this example, we pass the true values of each estimand as the named vector <code>c(trt = -0.50, fv = 0.75)</code>.</p>
 <p>Say instead we stored the true value of each estimand as a column in our dataset:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">frailty</span><span class="op">$</span><span class="va">true</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">frailty</span><span class="op">$</span><span class="va">par</span> <span class="op">==</span> <span class="st">"trt"</span>, <span class="op">-</span><span class="fl">0.50</span>, <span class="fl">0.75</span><span class="op">)</span>

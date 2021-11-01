@@ -4,8 +4,8 @@ library(broom)
 
 data("MIsim", package = "rsimsum")
 s <- rsimsum::simsum(
-	data = MIsim, estvarname = "b", true = 0.5, se = "se",
-	methodvar = "method", x = TRUE
+  data = MIsim, estvarname = "b", true = 0.5, se = "se",
+  methodvar = "method", x = TRUE
 )
 
 library(ggplot2)

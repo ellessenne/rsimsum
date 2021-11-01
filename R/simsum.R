@@ -239,6 +239,6 @@ simsum <- function(data,
   }
 
   ### Return object of class simsum
-  class(obj) <- c("list", "simsum")
+  class(obj) <- c("simsum", "list")
   return(obj)
 }

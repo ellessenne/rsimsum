@@ -290,7 +290,7 @@
 <li><p>Added a new example dataset from a toy simulation study assessing the robustness of the t-test. See <code><a href="../reference/tt.html">?"tt"</a></code> for more details;</p></li>
 <li><p>The <code>true</code> argument of <code>rsimsum</code> and <code>multisimsum</code> now accepts a string that identifies a column in <code>data</code>. This is especially useful in settings where the true value varies across replications, e.g. when it depends on characteristics of the simulated data. See <code><a href="../articles/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code> for more details and examples;</p></li>
 <li><p>Analogously, the <code>ci.limits</code> argument now accepts a vector of strings that identifies lower and upper limits for custom-defined confidence intervals from columns in <code>data</code>. Once again, more details are included in <code><a href="../articles/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code>;</p></li>
-<li><p><code>rsimsum</code> now correctly uses <code><a href="https://rdrr.io/r/base/class.html">inherits(obj, "someclass")</a></code> instead of <code>class(obj) == "someclass"</code> (<a href='https://github.com/ellessenne/rsimsum/issues/20'>#20</a>);</p></li>
+<li><p><code>rsimsum</code> now correctly uses <code>inherits(obj, "someclass")</code> instead of <code>class(obj) == "someclass"</code> (<a href='https://github.com/ellessenne/rsimsum/issues/20'>#20</a>);</p></li>
 <li><p>Fixed bugs and errors that appeared when auto-plotting results of simulation studies with no methods being compared (<a href='https://github.com/ellessenne/rsimsum/issues/23'>#23</a>).</p></li>
 </ul>
 </div>
@@ -350,8 +350,8 @@
 <h3 class="hasAnchor">
 <a href="#improvements-3" class="anchor"></a>Improvements:</h3>
 <ul>
-<li><p>Implemented fully automated nested loop plots for simulation studies with several data-generating mechanisms: <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot(object, type = "nlp")</a></code>;</p></li>
-<li><p>Added <code><a href="https://rdrr.io/r/utils/data.html">data("nlp", package = "rsimsum")</a></code>, a dataset from a simulation study with 150 data-generating. This is particularly useful to illustrate nested loop plots;</p></li>
+<li><p>Implemented fully automated nested loop plots for simulation studies with several data-generating mechanisms: <code>autoplot(object, type = "nlp")</code>;</p></li>
+<li><p>Added <code>data("nlp", package = "rsimsum")</code>, a dataset from a simulation study with 150 data-generating. This is particularly useful to illustrate nested loop plots;</p></li>
 <li><p>Added a new vignette on nested loop plots;</p></li>
 <li><p>Improved ordering of vignettes.</p></li>
 </ul>

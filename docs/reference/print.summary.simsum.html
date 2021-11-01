@@ -173,251 +173,256 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"MIsim"</span><span class='op'>)</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='simsum.html'>simsum</a></span><span class='op'>(</span>
-  data <span class='op'>=</span> <span class='va'>MIsim</span>, estvarname <span class='op'>=</span> <span class='st'>"b"</span>, true <span class='op'>=</span> <span class='fl'>0.5</span>, se <span class='op'>=</span> <span class='st'>"se"</span>,
-  methodvar <span class='op'>=</span> <span class='st'>"method"</span>
-<span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>'ref' method was not specified, CC set as the reference</span></div><div class='input'><span class='va'>xs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-<span class='va'>xs</span>
-</div><div class='output co'>#&gt; Values are:
-#&gt; 	Point Estimate (Monte Carlo Standard Error)
-#&gt; 
-#&gt; Non-missing point estimates/standard errors:
-#&gt;    CC MI_LOGT MI_T
-#&gt;  1000    1000 1000
-#&gt; 
-#&gt; Average point estimate:
-#&gt;      CC MI_LOGT   MI_T
-#&gt;  0.5168  0.5009 0.4988
-#&gt; 
-#&gt; Median point estimate:
-#&gt;      CC MI_LOGT   MI_T
-#&gt;  0.5070  0.4969 0.4939
-#&gt; 
-#&gt; Average variance:
-#&gt;      CC MI_LOGT   MI_T
-#&gt;  0.0216  0.0182 0.0179
-#&gt; 
-#&gt; Median variance:
-#&gt;      CC MI_LOGT   MI_T
-#&gt;  0.0211  0.0172 0.0169
-#&gt; 
-#&gt; Bias in point estimate:
-#&gt;               CC         MI_LOGT             MI_T
-#&gt;  0.0168 (0.0048) 0.0009 (0.0042) -0.0012 (0.0043)
-#&gt; 
-#&gt; Empirical standard error:
-#&gt;               CC         MI_LOGT            MI_T
-#&gt;  0.1511 (0.0034) 0.1320 (0.0030) 0.1344 (0.0030)
-#&gt; 
-#&gt; % gain in precision relative to method CC:
-#&gt;               CC          MI_LOGT             MI_T
-#&gt;  0.0000 (0.0000) 31.0463 (3.9375) 26.3682 (3.8424)
-#&gt; 
-#&gt; Mean squared error:
-#&gt;               CC         MI_LOGT            MI_T
-#&gt;  0.0231 (0.0011) 0.0174 (0.0009) 0.0181 (0.0009)
-#&gt; 
-#&gt; Model-based standard error:
-#&gt;               CC         MI_LOGT            MI_T
-#&gt;  0.1471 (0.0005) 0.1349 (0.0006) 0.1338 (0.0006)
-#&gt; 
-#&gt; Relative % error in standard error:
-#&gt;                CC         MI_LOGT             MI_T
-#&gt;  -2.6594 (2.2049) 2.2233 (2.3318) -0.4412 (2.2690)
-#&gt; 
-#&gt; Coverage of nominal 95% confidence interval:
-#&gt;               CC         MI_LOGT            MI_T
-#&gt;  0.9430 (0.0073) 0.9490 (0.0070) 0.9430 (0.0073)
-#&gt; 
-#&gt; Bias-eliminated coverage of nominal 95% confidence interval:
-#&gt;               CC         MI_LOGT            MI_T
-#&gt;  0.9400 (0.0075) 0.9490 (0.0070) 0.9430 (0.0073)
-#&gt; 
-#&gt; Power of 5% level test:
-#&gt;               CC         MI_LOGT            MI_T
-#&gt;  0.9460 (0.0071) 0.9690 (0.0055) 0.9630 (0.0060)</div><div class='input'>
-<span class='co'># Printing less significant digits:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>xs</span>, digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Values are:
-#&gt; 	Point Estimate (Monte Carlo Standard Error)
-#&gt; 
-#&gt; Non-missing point estimates/standard errors:
-#&gt;    CC MI_LOGT MI_T
-#&gt;  1000    1000 1000
-#&gt; 
-#&gt; Average point estimate:
-#&gt;    CC MI_LOGT MI_T
-#&gt;  0.52    0.50 0.50
-#&gt; 
-#&gt; Median point estimate:
-#&gt;    CC MI_LOGT MI_T
-#&gt;  0.51    0.50 0.49
-#&gt; 
-#&gt; Average variance:
-#&gt;    CC MI_LOGT MI_T
-#&gt;  0.02    0.02 0.02
-#&gt; 
-#&gt; Median variance:
-#&gt;    CC MI_LOGT MI_T
-#&gt;  0.02    0.02 0.02
-#&gt; 
-#&gt; Bias in point estimate:
-#&gt;           CC     MI_LOGT         MI_T
-#&gt;  0.02 (0.00) 0.00 (0.00) -0.00 (0.00)
-#&gt; 
-#&gt; Empirical standard error:
-#&gt;           CC     MI_LOGT        MI_T
-#&gt;  0.15 (0.00) 0.13 (0.00) 0.13 (0.00)
-#&gt; 
-#&gt; % gain in precision relative to method CC:
-#&gt;           CC      MI_LOGT         MI_T
-#&gt;  0.00 (0.00) 31.05 (3.94) 26.37 (3.84)
-#&gt; 
-#&gt; Mean squared error:
-#&gt;           CC     MI_LOGT        MI_T
-#&gt;  0.02 (0.00) 0.02 (0.00) 0.02 (0.00)
-#&gt; 
-#&gt; Model-based standard error:
-#&gt;           CC     MI_LOGT        MI_T
-#&gt;  0.15 (0.00) 0.13 (0.00) 0.13 (0.00)
-#&gt; 
-#&gt; Relative % error in standard error:
-#&gt;            CC     MI_LOGT         MI_T
-#&gt;  -2.66 (2.20) 2.22 (2.33) -0.44 (2.27)
-#&gt; 
-#&gt; Coverage of nominal 95% confidence interval:
-#&gt;           CC     MI_LOGT        MI_T
-#&gt;  0.94 (0.01) 0.95 (0.01) 0.94 (0.01)
-#&gt; 
-#&gt; Bias-eliminated coverage of nominal 95% confidence interval:
-#&gt;           CC     MI_LOGT        MI_T
-#&gt;  0.94 (0.01) 0.95 (0.01) 0.94 (0.01)
-#&gt; 
-#&gt; Power of 5% level test:
-#&gt;           CC     MI_LOGT        MI_T
-#&gt;  0.95 (0.01) 0.97 (0.01) 0.96 (0.01)</div><div class='input'>
-<span class='co'># Printing confidence intervals:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>xs</span>, mcse <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Values are:
-#&gt; 	Point Estimate (95% Confidence Interval based on Monte Carlo Standard Errors)
-#&gt; 
-#&gt; Non-missing point estimates/standard errors:
-#&gt;    CC MI_LOGT MI_T
-#&gt;  1000    1000 1000
-#&gt; 
-#&gt; Average point estimate:
-#&gt;      CC MI_LOGT   MI_T
-#&gt;  0.5168  0.5009 0.4988
-#&gt; 
-#&gt; Median point estimate:
-#&gt;      CC MI_LOGT   MI_T
-#&gt;  0.5070  0.4969 0.4939
-#&gt; 
-#&gt; Average variance:
-#&gt;      CC MI_LOGT   MI_T
-#&gt;  0.0216  0.0182 0.0179
-#&gt; 
-#&gt; Median variance:
-#&gt;      CC MI_LOGT   MI_T
-#&gt;  0.0211  0.0172 0.0169
-#&gt; 
-#&gt; Bias in point estimate:
-#&gt;                       CC                  MI_LOGT                      MI_T
-#&gt;  0.0168 (0.0074, 0.0261) 0.0009 (-0.0073, 0.0091) -0.0012 (-0.0095, 0.0071)
-#&gt; 
-#&gt; Empirical standard error:
-#&gt;                       CC                 MI_LOGT                    MI_T
-#&gt;  0.1511 (0.1445, 0.1577) 0.1320 (0.1262, 0.1378) 0.1344 (0.1285, 0.1403)
-#&gt; 
-#&gt; % gain in precision relative to method CC:
-#&gt;                       CC                    MI_LOGT                       MI_T
-#&gt;  0.0000 (0.0000, 0.0000) 31.0463 (23.3290, 38.7636) 26.3682 (18.8372, 33.8991)
-#&gt; 
-#&gt; Mean squared error:
-#&gt;                       CC                 MI_LOGT                    MI_T
-#&gt;  0.0231 (0.0209, 0.0253) 0.0174 (0.0157, 0.0191) 0.0181 (0.0163, 0.0198)
-#&gt; 
-#&gt; Model-based standard error:
-#&gt;                       CC                 MI_LOGT                    MI_T
-#&gt;  0.1471 (0.1461, 0.1481) 0.1349 (0.1338, 0.1361) 0.1338 (0.1327, 0.1350)
-#&gt; 
-#&gt; Relative % error in standard error:
-#&gt;                         CC                  MI_LOGT                      MI_T
-#&gt;  -2.6594 (-6.9810, 1.6622) 2.2233 (-2.3469, 6.7935) -0.4412 (-4.8883, 4.0059)
-#&gt; 
-#&gt; Coverage of nominal 95% confidence interval:
-#&gt;                       CC                 MI_LOGT                    MI_T
-#&gt;  0.9430 (0.9286, 0.9574) 0.9490 (0.9354, 0.9626) 0.9430 (0.9286, 0.9574)
-#&gt; 
-#&gt; Bias-eliminated coverage of nominal 95% confidence interval:
-#&gt;                       CC                 MI_LOGT                    MI_T
-#&gt;  0.9400 (0.9253, 0.9547) 0.9490 (0.9354, 0.9626) 0.9430 (0.9286, 0.9574)
-#&gt; 
-#&gt; Power of 5% level test:
-#&gt;                       CC                 MI_LOGT                    MI_T
-#&gt;  0.9460 (0.9320, 0.9600) 0.9690 (0.9583, 0.9797) 0.9630 (0.9513, 0.9747)</div><div class='input'>
-<span class='co'># Printing values only:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>xs</span>, mcse <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Values are:
-#&gt; 	Point Estimate
-#&gt; 
-#&gt; Non-missing point estimates/standard errors:
-#&gt;    CC MI_LOGT MI_T
-#&gt;  1000    1000 1000
-#&gt; 
-#&gt; Average point estimate:
-#&gt;      CC MI_LOGT   MI_T
-#&gt;  0.5168  0.5009 0.4988
-#&gt; 
-#&gt; Median point estimate:
-#&gt;      CC MI_LOGT   MI_T
-#&gt;  0.5070  0.4969 0.4939
-#&gt; 
-#&gt; Average variance:
-#&gt;      CC MI_LOGT   MI_T
-#&gt;  0.0216  0.0182 0.0179
-#&gt; 
-#&gt; Median variance:
-#&gt;      CC MI_LOGT   MI_T
-#&gt;  0.0211  0.0172 0.0169
-#&gt; 
-#&gt; Bias in point estimate:
-#&gt;      CC MI_LOGT    MI_T
-#&gt;  0.0168  0.0009 -0.0012
-#&gt; 
-#&gt; Empirical standard error:
-#&gt;      CC MI_LOGT   MI_T
-#&gt;  0.1511  0.1320 0.1344
-#&gt; 
-#&gt; % gain in precision relative to method CC:
-#&gt;      CC MI_LOGT    MI_T
-#&gt;  0.0000 31.0463 26.3682
-#&gt; 
-#&gt; Mean squared error:
-#&gt;      CC MI_LOGT   MI_T
-#&gt;  0.0231  0.0174 0.0181
-#&gt; 
-#&gt; Model-based standard error:
-#&gt;      CC MI_LOGT   MI_T
-#&gt;  0.1471  0.1349 0.1338
-#&gt; 
-#&gt; Relative % error in standard error:
-#&gt;       CC MI_LOGT    MI_T
-#&gt;  -2.6594  2.2233 -0.4412
-#&gt; 
-#&gt; Coverage of nominal 95% confidence interval:
-#&gt;      CC MI_LOGT   MI_T
-#&gt;  0.9430  0.9490 0.9430
-#&gt; 
-#&gt; Bias-eliminated coverage of nominal 95% confidence interval:
-#&gt;      CC MI_LOGT   MI_T
-#&gt;  0.9400  0.9490 0.9430
-#&gt; 
-#&gt; Power of 5% level test:
-#&gt;      CC MI_LOGT   MI_T
-#&gt;  0.9460  0.9690 0.9630</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"MIsim"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='simsum.html'>simsum</a></span><span class='op'>(</span></span>
+<span class='r-in'>  data <span class='op'>=</span> <span class='va'>MIsim</span>, estvarname <span class='op'>=</span> <span class='st'>"b"</span>, true <span class='op'>=</span> <span class='fl'>0.5</span>, se <span class='op'>=</span> <span class='st'>"se"</span>,</span>
+<span class='r-in'>  methodvar <span class='op'>=</span> <span class='st'>"method"</span></span>
+<span class='r-in'><span class='op'>)</span></span>
+<span class='r-msg co'><span class='r-pr'>#&gt;</span> 'ref' method was not specified, CC set as the reference</span>
+<span class='r-in'><span class='va'>xs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>xs</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Values are:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Point Estimate (Monte Carlo Standard Error)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Non-missing point estimates/standard errors:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    CC MI_LOGT MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  1000    1000 1000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Average point estimate:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      CC MI_LOGT   MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.5168  0.5009 0.4988</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Median point estimate:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      CC MI_LOGT   MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.5070  0.4969 0.4939</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Average variance:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      CC MI_LOGT   MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.0216  0.0182 0.0179</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Median variance:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      CC MI_LOGT   MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.0211  0.0172 0.0169</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bias in point estimate:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               CC         MI_LOGT             MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.0168 (0.0048) 0.0009 (0.0042) -0.0012 (0.0043)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Empirical standard error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               CC         MI_LOGT            MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.1511 (0.0034) 0.1320 (0.0030) 0.1344 (0.0030)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> % gain in precision relative to method CC:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               CC          MI_LOGT             MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.0000 (0.0000) 31.0463 (3.9375) 26.3682 (3.8424)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mean squared error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               CC         MI_LOGT            MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.0231 (0.0011) 0.0174 (0.0009) 0.0181 (0.0009)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Model-based standard error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               CC         MI_LOGT            MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.1471 (0.0005) 0.1349 (0.0006) 0.1338 (0.0006)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Relative % error in standard error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                CC         MI_LOGT             MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -2.6594 (2.2049) 2.2233 (2.3318) -0.4412 (2.2690)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Coverage of nominal 95% confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               CC         MI_LOGT            MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.9430 (0.0073) 0.9490 (0.0070) 0.9430 (0.0073)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bias-eliminated coverage of nominal 95% confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               CC         MI_LOGT            MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.9400 (0.0075) 0.9490 (0.0070) 0.9430 (0.0073)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Power of 5% level test:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               CC         MI_LOGT            MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.9460 (0.0071) 0.9690 (0.0055) 0.9630 (0.0060)</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Printing less significant digits:</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>xs</span>, digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Values are:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Point Estimate (Monte Carlo Standard Error)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Non-missing point estimates/standard errors:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    CC MI_LOGT MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  1000    1000 1000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Average point estimate:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    CC MI_LOGT MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.52    0.50 0.50</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Median point estimate:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    CC MI_LOGT MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.51    0.50 0.49</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Average variance:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    CC MI_LOGT MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.02    0.02 0.02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Median variance:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    CC MI_LOGT MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.02    0.02 0.02</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bias in point estimate:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           CC     MI_LOGT         MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.02 (0.00) 0.00 (0.00) -0.00 (0.00)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Empirical standard error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           CC     MI_LOGT        MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.15 (0.00) 0.13 (0.00) 0.13 (0.00)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> % gain in precision relative to method CC:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           CC      MI_LOGT         MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.00 (0.00) 31.05 (3.94) 26.37 (3.84)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mean squared error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           CC     MI_LOGT        MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.02 (0.00) 0.02 (0.00) 0.02 (0.00)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Model-based standard error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           CC     MI_LOGT        MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.15 (0.00) 0.13 (0.00) 0.13 (0.00)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Relative % error in standard error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>            CC     MI_LOGT         MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -2.66 (2.20) 2.22 (2.33) -0.44 (2.27)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Coverage of nominal 95% confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           CC     MI_LOGT        MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.94 (0.01) 0.95 (0.01) 0.94 (0.01)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bias-eliminated coverage of nominal 95% confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           CC     MI_LOGT        MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.94 (0.01) 0.95 (0.01) 0.94 (0.01)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Power of 5% level test:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           CC     MI_LOGT        MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.95 (0.01) 0.97 (0.01) 0.96 (0.01)</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Printing confidence intervals:</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>xs</span>, mcse <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Values are:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Point Estimate (95% Confidence Interval based on Monte Carlo Standard Errors)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Non-missing point estimates/standard errors:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    CC MI_LOGT MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  1000    1000 1000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Average point estimate:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      CC MI_LOGT   MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.5168  0.5009 0.4988</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Median point estimate:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      CC MI_LOGT   MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.5070  0.4969 0.4939</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Average variance:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      CC MI_LOGT   MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.0216  0.0182 0.0179</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Median variance:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      CC MI_LOGT   MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.0211  0.0172 0.0169</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bias in point estimate:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                       CC                  MI_LOGT                      MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.0168 (0.0074, 0.0261) 0.0009 (-0.0073, 0.0091) -0.0012 (-0.0095, 0.0071)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Empirical standard error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                       CC                 MI_LOGT                    MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.1511 (0.1445, 0.1577) 0.1320 (0.1262, 0.1378) 0.1344 (0.1285, 0.1403)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> % gain in precision relative to method CC:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                       CC                    MI_LOGT                       MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.0000 (0.0000, 0.0000) 31.0463 (23.3290, 38.7636) 26.3682 (18.8372, 33.8991)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mean squared error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                       CC                 MI_LOGT                    MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.0231 (0.0209, 0.0253) 0.0174 (0.0157, 0.0191) 0.0181 (0.0163, 0.0198)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Model-based standard error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                       CC                 MI_LOGT                    MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.1471 (0.1461, 0.1481) 0.1349 (0.1338, 0.1361) 0.1338 (0.1327, 0.1350)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Relative % error in standard error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                         CC                  MI_LOGT                      MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -2.6594 (-6.9810, 1.6622) 2.2233 (-2.3469, 6.7935) -0.4412 (-4.8883, 4.0059)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Coverage of nominal 95% confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                       CC                 MI_LOGT                    MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.9430 (0.9286, 0.9574) 0.9490 (0.9354, 0.9626) 0.9430 (0.9286, 0.9574)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bias-eliminated coverage of nominal 95% confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                       CC                 MI_LOGT                    MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.9400 (0.9253, 0.9547) 0.9490 (0.9354, 0.9626) 0.9430 (0.9286, 0.9574)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Power of 5% level test:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                       CC                 MI_LOGT                    MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.9460 (0.9320, 0.9600) 0.9690 (0.9583, 0.9797) 0.9630 (0.9513, 0.9747)</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Printing values only:</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>xs</span>, mcse <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Values are:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 	Point Estimate</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Non-missing point estimates/standard errors:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    CC MI_LOGT MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  1000    1000 1000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Average point estimate:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      CC MI_LOGT   MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.5168  0.5009 0.4988</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Median point estimate:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      CC MI_LOGT   MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.5070  0.4969 0.4939</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Average variance:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      CC MI_LOGT   MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.0216  0.0182 0.0179</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Median variance:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      CC MI_LOGT   MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.0211  0.0172 0.0169</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bias in point estimate:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      CC MI_LOGT    MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.0168  0.0009 -0.0012</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Empirical standard error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      CC MI_LOGT   MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.1511  0.1320 0.1344</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> % gain in precision relative to method CC:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      CC MI_LOGT    MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.0000 31.0463 26.3682</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Mean squared error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      CC MI_LOGT   MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.0231  0.0174 0.0181</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Model-based standard error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      CC MI_LOGT   MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.1471  0.1349 0.1338</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Relative % error in standard error:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       CC MI_LOGT    MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  -2.6594  2.2233 -0.4412</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Coverage of nominal 95% confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      CC MI_LOGT   MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.9430  0.9490 0.9430</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Bias-eliminated coverage of nominal 95% confidence interval:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      CC MI_LOGT   MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.9400  0.9490 0.9430</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Power of 5% level test:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      CC MI_LOGT   MI_T</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.9460  0.9690 0.9630</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

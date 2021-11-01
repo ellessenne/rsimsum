@@ -73,6 +73,6 @@ summary.multisimsum <- function(object, ci_level = 0.95, df = NULL, stats = NULL
   row.names(object$summ) <- NULL
 
   ### Return object of class summary.simsum
-  class(object) <- c("list", "summary.multisimsum")
+  class(object) <- c("summary.multisimsum", "list")
   return(object)
 }

@@ -123,6 +123,6 @@ multisimsum <- function(data,
   }
 
   ### Return object of class simsum
-  class(obj) <- c("list", "multisimsum")
+  class(obj) <- c("multisimsum", "list")
   return(obj)
 }
