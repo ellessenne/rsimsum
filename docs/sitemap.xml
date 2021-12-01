@@ -1,7 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://ellessenne.github.io/rsimsum/404.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/rsimsum/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/rsimsum/CONTRIBUTING.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/rsimsum/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/rsimsum/articles/A-introduction.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/rsimsum/articles/B-relhaz.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/rsimsum/articles/C-plotting.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/rsimsum/articles/D-nlp.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/rsimsum/articles/E-custom-inputs.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/rsimsum/articles/F-rsimsumtidyverse.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/rsimsum/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/rsimsum/authors.html</loc>
+  </url>
+  <url>
     <loc>https://ellessenne.github.io/rsimsum/index.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/rsimsum/news/index.html</loc>
   </url>
   <url>
     <loc>https://ellessenne.github.io/rsimsum/reference/MIsim.html</loc>
@@ -26,6 +65,9 @@
   </url>
   <url>
     <loc>https://ellessenne.github.io/rsimsum/reference/get_data.html</loc>
+  </url>
+  <url>
+    <loc>https://ellessenne.github.io/rsimsum/reference/index.html</loc>
   </url>
   <url>
     <loc>https://ellessenne.github.io/rsimsum/reference/is.multisimsum.html</loc>
@@ -86,23 +128,5 @@
   </url>
   <url>
     <loc>https://ellessenne.github.io/rsimsum/reference/tt.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/articles/A-introduction.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/articles/B-relhaz.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/articles/C-plotting.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/articles/D-nlp.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/articles/E-custom-inputs.html</loc>
-  </url>
-  <url>
-    <loc>https://ellessenne.github.io/rsimsum/articles/F-rsimsumtidyverse.html</loc>
   </url>
 </urlset>

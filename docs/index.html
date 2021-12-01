@@ -4,14 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Summarise results from simulation studies and compute Monte Carlo
+  standard errors of commonly used summary statistics. This package is modelled 
+  on the simsum user-written command in Stata (White I.R., 2010 
+  &lt;https://www.stata-journal.com/article.html?article=st0200&gt;), further extending
+  it with additional functionality.">
 <title>Analysis of Simulation Studies Including Monte Carlo Error • rsimsum</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
-<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Analysis of Simulation Studies Including Monte Carlo Error">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Analysis of Simulation Studies Including Monte Carlo Error">
 <meta property="og:description" content="Summarise results from simulation studies and compute Monte Carlo
   standard errors of commonly used summary statistics. This package is modelled 
   on the simsum user-written command in Stata (White I.R., 2010 
@@ -22,113 +26,86 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-home">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">rsimsum</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.11.0.9000</span>
-      </span>
-    </div>
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+    
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    
+    <a class="navbar-brand me-2" href="index.html">rsimsum</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.0.9000</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-2">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="articles/A-introduction.html">Introduction to rsimsum</a>
-    </li>
-    <li>
-      <a href="articles/B-relhaz.html">Simulating a simulation study</a>
-    </li>
-    <li>
-      <a href="articles/C-plotting.html">Visualising results from rsimsum</a>
-    </li>
-    <li>
-      <a href="articles/D-nlp.html">Nested loop plots</a>
-    </li>
-    <li>
-      <a href="articles/E-custom-inputs.html">Custom input values for confidence intervals and true values</a>
-    </li>
-    <li>
-      <a href="articles/F-rsimsumtidyverse.html">rsimsum and the tidyverse</a>
-    </li>
-  </ul>
-</li>
-<li>
-  <a href="news/index.html">Changelog</a>
-</li>
-      </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/ellessenne/rsimsum/">
-    <span class="fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
-</div>
-<!--/.nav-collapse -->
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="articles/A-introduction.html">Introduction to rsimsum</a>
+    <a class="dropdown-item" href="articles/B-relhaz.html">Simulating a simulation study</a>
+    <a class="dropdown-item" href="articles/C-plotting.html">Visualising results from rsimsum</a>
+    <a class="dropdown-item" href="articles/D-nlp.html">Nested loop plots</a>
+    <a class="dropdown-item" href="articles/E-custom-inputs.html">Custom input values for confidence intervals and true values</a>
+    <a class="dropdown-item" href="articles/F-rsimsumtidyverse.html">rsimsum and the tidyverse</a>
   </div>
-<!--/.container -->
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="news/index.html">Changelog</a>
+</li>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/ellessenne/rsimsum/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
-<!--/.navbar -->
 
-      
-
-      </header><div class="row">
-  <div class="contents col-md-9">
-
-<div id="rsimsum-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#rsimsum-" class="anchor"></a>rsimsum <img src="reference/figures/hex.png" width="150" align="right">
+    
+  </div>
+</nav><div class="container template-home">
+<div class="row">
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="rsimsum-">rsimsum <img src="reference/figures/hex.png" width="150" align="right"><a class="anchor" aria-label="anchor" href="#rsimsum-"></a>
 </h1></div>
 <!-- badges: start -->
 
 <p><code>rsimsum</code> is an R package that can compute summary statistics from simulation studies. <code>rsimsum</code> is modelled upon a similar package available in Stata, the user-written command <code>simsum</code> (White I.R., 2010).</p>
 <p>The aim of <code>rsimsum</code> is to help to report simulation studies, including understanding the role of chance in results of simulation studies: Monte Carlo standard errors and confidence intervals based on them are computed and presented to the user by default. <code>rsimsum</code> can compute a wide variety of summary statistics: bias, empirical and model-based standard errors, relative precision, relative error in model standard error, mean squared error, coverage, bias. Further details on each summary statistic are presented elsewhere (White I.R., 2010; Morris <em>et al</em>, 2019).</p>
 <p>The main function of <code>rsimsum</code> is called <code>simsum</code> and can handle simulation studies with a single estimand of interest at a time. Missing values are excluded by default, and it is possible to define boundary values to drop estimated values or standard errors exceeding such limits. It is possible to define a variable representing methods compared with the simulation study, and it is possible to define <em>by</em> factors, that is, factors that vary between the different simulated scenarios (data-generating mechanisms, DGMs). However, methods and DGMs are not strictly required: in that case, a simulation study with a single scenario and a single method is assumed. Finally, <code>rsimsum</code> provides a function named <code>multisimsum</code> that allows summarising simulation studies with multiple estimands as well.</p>
-<p>An important step of reporting a simulation study consists in visualising the results; therefore, <code>rsimsum</code> exploits the R package <a href="https://CRAN.R-project.org/package=ggplot2"><code>ggplot2</code></a> to produce a portfolio of opinionated data visualisations for quick exploration of results, inferring colours and facetting by data-generating mechanisms. <code>rsimsum</code> includes methods to produce (1) plots of summary statistics with confidence intervals based on Monte Carlo standard errors (forest plots, lolly plots), (2) zipper plots to graphically visualise coverage by directly plotting confidence intervals, (3) plots for method-wise comparisons of estimates and standard errors (scatter plots, Bland-Altman plots, ridgeline plots), and (4) heat plots. The latter is a visualisation type that has not been traditionally used to present results of simulation studies, and consists in a mosaic plot where the factor on the x-axis is the methods compared with the current simulation study and the factor on the y-axis is the data-generating factors. Each tile of the mosaic plot is coloured according to the value of the summary statistic of interest, with a red colour representing values above the target value and a blue colour representing values below the target.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<p>An important step of reporting a simulation study consists in visualising the results; therefore, <code>rsimsum</code> exploits the R package <a href="https://CRAN.R-project.org/package=ggplot2" class="external-link"><code>ggplot2</code></a> to produce a portfolio of opinionated data visualisations for quick exploration of results, inferring colours and facetting by data-generating mechanisms. <code>rsimsum</code> includes methods to produce (1) plots of summary statistics with confidence intervals based on Monte Carlo standard errors (forest plots, lolly plots), (2) zipper plots to graphically visualise coverage by directly plotting confidence intervals, (3) plots for method-wise comparisons of estimates and standard errors (scatter plots, Bland-Altman plots, ridgeline plots), and (4) heat plots. The latter is a visualisation type that has not been traditionally used to present results of simulation studies, and consists in a mosaic plot where the factor on the x-axis is the methods compared with the current simulation study and the factor on the y-axis is the data-generating factors. Each tile of the mosaic plot is coloured according to the value of the summary statistic of interest, with a red colour representing values above the target value and a blue colour representing values below the target.</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>You can install <code>rsimsum</code> from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"rsimsum"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"rsimsum"</span><span class="op">)</span></code></pre></div>
 <p>Alternatively, it is possible to install the development version from GitHub using the <code>remotes</code> package:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("remotes")</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"ellessenne/rsimsum"</span><span class="op">)</span></code></pre></div>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"ellessenne/rsimsum"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
 <p>This is a basic example using data from a simulation study on missing data (type <code><a href="reference/MIsim.html">help("MIsim", package = "rsimsum")</a></code> in the R console for more information):</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ellessenne.github.io/rsimsum/">rsimsum</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"MIsim"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ellessenne.github.io/rsimsum/">rsimsum</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"MIsim"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span>
 <span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">MIsim</span>, estvarname <span class="op">=</span> <span class="st">"b"</span>, true <span class="op">=</span> <span class="fl">0.5</span>, se <span class="op">=</span> <span class="st">"se"</span>, methodvar <span class="op">=</span> <span class="st">"method"</span>, x <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; 'ref' method was not specified, CC set as the reference</span>
 <span class="va">s</span>
@@ -145,7 +122,7 @@
 <p>We set <code>x = TRUE</code> as it will be required for some plot types.</p>
 <p>Summarising the results:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span>
 <span class="co">#&gt; Values are:</span>
 <span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span>
 <span class="co">#&gt; </span>
@@ -205,75 +182,75 @@
 <span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
 <span class="co">#&gt;  0.9460 (0.0071) 0.9690 (0.0055) 0.9630 (0.0060)</span></code></pre></div>
 </div>
-<div id="vignettes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#vignettes" class="anchor"></a>Vignettes</h2>
+<div class="section level2">
+<h2 id="vignettes">Vignettes<a class="anchor" aria-label="anchor" href="#vignettes"></a>
+</h2>
 <p><code>rsimsum</code> comes with 5 vignettes. In particular, check out the introductory one:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"A-introduction"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"A-introduction"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span></code></pre></div>
 <p>The list of vignettes could be obtained by typing the following in the R console:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="visualising-results" class="section level2">
-<h2 class="hasAnchor">
-<a href="#visualising-results" class="anchor"></a>Visualising results</h2>
+<div class="section level2">
+<h2 id="visualising-results">Visualising results<a class="anchor" aria-label="anchor" href="#visualising-results"></a>
+</h2>
 <p>As of version <code>0.2.0</code>, <code>rsimsum</code> can produce a variety of plots: among others, lolly plots, forest plots, zipper plots, etc.:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">s</span>, type <span class="op">=</span> <span class="st">"lolly"</span>, stats <span class="op">=</span> <span class="st">"bias"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">s</span>, type <span class="op">=</span> <span class="st">"lolly"</span>, stats <span class="op">=</span> <span class="st">"bias"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-lolly-1.png" width="85%" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">s</span>, type <span class="op">=</span> <span class="st">"zip"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">s</span>, type <span class="op">=</span> <span class="st">"zip"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-zipper-1.png" width="85%" style="display: block; margin: auto;"></p>
 <p>With <code>rsimsum</code> <code>0.5.0</code> the plotting functionality has been completely rewritten, and new plot types have been implemented:</p>
 <ul>
 <li>Scatter plots for method-wise comparisons, including Bland-Altman type plots;</li>
 </ul>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">s</span>, type <span class="op">=</span> <span class="st">"est_ba"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">s</span>, type <span class="op">=</span> <span class="st">"est_ba"</span><span class="op">)</span>
 <span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span></code></pre></div>
 <p><img src="reference/figures/README-ba-1.png" width="85%" style="display: block; margin: auto;"></p>
 <ul>
 <li>Ridgeline plots.</li>
 </ul>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">s</span>, type <span class="op">=</span> <span class="st">"est_ridge"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">s</span>, type <span class="op">=</span> <span class="st">"est_ridge"</span><span class="op">)</span>
 <span class="co">#&gt; Picking joint bandwidth of 0.0295</span></code></pre></div>
 <p><img src="reference/figures/README-ridgeline-1.png" width="85%" style="display: block; margin: auto;"></p>
 <p>Nested loop plots have been implemented in <code>rsimsum</code> <code>0.6.0</code>:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"nlp"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"nlp"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span>
 <span class="va">s.nlp</span> <span class="op">&lt;-</span> <span class="fu">rsimsum</span><span class="fu">::</span><span class="fu"><a href="reference/simsum.html">simsum</a></span><span class="op">(</span>
   data <span class="op">=</span> <span class="va">nlp</span>, estvarname <span class="op">=</span> <span class="st">"b"</span>, true <span class="op">=</span> <span class="fl">0</span>, se <span class="op">=</span> <span class="st">"se"</span>,
-  methodvar <span class="op">=</span> <span class="st">"model"</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"ss"</span>, <span class="st">"esigma"</span><span class="op">)</span>
+  methodvar <span class="op">=</span> <span class="st">"model"</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"ss"</span>, <span class="st">"esigma"</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt; 'ref' method was not specified, 1 set as the reference</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">s.nlp</span>, stats <span class="op">=</span> <span class="st">"bias"</span>, type <span class="op">=</span> <span class="st">"nlp"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">s.nlp</span>, stats <span class="op">=</span> <span class="st">"bias"</span>, type <span class="op">=</span> <span class="st">"nlp"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-nlp-1.png" width="85%" style="display: block; margin: auto;"></p>
 <p>Finally, as of <code>rsimsum</code> <code>0.7.1</code> contour plots and hexbin plots have been implemented as well:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">s</span>, type <span class="op">=</span> <span class="st">"est_density"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">s</span>, type <span class="op">=</span> <span class="st">"est_density"</span><span class="op">)</span>
 <span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span></code></pre></div>
 <p><img src="reference/figures/README-density-1.png" width="85%" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">s</span>, type <span class="op">=</span> <span class="st">"est_hex"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">s</span>, type <span class="op">=</span> <span class="st">"est_hex"</span><span class="op">)</span>
 <span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span></code></pre></div>
 <p><img src="reference/figures/README-hex-1.png" width="85%" style="display: block; margin: auto;"></p>
 <p>They provide a useful alternative when there are several data points with large overlap (e.g. in a scatterplot).</p>
-<p>The plotting functionality now extend the S3 generic <code>autoplot</code>: see <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">?ggplot2::autoplot</a></code> and <code><a href="reference/autoplot.simsum.html">?rsimsum::autoplot.simsum</a></code> for further details.</p>
+<p>The plotting functionality now extend the S3 generic <code>autoplot</code>: see <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">?ggplot2::autoplot</a></code> and <code><a href="reference/autoplot.simsum.html">?rsimsum::autoplot.simsum</a></code> for further details.</p>
 <p>More details and information can be found in the vignettes dedicated to plotting:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"C-plotting"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"D-nlp"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"C-plotting"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"D-nlp"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div id="citation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#citation" class="anchor"></a>Citation</h1>
+<div class="section level1">
+<h1 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h1>
 <p>If you find <code>rsimsum</code> useful, please cite it in your publications:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span><span class="st">"rsimsum"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"rsimsum"</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; To cite the rsimsum package in publications, please use:</span>
 <span class="co">#&gt; </span>
@@ -294,95 +271,97 @@
 <span class="co">#&gt;     url = {https://doi.org/10.21105/joss.00739},</span>
 <span class="co">#&gt;   }</span></code></pre></div>
 </div>
-<div id="references" class="section level1">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
+<div class="section level1">
+<h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h1>
 <ul>
-<li>White, I.R. 2010. <em>simsum: Analyses of simulation studies including Monte Carlo error</em>. The Stata Journal 10(3): 369-385 &lt;<a href="https://www.stata-journal.com/article.html?article=st0200" class="uri">https://www.stata-journal.com/article.html?article=st0200</a>&gt;</li>
-<li>Morris, T.P., White, I.R. and Crowther, M.J. 2019. <em>Using simulation studies to evaluate statistical methods</em>. Statistics in Medicine, &lt;<a href="https://doi.org/10.1002/sim.8086">doi:10.1002/sim.8086</a>&gt;</li>
-<li>Gasparini, A. 2018. <em>rsimsum: Summarise results from Monte Carlo simulation studies</em>. Journal of Open Source Software, 3(26):739 &lt;<a href="https://doi.org/10.21105/joss.00739">10.21105/joss.00739</a>&gt;</li>
+<li>White, I.R. 2010. <em>simsum: Analyses of simulation studies including Monte Carlo error</em>. The Stata Journal 10(3): 369-385 &lt;<a href="https://www.stata-journal.com/article.html?article=st0200" class="external-link uri">https://www.stata-journal.com/article.html?article=st0200</a>&gt;</li>
+<li>Morris, T.P., White, I.R. and Crowther, M.J. 2019. <em>Using simulation studies to evaluate statistical methods</em>. Statistics in Medicine, &lt;<a href="https://doi.org/10.1002/sim.8086" class="external-link">doi:10.1002/sim.8086</a>&gt;</li>
+<li>Gasparini, A. 2018. <em>rsimsum: Summarise results from Monte Carlo simulation studies</em>. Journal of Open Source Software, 3(26):739 &lt;<a href="https://doi.org/10.21105/joss.00739" class="external-link">10.21105/joss.00739</a>&gt;</li>
 </ul>
 </div>
-<div id="warning-for-rstudio-users" class="section level1">
-<h1 class="hasAnchor">
-<a href="#warning-for-rstudio-users" class="anchor"></a>Warning for RStudio users</h1>
-<p>If you use RStudio and equations are not displayed properly within the RStudio viewer window, please access the vignette from the <a href="https://CRAN.R-project.org/package=rsimsum">CRAN website</a>, the <a href="https://ellessenne.github.io/rsimsum/">rsimsum website</a>, or directly from the R console with the command:</p>
+<div class="section level1">
+<h1 id="warning-for-rstudio-users">Warning for RStudio users<a class="anchor" aria-label="anchor" href="#warning-for-rstudio-users"></a>
+</h1>
+<p>If you use RStudio and equations are not displayed properly within the RStudio viewer window, please access the vignette from the <a href="https://CRAN.R-project.org/package=rsimsum" class="external-link">CRAN website</a>, the <a href="https://ellessenne.github.io/rsimsum/">rsimsum website</a>, or directly from the R console with the command:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"A-introduction"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span></code></pre></div>
-<p>This is a known issue with RStudio (see <a href="https://github.com/rstudio/rstudio/issues/2253">#2253</a>).</p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span>topic <span class="op">=</span> <span class="st">"A-introduction"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span></code></pre></div>
+<p>This is a known issue with RStudio (see <a href="https://github.com/rstudio/rstudio/issues/2253" class="external-link">#2253</a>).</p>
 </div>
 
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <div class="links">
-<h2>Links</h2>
+  </main><aside class="col-md-3"><div class="links">
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=rsimsum">https://​cloud.r-project.org/​package=rsimsum</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/ellessenne/rsimsum/">https://​github.com/​ellessenne/​rsimsum/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/ellessenne/rsimsum/issues">https://​github.com/​ellessenne/​rsimsum/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=rsimsum" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/ellessenne/rsimsum/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/ellessenne/rsimsum/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
 <li><small>GPL (&gt;= 3)</small></li>
 </ul>
 </div>
+
 <div class="community">
-<h2>Community</h2>
+<h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
+
 <div class="citation">
-<h2>Citation</h2>
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html">Citing rsimsum</a></li>
+<li><a href="authors.html#citation">Citing rsimsum</a></li>
 </ul>
 </div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Alessandro Gasparini <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-8319-7624" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Alessandro Gasparini <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-8319-7624" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 <li>Ian R. White <br><small class="roles"> Author </small>  </li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/ellessenne/rsimsum/actions"><img src="https://github.com/ellessenne/rsimsum/workflows/R-CMD-check/badge.svg" alt="R Build Status"></a></li>
-<li><a href="https://app.codecov.io/gh/ellessenne/rsimsum?branch=master"><img src="https://codecov.io/gh/ellessenne/rsimsum/branch/master/graph/badge.svg" alt="Codecov Test Coverage"></a></li>
-<li><a href="https://CRAN.R-project.org/package=rsimsum"><img src="https://www.r-pkg.org/badges/version/rsimsum" alt="CRAN Status"></a></li>
-<li><a href="https://CRAN.R-project.org/package=rsimsum"><img src="https://cranlogs.r-pkg.org/badges/rsimsum" alt="CRAN Logs Monthly Downloads"></a></li>
-<li><a href="https://CRAN.R-project.org/package=rsimsum"><img src="https://cranlogs.r-pkg.org/badges/grand-total/rsimsum" alt="CRAN Logs Total Downloads"></a></li>
-<li><a href="https://doi.org/10.21105/joss.00739"><img src="https://joss.theoj.org/papers/10.21105/joss.00739/status.svg" alt="JOSS DOI"></a></li>
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: Stable"></a></li>
+<li><a href="https://github.com/ellessenne/rsimsum/actions" class="external-link"><img src="https://github.com/ellessenne/rsimsum/workflows/R-CMD-check/badge.svg" alt="R Build Status"></a></li>
+<li><a href="https://app.codecov.io/gh/ellessenne/rsimsum?branch=master" class="external-link"><img src="https://codecov.io/gh/ellessenne/rsimsum/branch/master/graph/badge.svg" alt="Codecov Test Coverage"></a></li>
+<li><a href="https://CRAN.R-project.org/package=rsimsum" class="external-link"><img src="https://www.r-pkg.org/badges/version/rsimsum" alt="CRAN Status"></a></li>
+<li><a href="https://CRAN.R-project.org/package=rsimsum" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/rsimsum" alt="CRAN Logs Monthly Downloads"></a></li>
+<li><a href="https://CRAN.R-project.org/package=rsimsum" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/grand-total/rsimsum" alt="CRAN Logs Total Downloads"></a></li>
+<li><a href="https://doi.org/10.21105/joss.00739" class="external-link"><img src="https://joss.theoj.org/papers/10.21105/joss.00739/status.svg" alt="JOSS DOI"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" alt="Lifecycle: Stable"></a></li>
 </ul>
 </div>
-</div>
-</div>
 
-
-      <footer><div class="copyright">
-  <p>Developed by Alessandro Gasparini, Ian R. White.</p>
+  </aside>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+
+    <footer><div class="pkgdown-footer-left">
+  <p></p>
+<p>Developed by Alessandro Gasparini, Ian R. White.</p>
 </div>
 
-      </footer>
+<div class="pkgdown-footer-right">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.</p>
+</div>
+
+    </footer>
 </div>
 
   
 
+  
 
   </body>
 </html>
