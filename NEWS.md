@@ -1,4 +1,4 @@
-# rsimsum (development version)
+# rsimsum 0.11.1
 
 ### Bug fixes:
 
@@ -8,6 +8,11 @@
   #> Error: No tidy method recognized for this list.
   ```
   Thanks to Theodosia Salika for reporting this.
+
+* The {pkgdown} website with the documentation has been updated to use Bootstrap 5 (and {pkgdown} ≥ 2.0.0).
+  The new site can be found here: https://ellessenne.github.io/rsimsum/
+
+* Updated a DOI that was returning HTTP Error 503.
 
 # rsimsum 0.11.0
 
