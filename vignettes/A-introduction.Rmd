@@ -328,6 +328,6 @@ ggplot(tidy(ss2, stats = "bias"), aes(x = model, y = est, ymin = lower, ymax = u
 * White, I.R. 2010. _simsum: Analyses of simulation studies including Monte Carlo error_. The Stata Journal 10(3): 369-385 <[https://www.stata-journal.com/article.html?article=st0200](https://www.stata-journal.com/article.html?article=st0200)>
 * Morris, T.P., White, I.R. and Crowther, M.J. 2019. _Using simulation studies to evaluate statistical methods_. Statistics in Medicine, <[doi:10.1002/sim.8086](https://doi.org/10.1002/sim.8086)>
 * White, I.R., and P. Royston. 2009. _Imputing missing covariate values for the Cox model_. Statistics in Medicine 28(15):1982-1998 <[doi:10.1002/sim.3618](https://doi.org/10.1002/sim.3618)>
-* Little, R.J.A., and D.B. Rubin. 2002. _Statistical analysis with missing data_. 2nd ed. Hoboken, NJ: Wiley <[doi:10.1002/9781119013563](https://doi.wiley.com/10.1002/9781119013563)>
+* Little, R.J.A., and D.B. Rubin. 2002. _Statistical analysis with missing data_. 2nd ed. Hoboken, NJ: Wiley <[doi:10.1002/9781119013563](https://onlinelibrary.wiley.com/doi/book/10.1002/9781119013563)>
 * van Buuren, S., H.C. Boshuizen, and D.L. Knook. 1999. _Multiple imputation of missing blood pressure covariates in survival analysis_. Statistics in Medicine 18(6):681-694 <[doi:10.1002/(SICI)1097-0258(19990330)18:6<681::AID-SIM71>3.0.CO;2-R](https://doi.org/10.1002/(SICI)1097-0258(19990330)18:6<681::AID-SIM71>3.0.CO;2-R)>
 

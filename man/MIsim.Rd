@@ -41,7 +41,5 @@ data("MIsim2", package = "rsimsum")
 }
 \references{
 White, I.R., and P. Royston. 2009. Imputing missing covariate values for the Cox model. Statistics in Medicine 28(15):1982-1998 \doi{10.1002/sim.3618}
-
-Little, R.J.A., and D.B. Rubin. 2002. Statistical analysis with missing data. 2nd ed. Hoboken, NJ: Wiley \doi{10.1002/9781119013563}
 }
 \keyword{datasets}
