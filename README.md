@@ -315,18 +315,3 @@ citation("rsimsum")
 -   Gasparini, A. 2018. *rsimsum: Summarise results from Monte Carlo
     simulation studies*. Journal of Open Source Software, 3(26):739
     \<[10.21105/joss.00739](https://doi.org/10.21105/joss.00739)\>
-
-# Warning for RStudio users
-
-If you use RStudio and equations are not displayed properly within the
-RStudio viewer window, please access the vignette from the [CRAN
-website](https://CRAN.R-project.org/package=rsimsum), the [rsimsum
-website](https://ellessenne.github.io/rsimsum/), or directly from the R
-console with the command:
-
-``` r
-vignette(topic = "A-introduction", package = "rsimsum")
-```
-
-This is a known issue with RStudio (see
-[\#2253](https://github.com/rstudio/rstudio/issues/2253)).
