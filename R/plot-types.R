@@ -114,12 +114,8 @@
   data[["covering"]] <- (true >= data[["lower"]] & true <= data[["upper"]])
   data[["covering"]] <- factor(data[["covering"]], levels = c(FALSE, TRUE), labels = c("Non-coverers", "Coverers"))
 
-  ### Compute critical test value
-  if (is.null(df)) {
-    data[["z"]] <- 2 * pnorm(q = abs(data[[estvarname]] - true) / data[[se]])
-  } else {
-    data[["z"]] <- 2 * pt(q = abs(data[[estvarname]] - true) / data[[se]], df = data[[df]])
-  }
+  ### Compute z value
+  data[["z"]] <- abs((data[[estvarname]] - true) / data[[se]])
 
   ### Split data by 'methodvar', 'by'
   data <- .split_by(data = data, by = by)
