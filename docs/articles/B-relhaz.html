@@ -26,14 +26,14 @@
     
     <a class="navbar-brand me-2" href="../index.html">rsimsum</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
@@ -71,12 +71,16 @@
   </div>
 </nav><div class="container template-article">
 
+
+
+
 <div class="row">
   <main id="main"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Simulating a simulation study</h1>
-                        <h4 data-toc-skip class="author">Alessandro Gasparini</h4>
+                        <h4 data-toc-skip class="author">Alessandro
+Gasparini</h4>
             
-            <h4 data-toc-skip class="date">2022-01-04</h4>
+            <h4 data-toc-skip class="date">2022-03-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/rsimsum/blob/HEAD/vignettes/B-relhaz.Rmd" class="external-link"><code>vignettes/B-relhaz.Rmd</code></a></small>
       <div class="d-none name"><code>B-relhaz.Rmd</code></div>
@@ -84,20 +88,32 @@
 
     
     
-<div class="section level1">
-<h1 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
-</h1>
-<p>In this vignette, we show how the simulated data included as an example dataset in <code>simsum</code> has been generated.</p>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p>In this vignette, we show how the simulated data included as an
+example dataset in <code>simsum</code> has been generated.</p>
 </div>
-<div class="section level1">
-<h1 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
-</h1>
-<p>Say we want to run a simulation study in which we want to compare the sensitivity of parametric and semiparametric survival models on relative risk estimates.</p>
+<div class="section level2">
+<h2 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
+</h2>
+<p>Say we want to run a simulation study in which we want to compare the
+sensitivity of parametric and semiparametric survival models on relative
+risk estimates.</p>
 </div>
-<div class="section level1">
-<h1 id="data-generating-mechanisms">Data generating mechanisms<a class="anchor" aria-label="anchor" href="#data-generating-mechanisms"></a>
-</h1>
-<p>We simulate an hypothetical trial with a binary treatment. We fix the log-treatment effect to <span class="math inline">\(-0.50\)</span>, and we generate a treatment indicator variable for each simulated individual via a <span class="math inline">\(Binom(1, 0.5)\)</span> random variable. We simulate two different sample sizes (50 and 250 individuals) and we assume two different baseline hazard functions: exponential with scale parameter <span class="math inline">\(\lambda = 0.5\)</span>, and Weibull with scale parameter <span class="math inline">\(\lambda = 0.5\)</span> and shape parameter <span class="math inline">\(\gamma = 1.5\)</span>. Finally, we apply administrative censoring at time <span class="math inline">\(t = 5\)</span>.</p>
+<div class="section level2">
+<h2 id="data-generating-mechanisms">Data generating mechanisms<a class="anchor" aria-label="anchor" href="#data-generating-mechanisms"></a>
+</h2>
+<p>We simulate an hypothetical trial with a binary treatment. We fix the
+log-treatment effect to <span class="math inline">\(-0.50\)</span>, and
+we generate a treatment indicator variable for each simulated individual
+via a <span class="math inline">\(Binom(1, 0.5)\)</span> random
+variable. We simulate two different sample sizes (50 and 250
+individuals) and we assume two different baseline hazard functions:
+exponential with scale parameter <span class="math inline">\(\lambda =
+0.5\)</span>, and Weibull with scale parameter <span class="math inline">\(\lambda = 0.5\)</span> and shape parameter <span class="math inline">\(\gamma = 1.5\)</span>. Finally, we apply
+administrative censoring at time <span class="math inline">\(t =
+5\)</span>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">exp_basehaz</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">lambda</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="va">lambda</span> <span class="op">*</span> <span class="fl">1</span> <span class="op">*</span> <span class="va">t</span><span class="op">^</span><span class="fl">0</span>
 <span class="va">exp_weibull</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">t</span>, <span class="va">lambda</span> <span class="op">=</span> <span class="fl">0.5</span>, <span class="va">gamma</span> <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="va">lambda</span> <span class="op">*</span> <span class="va">gamma</span> <span class="op">*</span> <span class="va">t</span><span class="op">^</span><span class="op">(</span><span class="va">gamma</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span>
@@ -105,12 +121,17 @@
 <span class="fu"><a href="https://rdrr.io/r/graphics/curve.html" class="external-link">curve</a></span><span class="op">(</span><span class="va">exp_weibull</span>, from <span class="op">=</span> <span class="fl">0</span>, to <span class="op">=</span> <span class="fl">5</span>, lty <span class="op">=</span> <span class="fl">2</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"topleft"</span>, lty <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Exponential baseline hazard"</span>, <span class="st">"Weibull baseline hazard"</span><span class="op">)</span>, bty <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></code></pre></div>
 <p><img src="B-relhaz_files/figure-html/baseline-hazards-1.png" width="75%" style="display: block; margin: auto;"></p>
-<p>The survival times are estimated using the approach of Bender <em>et al</em>. (2005), based on drawing from a <span class="math inline">\(U(0, 1)\)</span> random variable and applying the following transformations:</p>
+<p>The survival times are estimated using the approach of Bender <em>et
+al</em>. (2005), based on drawing from a <span class="math inline">\(U(0, 1)\)</span> random variable and applying the
+following transformations:</p>
 <ol style="list-style-type: decimal">
-<li><p>for an exponential baseline hazard, the survival time <span class="math inline">\(t\)</span> is simulated as: <span class="math display">\[t = -\frac{log(U)}{\lambda \exp(\beta ^ T X)}\]</span></p></li>
-<li><p>for a Weibull baseline hazard, the survival time <span class="math inline">\(t\)</span> is simulated as: <span class="math display">\[t = \left(-\frac{log(U)}{\lambda \exp(\beta ^ T X)}\right) ^ {1 / \gamma}\]</span></p></li>
+<li><p>for an exponential baseline hazard, the survival time <span class="math inline">\(t\)</span> is simulated as: <span class="math display">\[t = -\frac{log(U)}{\lambda \exp(\beta ^ T
+X)}\]</span></p></li>
+<li><p>for a Weibull baseline hazard, the survival time <span class="math inline">\(t\)</span> is simulated as: <span class="math display">\[t = \left(-\frac{log(U)}{\lambda \exp(\beta ^ T
+X)}\right) ^ {1 / \gamma}\]</span></p></li>
 </ol>
-<p>The R function to simulate a dataset for our simulation study is defined as follows:</p>
+<p>The R function to simulate a dataset for our simulation study is
+defined as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">simulate_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span>, <span class="va">n</span>, <span class="va">baseline</span>, <span class="va">params</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">coveff</span> <span class="op">=</span> <span class="op">-</span><span class="fl">0.50</span><span class="op">)</span> <span class="op">{</span>
   <span class="co"># Simulate treatment indicator variable</span>
@@ -136,38 +157,65 @@
   <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="va">dataset</span>, x <span class="op">=</span> <span class="va">x</span>, t <span class="op">=</span> <span class="va">t</span>, d <span class="op">=</span> <span class="va">d</span>, n <span class="op">=</span> <span class="va">n</span>, baseline <span class="op">=</span> <span class="va">baseline</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 </div>
-<div class="section level1">
-<h1 id="methods">Methods<a class="anchor" aria-label="anchor" href="#methods"></a>
-</h1>
-<p>We compare the Cox model (Cox, 1972) with a fully parametric survival model assuming an exponential baseline hazard and a flexible parametric model with 2 degrees of freedom for modelling the baseline hazard (Royston and Parmar, 2002). The Cox model can be fit via the <code>coxph</code> function from the <code>survival</code> package, the exponential model can be fit via the <code>phreg</code> function from the <code>eha</code> package, and the Royston-Parmar model can be fixed via the <code>stpm2</code> function from the <code>rstpm2</code> package.</p>
+<div class="section level2">
+<h2 id="methods">Methods<a class="anchor" aria-label="anchor" href="#methods"></a>
+</h2>
+<p>We compare the Cox model (Cox, 1972) with a fully parametric survival
+model assuming an exponential baseline hazard and a flexible parametric
+model with 2 degrees of freedom for modelling the baseline hazard
+(Royston and Parmar, 2002). The Cox model can be fit via the
+<code>coxph</code> function from the <code>survival</code> package, the
+exponential model can be fit via the <code>phreg</code> function from
+the <code>eha</code> package, and the Royston-Parmar model can be fixed
+via the <code>stpm2</code> function from the <code>rstpm2</code>
+package.</p>
 </div>
-<div class="section level1">
-<h1 id="performance-measures">Performance measures<a class="anchor" aria-label="anchor" href="#performance-measures"></a>
-</h1>
+<div class="section level2">
+<h2 id="performance-measures">Performance measures<a class="anchor" aria-label="anchor" href="#performance-measures"></a>
+</h2>
 <p>Say we are interested in the following performance measures:</p>
 <ul>
-<li>Bias in the estimated log-treatment effect, and corresponding <span class="math inline">\(95\%\)</span> Monte Carlo confidence intervals</li>
-<li>Coverage of confidence intervals for the log-treatment effect, defined as the proportion of simulated data sets for which the true log-treatment effect of <span class="math inline">\(-0.50\)</span> lies within the <span class="math inline">\(95\%\)</span> confidence intervals obtained from the model</li>
+<li>Bias in the estimated log-treatment effect, and corresponding <span class="math inline">\(95\%\)</span> Monte Carlo confidence
+intervals</li>
+<li>Coverage of confidence intervals for the log-treatment effect,
+defined as the proportion of simulated data sets for which the true
+log-treatment effect of <span class="math inline">\(-0.50\)</span> lies
+within the <span class="math inline">\(95\%\)</span> confidence
+intervals obtained from the model</li>
 </ul>
 </div>
-<div class="section level1">
-<h1 id="sample-size">Sample size<a class="anchor" aria-label="anchor" href="#sample-size"></a>
-</h1>
-<p>We are primarily interested in bias, and assume that the variance of the estimated log-treatment effect is <span class="math inline">\(0.1\)</span>. The Monte Carlo standard error for the bias is:</p>
-<p><span class="math display">\[\text{MCSE} = \sqrt{\frac{\text{variance}}{\# \text{simulations}}}\]</span></p>
-<p>Aiming for a Monte Carlo standard error of 0.01 on the estimated bias, we would require <span class="math inline">\(1,000\)</span> replications.</p>
-<p>The Monte Carlo standard error for coverage is:</p>
-<p><span class="math display">\[\text{MCSE} = \sqrt{\frac{\text{coverage} \times (1 - \text{coverage})}{\# \text{simulations}}}\]</span></p>
-<p>This Monte Carlo standard error is maximised for a coverage = <span class="math inline">\(0.5\)</span>. In that setting, the Monte Carlo standard error with <span class="math inline">\(1,000\)</span> replications would be <span class="math inline">\(0.01581139\)</span>, which is deemed to be acceptable.</p>
-<p>Therefore, we should run <span class="math inline">\(1,000\)</span> replications of this simulation study. However, for simplicity, we will run <span class="math inline">\(100\)</span> replications only to speed up the process.</p>
-</div>
-<div class="section level1">
-<h1 id="running-the-simulation-study">Running the simulation study<a class="anchor" aria-label="anchor" href="#running-the-simulation-study"></a>
-</h1>
 <div class="section level2">
-<h2 id="generate-data">Generate data<a class="anchor" aria-label="anchor" href="#generate-data"></a>
+<h2 id="sample-size">Sample size<a class="anchor" aria-label="anchor" href="#sample-size"></a>
 </h2>
-<p>We generate <span class="math inline">\(100\)</span> datasets for each data-generating mechanism.</p>
+<p>We are primarily interested in bias, and assume that the variance of
+the estimated log-treatment effect is <span class="math inline">\(0.1\)</span>. The Monte Carlo standard error for
+the bias is:</p>
+<p><span class="math display">\[\text{MCSE} =
+\sqrt{\frac{\text{variance}}{\# \text{simulations}}}\]</span></p>
+<p>Aiming for a Monte Carlo standard error of 0.01 on the estimated
+bias, we would require <span class="math inline">\(1,000\)</span>
+replications.</p>
+<p>The Monte Carlo standard error for coverage is:</p>
+<p><span class="math display">\[\text{MCSE} =
+\sqrt{\frac{\text{coverage} \times (1 - \text{coverage})}{\#
+\text{simulations}}}\]</span></p>
+<p>This Monte Carlo standard error is maximised for a coverage = <span class="math inline">\(0.5\)</span>. In that setting, the Monte Carlo
+standard error with <span class="math inline">\(1,000\)</span>
+replications would be <span class="math inline">\(0.01581139\)</span>,
+which is deemed to be acceptable.</p>
+<p>Therefore, we should run <span class="math inline">\(1,000\)</span>
+replications of this simulation study. However, for simplicity, we will
+run <span class="math inline">\(100\)</span> replications only to speed
+up the process.</p>
+</div>
+<div class="section level2">
+<h2 id="running-the-simulation-study">Running the simulation study<a class="anchor" aria-label="anchor" href="#running-the-simulation-study"></a>
+</h2>
+<div class="section level3">
+<h3 id="generate-data">Generate data<a class="anchor" aria-label="anchor" href="#generate-data"></a>
+</h3>
+<p>We generate <span class="math inline">\(100\)</span> datasets for
+each data-generating mechanism.</p>
 <p>First, we set a random seed for reproducibility:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">755353002</span><span class="op">)</span></code></pre></div>
@@ -204,9 +252,9 @@
   params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>lambda <span class="op">=</span> <span class="fl">0.5</span>, gamma <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="run-models">Run models<a class="anchor" aria-label="anchor" href="#run-models"></a>
-</h2>
+<div class="section level3">
+<h3 id="run-models">Run models<a class="anchor" aria-label="anchor" href="#run-models"></a>
+</h3>
 <p>We define a function to fit the models of interest:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival" class="external-link">survival</a></span><span class="op">)</span>
@@ -342,26 +390,28 @@
   <span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="aggregating-results">Aggregating results<a class="anchor" aria-label="anchor" href="#aggregating-results"></a>
-</h2>
+<div class="section level3">
+<h3 id="aggregating-results">Aggregating results<a class="anchor" aria-label="anchor" href="#aggregating-results"></a>
+</h3>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">relhaz</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span>
   <span class="va">rbind.data.frame</span>,
   <span class="va">results</span>
 <span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/row.names.html" class="external-link">row.names</a></span><span class="op">(</span><span class="va">relhaz</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></code></pre></div>
-<p>We save the final results, that will be included as an example in the R package <code>rsimsum</code>.</p>
+<p>We save the final results, that will be included as an example in the
+R package <code>rsimsum</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://usethis.r-lib.org" class="external-link">usethis</a></span><span class="op">)</span>
 <span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_data.html" class="external-link">use_data</a></span><span class="op">(</span><span class="va">relhaz</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="summarising-results">Summarising results<a class="anchor" aria-label="anchor" href="#summarising-results"></a>
-</h2>
-<p>Finally, we obtain summary statistics by calling the <code>simsum</code> function:</p>
+<div class="section level3">
+<h3 id="summarising-results">Summarising results<a class="anchor" aria-label="anchor" href="#summarising-results"></a>
+</h3>
+<p>Finally, we obtain summary statistics by calling the
+<code>simsum</code> function:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ellessenne.github.io/rsimsum/">rsimsum</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ellessenne.github.io/rsimsum">rsimsum</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'rsimsum'</span>
 <span class="co">#&gt; The following object is masked _by_ '.GlobalEnv':</span>
@@ -483,18 +533,27 @@
 <span class="co">#&gt;  250     Weibull 0.9700 (0.0171) 0.8600 (0.0347) 0.9700 (0.0171)</span></code></pre></div>
 </div>
 </div>
-<div class="section level1">
-<h1 id="conclusions">Conclusions<a class="anchor" aria-label="anchor" href="#conclusions"></a>
-</h1>
-<p>With this vignette we showed how to simulate survival data and run a small, simple simulation study.</p>
+<div class="section level2">
+<h2 id="conclusions">Conclusions<a class="anchor" aria-label="anchor" href="#conclusions"></a>
+</h2>
+<p>With this vignette we showed how to simulate survival data and run a
+small, simple simulation study.</p>
 </div>
-<div class="section level1">
-<h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
-</h1>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <ul>
-<li><p>Cox D.R. <em>Regression models and life-tables</em>. Journal of the Royal Statistical Society, Series B (Methodological), 1972, 34(2):187-220</p></li>
-<li><p>Royston P. and Parmar M.K. <em>Flexible parametric proportional-hazards and proportional-odds models for censored survival data, with application to prognostic modelling and estimation of treatment effects</em>. Statistics in Medicine, 2002, 21(15):2175-2197</p></li>
-<li><p>Bender R., Augustin T., and Blettner M. <em>Generating survival times to simulate Cox proportional hazards models</em>. Statistics in Medicine, 2005, 24(11):1713-1723</p></li>
+<li><p>Cox D.R. <em>Regression models and life-tables</em>. Journal of
+the Royal Statistical Society, Series B (Methodological), 1972,
+34(2):187-220</p></li>
+<li><p>Royston P. and Parmar M.K. <em>Flexible parametric
+proportional-hazards and proportional-odds models for censored survival
+data, with application to prognostic modelling and estimation of
+treatment effects</em>. Statistics in Medicine, 2002,
+21(15):2175-2197</p></li>
+<li><p>Bender R., Augustin T., and Blettner M. <em>Generating survival
+times to simulate Cox proportional hazards models</em>. Statistics in
+Medicine, 2005, 24(11):1713-1723</p></li>
 </ul>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -510,7 +569,8 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
     </footer>

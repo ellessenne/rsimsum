@@ -26,14 +26,14 @@
     
     <a class="navbar-brand me-2" href="../index.html">rsimsum</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.11.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
@@ -71,12 +71,16 @@
   </div>
 </nav><div class="container template-article">
 
+
+
+
 <div class="row">
   <main id="main"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Introduction to rsimsum</h1>
-                        <h4 data-toc-skip class="author">Alessandro Gasparini</h4>
+                        <h4 data-toc-skip class="author">Alessandro
+Gasparini</h4>
             
-            <h4 data-toc-skip class="date">2022-01-04</h4>
+            <h4 data-toc-skip class="date">2022-03-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/rsimsum/blob/HEAD/vignettes/A-introduction.Rmd" class="external-link"><code>vignettes/A-introduction.Rmd</code></a></small>
       <div class="d-none name"><code>A-introduction.Rmd</code></div>
@@ -84,95 +88,184 @@
 
     
     
-<div class="section level1">
-<h1 id="rsimsum">rsimsum<a class="anchor" aria-label="anchor" href="#rsimsum"></a>
-</h1>
-<p><code>rsimsum</code> is an R package that can compute summary statistics from simulation studies. It is a port to R of the user-written command <code>simsum</code> in Stata (White I.R., 2010).</p>
-<p>The aim of <code>rsimsum</code> is helping reporting of simulation studies, including understanding the role of chance in results of simulation studies. Specifically, <code>rsimsum</code> can compute Monte Carlo standard errors of summary statistics, defined as the standard deviation of the estimated summary statistic.</p>
-<p>Formula for summary statistics and Monte Carlo standard errors are presented in the next section.</p>
+<div class="section level2">
+<h2 id="rsimsum">rsimsum<a class="anchor" aria-label="anchor" href="#rsimsum"></a>
+</h2>
+<p><code>rsimsum</code> is an R package that can compute summary
+statistics from simulation studies. It is a port to R of the
+user-written command <code>simsum</code> in Stata (White I.R.,
+2010).</p>
+<p>The aim of <code>rsimsum</code> is helping reporting of simulation
+studies, including understanding the role of chance in results of
+simulation studies. Specifically, <code>rsimsum</code> can compute Monte
+Carlo standard errors of summary statistics, defined as the standard
+deviation of the estimated summary statistic.</p>
+<p>Formula for summary statistics and Monte Carlo standard errors are
+presented in the next section.</p>
 </div>
-<div class="section level1">
-<h1 id="notation">Notation<a class="anchor" aria-label="anchor" href="#notation"></a>
-</h1>
+<div class="section level2">
+<h2 id="notation">Notation<a class="anchor" aria-label="anchor" href="#notation"></a>
+</h2>
 <p>We will use th following notation throughout this vignette:</p>
 <ul>
 <li>
-<span class="math inline">\(\theta\)</span>: an estimand, and its true value</li>
+<span class="math inline">\(\theta\)</span>: an estimand, and its
+true value</li>
 <li>
-<span class="math inline">\(n_{\text{sim}}\)</span>: number of simulations</li>
+<span class="math inline">\(n_{\text{sim}}\)</span>: number of
+simulations</li>
 <li>
-<span class="math inline">\(i = 1, \dots, n_{\text{sim}}\)</span>: indexes a given simulation</li>
+<span class="math inline">\(i = 1, \dots, n_{\text{sim}}\)</span>:
+indexes a given simulation</li>
 <li>
-<span class="math inline">\(\hat{\theta}_i\)</span>: the estimated value of <span class="math inline">\(\theta\)</span> for the <span class="math inline">\(i^{\text{th}}\)</span> replication</li>
+<span class="math inline">\(\hat{\theta}_i\)</span>: the estimated
+value of <span class="math inline">\(\theta\)</span> for the <span class="math inline">\(i^{\text{th}}\)</span> replication</li>
 <li>
-<span class="math inline">\(\widehat{\text{Var}}(\hat{\theta}_i)\)</span>: the estimated variance <span class="math inline">\(\text{Var}(\hat{\theta}_i)\)</span> of <span class="math inline">\(\hat{\theta}_i\)</span> for the <span class="math inline">\(i^{\text{th}}\)</span> replication</li>
+<span class="math inline">\(\widehat{\text{Var}}(\hat{\theta}_i)\)</span>: the
+estimated variance <span class="math inline">\(\text{Var}(\hat{\theta}_i)\)</span> of <span class="math inline">\(\hat{\theta}_i\)</span> for the <span class="math inline">\(i^{\text{th}}\)</span> replication</li>
 <li>
-<span class="math inline">\(\text{Var}(\hat{\theta})\)</span>: the empirical variance of <span class="math inline">\(\hat{\theta}\)</span>
+<span class="math inline">\(\text{Var}(\hat{\theta})\)</span>: the
+empirical variance of <span class="math inline">\(\hat{\theta}\)</span>
 </li>
 <li>
-<span class="math inline">\(\alpha\)</span>: the nominal significance level</li>
+<span class="math inline">\(\alpha\)</span>: the nominal
+significance level</li>
 </ul>
 </div>
-<div class="section level1">
-<h1 id="summary-statistics">Summary statistics<a class="anchor" aria-label="anchor" href="#summary-statistics"></a>
-</h1>
-<p>The first summary statistic of interest is <strong>bias</strong>, which quantifies whether the estimator targets the true value <span class="math inline">\(\theta\)</span> on average. Bias is calculated as:</p>
-<p><span class="math display">\[\text{Bias} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} \hat{\theta}_i - \theta\]</span></p>
+<div class="section level2">
+<h2 id="summary-statistics">Summary statistics<a class="anchor" aria-label="anchor" href="#summary-statistics"></a>
+</h2>
+<p>The first summary statistic of interest is <strong>bias</strong>,
+which quantifies whether the estimator targets the true value <span class="math inline">\(\theta\)</span> on average. Bias is calculated
+as:</p>
+<p><span class="math display">\[\text{Bias} = \frac{1}{n_{\text{sim}}}
+\sum_{i = 1} ^ {n_{\text{sim}}} \hat{\theta}_i - \theta\]</span></p>
 <p>The Monte Carlo standard error of bias is calculated as:</p>
-<p><span class="math display">\[\text{MCSE(Bias)} = \sqrt{\frac{\frac{1}{n_{\text{sim}} - 1} \sum_{i = 1} ^ {n_{\text{sim}}} (\hat{\theta}_i - \bar{\theta}) ^ 2}{n_{\text{sim}}}}\]</span></p>
-<p>The <strong>empirical standard error</strong> of <span class="math inline">\(\theta\)</span> depends only on <span class="math inline">\(\hat{\theta}\)</span> and does not require any knowledge of <span class="math inline">\(\theta\)</span>. It estimates the standard deviation of <span class="math inline">\(\hat{\theta}\)</span> over the <span class="math inline">\(n_{\text{sim}}\)</span> replications:</p>
-<p><span class="math display">\[\text{Empirical SE} = \sqrt{\frac{1}{n_{\text{sim}} - 1} \sum_{i = 1} ^ {n_{\text{sim}}} (\hat{\theta}_i - \bar{\theta}) ^ 2}\]</span></p>
+<p><span class="math display">\[\text{MCSE(Bias)} =
+\sqrt{\frac{\frac{1}{n_{\text{sim}} - 1} \sum_{i = 1} ^ {n_{\text{sim}}}
+(\hat{\theta}_i - \bar{\theta}) ^ 2}{n_{\text{sim}}}}\]</span></p>
+<p>The <strong>empirical standard error</strong> of <span class="math inline">\(\theta\)</span> depends only on <span class="math inline">\(\hat{\theta}\)</span> and does not require any
+knowledge of <span class="math inline">\(\theta\)</span>. It estimates
+the standard deviation of <span class="math inline">\(\hat{\theta}\)</span> over the <span class="math inline">\(n_{\text{sim}}\)</span> replications:</p>
+<p><span class="math display">\[\text{Empirical SE} =
+\sqrt{\frac{1}{n_{\text{sim}} - 1} \sum_{i = 1} ^ {n_{\text{sim}}}
+(\hat{\theta}_i - \bar{\theta}) ^ 2}\]</span></p>
 <p>The Monte Carlo standard error is calculated as:</p>
-<p><span class="math display">\[\text{MCSE(Emp. SE)} = \frac{\widehat{\text{Emp. SE}}}{\sqrt{2 (n_{\text{sim}} - 1)}}\]</span></p>
-<p>When comparing different methods, the <strong>relative precision of a given method B against a reference method A</strong> is computed as:</p>
-<p><span class="math display">\[\text{Relative % increase in precision} = 100 \left[ \left( \frac{\widehat{\text{Emp. SE}}_A}{\widehat{\text{Emp. SE}}_B} \right) ^ 2 - 1 \right]\]</span></p>
+<p><span class="math display">\[\text{MCSE(Emp. SE)} =
+\frac{\widehat{\text{Emp. SE}}}{\sqrt{2 (n_{\text{sim}} -
+1)}}\]</span></p>
+<p>When comparing different methods, the <strong>relative precision of a
+given method B against a reference method A</strong> is computed as:</p>
+<p><span class="math display">\[\text{Relative % increase in precision}
+= 100 \left[ \left( \frac{\widehat{\text{Emp.
+SE}}_A}{\widehat{\text{Emp. SE}}_B} \right) ^ 2 - 1 \right]\]</span></p>
 <p>Its (approximated) Monte Carlo standard error is:</p>
-<p><span class="math display">\[\text{MCSE(Relative % increase in precision)} \simeq 200 \left( \frac{\widehat{\text{Emp. SE}}_A}{\widehat{\text{Emp. SE}}_B} \right)^2 \sqrt{\frac{1 - \rho^2_{AB}}{n_{\text{sim}} - 1}}\]</span></p>
-<p><span class="math inline">\(\rho^2_{AB}\)</span> is the correlation of <span class="math inline">\(\hat{\theta}_A\)</span> and <span class="math inline">\(\hat{\theta}_B\)</span>.</p>
-<p>A measure that takes into account both precision and accuracy of a method is the <strong>mean squared error</strong>, which is the sum of the squared bias and variance of <span class="math inline">\(\hat{\theta}\)</span>:</p>
-<p><span class="math display">\[\text{MSE} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} (\hat{\theta}_i - \theta) ^ 2\]</span></p>
+<p><span class="math display">\[\text{MCSE(Relative % increase in
+precision)} \simeq 200 \left( \frac{\widehat{\text{Emp.
+SE}}_A}{\widehat{\text{Emp. SE}}_B} \right)^2 \sqrt{\frac{1 -
+\rho^2_{AB}}{n_{\text{sim}} - 1}}\]</span></p>
+<p><span class="math inline">\(\rho^2_{AB}\)</span> is the correlation
+of <span class="math inline">\(\hat{\theta}_A\)</span> and <span class="math inline">\(\hat{\theta}_B\)</span>.</p>
+<p>A measure that takes into account both precision and accuracy of a
+method is the <strong>mean squared error</strong>, which is the sum of
+the squared bias and variance of <span class="math inline">\(\hat{\theta}\)</span>:</p>
+<p><span class="math display">\[\text{MSE} = \frac{1}{n_{\text{sim}}}
+\sum_{i = 1} ^ {n_{\text{sim}}} (\hat{\theta}_i - \theta) ^
+2\]</span></p>
 <p>The Monte Carlo standard error is:</p>
-<p><span class="math display">\[\text{MCSE(MSE)} = \sqrt{\frac{\sum_{i = 1} ^ {n_{\text{sim}}} \left[ (\hat{\theta}_i - \theta) ^2 - \text{MSE} \right] ^ 2}{n_{\text{sim}} (n_{\text{sim}} - 1)}}\]</span></p>
-<p>The <strong>model based standard error</strong> is computed by averaging the estimated standard errors for each replication:</p>
-<p><span class="math display">\[\text{Model SE} = \sqrt{\frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} \widehat{\text{Var}}(\hat{\theta}_i)}\]</span></p>
+<p><span class="math display">\[\text{MCSE(MSE)} = \sqrt{\frac{\sum_{i =
+1} ^ {n_{\text{sim}}} \left[ (\hat{\theta}_i - \theta) ^2 - \text{MSE}
+\right] ^ 2}{n_{\text{sim}} (n_{\text{sim}} - 1)}}\]</span></p>
+<p>The <strong>model based standard error</strong> is computed by
+averaging the estimated standard errors for each replication:</p>
+<p><span class="math display">\[\text{Model SE} =
+\sqrt{\frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}}
+\widehat{\text{Var}}(\hat{\theta}_i)}\]</span></p>
 <p>Its (approximated) Monte Carlo standard error is computed as:</p>
-<p><span class="math display">\[\text{MCSE(Model SE)} \simeq \sqrt{\frac{\text{Var}[\widehat{\text{Var}}(\hat{\theta}_i)]}{4 n_{\text{sim}} \widehat{\text{Model SE}}}}\]</span></p>
-<p>The model standard error targets the empirical standard error. Hence, the <strong>relative error in the model standard error</strong> is an informative performance measure:</p>
-<p><span class="math display">\[\text{Relative % error in model SE} = 100 \left( \frac{\text{Model SE}}{\text{Empirical SE}} - 1\right)\]</span></p>
+<p><span class="math display">\[\text{MCSE(Model SE)} \simeq
+\sqrt{\frac{\text{Var}[\widehat{\text{Var}}(\hat{\theta}_i)]}{4
+n_{\text{sim}} \widehat{\text{Model SE}}}}\]</span></p>
+<p>The model standard error targets the empirical standard error. Hence,
+the <strong>relative error in the model standard error</strong> is an
+informative performance measure:</p>
+<p><span class="math display">\[\text{Relative % error in model SE} =
+100 \left( \frac{\text{Model SE}}{\text{Empirical SE}} -
+1\right)\]</span></p>
 <p>Its Monte Carlo standard error is computed as:</p>
-<p><span class="math display">\[\text{MCSE(Relative % error in model SE)} = 100 \left( \frac{\text{Model SE}}{\text{Empirical SE}} \right) \sqrt{\frac{\text{Var}[\widehat{\text{Var}}(\hat{\theta}_i)]}{4 n_{\text{sim}} \widehat{\text{Model SE}} ^ 4} + \frac{1}{2(n_{\text{sim}} - 1)}}\]</span></p>
-<p><strong>Coverage</strong> is another key property of an estimator. It is defined as the probability that a confidence interval contains the true value <span class="math inline">\(\theta\)</span>, and computed as:</p>
-<p><span class="math display">\[\text{Coverage} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} I(\hat{\theta}_{i, \text{low}} \le \theta \le \hat{\theta}_{i, \text{upp}})\]</span></p>
-<p>where <span class="math inline">\(I(\cdot)\)</span> is the indicator function. The Monte Carlo standard error is computed as:</p>
-<p><span class="math display">\[\text{MCSE(Coverage)} = \sqrt{\frac{\text{Coverage} \times (1 - \text{Coverage})}{n_{\text{sim}}}}\]</span></p>
+<p><span class="math display">\[\text{MCSE(Relative % error in model
+SE)} = 100 \left( \frac{\text{Model SE}}{\text{Empirical SE}} \right)
+\sqrt{\frac{\text{Var}[\widehat{\text{Var}}(\hat{\theta}_i)]}{4
+n_{\text{sim}} \widehat{\text{Model SE}} ^ 4} +
+\frac{1}{2(n_{\text{sim}} - 1)}}\]</span></p>
+<p><strong>Coverage</strong> is another key property of an estimator. It
+is defined as the probability that a confidence interval contains the
+true value <span class="math inline">\(\theta\)</span>, and computed
+as:</p>
+<p><span class="math display">\[\text{Coverage} =
+\frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}}
+I(\hat{\theta}_{i, \text{low}} \le \theta \le \hat{\theta}_{i,
+\text{upp}})\]</span></p>
+<p>where <span class="math inline">\(I(\cdot)\)</span> is the indicator
+function. The Monte Carlo standard error is computed as:</p>
+<p><span class="math display">\[\text{MCSE(Coverage)} =
+\sqrt{\frac{\text{Coverage} \times (1 -
+\text{Coverage})}{n_{\text{sim}}}}\]</span></p>
 <p>Under coverage is to be expected if:</p>
 <ol style="list-style-type: decimal">
 <li>
 <span class="math inline">\(\text{Bias} \ne 0\)</span>, or</li>
 <li>
-<span class="math inline">\(\text{Models SE} &lt; \text{Empirical SE}\)</span>, or</li>
-<li>the distribution of <span class="math inline">\(\hat{\theta}\)</span> is not normal and intervals have been constructed assuming normality, or</li>
+<span class="math inline">\(\text{Models SE} &lt; \text{Empirical
+SE}\)</span>, or</li>
+<li>the distribution of <span class="math inline">\(\hat{\theta}\)</span> is not normal and intervals
+have been constructed assuming normality, or</li>
 <li>
-<span class="math inline">\(\widehat{\text{Var}}(\hat{\theta}_i)\)</span> is too variable</li>
+<span class="math inline">\(\widehat{\text{Var}}(\hat{\theta}_i)\)</span> is
+too variable</li>
 </ol>
-<p>Over coverage occurs as a result of <span class="math inline">\(\text{Models SE} &gt; \text{Empirical SE}\)</span>.</p>
-<p>As under coverage may be a result of bias, another useful summary statistic is <strong>bias-eliminated coverage</strong>:</p>
-<p><span class="math display">\[\text{Bias-eliminated coverage} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} I(\hat{\theta}_{i, \text{low}} \le \bar{\theta} \le \hat{\theta}_{i, \text{upp}}) \]</span></p>
+<p>Over coverage occurs as a result of <span class="math inline">\(\text{Models SE} &gt; \text{Empirical
+SE}\)</span>.</p>
+<p>As under coverage may be a result of bias, another useful summary
+statistic is <strong>bias-eliminated coverage</strong>:</p>
+<p><span class="math display">\[\text{Bias-eliminated coverage} =
+\frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}}
+I(\hat{\theta}_{i, \text{low}} \le \bar{\theta} \le \hat{\theta}_{i,
+\text{upp}}) \]</span></p>
 <p>The Monte Carlo standard error is analogously as coverage:</p>
-<p><span class="math display">\[\text{MCSE(Bias-eliminated coverage)} = \sqrt{\frac{\text{Bias-eliminated coverage} \times (1 - \text{Bias-eliminated coverage})}{n_{\text{sim}}}}\]</span></p>
+<p><span class="math display">\[\text{MCSE(Bias-eliminated coverage)} =
+\sqrt{\frac{\text{Bias-eliminated coverage} \times (1 -
+\text{Bias-eliminated coverage})}{n_{\text{sim}}}}\]</span></p>
 <p>Finally, <strong>power</strong> of a significance test at the <span class="math inline">\(\alpha\)</span> level is defined as:</p>
-<p><span class="math display">\[\text{Power} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} I \left[ |\hat{\theta}_i| \ge z_{\alpha/2} * \sqrt{\widehat{\text{Var}}(\hat{\theta_i})} \right]\]</span></p>
+<p><span class="math display">\[\text{Power} = \frac{1}{n_{\text{sim}}}
+\sum_{i = 1} ^ {n_{\text{sim}}} I \left[ |\hat{\theta}_i| \ge
+z_{\alpha/2} * \sqrt{\widehat{\text{Var}}(\hat{\theta_i})}
+\right]\]</span></p>
 <p>The Monte Carlo standard error is analogously as coverage:</p>
-<p><span class="math display">\[\text{MCSE(Power)} = \sqrt{\frac{\text{Power} \times (1 - \text{Power})}{n_{\text{sim}}}}\]</span></p>
-<p>Further information on summary statistics for simulation studies can be found in White (2010) and Morris, White, and Crowther (2019).</p>
+<p><span class="math display">\[\text{MCSE(Power)} =
+\sqrt{\frac{\text{Power} \times (1 -
+\text{Power})}{n_{\text{sim}}}}\]</span></p>
+<p>Further information on summary statistics for simulation studies can
+be found in White (2010) and Morris, White, and Crowther (2019).</p>
 </div>
-<div class="section level1">
-<h1 id="example-1-simulation-study-on-missing-data">Example 1: Simulation study on missing data<a class="anchor" aria-label="anchor" href="#example-1-simulation-study-on-missing-data"></a>
-</h1>
-<p>With this example dataset included in <code>rsimsum</code> we aim to summarise a simulation study comparing different ways to handle missing covariates when fitting a Cox model (White and Royston, 2009). One thousand datasets were simulated, each containing normally distributed covariates <span class="math inline">\(x\)</span> and <span class="math inline">\(z\)</span> and time-to-event outcome. Both covariates has <span class="math inline">\(20\%\)</span> of their values deleted independently of all other variables so the data became missing completely at random (Little and Rubin, 2002). Each simulated dataset was analysed in three ways. A Cox model was fit to the complete cases (<code>CC</code>). Then two methods of multiple imputation using chained equations (van Buuren, Boshuizen, and Knook, 1999) were used. The <code>MI_LOGT</code> method multiply imputes the missing values of <span class="math inline">\(x\)</span> and <span class="math inline">\(z\)</span> with the outcome included as <span class="math inline">\(\log(t)\)</span> and <span class="math inline">\(d\)</span>, where <span class="math inline">\(t\)</span> is the survival time and <span class="math inline">\(d\)</span> is the event indicator. The <code>MI_T</code> method is the same except that <span class="math inline">\(\log(t)\)</span> is replaced by <span class="math inline">\(t\)</span> in the imputation model.</p>
+<div class="section level2">
+<h2 id="example-1-simulation-study-on-missing-data">Example 1: Simulation study on missing data<a class="anchor" aria-label="anchor" href="#example-1-simulation-study-on-missing-data"></a>
+</h2>
+<p>With this example dataset included in <code>rsimsum</code> we aim to
+summarise a simulation study comparing different ways to handle missing
+covariates when fitting a Cox model (White and Royston, 2009). One
+thousand datasets were simulated, each containing normally distributed
+covariates <span class="math inline">\(x\)</span> and <span class="math inline">\(z\)</span> and time-to-event outcome. Both
+covariates has <span class="math inline">\(20\%\)</span> of their values
+deleted independently of all other variables so the data became missing
+completely at random (Little and Rubin, 2002). Each simulated dataset
+was analysed in three ways. A Cox model was fit to the complete cases
+(<code>CC</code>). Then two methods of multiple imputation using chained
+equations (van Buuren, Boshuizen, and Knook, 1999) were used. The
+<code>MI_LOGT</code> method multiply imputes the missing values of <span class="math inline">\(x\)</span> and <span class="math inline">\(z\)</span> with the outcome included as <span class="math inline">\(\log(t)\)</span> and <span class="math inline">\(d\)</span>, where <span class="math inline">\(t\)</span> is the survival time and <span class="math inline">\(d\)</span> is the event indicator. The
+<code>MI_T</code> method is the same except that <span class="math inline">\(\log(t)\)</span> is replaced by <span class="math inline">\(t\)</span> in the imputation model.</p>
 <p>We load the data in the usual way:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ellessenne.github.io/rsimsum/">rsimsum</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ellessenne.github.io/rsimsum">rsimsum</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"MIsim"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span></code></pre></div>
 <p>Let’s have a look at the first 10 rows of the dataset:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -200,17 +293,28 @@
 <span class="co">#&gt;  $ se     : num [1:3000] 0.147 0.126 0.141 0.16 0.141 ...</span>
 <span class="co">#&gt;  - attr(*, "label")= chr "simsum example: data from a simulation study comparing 3 ways to handle missing"</span></code></pre></div>
 <ul>
-<li><p><code>dataset</code>, the number of the simulated dataset;</p></li>
-<li><p><code>method</code>, the method used (<code>CC</code>, <code>MI_LOGT</code> or <code>MI_T</code>);</p></li>
+<li><p><code>dataset</code>, the number of the simulated
+dataset;</p></li>
+<li><p><code>method</code>, the method used (<code>CC</code>,
+<code>MI_LOGT</code> or <code>MI_T</code>);</p></li>
 <li><p><code>b</code>, the point estimate;</p></li>
-<li><p><code>se</code>, the standard error of the point estimate.</p></li>
+<li><p><code>se</code>, the standard error of the point
+estimate.</p></li>
 </ul>
-<p>We summarise the results of the simulation study by method using the <code>simsum</code> function:</p>
+<p>We summarise the results of the simulation study by method using the
+<code>simsum</code> function:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">MIsim</span>, estvarname <span class="op">=</span> <span class="st">"b"</span>, true <span class="op">=</span> <span class="fl">0.50</span>, se <span class="op">=</span> <span class="st">"se"</span>, methodvar <span class="op">=</span> <span class="st">"method"</span>, ref <span class="op">=</span> <span class="st">"CC"</span><span class="op">)</span></code></pre></div>
-<p>We set <code>true = 0.50</code> as the true value of the point estimate <code>b</code> - under which the data was simulated - is 0.50. We select <code>CC</code> as the reference method as we consider the complete cases analysis the reference method to benchmark against; if we do not set a reference method, <code>simsum</code> picks one automatically.</p>
-<p>Using the default settings, Monte Carlo standard errors are computed and returned.</p>
-<p>Summarising a <code>simsum</code> object, we obtain the following output:</p>
+<p>We set <code>true = 0.50</code> as the true value of the point
+estimate <code>b</code> - under which the data was simulated - is 0.50.
+We select <code>CC</code> as the reference method as we consider the
+complete cases analysis the reference method to benchmark against; if we
+do not set a reference method, <code>simsum</code> picks one
+automatically.</p>
+<p>Using the default settings, Monte Carlo standard errors are computed
+and returned.</p>
+<p>Summarising a <code>simsum</code> object, we obtain the following
+output:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ss1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span>
 <span class="va">ss1</span>
@@ -272,7 +376,13 @@
 <span class="co">#&gt; Power of 5% level test:</span>
 <span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
 <span class="co">#&gt;  0.9460 (0.0071) 0.9690 (0.0055) 0.9630 (0.0060)</span></code></pre></div>
-<p>The output begins with a brief overview of the setting of the simulation study (e.g. the method variable, unique methods, etc.), and continues with each summary statistic by method (if defined, as in this case). The values that are reported are point estimates with Monte Carlo standard errors in brackets; however, it is also possible to require confidence intervals based on Monte Carlo standard errors to be reported instead:</p>
+<p>The output begins with a brief overview of the setting of the
+simulation study (e.g. the method variable, unique methods, etc.), and
+continues with each summary statistic by method (if defined, as in this
+case). The values that are reported are point estimates with Monte Carlo
+standard errors in brackets; however, it is also possible to require
+confidence intervals based on Monte Carlo standard errors to be reported
+instead:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">ss1</span>, mcse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="co">#&gt; Values are:</span>
@@ -333,20 +443,32 @@
 <span class="co">#&gt; Power of 5% level test:</span>
 <span class="co">#&gt;                       CC                 MI_LOGT                    MI_T</span>
 <span class="co">#&gt;  0.9460 (0.9320, 0.9600) 0.9690 (0.9583, 0.9797) 0.9630 (0.9513, 0.9747)</span></code></pre></div>
-<p>Highlighting some points of interest from the summary results above:</p>
+<p>Highlighting some points of interest from the summary results
+above:</p>
 <ol style="list-style-type: decimal">
-<li>The <code>CC</code> method has small-sample bias away from the null (point estimate 0.0168, with 95% confidence interval: 0.0074 - 0.0261);</li>
+<li>The <code>CC</code> method has small-sample bias away from the null
+(point estimate 0.0168, with 95% confidence interval: 0.0074 -
+0.0261);</li>
 <li>
-<code>CC</code> is inefficient compared with <code>MI_LOGT</code> and <code>MI_T</code>: the relative gain in precision for these two methods is 1.3105% and 1.2637% compared to <code>CC</code>, respectively;</li>
-<li>Model-based standard errors are close to empirical standard errors;</li>
-<li>Coverage of nominal 95% confidence intervals also seems fine, which is not surprising in view of the generally low (or lack of) bias and good model-based standard errors;</li>
+<code>CC</code> is inefficient compared with <code>MI_LOGT</code>
+and <code>MI_T</code>: the relative gain in precision for these two
+methods is 1.3105% and 1.2637% compared to <code>CC</code>,
+respectively;</li>
+<li>Model-based standard errors are close to empirical standard
+errors;</li>
+<li>Coverage of nominal 95% confidence intervals also seems fine, which
+is not surprising in view of the generally low (or lack of) bias and
+good model-based standard errors;</li>
 <li>
-<code>CC</code> has lower power compared with <code>MI_LOGT</code> and <code>MI_T</code>, which is not surprising in view of its inefficiency.</li>
+<code>CC</code> has lower power compared with <code>MI_LOGT</code>
+and <code>MI_T</code>, which is not surprising in view of its
+inefficiency.</li>
 </ol>
-<div class="section level2">
-<h2 id="tabulating-summary-statistics">Tabulating summary statistics<a class="anchor" aria-label="anchor" href="#tabulating-summary-statistics"></a>
-</h2>
-<p>It is straightforward to produce a table of summary statistics for use in an R Markdown document:</p>
+<div class="section level3">
+<h3 id="tabulating-summary-statistics">Tabulating summary statistics<a class="anchor" aria-label="anchor" href="#tabulating-summary-statistics"></a>
+</h3>
+<p>It is straightforward to produce a table of summary statistics for
+use in an R Markdown document:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/" class="external-link">knitr</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
@@ -703,14 +825,19 @@
 </tr>
 </tbody>
 </table>
-<p>Using <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code> in combination with R packages such as <a href="https://cran.r-project.org/package=xtable" class="external-link">xtable</a>, <a href="https://cran.r-project.org/package=kableExtra" class="external-link">kableExtra</a>, <a href="https://cran.r-project.org/package=tables" class="external-link">tables</a> can yield a variety of tables that should suit most purposes.</p>
-<p>More information on producing tables directly from R can be found in the <a href="https://CRAN.R-project.org/view=ReproducibleResearch" class="external-link">CRAN Task View on Reproducible Research</a>.</p>
+<p>Using <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code> in combination with R packages such as <a href="https://cran.r-project.org/package=xtable" class="external-link">xtable</a>, <a href="https://cran.r-project.org/package=kableExtra" class="external-link">kableExtra</a>, <a href="https://cran.r-project.org/package=tables" class="external-link">tables</a> can yield a
+variety of tables that should suit most purposes.</p>
+<p>More information on producing tables directly from R can be found in
+the <a href="https://CRAN.R-project.org/view=ReproducibleResearch" class="external-link">CRAN
+Task View on Reproducible Research</a>.</p>
 </div>
-<div class="section level2">
-<h2 id="plotting-summary-statistics">Plotting summary statistics<a class="anchor" aria-label="anchor" href="#plotting-summary-statistics"></a>
-</h2>
-<p>In this section, we show how to plot and compare summary statistics using the popular R package <a href="https://CRAN.R-project.org/package=ggplot2" class="external-link">ggplot</a>.</p>
-<p>Plotting bias by method with <span class="math inline">\(95\%\)</span> confidence intervals based on Monte Carlo standard errors:</p>
+<div class="section level3">
+<h3 id="plotting-summary-statistics">Plotting summary statistics<a class="anchor" aria-label="anchor" href="#plotting-summary-statistics"></a>
+</h3>
+<p>In this section, we show how to plot and compare summary statistics
+using the popular R package <a href="https://CRAN.R-project.org/package=ggplot2" class="external-link">ggplot</a>.</p>
+<p>Plotting bias by method with <span class="math inline">\(95\%\)</span> confidence intervals based on Monte
+Carlo standard errors:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
 <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">ss1</span>, stats <span class="op">=</span> <span class="st">"bias"</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">method</span>, y <span class="op">=</span> <span class="va">est</span>, ymin <span class="op">=</span> <span class="va">lower</span>, ymax <span class="op">=</span> <span class="va">upper</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -720,7 +847,8 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Method"</span>, y <span class="op">=</span> <span class="st">"Bias"</span><span class="op">)</span></code></pre></div>
 <p><img src="A-introduction_files/figure-html/ex1-plot-bias-1.png" width="75%" style="display: block; margin: auto;"></p>
-<p>Conversely, say we want to visually compare coverage for the three methods compared with this simulation study:</p>
+<p>Conversely, say we want to visually compare coverage for the three
+methods compared with this simulation study:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">ss1</span>, stats <span class="op">=</span> <span class="st">"cover"</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">method</span>, y <span class="op">=</span> <span class="va">est</span>, ymin <span class="op">=</span> <span class="va">lower</span>, ymax <span class="op">=</span> <span class="va">upper</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0.95</span>, color <span class="op">=</span> <span class="st">"red"</span>, lty <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span>
@@ -731,15 +859,31 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Method"</span>, y <span class="op">=</span> <span class="st">"Coverage"</span><span class="op">)</span></code></pre></div>
 <p><img src="A-introduction_files/figure-html/ex1-plot-cov-1.png" width="75%" style="display: block; margin: auto;"></p>
 </div>
-<div class="section level2">
-<h2 id="dropping-large-estimates-and-standard-errors">Dropping large estimates and standard errors<a class="anchor" aria-label="anchor" href="#dropping-large-estimates-and-standard-errors"></a>
-</h2>
-<p><code>rsimsum</code> allows to automatically drop estimates and standard errors that are larger than a predefined value. Specifically, the argument of <code>simsum</code> that control this behaviour is <code>dropbig</code>, with tuning parameters <code>dropbig.max</code> and <code>dropbig.semax</code> that can be passed via the <code>control</code> argument.</p>
-<p>Set <code>dropbig</code> to <code>TRUE</code> and standardised estimates larger than <code>max</code> in absolute value will be dropped; standard errors larger than <code>semax</code> times the average standard error will be dropped too. By default, robust standardisation is used (based on median and inter-quartile range); however, it is also possible to request regular standardisation (based on mean and standard deviation) by setting the control parameter <code>dropbig.robust = FALSE</code>.</p>
-<p>For instance, say we want to drop standardised estimates larger than <span class="math inline">\(3\)</span> in absolute value and standard errors larger than <span class="math inline">\(1.5\)</span> times the average standard error:</p>
+<div class="section level3">
+<h3 id="dropping-large-estimates-and-standard-errors">Dropping large estimates and standard errors<a class="anchor" aria-label="anchor" href="#dropping-large-estimates-and-standard-errors"></a>
+</h3>
+<p><code>rsimsum</code> allows to automatically drop estimates and
+standard errors that are larger than a predefined value. Specifically,
+the argument of <code>simsum</code> that control this behaviour is
+<code>dropbig</code>, with tuning parameters <code>dropbig.max</code>
+and <code>dropbig.semax</code> that can be passed via the
+<code>control</code> argument.</p>
+<p>Set <code>dropbig</code> to <code>TRUE</code> and standardised
+estimates larger than <code>max</code> in absolute value will be
+dropped; standard errors larger than <code>semax</code> times the
+average standard error will be dropped too. By default, robust
+standardisation is used (based on median and inter-quartile range);
+however, it is also possible to request regular standardisation (based
+on mean and standard deviation) by setting the control parameter
+<code>dropbig.robust = FALSE</code>.</p>
+<p>For instance, say we want to drop standardised estimates larger than
+<span class="math inline">\(3\)</span> in absolute value and standard
+errors larger than <span class="math inline">\(1.5\)</span> times the
+average standard error:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">s1.2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">MIsim</span>, estvarname <span class="op">=</span> <span class="st">"b"</span>, true <span class="op">=</span> <span class="fl">0.50</span>, se <span class="op">=</span> <span class="st">"se"</span>, methodvar <span class="op">=</span> <span class="st">"method"</span>, ref <span class="op">=</span> <span class="st">"CC"</span>, dropbig <span class="op">=</span> <span class="cn">TRUE</span>, control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dropbig.max <span class="op">=</span> <span class="fl">4</span>, dropbig.semax <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>Some estimates were dropped, as we can see from the number of non-missing point estimates, standard errors:</p>
+<p>Some estimates were dropped, as we can see from the number of
+non-missing point estimates, standard errors:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">s1.2</span>, stats <span class="op">=</span> <span class="st">"nsim"</span><span class="op">)</span>
 <span class="co">#&gt; Values are:</span>
@@ -748,7 +892,8 @@
 <span class="co">#&gt; Non-missing point estimates/standard errors:</span>
 <span class="co">#&gt;   CC MI_LOGT MI_T</span>
 <span class="co">#&gt;  958     951  944</span></code></pre></div>
-<p>Everything else works analogously as before; for instance, to summarise the results:</p>
+<p>Everything else works analogously as before; for instance, to
+summarise the results:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">s1.2</span><span class="op">)</span>
 <span class="co">#&gt; Values are:</span>
@@ -811,9 +956,9 @@
 <span class="co">#&gt;  0.9457 (0.0073) 0.9685 (0.0057) 0.9661 (0.0059)</span></code></pre></div>
 </div>
 </div>
-<div class="section level1">
-<h1 id="example-2-simulation-study-on-survival-modelling">Example 2: Simulation study on survival modelling<a class="anchor" aria-label="anchor" href="#example-2-simulation-study-on-survival-modelling"></a>
-</h1>
+<div class="section level2">
+<h2 id="example-2-simulation-study-on-survival-modelling">Example 2: Simulation study on survival modelling<a class="anchor" aria-label="anchor" href="#example-2-simulation-study-on-survival-modelling"></a>
+</h2>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"relhaz"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span></code></pre></div>
 <p>Let’s have a look at the first 10 rows of the dataset:</p>
@@ -843,13 +988,21 @@
 <ul>
 <li><p><code>dataset</code>, simulated dataset number;</p></li>
 <li><p><code>n</code>, sample size of the simulate dataset;</p></li>
-<li><p><code>baseline</code>, baseline hazard function of the simulated dataset;</p></li>
-<li><p><code>model</code>, method used (Cox model or Royston-Parmar model with 2 degrees of freedom);</p></li>
-<li><p><code>theta</code>, point estimate for the log-hazard ratio;</p></li>
+<li><p><code>baseline</code>, baseline hazard function of the simulated
+dataset;</p></li>
+<li><p><code>model</code>, method used (Cox model or Royston-Parmar
+model with 2 degrees of freedom);</p></li>
+<li><p><code>theta</code>, point estimate for the log-hazard
+ratio;</p></li>
 <li><p><code>se</code>, standard error of the point estimate.</p></li>
 </ul>
-<p><code>rsimsum</code> can summarise results from simulation studies with several data-generating mechanisms. For instance, with this example we show how to compute summary statistics by baseline hazard function and sample size.</p>
-<p>In order to summarise results by data-generating factors, it is sufficient to define the “by” factors in the call to <code>simsum</code>:</p>
+<p><code>rsimsum</code> can summarise results from simulation studies
+with several data-generating mechanisms. For instance, with this example
+we show how to compute summary statistics by baseline hazard function
+and sample size.</p>
+<p>In order to summarise results by data-generating factors, it is
+sufficient to define the “by” factors in the call to
+<code>simsum</code>:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">relhaz</span>, estvarname <span class="op">=</span> <span class="st">"theta"</span>, true <span class="op">=</span> <span class="op">-</span><span class="fl">0.50</span>, se <span class="op">=</span> <span class="st">"se"</span>, methodvar <span class="op">=</span> <span class="st">"model"</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"n"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; 'ref' method was not specified, Cox set as the reference</span>
@@ -864,8 +1017,14 @@
 <span class="co">#&gt; By factors: baseline, n </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Monte Carlo standard errors were computed.</span></code></pre></div>
-<p>The difference between <code>methodvar</code> and <code>by</code> is as follows: <code>methodvar</code> represents methods (e.g. the two models, in this example) compared with this simulation study, while <code>by</code> represents all possible data-generating factors that varied when simulating data (in this case, sample size and the true baseline hazard function).</p>
-<p>Summarising the results will be printed out for each method and combination of data-generating factors:</p>
+<p>The difference between <code>methodvar</code> and <code>by</code> is
+as follows: <code>methodvar</code> represents methods (e.g. the two
+models, in this example) compared with this simulation study, while
+<code>by</code> represents all possible data-generating factors that
+varied when simulating data (in this case, sample size and the true
+baseline hazard function).</p>
+<p>Summarising the results will be printed out for each method and
+combination of data-generating factors:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ss2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span>
 <span class="va">ss2</span>
@@ -969,11 +1128,14 @@
 <span class="co">#&gt;  Exponential 250 0.9800 (0.0140) 0.9900 (0.0099) 0.9900 (0.0099)</span>
 <span class="co">#&gt;      Weibull  50 0.4300 (0.0495) 0.0900 (0.0286) 0.4700 (0.0499)</span>
 <span class="co">#&gt;      Weibull 250 0.9700 (0.0171) 0.8600 (0.0347) 0.9700 (0.0171)</span></code></pre></div>
-<div class="section level2">
-<h2 id="plotting-summary-statistics-1">Plotting summary statistics<a class="anchor" aria-label="anchor" href="#plotting-summary-statistics-1"></a>
-</h2>
-<p>Tables could get cumbersome when there are many different data-generating mechanisms. Plots are generally easier to interpret, and can be generated as easily as before.</p>
-<p>Say we want to compare bias for each method by baseline hazard function and sample size using faceting:</p>
+<div class="section level3">
+<h3 id="plotting-summary-statistics-1">Plotting summary statistics<a class="anchor" aria-label="anchor" href="#plotting-summary-statistics-1"></a>
+</h3>
+<p>Tables could get cumbersome when there are many different
+data-generating mechanisms. Plots are generally easier to interpret, and
+can be generated as easily as before.</p>
+<p>Say we want to compare bias for each method by baseline hazard
+function and sample size using faceting:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">ss2</span>, stats <span class="op">=</span> <span class="st">"bias"</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">model</span>, y <span class="op">=</span> <span class="va">est</span>, ymin <span class="op">=</span> <span class="va">lower</span>, ymax <span class="op">=</span> <span class="va">upper</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, color <span class="op">=</span> <span class="st">"red"</span>, lty <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span>
@@ -985,15 +1147,24 @@
 <p><img src="A-introduction_files/figure-html/ex2-plot-bias-1.png" width="75%" style="display: block; margin: auto;"></p>
 </div>
 </div>
-<div class="section level1">
-<h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
-</h1>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <ul>
-<li>White, I.R. 2010. <em>simsum: Analyses of simulation studies including Monte Carlo error</em>. The Stata Journal 10(3): 369-385 &lt;<a href="https://www.stata-journal.com/article.html?article=st0200" class="external-link">https://www.stata-journal.com/article.html?article=st0200</a>&gt;</li>
-<li>Morris, T.P., White, I.R. and Crowther, M.J. 2019. <em>Using simulation studies to evaluate statistical methods</em>. Statistics in Medicine, &lt;<a href="https://doi.org/10.1002/sim.8086" class="external-link">doi:10.1002/sim.8086</a>&gt;</li>
-<li>White, I.R., and P. Royston. 2009. <em>Imputing missing covariate values for the Cox model</em>. Statistics in Medicine 28(15):1982-1998 &lt;<a href="https://doi.org/10.1002/sim.3618" class="external-link">doi:10.1002/sim.3618</a>&gt;</li>
-<li>Little, R.J.A., and D.B. Rubin. 2002. <em>Statistical analysis with missing data</em>. 2nd ed. Hoboken, NJ: Wiley &lt;<a href="https://onlinelibrary.wiley.com/doi/book/10.1002/9781119013563" class="external-link">doi:10.1002/9781119013563</a>&gt;</li>
-<li>van Buuren, S., H.C. Boshuizen, and D.L. Knook. 1999. <em>Multiple imputation of missing blood pressure covariates in survival analysis</em>. Statistics in Medicine 18(6):681-694 &lt;<a href="https://doi.org/10.1002/(SICI)1097-0258(19990330)18:6%3C681::AID-SIM71%3E3.0.CO;2-R" class="external-link">doi:10.1002/(SICI)1097-0258(19990330)18:6&lt;681::AID-SIM71&gt;3.0.CO;2-R</a>&gt;</li>
+<li>White, I.R. 2010. <em>simsum: Analyses of simulation studies
+including Monte Carlo error</em>. The Stata Journal 10(3): 369-385
+&lt;<a href="https://www.stata-journal.com/article.html?article=st0200" class="external-link">https://www.stata-journal.com/article.html?article=st0200</a>&gt;</li>
+<li>Morris, T.P., White, I.R. and Crowther, M.J. 2019. <em>Using
+simulation studies to evaluate statistical methods</em>. Statistics in
+Medicine, &lt;<a href="https://doi.org/10.1002/sim.8086" class="external-link">doi:10.1002/sim.8086</a>&gt;</li>
+<li>White, I.R., and P. Royston. 2009. <em>Imputing missing covariate
+values for the Cox model</em>. Statistics in Medicine 28(15):1982-1998
+&lt;<a href="https://doi.org/10.1002/sim.3618" class="external-link">doi:10.1002/sim.3618</a>&gt;</li>
+<li>Little, R.J.A., and D.B. Rubin. 2002. <em>Statistical analysis with
+missing data</em>. 2nd ed. Hoboken, NJ: Wiley &lt;<a href="https://onlinelibrary.wiley.com/doi/book/10.1002/9781119013563" class="external-link">doi:10.1002/9781119013563</a>&gt;</li>
+<li>van Buuren, S., H.C. Boshuizen, and D.L. Knook. 1999. <em>Multiple
+imputation of missing blood pressure covariates in survival
+analysis</em>. Statistics in Medicine 18(6):681-694 &lt;<a href="https://doi.org/10.1002/(SICI)1097-0258(19990330)18:6%3C681::AID-SIM71%3E3.0.CO;2-R" class="external-link">doi:10.1002/(SICI)1097-0258(19990330)18:6&lt;681::AID-SIM71&gt;3.0.CO;2-R</a>&gt;</li>
 </ul>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -1009,7 +1180,8 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
 
     </footer>

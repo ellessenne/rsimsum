@@ -329,4 +329,4 @@ vignette(topic = "A-introduction", package = "rsimsum")
 ```
 
 This is a known issue with RStudio (see
-[#2253](https://github.com/rstudio/rstudio/issues/2253)).
+[\#2253](https://github.com/rstudio/rstudio/issues/2253)).
