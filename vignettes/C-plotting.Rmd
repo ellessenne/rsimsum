@@ -194,23 +194,18 @@ Hexbin plots are useful to represent the relationship of 2 numerical variables w
 The colour filling denotes then the number of points.
 
 Both plots provide an alternative to scatter plots when there is a large number of data points that overlap. 
-Contour plots and hexbin plots can be easily obtained using the `autoplot` method once again, and using the argument `type = "est_density"`, `type = "se_density"`, `type = "est_hex"`, or `type = "se_hex"`:
+Contour plots and hexbin plots can be easily obtained using the `autoplot` method once again, and using the argument `type = "est_density"`, `type = "se_density"`, `type = "est_hex"`, or `type = "se_hex"`.
+For instance, focussing on point estimates:
 
 ```{r plot-est-density}
 autoplot(s1, type = "est_density")
-```
-
-```{r plot-se-density}
-autoplot(s1, type = "se_density")
 ```
 
 ```{r plot-est-hex}
 autoplot(s1, type = "est_hex")
 ```
 
-```{r plot-se-hex}
-autoplot(s1, type = "se_hex")
-```
+Of course, analogous plots could be obtained for standard errors.
 
 # Custom plotting
 
