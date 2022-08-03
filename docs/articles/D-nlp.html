@@ -8,8 +8,8 @@
 <meta name="description" content="rsimsum">
 <title>Nested loop plots • rsimsum</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Nested loop plots">
 <meta property="og:description" content="rsimsum">
@@ -75,12 +75,12 @@
 
 
 <div class="row">
-  <main id="main"><div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Nested loop plots</h1>
                         <h4 data-toc-skip class="author">Alessandro
 Gasparini</h4>
             
-            <h4 data-toc-skip class="date">2022-03-22</h4>
+            <h4 data-toc-skip class="date">2022-08-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/rsimsum/blob/HEAD/vignettes/D-nlp.Rmd" class="external-link"><code>vignettes/D-nlp.Rmd</code></a></small>
       <div class="d-none name"><code>D-nlp.Rmd</code></div>
@@ -92,48 +92,48 @@ Gasparini</h4>
 fully automated creation of nested loop plots (Rücker and Schwarzer,
 2014).</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ellessenne.github.io/rsimsum/">rsimsum</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ellessenne.github.io/rsimsum/">rsimsum</a></span><span class="op">)</span></span></code></pre></div>
 <p>A dataset that can be purposefully used to illustrate nested loop
 plots is bundled and shipped with <code>rsimsum</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"nlp"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"nlp"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span></span></code></pre></div>
 <p>This data set contains the results of a simulation study on survival
 modelling with 150 distinct data-generating mechanisms:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">nlp</span><span class="op">)</span>
-<span class="co">#&gt;   dgm  i model           b        se baseline  ss beta esigma pars</span>
-<span class="co">#&gt; 1   1  1     1  0.17119413 0.2064344        E 100    0    0.1  0.5</span>
-<span class="co">#&gt; 2   1  1     2  0.19822898 0.2048353        E 100    0    0.1  0.5</span>
-<span class="co">#&gt; 3   1 50     2 -0.03404229 0.2071766        E 100    0    0.1  0.5</span>
-<span class="co">#&gt; 4   1 82     1 -0.09263968 0.2040281        E 100    0    0.1  0.5</span>
-<span class="co">#&gt; 5   1 82     2 -0.05095914 0.2026813        E 100    0    0.1  0.5</span>
-<span class="co">#&gt; 6   1 33     1 -0.17013365 0.2038076        E 100    0    0.1  0.5</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">nlp</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   dgm  i model           b        se baseline  ss beta esigma pars</span></span>
+<span><span class="co">#&gt; 1   1  1     1  0.17119413 0.2064344        E 100    0    0.1  0.5</span></span>
+<span><span class="co">#&gt; 2   1  1     2  0.19822898 0.2048353        E 100    0    0.1  0.5</span></span>
+<span><span class="co">#&gt; 3   1 50     2 -0.03404229 0.2071766        E 100    0    0.1  0.5</span></span>
+<span><span class="co">#&gt; 4   1 82     1 -0.09263968 0.2040281        E 100    0    0.1  0.5</span></span>
+<span><span class="co">#&gt; 5   1 82     2 -0.05095914 0.2026813        E 100    0    0.1  0.5</span></span>
+<span><span class="co">#&gt; 6   1 33     1 -0.17013365 0.2038076        E 100    0    0.1  0.5</span></span></code></pre></div>
 <p>Further information on the data could be find in the help file
 (<code><a href="../reference/nlp.html">?nlp</a></code>).</p>
 <p>We can analyse this simulation study using <code>rsimsum</code> as
 usual:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">rsimsum</span><span class="fu">::</span><span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>
-  data <span class="op">=</span> <span class="va">nlp</span>, estvarname <span class="op">=</span> <span class="st">"b"</span>, true <span class="op">=</span> <span class="fl">0</span>, se <span class="op">=</span> <span class="st">"se"</span>,
-  methodvar <span class="op">=</span> <span class="st">"model"</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"ss"</span>, <span class="st">"esigma"</span><span class="op">)</span>
-<span class="op">)</span>
-<span class="co">#&gt; 'ref' method was not specified, 1 set as the reference</span>
-<span class="va">s</span>
-<span class="co">#&gt; Summary of a simulation study with a single estimand.</span>
-<span class="co">#&gt; True value of the estimand: 0 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Method variable: model </span>
-<span class="co">#&gt;  Unique methods: 1, 2 </span>
-<span class="co">#&gt;  Reference method: 1 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; By factors: baseline, ss, esigma </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Monte Carlo standard errors were computed.</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">rsimsum</span><span class="fu">::</span><span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">nlp</span>, estvarname <span class="op">=</span> <span class="st">"b"</span>, true <span class="op">=</span> <span class="fl">0</span>, se <span class="op">=</span> <span class="st">"se"</span>,</span>
+<span>  methodvar <span class="op">=</span> <span class="st">"model"</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"ss"</span>, <span class="st">"esigma"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'ref' method was not specified, 1 set as the reference</span></span>
+<span><span class="va">s</span></span>
+<span><span class="co">#&gt; Summary of a simulation study with a single estimand.</span></span>
+<span><span class="co">#&gt; True value of the estimand: 0 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Method variable: model </span></span>
+<span><span class="co">#&gt;  Unique methods: 1, 2 </span></span>
+<span><span class="co">#&gt;  Reference method: 1 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; By factors: baseline, ss, esigma </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Monte Carlo standard errors were computed.</span></span></code></pre></div>
 <p>Finally, a nested loop plot can be automatically produced via the
 <code>autoplot</code> method, e.g. for bias:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">s</span>, type <span class="op">=</span> <span class="st">"nlp"</span>, stats <span class="op">=</span> <span class="st">"bias"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">s</span>, type <span class="op">=</span> <span class="st">"nlp"</span>, stats <span class="op">=</span> <span class="st">"bias"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="D-nlp_files/figure-html/nlp-1.png" width="80%" style="display: block; margin: auto;"></p>
 <p>However:</p>
 <ol style="list-style-type: decimal">
@@ -167,8 +167,7 @@ in a nested loop plot</em>. BMC Medical Research Methodology 14(1)
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>

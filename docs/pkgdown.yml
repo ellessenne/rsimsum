@@ -1,5 +1,5 @@
-pandoc: 2.17.1.1
-pkgdown: 2.0.2
+pandoc: '2.18'
+pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   A-introduction: A-introduction.html
@@ -8,7 +8,7 @@ articles:
   D-nlp: D-nlp.html
   E-custom-inputs: E-custom-inputs.html
   F-rsimsumtidyverse: F-rsimsumtidyverse.html
-last_built: 2022-03-22T12:34Z
+last_built: 2022-08-03T12:58Z
 urls:
   reference: https://ellessenne.github.io/rsimsum/reference
   article: https://ellessenne.github.io/rsimsum/articles

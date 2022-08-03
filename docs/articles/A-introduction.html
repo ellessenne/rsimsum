@@ -8,8 +8,8 @@
 <meta name="description" content="rsimsum">
 <title>Introduction to rsimsum • rsimsum</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to rsimsum">
 <meta property="og:description" content="rsimsum">
@@ -75,12 +75,12 @@
 
 
 <div class="row">
-  <main id="main"><div class="page-header">
+  <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Introduction to rsimsum</h1>
                         <h4 data-toc-skip class="author">Alessandro
 Gasparini</h4>
             
-            <h4 data-toc-skip class="date">2022-03-22</h4>
+            <h4 data-toc-skip class="date">2022-08-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/rsimsum/blob/HEAD/vignettes/A-introduction.Rmd" class="external-link"><code>vignettes/A-introduction.Rmd</code></a></small>
       <div class="d-none name"><code>A-introduction.Rmd</code></div>
@@ -265,33 +265,33 @@ equations (van Buuren, Boshuizen, and Knook, 1999) were used. The
 <code>MI_T</code> method is the same except that <span class="math inline">\(\log(t)\)</span> is replaced by <span class="math inline">\(t\)</span> in the imputation model.</p>
 <p>We load the data in the usual way:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ellessenne.github.io/rsimsum/">rsimsum</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"MIsim"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ellessenne.github.io/rsimsum/">rsimsum</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"MIsim"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s have a look at the first 10 rows of the dataset:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">MIsim</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 4</span></span>
-<span class="co">#&gt;    dataset method      b    se</span>
-<span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>       1 CC      0.707 0.147</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>       1 MI_T    0.684 0.126</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>       1 MI_LOGT 0.712 0.141</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>       2 CC      0.349 0.160</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>       2 MI_T    0.406 0.141</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>       2 MI_LOGT 0.429 0.136</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>       3 CC      0.650 0.152</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>       3 MI_T    0.503 0.130</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>       3 MI_LOGT 0.560 0.117</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>       4 CC      0.432 0.126</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">MIsim</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 4</span></span></span>
+<span><span class="co">#&gt;    dataset method      b    se</span></span>
+<span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>       1 CC      0.707 0.147</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>       1 MI_T    0.684 0.126</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>       1 MI_LOGT 0.712 0.141</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>       2 CC      0.349 0.160</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>       2 MI_T    0.406 0.141</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>       2 MI_LOGT 0.429 0.136</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>       3 CC      0.650 0.152</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>       3 MI_T    0.503 0.130</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>       3 MI_LOGT 0.560 0.117</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>       4 CC      0.432 0.126</span></span></code></pre></div>
 <p>The included variables are:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">MIsim</span><span class="op">)</span>
-<span class="co">#&gt; tibble [3,000 × 4] (S3: tbl_df/tbl/data.frame)</span>
-<span class="co">#&gt;  $ dataset: num [1:3000] 1 1 1 2 2 2 3 3 3 4 ...</span>
-<span class="co">#&gt;  $ method : chr [1:3000] "CC" "MI_T" "MI_LOGT" "CC" ...</span>
-<span class="co">#&gt;  $ b      : num [1:3000] 0.707 0.684 0.712 0.349 0.406 ...</span>
-<span class="co">#&gt;  $ se     : num [1:3000] 0.147 0.126 0.141 0.16 0.141 ...</span>
-<span class="co">#&gt;  - attr(*, "label")= chr "simsum example: data from a simulation study comparing 3 ways to handle missing"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">MIsim</span><span class="op">)</span></span>
+<span><span class="co">#&gt; tibble [3,000 × 4] (S3: tbl_df/tbl/data.frame)</span></span>
+<span><span class="co">#&gt;  $ dataset: num [1:3000] 1 1 1 2 2 2 3 3 3 4 ...</span></span>
+<span><span class="co">#&gt;  $ method : chr [1:3000] "CC" "MI_T" "MI_LOGT" "CC" ...</span></span>
+<span><span class="co">#&gt;  $ b      : num [1:3000] 0.707 0.684 0.712 0.349 0.406 ...</span></span>
+<span><span class="co">#&gt;  $ se     : num [1:3000] 0.147 0.126 0.141 0.16 0.141 ...</span></span>
+<span><span class="co">#&gt;  - attr(*, "label")= chr "simsum example: data from a simulation study comparing 3 ways to handle missing"</span></span></code></pre></div>
 <ul>
 <li><p><code>dataset</code>, the number of the simulated
 dataset;</p></li>
@@ -304,7 +304,7 @@ estimate.</p></li>
 <p>We summarise the results of the simulation study by method using the
 <code>simsum</code> function:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">MIsim</span>, estvarname <span class="op">=</span> <span class="st">"b"</span>, true <span class="op">=</span> <span class="fl">0.50</span>, se <span class="op">=</span> <span class="st">"se"</span>, methodvar <span class="op">=</span> <span class="st">"method"</span>, ref <span class="op">=</span> <span class="st">"CC"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">MIsim</span>, estvarname <span class="op">=</span> <span class="st">"b"</span>, true <span class="op">=</span> <span class="fl">0.50</span>, se <span class="op">=</span> <span class="st">"se"</span>, methodvar <span class="op">=</span> <span class="st">"method"</span>, ref <span class="op">=</span> <span class="st">"CC"</span><span class="op">)</span></span></code></pre></div>
 <p>We set <code>true = 0.50</code> as the true value of the point
 estimate <code>b</code> - under which the data was simulated - is 0.50.
 We select <code>CC</code> as the reference method as we consider the
@@ -316,66 +316,66 @@ and returned.</p>
 <p>Summarising a <code>simsum</code> object, we obtain the following
 output:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ss1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span>
-<span class="va">ss1</span>
-<span class="co">#&gt; Values are:</span>
-<span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Non-missing point estimates/standard errors:</span>
-<span class="co">#&gt;    CC MI_LOGT MI_T</span>
-<span class="co">#&gt;  1000    1000 1000</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Average point estimate:</span>
-<span class="co">#&gt;      CC MI_LOGT   MI_T</span>
-<span class="co">#&gt;  0.5168  0.5009 0.4988</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Median point estimate:</span>
-<span class="co">#&gt;      CC MI_LOGT   MI_T</span>
-<span class="co">#&gt;  0.5070  0.4969 0.4939</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Average variance:</span>
-<span class="co">#&gt;      CC MI_LOGT   MI_T</span>
-<span class="co">#&gt;  0.0216  0.0182 0.0179</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Median variance:</span>
-<span class="co">#&gt;      CC MI_LOGT   MI_T</span>
-<span class="co">#&gt;  0.0211  0.0172 0.0169</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Bias in point estimate:</span>
-<span class="co">#&gt;               CC         MI_LOGT             MI_T</span>
-<span class="co">#&gt;  0.0168 (0.0048) 0.0009 (0.0042) -0.0012 (0.0043)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Empirical standard error:</span>
-<span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
-<span class="co">#&gt;  0.1511 (0.0034) 0.1320 (0.0030) 0.1344 (0.0030)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; % gain in precision relative to method CC:</span>
-<span class="co">#&gt;               CC          MI_LOGT             MI_T</span>
-<span class="co">#&gt;  0.0000 (0.0000) 31.0463 (3.9375) 26.3682 (3.8424)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Mean squared error:</span>
-<span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
-<span class="co">#&gt;  0.0231 (0.0011) 0.0174 (0.0009) 0.0181 (0.0009)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Model-based standard error:</span>
-<span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
-<span class="co">#&gt;  0.1471 (0.0005) 0.1349 (0.0006) 0.1338 (0.0006)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Relative % error in standard error:</span>
-<span class="co">#&gt;                CC         MI_LOGT             MI_T</span>
-<span class="co">#&gt;  -2.6594 (2.2049) 2.2233 (2.3318) -0.4412 (2.2690)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coverage of nominal 95% confidence interval:</span>
-<span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
-<span class="co">#&gt;  0.9430 (0.0073) 0.9490 (0.0070) 0.9430 (0.0073)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Bias-eliminated coverage of nominal 95% confidence interval:</span>
-<span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
-<span class="co">#&gt;  0.9400 (0.0075) 0.9490 (0.0070) 0.9430 (0.0073)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Power of 5% level test:</span>
-<span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
-<span class="co">#&gt;  0.9460 (0.0071) 0.9690 (0.0055) 0.9630 (0.0060)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ss1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span></span>
+<span><span class="va">ss1</span></span>
+<span><span class="co">#&gt; Values are:</span></span>
+<span><span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Non-missing point estimates/standard errors:</span></span>
+<span><span class="co">#&gt;    CC MI_LOGT MI_T</span></span>
+<span><span class="co">#&gt;  1000    1000 1000</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Average point estimate:</span></span>
+<span><span class="co">#&gt;      CC MI_LOGT   MI_T</span></span>
+<span><span class="co">#&gt;  0.5168  0.5009 0.4988</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Median point estimate:</span></span>
+<span><span class="co">#&gt;      CC MI_LOGT   MI_T</span></span>
+<span><span class="co">#&gt;  0.5070  0.4969 0.4939</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Average variance:</span></span>
+<span><span class="co">#&gt;      CC MI_LOGT   MI_T</span></span>
+<span><span class="co">#&gt;  0.0216  0.0182 0.0179</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Median variance:</span></span>
+<span><span class="co">#&gt;      CC MI_LOGT   MI_T</span></span>
+<span><span class="co">#&gt;  0.0211  0.0172 0.0169</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Bias in point estimate:</span></span>
+<span><span class="co">#&gt;               CC         MI_LOGT             MI_T</span></span>
+<span><span class="co">#&gt;  0.0168 (0.0048) 0.0009 (0.0042) -0.0012 (0.0043)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Empirical standard error:</span></span>
+<span><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></span>
+<span><span class="co">#&gt;  0.1511 (0.0034) 0.1320 (0.0030) 0.1344 (0.0030)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; % gain in precision relative to method CC:</span></span>
+<span><span class="co">#&gt;               CC          MI_LOGT             MI_T</span></span>
+<span><span class="co">#&gt;  0.0000 (0.0000) 31.0463 (3.9375) 26.3682 (3.8424)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Mean squared error:</span></span>
+<span><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></span>
+<span><span class="co">#&gt;  0.0231 (0.0011) 0.0174 (0.0009) 0.0181 (0.0009)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Model-based standard error:</span></span>
+<span><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></span>
+<span><span class="co">#&gt;  0.1471 (0.0005) 0.1349 (0.0006) 0.1338 (0.0006)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Relative % error in standard error:</span></span>
+<span><span class="co">#&gt;                CC         MI_LOGT             MI_T</span></span>
+<span><span class="co">#&gt;  -2.6594 (2.2049) 2.2233 (2.3318) -0.4412 (2.2690)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coverage of nominal 95% confidence interval:</span></span>
+<span><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></span>
+<span><span class="co">#&gt;  0.9430 (0.0073) 0.9490 (0.0070) 0.9430 (0.0073)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Bias-eliminated coverage of nominal 95% confidence interval:</span></span>
+<span><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></span>
+<span><span class="co">#&gt;  0.9400 (0.0075) 0.9490 (0.0070) 0.9430 (0.0073)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Power of 5% level test:</span></span>
+<span><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></span>
+<span><span class="co">#&gt;  0.9460 (0.0071) 0.9690 (0.0055) 0.9630 (0.0060)</span></span></code></pre></div>
 <p>The output begins with a brief overview of the setting of the
 simulation study (e.g. the method variable, unique methods, etc.), and
 continues with each summary statistic by method (if defined, as in this
@@ -384,65 +384,65 @@ standard errors in brackets; however, it is also possible to require
 confidence intervals based on Monte Carlo standard errors to be reported
 instead:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">ss1</span>, mcse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="co">#&gt; Values are:</span>
-<span class="co">#&gt;  Point Estimate (95% Confidence Interval based on Monte Carlo Standard Errors)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Non-missing point estimates/standard errors:</span>
-<span class="co">#&gt;    CC MI_LOGT MI_T</span>
-<span class="co">#&gt;  1000    1000 1000</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Average point estimate:</span>
-<span class="co">#&gt;      CC MI_LOGT   MI_T</span>
-<span class="co">#&gt;  0.5168  0.5009 0.4988</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Median point estimate:</span>
-<span class="co">#&gt;      CC MI_LOGT   MI_T</span>
-<span class="co">#&gt;  0.5070  0.4969 0.4939</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Average variance:</span>
-<span class="co">#&gt;      CC MI_LOGT   MI_T</span>
-<span class="co">#&gt;  0.0216  0.0182 0.0179</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Median variance:</span>
-<span class="co">#&gt;      CC MI_LOGT   MI_T</span>
-<span class="co">#&gt;  0.0211  0.0172 0.0169</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Bias in point estimate:</span>
-<span class="co">#&gt;                       CC                  MI_LOGT                      MI_T</span>
-<span class="co">#&gt;  0.0168 (0.0074, 0.0261) 0.0009 (-0.0073, 0.0091) -0.0012 (-0.0095, 0.0071)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Empirical standard error:</span>
-<span class="co">#&gt;                       CC                 MI_LOGT                    MI_T</span>
-<span class="co">#&gt;  0.1511 (0.1445, 0.1577) 0.1320 (0.1262, 0.1378) 0.1344 (0.1285, 0.1403)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; % gain in precision relative to method CC:</span>
-<span class="co">#&gt;                       CC                    MI_LOGT                       MI_T</span>
-<span class="co">#&gt;  0.0000 (0.0000, 0.0000) 31.0463 (23.3290, 38.7636) 26.3682 (18.8372, 33.8991)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Mean squared error:</span>
-<span class="co">#&gt;                       CC                 MI_LOGT                    MI_T</span>
-<span class="co">#&gt;  0.0231 (0.0209, 0.0253) 0.0174 (0.0157, 0.0191) 0.0181 (0.0163, 0.0198)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Model-based standard error:</span>
-<span class="co">#&gt;                       CC                 MI_LOGT                    MI_T</span>
-<span class="co">#&gt;  0.1471 (0.1461, 0.1481) 0.1349 (0.1338, 0.1361) 0.1338 (0.1327, 0.1350)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Relative % error in standard error:</span>
-<span class="co">#&gt;                         CC                  MI_LOGT                      MI_T</span>
-<span class="co">#&gt;  -2.6594 (-6.9810, 1.6622) 2.2233 (-2.3469, 6.7935) -0.4412 (-4.8883, 4.0059)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coverage of nominal 95% confidence interval:</span>
-<span class="co">#&gt;                       CC                 MI_LOGT                    MI_T</span>
-<span class="co">#&gt;  0.9430 (0.9286, 0.9574) 0.9490 (0.9354, 0.9626) 0.9430 (0.9286, 0.9574)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Bias-eliminated coverage of nominal 95% confidence interval:</span>
-<span class="co">#&gt;                       CC                 MI_LOGT                    MI_T</span>
-<span class="co">#&gt;  0.9400 (0.9253, 0.9547) 0.9490 (0.9354, 0.9626) 0.9430 (0.9286, 0.9574)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Power of 5% level test:</span>
-<span class="co">#&gt;                       CC                 MI_LOGT                    MI_T</span>
-<span class="co">#&gt;  0.9460 (0.9320, 0.9600) 0.9690 (0.9583, 0.9797) 0.9630 (0.9513, 0.9747)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">ss1</span>, mcse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Values are:</span></span>
+<span><span class="co">#&gt;  Point Estimate (95% Confidence Interval based on Monte Carlo Standard Errors)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Non-missing point estimates/standard errors:</span></span>
+<span><span class="co">#&gt;    CC MI_LOGT MI_T</span></span>
+<span><span class="co">#&gt;  1000    1000 1000</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Average point estimate:</span></span>
+<span><span class="co">#&gt;      CC MI_LOGT   MI_T</span></span>
+<span><span class="co">#&gt;  0.5168  0.5009 0.4988</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Median point estimate:</span></span>
+<span><span class="co">#&gt;      CC MI_LOGT   MI_T</span></span>
+<span><span class="co">#&gt;  0.5070  0.4969 0.4939</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Average variance:</span></span>
+<span><span class="co">#&gt;      CC MI_LOGT   MI_T</span></span>
+<span><span class="co">#&gt;  0.0216  0.0182 0.0179</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Median variance:</span></span>
+<span><span class="co">#&gt;      CC MI_LOGT   MI_T</span></span>
+<span><span class="co">#&gt;  0.0211  0.0172 0.0169</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Bias in point estimate:</span></span>
+<span><span class="co">#&gt;                       CC                  MI_LOGT                      MI_T</span></span>
+<span><span class="co">#&gt;  0.0168 (0.0074, 0.0261) 0.0009 (-0.0073, 0.0091) -0.0012 (-0.0095, 0.0071)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Empirical standard error:</span></span>
+<span><span class="co">#&gt;                       CC                 MI_LOGT                    MI_T</span></span>
+<span><span class="co">#&gt;  0.1511 (0.1445, 0.1577) 0.1320 (0.1262, 0.1378) 0.1344 (0.1285, 0.1403)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; % gain in precision relative to method CC:</span></span>
+<span><span class="co">#&gt;                       CC                    MI_LOGT                       MI_T</span></span>
+<span><span class="co">#&gt;  0.0000 (0.0000, 0.0000) 31.0463 (23.3290, 38.7636) 26.3682 (18.8372, 33.8991)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Mean squared error:</span></span>
+<span><span class="co">#&gt;                       CC                 MI_LOGT                    MI_T</span></span>
+<span><span class="co">#&gt;  0.0231 (0.0209, 0.0253) 0.0174 (0.0157, 0.0191) 0.0181 (0.0163, 0.0198)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Model-based standard error:</span></span>
+<span><span class="co">#&gt;                       CC                 MI_LOGT                    MI_T</span></span>
+<span><span class="co">#&gt;  0.1471 (0.1461, 0.1481) 0.1349 (0.1338, 0.1361) 0.1338 (0.1327, 0.1350)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Relative % error in standard error:</span></span>
+<span><span class="co">#&gt;                         CC                  MI_LOGT                      MI_T</span></span>
+<span><span class="co">#&gt;  -2.6594 (-6.9810, 1.6622) 2.2233 (-2.3469, 6.7935) -0.4412 (-4.8883, 4.0059)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coverage of nominal 95% confidence interval:</span></span>
+<span><span class="co">#&gt;                       CC                 MI_LOGT                    MI_T</span></span>
+<span><span class="co">#&gt;  0.9430 (0.9286, 0.9574) 0.9490 (0.9354, 0.9626) 0.9430 (0.9286, 0.9574)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Bias-eliminated coverage of nominal 95% confidence interval:</span></span>
+<span><span class="co">#&gt;                       CC                 MI_LOGT                    MI_T</span></span>
+<span><span class="co">#&gt;  0.9400 (0.9253, 0.9547) 0.9490 (0.9354, 0.9626) 0.9430 (0.9286, 0.9574)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Power of 5% level test:</span></span>
+<span><span class="co">#&gt;                       CC                 MI_LOGT                    MI_T</span></span>
+<span><span class="co">#&gt;  0.9460 (0.9320, 0.9600) 0.9690 (0.9583, 0.9797) 0.9630 (0.9513, 0.9747)</span></span></code></pre></div>
 <p>Highlighting some points of interest from the summary results
 above:</p>
 <ol style="list-style-type: decimal">
@@ -470,13 +470,13 @@ inefficiency.</li>
 <p>It is straightforward to produce a table of summary statistics for
 use in an R Markdown document:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/" class="external-link">knitr</a></span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'knitr'</span>
-<span class="co">#&gt; The following object is masked from 'package:rsimsum':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     kable</span>
-<span class="fu"><a href="../reference/kable.simsum.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">ss1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/" class="external-link">knitr</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'knitr'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:rsimsum':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     kable</span></span>
+<span><span class="fu"><a href="../reference/kable.simsum.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">ss1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">stat</th>
@@ -839,24 +839,24 @@ using the popular R package <a href="https://CRAN.R-project.org/package=ggplot2"
 <p>Plotting bias by method with <span class="math inline">\(95\%\)</span> confidence intervals based on Monte
 Carlo standard errors:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">ss1</span>, stats <span class="op">=</span> <span class="st">"bias"</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">method</span>, y <span class="op">=</span> <span class="va">est</span>, ymin <span class="op">=</span> <span class="va">lower</span>, ymax <span class="op">=</span> <span class="va">upper</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, color <span class="op">=</span> <span class="st">"red"</span>, lty <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_errorbar</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Method"</span>, y <span class="op">=</span> <span class="st">"Bias"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">ss1</span>, stats <span class="op">=</span> <span class="st">"bias"</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">method</span>, y <span class="op">=</span> <span class="va">est</span>, ymin <span class="op">=</span> <span class="va">lower</span>, ymax <span class="op">=</span> <span class="va">upper</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, color <span class="op">=</span> <span class="st">"red"</span>, lty <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_errorbar</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Method"</span>, y <span class="op">=</span> <span class="st">"Bias"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="A-introduction_files/figure-html/ex1-plot-bias-1.png" width="75%" style="display: block; margin: auto;"></p>
 <p>Conversely, say we want to visually compare coverage for the three
 methods compared with this simulation study:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">ss1</span>, stats <span class="op">=</span> <span class="st">"cover"</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">method</span>, y <span class="op">=</span> <span class="va">est</span>, ymin <span class="op">=</span> <span class="va">lower</span>, ymax <span class="op">=</span> <span class="va">upper</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0.95</span>, color <span class="op">=</span> <span class="st">"red"</span>, lty <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_errorbar</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Method"</span>, y <span class="op">=</span> <span class="st">"Coverage"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">ss1</span>, stats <span class="op">=</span> <span class="st">"cover"</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">method</span>, y <span class="op">=</span> <span class="va">est</span>, ymin <span class="op">=</span> <span class="va">lower</span>, ymax <span class="op">=</span> <span class="va">upper</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0.95</span>, color <span class="op">=</span> <span class="st">"red"</span>, lty <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_errorbar</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Method"</span>, y <span class="op">=</span> <span class="st">"Coverage"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="A-introduction_files/figure-html/ex1-plot-cov-1.png" width="75%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
@@ -881,110 +881,110 @@ on mean and standard deviation) by setting the control parameter
 errors larger than <span class="math inline">\(1.5\)</span> times the
 average standard error:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">s1.2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">MIsim</span>, estvarname <span class="op">=</span> <span class="st">"b"</span>, true <span class="op">=</span> <span class="fl">0.50</span>, se <span class="op">=</span> <span class="st">"se"</span>, methodvar <span class="op">=</span> <span class="st">"method"</span>, ref <span class="op">=</span> <span class="st">"CC"</span>, dropbig <span class="op">=</span> <span class="cn">TRUE</span>, control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dropbig.max <span class="op">=</span> <span class="fl">4</span>, dropbig.semax <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">s1.2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">MIsim</span>, estvarname <span class="op">=</span> <span class="st">"b"</span>, true <span class="op">=</span> <span class="fl">0.50</span>, se <span class="op">=</span> <span class="st">"se"</span>, methodvar <span class="op">=</span> <span class="st">"method"</span>, ref <span class="op">=</span> <span class="st">"CC"</span>, dropbig <span class="op">=</span> <span class="cn">TRUE</span>, control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dropbig.max <span class="op">=</span> <span class="fl">4</span>, dropbig.semax <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Some estimates were dropped, as we can see from the number of
 non-missing point estimates, standard errors:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">s1.2</span>, stats <span class="op">=</span> <span class="st">"nsim"</span><span class="op">)</span>
-<span class="co">#&gt; Values are:</span>
-<span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Non-missing point estimates/standard errors:</span>
-<span class="co">#&gt;   CC MI_LOGT MI_T</span>
-<span class="co">#&gt;  958     951  944</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">s1.2</span>, stats <span class="op">=</span> <span class="st">"nsim"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Values are:</span></span>
+<span><span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Non-missing point estimates/standard errors:</span></span>
+<span><span class="co">#&gt;   CC MI_LOGT MI_T</span></span>
+<span><span class="co">#&gt;  958     951  944</span></span></code></pre></div>
 <p>Everything else works analogously as before; for instance, to
 summarise the results:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">s1.2</span><span class="op">)</span>
-<span class="co">#&gt; Values are:</span>
-<span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Non-missing point estimates/standard errors:</span>
-<span class="co">#&gt;   CC MI_LOGT MI_T</span>
-<span class="co">#&gt;  958     951  944</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Average point estimate:</span>
-<span class="co">#&gt;      CC MI_LOGT   MI_T</span>
-<span class="co">#&gt;  0.5142  0.4978 0.4973</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Median point estimate:</span>
-<span class="co">#&gt;      CC MI_LOGT   MI_T</span>
-<span class="co">#&gt;  0.5065  0.4934 0.4939</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Average variance:</span>
-<span class="co">#&gt;      CC MI_LOGT   MI_T</span>
-<span class="co">#&gt;  0.0213  0.0175 0.0173</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Median variance:</span>
-<span class="co">#&gt;      CC MI_LOGT   MI_T</span>
-<span class="co">#&gt;  0.0211  0.0170 0.0167</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Bias in point estimate:</span>
-<span class="co">#&gt;               CC          MI_LOGT             MI_T</span>
-<span class="co">#&gt;  0.0142 (0.0048) -0.0022 (0.0043) -0.0027 (0.0043)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Empirical standard error:</span>
-<span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
-<span class="co">#&gt;  0.1493 (0.0034) 0.1320 (0.0030) 0.1323 (0.0030)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; % gain in precision relative to method CC:</span>
-<span class="co">#&gt;               CC          MI_LOGT             MI_T</span>
-<span class="co">#&gt;  0.0000 (0.0000) 27.9890 (3.9442) 27.4611 (4.0317)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Mean squared error:</span>
-<span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
-<span class="co">#&gt;  0.0225 (0.0011) 0.0174 (0.0009) 0.0175 (0.0009)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Model-based standard error:</span>
-<span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
-<span class="co">#&gt;  0.1459 (0.0005) 0.1323 (0.0005) 0.1314 (0.0005)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Relative % error in standard error:</span>
-<span class="co">#&gt;                CC         MI_LOGT             MI_T</span>
-<span class="co">#&gt;  -2.2821 (2.2539) 0.2271 (2.3285) -0.6949 (2.3122)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coverage of nominal 95% confidence interval:</span>
-<span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
-<span class="co">#&gt;  0.9447 (0.0074) 0.9464 (0.0073) 0.9417 (0.0076)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Bias-eliminated coverage of nominal 95% confidence interval:</span>
-<span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
-<span class="co">#&gt;  0.9426 (0.0075) 0.9453 (0.0074) 0.9439 (0.0075)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Power of 5% level test:</span>
-<span class="co">#&gt;               CC         MI_LOGT            MI_T</span>
-<span class="co">#&gt;  0.9457 (0.0073) 0.9685 (0.0057) 0.9661 (0.0059)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">s1.2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Values are:</span></span>
+<span><span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Non-missing point estimates/standard errors:</span></span>
+<span><span class="co">#&gt;   CC MI_LOGT MI_T</span></span>
+<span><span class="co">#&gt;  958     951  944</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Average point estimate:</span></span>
+<span><span class="co">#&gt;      CC MI_LOGT   MI_T</span></span>
+<span><span class="co">#&gt;  0.5142  0.4978 0.4973</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Median point estimate:</span></span>
+<span><span class="co">#&gt;      CC MI_LOGT   MI_T</span></span>
+<span><span class="co">#&gt;  0.5065  0.4934 0.4939</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Average variance:</span></span>
+<span><span class="co">#&gt;      CC MI_LOGT   MI_T</span></span>
+<span><span class="co">#&gt;  0.0213  0.0175 0.0173</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Median variance:</span></span>
+<span><span class="co">#&gt;      CC MI_LOGT   MI_T</span></span>
+<span><span class="co">#&gt;  0.0211  0.0170 0.0167</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Bias in point estimate:</span></span>
+<span><span class="co">#&gt;               CC          MI_LOGT             MI_T</span></span>
+<span><span class="co">#&gt;  0.0142 (0.0048) -0.0022 (0.0043) -0.0027 (0.0043)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Empirical standard error:</span></span>
+<span><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></span>
+<span><span class="co">#&gt;  0.1493 (0.0034) 0.1320 (0.0030) 0.1323 (0.0030)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; % gain in precision relative to method CC:</span></span>
+<span><span class="co">#&gt;               CC          MI_LOGT             MI_T</span></span>
+<span><span class="co">#&gt;  0.0000 (0.0000) 27.9890 (3.9442) 27.4611 (4.0317)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Mean squared error:</span></span>
+<span><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></span>
+<span><span class="co">#&gt;  0.0225 (0.0011) 0.0174 (0.0009) 0.0175 (0.0009)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Model-based standard error:</span></span>
+<span><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></span>
+<span><span class="co">#&gt;  0.1459 (0.0005) 0.1323 (0.0005) 0.1314 (0.0005)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Relative % error in standard error:</span></span>
+<span><span class="co">#&gt;                CC         MI_LOGT             MI_T</span></span>
+<span><span class="co">#&gt;  -2.2821 (2.2539) 0.2271 (2.3285) -0.6949 (2.3122)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coverage of nominal 95% confidence interval:</span></span>
+<span><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></span>
+<span><span class="co">#&gt;  0.9447 (0.0074) 0.9464 (0.0073) 0.9417 (0.0076)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Bias-eliminated coverage of nominal 95% confidence interval:</span></span>
+<span><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></span>
+<span><span class="co">#&gt;  0.9426 (0.0075) 0.9453 (0.0074) 0.9439 (0.0075)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Power of 5% level test:</span></span>
+<span><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></span>
+<span><span class="co">#&gt;  0.9457 (0.0073) 0.9685 (0.0057) 0.9661 (0.0059)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="example-2-simulation-study-on-survival-modelling">Example 2: Simulation study on survival modelling<a class="anchor" aria-label="anchor" href="#example-2-simulation-study-on-survival-modelling"></a>
 </h2>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"relhaz"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"relhaz"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s have a look at the first 10 rows of the dataset:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">relhaz</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
-<span class="co">#&gt;    dataset  n    baseline       theta        se model</span>
-<span class="co">#&gt; 1        1 50 Exponential -0.88006151 0.3330172   Cox</span>
-<span class="co">#&gt; 2        2 50 Exponential -0.81460242 0.3253010   Cox</span>
-<span class="co">#&gt; 3        3 50 Exponential -0.14262887 0.3050516   Cox</span>
-<span class="co">#&gt; 4        4 50 Exponential -0.33251820 0.3144033   Cox</span>
-<span class="co">#&gt; 5        5 50 Exponential -0.48269940 0.3064726   Cox</span>
-<span class="co">#&gt; 6        6 50 Exponential -0.03160756 0.3097203   Cox</span>
-<span class="co">#&gt; 7        7 50 Exponential -0.23578090 0.3121350   Cox</span>
-<span class="co">#&gt; 8        8 50 Exponential -0.05046332 0.3136058   Cox</span>
-<span class="co">#&gt; 9        9 50 Exponential -0.22378715 0.3066037   Cox</span>
-<span class="co">#&gt; 10      10 50 Exponential -0.45326446 0.3330173   Cox</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">relhaz</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    dataset  n    baseline       theta        se model</span></span>
+<span><span class="co">#&gt; 1        1 50 Exponential -0.88006151 0.3330172   Cox</span></span>
+<span><span class="co">#&gt; 2        2 50 Exponential -0.81460242 0.3253010   Cox</span></span>
+<span><span class="co">#&gt; 3        3 50 Exponential -0.14262887 0.3050516   Cox</span></span>
+<span><span class="co">#&gt; 4        4 50 Exponential -0.33251820 0.3144033   Cox</span></span>
+<span><span class="co">#&gt; 5        5 50 Exponential -0.48269940 0.3064726   Cox</span></span>
+<span><span class="co">#&gt; 6        6 50 Exponential -0.03160756 0.3097203   Cox</span></span>
+<span><span class="co">#&gt; 7        7 50 Exponential -0.23578090 0.3121350   Cox</span></span>
+<span><span class="co">#&gt; 8        8 50 Exponential -0.05046332 0.3136058   Cox</span></span>
+<span><span class="co">#&gt; 9        9 50 Exponential -0.22378715 0.3066037   Cox</span></span>
+<span><span class="co">#&gt; 10      10 50 Exponential -0.45326446 0.3330173   Cox</span></span></code></pre></div>
 <p>The included variables are:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">relhaz</span><span class="op">)</span>
-<span class="co">#&gt; 'data.frame':    1200 obs. of  6 variables:</span>
-<span class="co">#&gt;  $ dataset : int  1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="co">#&gt;  $ n       : num  50 50 50 50 50 50 50 50 50 50 ...</span>
-<span class="co">#&gt;  $ baseline: chr  "Exponential" "Exponential" "Exponential" "Exponential" ...</span>
-<span class="co">#&gt;  $ theta   : num  -0.88 -0.815 -0.143 -0.333 -0.483 ...</span>
-<span class="co">#&gt;  $ se      : num  0.333 0.325 0.305 0.314 0.306 ...</span>
-<span class="co">#&gt;  $ model   : chr  "Cox" "Cox" "Cox" "Cox" ...</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">relhaz</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'data.frame':    1200 obs. of  6 variables:</span></span>
+<span><span class="co">#&gt;  $ dataset : int  1 2 3 4 5 6 7 8 9 10 ...</span></span>
+<span><span class="co">#&gt;  $ n       : num  50 50 50 50 50 50 50 50 50 50 ...</span></span>
+<span><span class="co">#&gt;  $ baseline: chr  "Exponential" "Exponential" "Exponential" "Exponential" ...</span></span>
+<span><span class="co">#&gt;  $ theta   : num  -0.88 -0.815 -0.143 -0.333 -0.483 ...</span></span>
+<span><span class="co">#&gt;  $ se      : num  0.333 0.325 0.305 0.314 0.306 ...</span></span>
+<span><span class="co">#&gt;  $ model   : chr  "Cox" "Cox" "Cox" "Cox" ...</span></span></code></pre></div>
 <ul>
 <li><p><code>dataset</code>, simulated dataset number;</p></li>
 <li><p><code>n</code>, sample size of the simulate dataset;</p></li>
@@ -1004,19 +1004,19 @@ and sample size.</p>
 sufficient to define the “by” factors in the call to
 <code>simsum</code>:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">relhaz</span>, estvarname <span class="op">=</span> <span class="st">"theta"</span>, true <span class="op">=</span> <span class="op">-</span><span class="fl">0.50</span>, se <span class="op">=</span> <span class="st">"se"</span>, methodvar <span class="op">=</span> <span class="st">"model"</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"n"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; 'ref' method was not specified, Cox set as the reference</span>
-<span class="va">s2</span>
-<span class="co">#&gt; Summary of a simulation study with a single estimand.</span>
-<span class="co">#&gt; True value of the estimand: -0.5 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Method variable: model </span>
-<span class="co">#&gt;  Unique methods: Cox, Exp, RP(2) </span>
-<span class="co">#&gt;  Reference method: Cox </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; By factors: baseline, n </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Monte Carlo standard errors were computed.</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">relhaz</span>, estvarname <span class="op">=</span> <span class="st">"theta"</span>, true <span class="op">=</span> <span class="op">-</span><span class="fl">0.50</span>, se <span class="op">=</span> <span class="st">"se"</span>, methodvar <span class="op">=</span> <span class="st">"model"</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"n"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'ref' method was not specified, Cox set as the reference</span></span>
+<span><span class="va">s2</span></span>
+<span><span class="co">#&gt; Summary of a simulation study with a single estimand.</span></span>
+<span><span class="co">#&gt; True value of the estimand: -0.5 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Method variable: model </span></span>
+<span><span class="co">#&gt;  Unique methods: Cox, Exp, RP(2) </span></span>
+<span><span class="co">#&gt;  Reference method: Cox </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; By factors: baseline, n </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Monte Carlo standard errors were computed.</span></span></code></pre></div>
 <p>The difference between <code>methodvar</code> and <code>by</code> is
 as follows: <code>methodvar</code> represents methods (e.g. the two
 models, in this example) compared with this simulation study, while
@@ -1026,108 +1026,108 @@ baseline hazard function).</p>
 <p>Summarising the results will be printed out for each method and
 combination of data-generating factors:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ss2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span>
-<span class="va">ss2</span>
-<span class="co">#&gt; Values are:</span>
-<span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Non-missing point estimates/standard errors:</span>
-<span class="co">#&gt;     baseline   n Cox Exp RP(2)</span>
-<span class="co">#&gt;  Exponential  50 100 100   100</span>
-<span class="co">#&gt;  Exponential 250 100 100   100</span>
-<span class="co">#&gt;      Weibull  50 100 100   100</span>
-<span class="co">#&gt;      Weibull 250 100 100   100</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Average point estimate:</span>
-<span class="co">#&gt;     baseline   n     Cox     Exp   RP(2)</span>
-<span class="co">#&gt;  Exponential  50 -0.4785 -0.4761 -0.4817</span>
-<span class="co">#&gt;  Exponential 250 -0.5215 -0.5214 -0.5227</span>
-<span class="co">#&gt;      Weibull  50 -0.5282 -0.3491 -0.5348</span>
-<span class="co">#&gt;      Weibull 250 -0.5120 -0.3518 -0.5139</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Median point estimate:</span>
-<span class="co">#&gt;     baseline   n     Cox     Exp   RP(2)</span>
-<span class="co">#&gt;  Exponential  50 -0.4507 -0.4571 -0.4574</span>
-<span class="co">#&gt;  Exponential 250 -0.5184 -0.5165 -0.5209</span>
-<span class="co">#&gt;      Weibull  50 -0.5518 -0.3615 -0.5425</span>
-<span class="co">#&gt;      Weibull 250 -0.5145 -0.3633 -0.5078</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Average variance:</span>
-<span class="co">#&gt;     baseline   n    Cox    Exp  RP(2)</span>
-<span class="co">#&gt;  Exponential  50 0.1014 0.0978 0.1002</span>
-<span class="co">#&gt;  Exponential 250 0.0195 0.0191 0.0194</span>
-<span class="co">#&gt;      Weibull  50 0.0931 0.0834 0.0898</span>
-<span class="co">#&gt;      Weibull 250 0.0174 0.0164 0.0172</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Median variance:</span>
-<span class="co">#&gt;     baseline   n    Cox    Exp  RP(2)</span>
-<span class="co">#&gt;  Exponential  50 0.1000 0.0972 0.0989</span>
-<span class="co">#&gt;  Exponential 250 0.0195 0.0190 0.0194</span>
-<span class="co">#&gt;      Weibull  50 0.0914 0.0825 0.0875</span>
-<span class="co">#&gt;      Weibull 250 0.0174 0.0164 0.0171</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Bias in point estimate:</span>
-<span class="co">#&gt;     baseline   n              Cox              Exp            RP(2)</span>
-<span class="co">#&gt;  Exponential  50  0.0215 (0.0328)  0.0239 (0.0326)  0.0183 (0.0331)</span>
-<span class="co">#&gt;  Exponential 250 -0.0215 (0.0149) -0.0214 (0.0151) -0.0227 (0.0149)</span>
-<span class="co">#&gt;      Weibull  50 -0.0282 (0.0311)  0.1509 (0.0204) -0.0348 (0.0311)</span>
-<span class="co">#&gt;      Weibull 250 -0.0120 (0.0133)  0.1482 (0.0093) -0.0139 (0.0137)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Empirical standard error:</span>
-<span class="co">#&gt;     baseline   n             Cox             Exp           RP(2)</span>
-<span class="co">#&gt;  Exponential  50 0.3285 (0.0233) 0.3258 (0.0232) 0.3312 (0.0235)</span>
-<span class="co">#&gt;  Exponential 250 0.1488 (0.0106) 0.1506 (0.0107) 0.1489 (0.0106)</span>
-<span class="co">#&gt;      Weibull  50 0.3115 (0.0221) 0.2041 (0.0145) 0.3111 (0.0221)</span>
-<span class="co">#&gt;      Weibull 250 0.1333 (0.0095) 0.0929 (0.0066) 0.1368 (0.0097)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; % gain in precision relative to method Cox:</span>
-<span class="co">#&gt;     baseline   n              Cox                Exp            RP(2)</span>
-<span class="co">#&gt;  Exponential  50 -0.0000 (0.0000)    1.6773 (3.2902) -1.6228 (1.7887)</span>
-<span class="co">#&gt;  Exponential 250  0.0000 (0.0000)   -2.3839 (3.0501) -0.1491 (0.9916)</span>
-<span class="co">#&gt;      Weibull  50 -0.0000 (0.0000) 132.7958 (16.4433)  0.2412 (3.7361)</span>
-<span class="co">#&gt;      Weibull 250 -0.0000 (0.0000) 105.8426 (12.4932) -4.9519 (2.0647)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Mean squared error:</span>
-<span class="co">#&gt;     baseline   n             Cox             Exp           RP(2)</span>
-<span class="co">#&gt;  Exponential  50 0.1073 (0.0149) 0.1056 (0.0146) 0.1089 (0.0154)</span>
-<span class="co">#&gt;  Exponential 250 0.0224 (0.0028) 0.0229 (0.0028) 0.0225 (0.0028)</span>
-<span class="co">#&gt;      Weibull  50 0.0968 (0.0117) 0.0640 (0.0083) 0.0970 (0.0117)</span>
-<span class="co">#&gt;      Weibull 250 0.0177 (0.0027) 0.0305 (0.0033) 0.0187 (0.0028)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Model-based standard error:</span>
-<span class="co">#&gt;     baseline   n             Cox             Exp           RP(2)</span>
-<span class="co">#&gt;  Exponential  50 0.3185 (0.0013) 0.3127 (0.0010) 0.3165 (0.0012)</span>
-<span class="co">#&gt;  Exponential 250 0.1396 (0.0002) 0.1381 (0.0002) 0.1394 (0.0002)</span>
-<span class="co">#&gt;      Weibull  50 0.3052 (0.0014) 0.2888 (0.0005) 0.2996 (0.0012)</span>
-<span class="co">#&gt;      Weibull 250 0.1320 (0.0002) 0.1281 (0.0001) 0.1313 (0.0002)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Relative % error in standard error:</span>
-<span class="co">#&gt;     baseline   n              Cox               Exp            RP(2)</span>
-<span class="co">#&gt;  Exponential  50 -3.0493 (6.8838)  -4.0156 (6.8114) -4.4305 (6.7842)</span>
-<span class="co">#&gt;  Exponential 250 -6.2002 (6.6512)  -8.3339 (6.4996) -6.4133 (6.6361)</span>
-<span class="co">#&gt;      Weibull  50 -2.0115 (6.9601) 41.4993 (10.0341) -3.6873 (6.8377)</span>
-<span class="co">#&gt;      Weibull 250 -0.9728 (7.0220)  37.7762 (9.7671) -4.0191 (6.8057)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Coverage of nominal 95% confidence interval:</span>
-<span class="co">#&gt;     baseline   n             Cox             Exp           RP(2)</span>
-<span class="co">#&gt;  Exponential  50 0.9500 (0.0218) 0.9400 (0.0237) 0.9500 (0.0218)</span>
-<span class="co">#&gt;  Exponential 250 0.9300 (0.0255) 0.9200 (0.0271) 0.9300 (0.0255)</span>
-<span class="co">#&gt;      Weibull  50 0.9700 (0.0171) 0.9900 (0.0099) 0.9500 (0.0218)</span>
-<span class="co">#&gt;      Weibull 250 0.9400 (0.0237) 0.8500 (0.0357) 0.9400 (0.0237)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Bias-eliminated coverage of nominal 95% confidence interval:</span>
-<span class="co">#&gt;     baseline   n             Cox             Exp           RP(2)</span>
-<span class="co">#&gt;  Exponential  50 0.9500 (0.0218) 0.9500 (0.0218) 0.9500 (0.0218)</span>
-<span class="co">#&gt;  Exponential 250 0.9400 (0.0237) 0.9400 (0.0237) 0.9400 (0.0237)</span>
-<span class="co">#&gt;      Weibull  50 0.9500 (0.0218) 1.0000 (0.0000) 0.9500 (0.0218)</span>
-<span class="co">#&gt;      Weibull 250 0.9500 (0.0218) 0.9900 (0.0099) 0.9400 (0.0237)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Power of 5% level test:</span>
-<span class="co">#&gt;     baseline   n             Cox             Exp           RP(2)</span>
-<span class="co">#&gt;  Exponential  50 0.3600 (0.0480) 0.3800 (0.0485) 0.3700 (0.0483)</span>
-<span class="co">#&gt;  Exponential 250 0.9800 (0.0140) 0.9900 (0.0099) 0.9900 (0.0099)</span>
-<span class="co">#&gt;      Weibull  50 0.4300 (0.0495) 0.0900 (0.0286) 0.4700 (0.0499)</span>
-<span class="co">#&gt;      Weibull 250 0.9700 (0.0171) 0.8600 (0.0347) 0.9700 (0.0171)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ss2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span></span>
+<span><span class="va">ss2</span></span>
+<span><span class="co">#&gt; Values are:</span></span>
+<span><span class="co">#&gt;  Point Estimate (Monte Carlo Standard Error)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Non-missing point estimates/standard errors:</span></span>
+<span><span class="co">#&gt;     baseline   n Cox Exp RP(2)</span></span>
+<span><span class="co">#&gt;  Exponential  50 100 100   100</span></span>
+<span><span class="co">#&gt;  Exponential 250 100 100   100</span></span>
+<span><span class="co">#&gt;      Weibull  50 100 100   100</span></span>
+<span><span class="co">#&gt;      Weibull 250 100 100   100</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Average point estimate:</span></span>
+<span><span class="co">#&gt;     baseline   n     Cox     Exp   RP(2)</span></span>
+<span><span class="co">#&gt;  Exponential  50 -0.4785 -0.4761 -0.4817</span></span>
+<span><span class="co">#&gt;  Exponential 250 -0.5215 -0.5214 -0.5227</span></span>
+<span><span class="co">#&gt;      Weibull  50 -0.5282 -0.3491 -0.5348</span></span>
+<span><span class="co">#&gt;      Weibull 250 -0.5120 -0.3518 -0.5139</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Median point estimate:</span></span>
+<span><span class="co">#&gt;     baseline   n     Cox     Exp   RP(2)</span></span>
+<span><span class="co">#&gt;  Exponential  50 -0.4507 -0.4571 -0.4574</span></span>
+<span><span class="co">#&gt;  Exponential 250 -0.5184 -0.5165 -0.5209</span></span>
+<span><span class="co">#&gt;      Weibull  50 -0.5518 -0.3615 -0.5425</span></span>
+<span><span class="co">#&gt;      Weibull 250 -0.5145 -0.3633 -0.5078</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Average variance:</span></span>
+<span><span class="co">#&gt;     baseline   n    Cox    Exp  RP(2)</span></span>
+<span><span class="co">#&gt;  Exponential  50 0.1014 0.0978 0.1002</span></span>
+<span><span class="co">#&gt;  Exponential 250 0.0195 0.0191 0.0194</span></span>
+<span><span class="co">#&gt;      Weibull  50 0.0931 0.0834 0.0898</span></span>
+<span><span class="co">#&gt;      Weibull 250 0.0174 0.0164 0.0172</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Median variance:</span></span>
+<span><span class="co">#&gt;     baseline   n    Cox    Exp  RP(2)</span></span>
+<span><span class="co">#&gt;  Exponential  50 0.1000 0.0972 0.0989</span></span>
+<span><span class="co">#&gt;  Exponential 250 0.0195 0.0190 0.0194</span></span>
+<span><span class="co">#&gt;      Weibull  50 0.0914 0.0825 0.0875</span></span>
+<span><span class="co">#&gt;      Weibull 250 0.0174 0.0164 0.0171</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Bias in point estimate:</span></span>
+<span><span class="co">#&gt;     baseline   n              Cox              Exp            RP(2)</span></span>
+<span><span class="co">#&gt;  Exponential  50  0.0215 (0.0328)  0.0239 (0.0326)  0.0183 (0.0331)</span></span>
+<span><span class="co">#&gt;  Exponential 250 -0.0215 (0.0149) -0.0214 (0.0151) -0.0227 (0.0149)</span></span>
+<span><span class="co">#&gt;      Weibull  50 -0.0282 (0.0311)  0.1509 (0.0204) -0.0348 (0.0311)</span></span>
+<span><span class="co">#&gt;      Weibull 250 -0.0120 (0.0133)  0.1482 (0.0093) -0.0139 (0.0137)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Empirical standard error:</span></span>
+<span><span class="co">#&gt;     baseline   n             Cox             Exp           RP(2)</span></span>
+<span><span class="co">#&gt;  Exponential  50 0.3285 (0.0233) 0.3258 (0.0232) 0.3312 (0.0235)</span></span>
+<span><span class="co">#&gt;  Exponential 250 0.1488 (0.0106) 0.1506 (0.0107) 0.1489 (0.0106)</span></span>
+<span><span class="co">#&gt;      Weibull  50 0.3115 (0.0221) 0.2041 (0.0145) 0.3111 (0.0221)</span></span>
+<span><span class="co">#&gt;      Weibull 250 0.1333 (0.0095) 0.0929 (0.0066) 0.1368 (0.0097)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; % gain in precision relative to method Cox:</span></span>
+<span><span class="co">#&gt;     baseline   n              Cox                Exp            RP(2)</span></span>
+<span><span class="co">#&gt;  Exponential  50 -0.0000 (0.0000)    1.6773 (3.2902) -1.6228 (1.7887)</span></span>
+<span><span class="co">#&gt;  Exponential 250  0.0000 (0.0000)   -2.3839 (3.0501) -0.1491 (0.9916)</span></span>
+<span><span class="co">#&gt;      Weibull  50 -0.0000 (0.0000) 132.7958 (16.4433)  0.2412 (3.7361)</span></span>
+<span><span class="co">#&gt;      Weibull 250 -0.0000 (0.0000) 105.8426 (12.4932) -4.9519 (2.0647)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Mean squared error:</span></span>
+<span><span class="co">#&gt;     baseline   n             Cox             Exp           RP(2)</span></span>
+<span><span class="co">#&gt;  Exponential  50 0.1073 (0.0149) 0.1056 (0.0146) 0.1089 (0.0154)</span></span>
+<span><span class="co">#&gt;  Exponential 250 0.0224 (0.0028) 0.0229 (0.0028) 0.0225 (0.0028)</span></span>
+<span><span class="co">#&gt;      Weibull  50 0.0968 (0.0117) 0.0640 (0.0083) 0.0970 (0.0117)</span></span>
+<span><span class="co">#&gt;      Weibull 250 0.0177 (0.0027) 0.0305 (0.0033) 0.0187 (0.0028)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Model-based standard error:</span></span>
+<span><span class="co">#&gt;     baseline   n             Cox             Exp           RP(2)</span></span>
+<span><span class="co">#&gt;  Exponential  50 0.3185 (0.0013) 0.3127 (0.0010) 0.3165 (0.0012)</span></span>
+<span><span class="co">#&gt;  Exponential 250 0.1396 (0.0002) 0.1381 (0.0002) 0.1394 (0.0002)</span></span>
+<span><span class="co">#&gt;      Weibull  50 0.3052 (0.0014) 0.2888 (0.0005) 0.2996 (0.0012)</span></span>
+<span><span class="co">#&gt;      Weibull 250 0.1320 (0.0002) 0.1281 (0.0001) 0.1313 (0.0002)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Relative % error in standard error:</span></span>
+<span><span class="co">#&gt;     baseline   n              Cox               Exp            RP(2)</span></span>
+<span><span class="co">#&gt;  Exponential  50 -3.0493 (6.8838)  -4.0156 (6.8114) -4.4305 (6.7842)</span></span>
+<span><span class="co">#&gt;  Exponential 250 -6.2002 (6.6512)  -8.3339 (6.4996) -6.4133 (6.6361)</span></span>
+<span><span class="co">#&gt;      Weibull  50 -2.0115 (6.9601) 41.4993 (10.0341) -3.6873 (6.8377)</span></span>
+<span><span class="co">#&gt;      Weibull 250 -0.9728 (7.0220)  37.7762 (9.7671) -4.0191 (6.8057)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coverage of nominal 95% confidence interval:</span></span>
+<span><span class="co">#&gt;     baseline   n             Cox             Exp           RP(2)</span></span>
+<span><span class="co">#&gt;  Exponential  50 0.9500 (0.0218) 0.9400 (0.0237) 0.9500 (0.0218)</span></span>
+<span><span class="co">#&gt;  Exponential 250 0.9300 (0.0255) 0.9200 (0.0271) 0.9300 (0.0255)</span></span>
+<span><span class="co">#&gt;      Weibull  50 0.9700 (0.0171) 0.9900 (0.0099) 0.9500 (0.0218)</span></span>
+<span><span class="co">#&gt;      Weibull 250 0.9400 (0.0237) 0.8500 (0.0357) 0.9400 (0.0237)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Bias-eliminated coverage of nominal 95% confidence interval:</span></span>
+<span><span class="co">#&gt;     baseline   n             Cox             Exp           RP(2)</span></span>
+<span><span class="co">#&gt;  Exponential  50 0.9500 (0.0218) 0.9500 (0.0218) 0.9500 (0.0218)</span></span>
+<span><span class="co">#&gt;  Exponential 250 0.9400 (0.0237) 0.9400 (0.0237) 0.9400 (0.0237)</span></span>
+<span><span class="co">#&gt;      Weibull  50 0.9500 (0.0218) 1.0000 (0.0000) 0.9500 (0.0218)</span></span>
+<span><span class="co">#&gt;      Weibull 250 0.9500 (0.0218) 0.9900 (0.0099) 0.9400 (0.0237)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Power of 5% level test:</span></span>
+<span><span class="co">#&gt;     baseline   n             Cox             Exp           RP(2)</span></span>
+<span><span class="co">#&gt;  Exponential  50 0.3600 (0.0480) 0.3800 (0.0485) 0.3700 (0.0483)</span></span>
+<span><span class="co">#&gt;  Exponential 250 0.9800 (0.0140) 0.9900 (0.0099) 0.9900 (0.0099)</span></span>
+<span><span class="co">#&gt;      Weibull  50 0.4300 (0.0495) 0.0900 (0.0286) 0.4700 (0.0499)</span></span>
+<span><span class="co">#&gt;      Weibull 250 0.9700 (0.0171) 0.8600 (0.0347) 0.9700 (0.0171)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="plotting-summary-statistics-1">Plotting summary statistics<a class="anchor" aria-label="anchor" href="#plotting-summary-statistics-1"></a>
 </h3>
@@ -1137,13 +1137,13 @@ can be generated as easily as before.</p>
 <p>Say we want to compare bias for each method by baseline hazard
 function and sample size using faceting:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">ss2</span>, stats <span class="op">=</span> <span class="st">"bias"</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">model</span>, y <span class="op">=</span> <span class="va">est</span>, ymin <span class="op">=</span> <span class="va">lower</span>, ymax <span class="op">=</span> <span class="va">upper</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, color <span class="op">=</span> <span class="st">"red"</span>, lty <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_errorbar</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span><span class="va">baseline</span> <span class="op">~</span> <span class="va">n</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Method"</span>, y <span class="op">=</span> <span class="st">"Bias"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">ss2</span>, stats <span class="op">=</span> <span class="st">"bias"</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">model</span>, y <span class="op">=</span> <span class="va">est</span>, ymin <span class="op">=</span> <span class="va">lower</span>, ymax <span class="op">=</span> <span class="va">upper</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, color <span class="op">=</span> <span class="st">"red"</span>, lty <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_errorbar</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid</a></span><span class="op">(</span><span class="va">baseline</span> <span class="op">~</span> <span class="va">n</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Method"</span>, y <span class="op">=</span> <span class="st">"Bias"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="A-introduction_files/figure-html/ex2-plot-bias-1.png" width="75%" style="display: block; margin: auto;"></p>
 </div>
 </div>
@@ -1180,8 +1180,7 @@ analysis</em>. Statistics in Medicine 18(6):681-694 &lt;<a href="https://doi.org
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
-2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
     </footer>

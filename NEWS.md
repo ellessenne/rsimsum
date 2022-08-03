@@ -1,5 +1,7 @@
 # rsimsum (development version)
 
+* Updated hex sticker.
+
 * Updated maintainer e-mail.
 
 # rsimsum 0.11.2
