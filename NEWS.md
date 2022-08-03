@@ -1,5 +1,7 @@
 # rsimsum (development version)
 
+* Updated maintainer e-mail.
+
 # rsimsum 0.11.2
 
 * Fixed issues with overlapping/missing intervals in zip plots (#40, thanks @ge-li for reporting this).
