@@ -28,61 +28,45 @@ for (i in 1:nrow(dgm)) {
 data <- bind_rows(data)
 
 p <- ggplot(data, aes(x = y, y = factor(dgm), colour = factor(method), fill = factor(method))) +
-  geom_density_ridges(alpha = 2 / 3) +
+  geom_density_ridges(alpha = 2 / 3, rel_min_height = 0.001) +
   theme_void() +
   theme_transparent() +
   coord_cartesian(clip = "off") +
   scale_color_viridis_d() +
   scale_fill_viridis_d() +
   theme(legend.position = "none", plot.margin = margin(0, 0, 0, 0, "cm"))
+p
 
+sysfonts::font_add(family = "Sticker Font", regular = "lmmono10-italic.otf")
+p_family <- "Sticker Font"
 
-sysfonts::font_add(family = "Roboto Condensed", regular = "RobotoCondensed-Regular.ttf")
-p_family <- "Roboto Condensed"
-sysfonts::font_add(family = "Roboto Mono", regular = "RobotoMono-Regular.ttf")
-p_family <- "Roboto Condensed"
-u_family <- "Roboto Mono"
-
-sticker(
-  subplot = p,
-  s_x = 1,
-  s_y = 1.2,
-  s_width = 1.2,
-  s_height = 1.2,
-  package = "rsimsum",
-  p_x = 1,
-  p_y = 0.5,
-  p_color = "#FDE725",
-  p_family = p_family,
-  p_size = 8,
-  h_size = 0,
-  h_fill = "#212529",
-  #  url = "github.com/ellessenne/rsimsum",
-  #  u_color = "#FDE725",
-  #  u_family = u_family,
-  #  u_size = 1.25,
-  filename = "inst/Sticker/rsimsum.png",
-  dpi = 1200
+nf <- c(
+  "inst/Sticker/rsimsum.png",
+  "man/figures/hex.png"
 )
 
-sticker(
-  subplot = p,
-  s_x = 1,
-  s_y = 1.2,
-  s_width = 1.2,
-  s_height = 1.2,
-  package = "rsimsum",
-  p_x = 1,
-  p_y = 0.5,
-  p_color = "#FDE725",
-  p_family = p_family,
-  p_size = 8,
-  h_size = 0,
-  h_fill = "#212529",
-  #  url = "github.com/ellessenne/rsimsum",
-  #  u_color = "#FDE725",
-  #  u_family = u_family,
-  #  u_size = 1.25,
-  filename = "man/figures/hex.png",
-  dpi = 1200
-)
+for (w in nf) {
+  print(
+    sticker(
+      subplot = p,
+      s_x = 1,
+      s_y = 1.15,
+      s_width = 1.6,
+      s_height = 1.2,
+      package = "rsimsum",
+      p_x = 1,
+      p_y = 0.5,
+      p_color = "#FDE725",
+      p_family = p_family,
+      p_size = 95,
+      h_size = 0,
+      h_fill = "#212529",
+      #  url = "github.com/ellessenne/rsimsum",
+      #  u_color = "#FDE725",
+      #  u_family = u_family,
+      #  u_size = 1.25,
+      filename = w,
+      dpi = 1200
+    )
+  )
+}
