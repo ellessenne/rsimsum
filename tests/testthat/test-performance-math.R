@@ -36,7 +36,7 @@ testthat::test_that("bias", {
 testthat::test_that("MIsim, vs Stata", {
   data("MIsim", package = "rsimsum")
   r <- rsimsum::simsum(data = MIsim, estvarname = "b", se = "se", true = 0.5, methodvar = "method")$summ
-  r <- r[!(r$stat %in% c("thetamean", "thetamedian", "se2mean", "se2median", "nsim", "becover")), ]
+  r <- r[!(r$stat %in% c("thetamean", "thetamedian", "se2mean", "se2median", "nsim", "rbias", "becover")), ]
   r$method <- as.character(r$method)
   r <- r[order(r$stat, r$method), ]
   s <- MIsim_res_stata
@@ -52,7 +52,7 @@ testthat::test_that("relhaz, vs Stata", {
   data("relhaz", package = "rsimsum")
   relhaz$model <- as.numeric(factor(relhaz$model))
   r <- rsimsum::simsum(data = relhaz, estvarname = "theta", se = "se", true = -0.5, methodvar = "model", by = c("n", "baseline"))$summ
-  r <- r[!(r$stat %in% c("thetamean", "thetamedian", "se2mean", "se2median", "nsim", "becover")), ]
+  r <- r[!(r$stat %in% c("thetamean", "thetamedian", "se2mean", "se2median", "nsim", "rbias", "becover")), ]
   r$model <- as.character(r$model)
   r$n <- as.character(r$n)
   r$baseline <- as.character(r$baseline)

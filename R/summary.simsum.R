@@ -10,6 +10,7 @@
 #' * `se2mean`, average variance.
 #' * `se2median`, median variance.
 #' * `bias`, bias in point estimate.
+#' * `rbias`, relative (to the true value) bias in point estimate.
 #' * `empse`, empirical standard error.
 #' * `mse`, mean squared error.
 #' * `relprec`, percentage gain in precision relative to the reference method.
@@ -39,7 +40,7 @@ summary.simsum <- function(object, ci_level = 0.95, df = NULL, stats = NULL, ...
   # 'level' must be a numeric value
   checkmate::assert_number(ci_level, lower = 0, upper = 1, add = arg_checks)
   # 'stats' must be one of the allowed values, can be NULL
-  checkmate::assert_character(x = stats, pattern = "^nsim$|^thetamean$|^thetamedian$|^$|^se2mean$|^se2median$|^bias$|^empse$|^mse$|^relprec$|^modelse$|^relerror$|^cover$|^becover$|^power$", null.ok = TRUE)
+  checkmate::assert_character(x = stats, pattern = "^nsim$|^thetamean$|^thetamedian$|^$|^se2mean$|^se2median$|^bias$|^rbias$|^empse$|^mse$|^relprec$|^modelse$|^relerror$|^cover$|^becover$|^power$", null.ok = TRUE)
   ### Report if there are any errors
   if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
 

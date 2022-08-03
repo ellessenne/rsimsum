@@ -87,13 +87,13 @@
 #' @keywords internal
 .describe <- function(x, ref, level) {
   description_df <- data.frame(
-    stat = c("nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "empse", "relprec", "mse", "modelse", "relerror", "cover", "becover", "power"),
-    description = c("Non-missing point estimates/standard errors", "Average point estimate", "Median point estimate", "Average variance", "Median variance", "Bias in point estimate", "Empirical standard error", paste("% gain in precision relative to method", ref), "Mean squared error", "Model-based standard error", "Relative % error in standard error", paste("Coverage of nominal", sprintf("%.0f%%", 100 * (level)), "confidence interval"), paste("Bias-eliminated coverage of nominal", sprintf("%.0f%%", 100 * (level)), "confidence interval"), paste("Power of", sprintf("%.0f%%", 100 * (1 - level)), "level test")),
+    stat = c("nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "rbias", "empse", "relprec", "mse", "modelse", "relerror", "cover", "becover", "power"),
+    description = c("Non-missing point estimates/standard errors", "Average point estimate", "Median point estimate", "Average variance", "Median variance", "Bias in point estimate", "Relative bias in point estimate", "Empirical standard error", paste("% gain in precision relative to method", ref), "Mean squared error", "Model-based standard error", "Relative % error in standard error", paste("Coverage of nominal", sprintf("%.0f%%", 100 * (level)), "confidence interval"), paste("Bias-eliminated coverage of nominal", sprintf("%.0f%%", 100 * (level)), "confidence interval"), paste("Power of", sprintf("%.0f%%", 100 * (1 - level)), "level test")),
     stringsAsFactors = FALSE
   )
   x <- merge(x, description_df, by = "stat")
   x <- x[, names(x)[names(x) != "stat"]]
-  x$description <- factor(x$description, levels = c("Non-missing point estimates/standard errors", "Average point estimate", "Median point estimate", "Average variance", "Median variance", "Bias in point estimate", "Empirical standard error", paste("% gain in precision relative to method", ref), "Mean squared error", "Model-based standard error", "Relative % error in standard error", paste("Coverage of nominal", sprintf("%.0f%%", 100 * (level)), "confidence interval"), paste("Bias-eliminated coverage of nominal", sprintf("%.0f%%", 100 * (level)), "confidence interval"), paste("Power of", sprintf("%.0f%%", 100 * (1 - level)), "level test")))
+  x$description <- factor(x$description, levels = c("Non-missing point estimates/standard errors", "Average point estimate", "Median point estimate", "Average variance", "Median variance", "Bias in point estimate", "Relative bias in point estimate", "Empirical standard error", paste("% gain in precision relative to method", ref), "Mean squared error", "Model-based standard error", "Relative % error in standard error", paste("Coverage of nominal", sprintf("%.0f%%", 100 * (level)), "confidence interval"), paste("Bias-eliminated coverage of nominal", sprintf("%.0f%%", 100 * (level)), "confidence interval"), paste("Power of", sprintf("%.0f%%", 100 * (1 - level)), "level test")))
   x <- x[order(x$description), ]
   x <- x[, c("description", "est", names(x)[!(names(x) %in% c("description", "est"))])]
   return(x)

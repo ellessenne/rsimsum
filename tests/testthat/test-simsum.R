@@ -57,7 +57,7 @@ testthat::test_that("specifying methodvar and not ref shows a message", {
 testthat::test_that("running simsum on MIsim return summaries of the correct dimension", {
   data("MIsim", package = "rsimsum")
   s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
-  testthat::expect_equal(dim(s$summ), expected = c(42, 4))
+  testthat::expect_equal(dim(s$summ), expected = c(15 * length(unique(MIsim$method)), 4))
 })
 
 testthat::test_that("simsum with mcse option returns mcse", {
