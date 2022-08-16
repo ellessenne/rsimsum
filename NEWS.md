@@ -1,4 +1,4 @@
-# rsimsum (development version)
+# rsimsum 0.11.3
 
 * Updated hex sticker.
 
