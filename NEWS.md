@@ -1,10 +1,14 @@
 # rsimsum 0.11.3
 
+This is a minor release, with the following changes:
+
 * Updated hex sticker.
 
 * Updated maintainer e-mail.
 
 # rsimsum 0.11.2
+
+### Bug fixes:
 
 * Fixed issues with overlapping/missing intervals in zip plots (#40, thanks @ge-li for reporting this).
 
