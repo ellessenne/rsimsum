@@ -1,4 +1,4 @@
-.PHONY: pre_submission_test docs style revdep
+.PHONY: pre_submission_test docs style
 
 pre_submission_test:
 	make docs
@@ -7,9 +7,10 @@ pre_submission_test:
 	R -e "devtools::check_win_devel(quiet = TRUE)"
 	R -e "devtools::check_win_release(quiet = TRUE)"
 	R -e "devtools::check_win_oldrelease(quiet = TRUE)"
+	R -e "devtools::check_mac_release(quiet = TRUE)"
 	R -e "rhub::check_for_cran()"
-	R -e "rhub::check(platform = 'macos-m1-bigsur-release')"
-	make revdep
+	R -e "rhub::check(platforms = 'macos-highsierra-release-cran')"
+	R -e "rhub::check(platforms = 'macos-highsierra-release')"
 	make style
 
 docs:
@@ -21,8 +22,3 @@ docs:
 
 style:
 	R -e "styler::style_dir(filetype = c('r', 'rmd'))"
-
-revdep:
-	R -e "revdepcheck::revdep_reset()"
-	R -e "revdepcheck::revdep_check(num_workers = 4)"
-	R -e "revdepcheck::revdep_reset()"
