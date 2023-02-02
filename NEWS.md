@@ -1,5 +1,7 @@
 # rsimsum (development version)
 
+* Fixed an error in the calculation of the Monte Carlo standard error for relative % error in ModSE (#45, thanks @LaurenSamuels for reporting this).
+
 # rsimsum 0.11.3
 
 This is a minor release, with the following changes:
