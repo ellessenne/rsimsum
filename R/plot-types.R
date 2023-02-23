@@ -361,7 +361,7 @@
       ggplot2::geom_hex(show.legend = density.legend)
   } else {
     gg <- gg +
-      ggplot2::stat_density_2d(mapping = ggplot2::aes(fill = stat(level)), geom = "polygon", show.legend = density.legend)
+      ggplot2::stat_density_2d(mapping = ggplot2::aes(fill = after_stat(level)), geom = "polygon", show.legend = density.legend)
   }
 
   ### Add reference line

@@ -1,5 +1,7 @@
 # rsimsum (development version)
 
+* Fixed issues with `stat(level)`, which was deprecated in {ggplot2} 3.4.0.
+
 # rsimsum 0.11.3
 
 This is a minor release, with the following changes:
