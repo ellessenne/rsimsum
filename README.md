@@ -1,12 +1,11 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# rsimsum <img src="man/figures/hex.png" width = "150" align="right" />
+# rsimsum <img src="man/figures/hex.png" width = "200" align="right" />
 
 <!-- badges: start -->
 
-[![R Build
-Status](https://github.com/ellessenne/rsimsum/workflows/R-CMD-check/badge.svg)](https://github.com/ellessenne/rsimsum/actions)
+[![R-CMD-check](https://github.com/ellessenne/rsimsum/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ellessenne/rsimsum/actions/workflows/R-CMD-check.yaml)
 [![Codecov Test
 Coverage](https://codecov.io/gh/ellessenne/rsimsum/branch/master/graph/badge.svg)](https://app.codecov.io/gh/ellessenne/rsimsum?branch=master)
 [![CRAN
@@ -19,7 +18,6 @@ Downloads](https://cranlogs.r-pkg.org/badges/grand-total/rsimsum)](https://CRAN.
 DOI](https://joss.theoj.org/papers/10.21105/joss.00739/status.svg)](https://doi.org/10.21105/joss.00739)
 [![Lifecycle:
 Stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![R-CMD-check](https://github.com/ellessenne/rsimsum/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ellessenne/rsimsum/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 `rsimsum` is an R package that can compute summary statistics from
@@ -161,7 +159,7 @@ summary(s)
 #> 
 #> Relative % error in standard error:
 #>                CC         MI_LOGT             MI_T
-#>  -2.6594 (2.2049) 2.2233 (2.3318) -0.4412 (2.2690)
+#>  -2.6594 (2.2055) 2.2233 (2.3323) -0.4412 (2.2695)
 #> 
 #> Coverage of nominal 95% confidence interval:
 #>               CC         MI_LOGT            MI_T
