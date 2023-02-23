@@ -16,18 +16,23 @@ options(width = 150)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.align = "center", fig.height = 6, fig.width = 6,
-  out.width = "75%"
+  fig.align = "center",
+  fig.height = 6,
+  fig.width = 6,
+  out.width = "80%"
 )
 ```
 
 # rsimsum
 
-`rsimsum` is an R package that can compute summary statistics from simulation studies. It is a port to R of the user-written command `simsum` in Stata (White I.R., 2010).
+`rsimsum` is an R package that can compute summary statistics from simulation studies. 
+It is inspired by the user-written command `simsum` in Stata (White I.R., 2010).
 
-The aim of `rsimsum` is helping reporting of simulation studies, including understanding the role of chance in results of simulation studies. Specifically, `rsimsum` can compute Monte Carlo standard errors of summary statistics, defined as the standard deviation of the estimated summary statistic.
+The aim of `rsimsum` is helping reporting of simulation studies, including understanding the role of chance in results of simulation studies. 
+Specifically, `rsimsum` can compute Monte Carlo standard errors of summary statistics, defined as the standard deviation of the estimated summary statistic.
 
 Formula for summary statistics and Monte Carlo standard errors are presented in the next section.
+Note that the terms _summary statistic_ and _performance measure_ are used interchangeably.
 
 # Notation
 
@@ -41,9 +46,9 @@ We will use th following notation throughout this vignette:
 * $\text{Var}(\hat{\theta})$: the empirical variance of $\hat{\theta}$
 * $\alpha$: the nominal significance level
 
-# Summary statistics
+# Performance measures
 
-The first summary statistic of interest is **bias**, which quantifies whether the estimator targets the true value $\theta$ on average. Bias is calculated as:
+The first performance measure of interest is **bias**, which quantifies whether the estimator targets the true value $\theta$ on average. Bias is calculated as:
 
 $$\text{Bias} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} \hat{\theta}_i - \theta$$
 
@@ -121,7 +126,7 @@ $$\text{MCSE(Bias-eliminated coverage)} = \sqrt{\frac{\text{Bias-eliminated cove
 
 Finally, **power** of a significance test at the $\alpha$ level is defined as:
 
-$$\text{Power} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} I \left[ |\hat{\theta}_i| \ge z_{\alpha/2} * \sqrt{\widehat{\text{Var}}(\hat{\theta_i})} \right]$$
+$$\text{Power} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} I \left[ |\hat{\theta}_i| \ge z_{\alpha/2} \times \sqrt{\widehat{\text{Var}}(\hat{\theta_i})} \right]$$
 
 The Monte Carlo standard error is analogously as coverage:
 
