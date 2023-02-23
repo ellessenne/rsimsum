@@ -134,7 +134,7 @@
     }
     names(relprec_mcse) <- NULL
     if (!is.null(se)) modelse_mcse <- sqrt(se2_var / (4 * nsim * modelse^2))
-    if (!is.null(se)) relerror_mcse <- 100 * (modelse / empse) * sqrt(se2_var / (4 * nsim * modelse^4) + 1 / (2 * nsim - 1))
+    if (!is.null(se)) relerror_mcse <- 100 * (modelse / empse) * sqrt(se2_var / (4 * nsim * modelse^4) + 1 / (2 * (nsim - 1)))
     if (!is.null(true) & !is.null(se)) cover_mcse <- sqrt(cover * (1 - cover) / nsim)
     if (!is.null(se)) becover_mcse <- sqrt(becover * (1 - becover) / nsim)
     if (!is.null(se)) power_mcse <- sqrt(power * (1 - power) / nsim)
