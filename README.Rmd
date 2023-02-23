@@ -30,6 +30,7 @@ options(width = 100)
 [![CRAN Logs Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/rsimsum)](https://CRAN.R-project.org/package=rsimsum)
 [![JOSS DOI](https://joss.theoj.org/papers/10.21105/joss.00739/status.svg)](https://doi.org/10.21105/joss.00739)
 [![Lifecycle: Stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![R-CMD-check](https://github.com/ellessenne/rsimsum/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ellessenne/rsimsum/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 `rsimsum` is an R package that can compute summary statistics from simulation studies. `rsimsum` is modelled upon a similar package available in Stata, the user-written command `simsum` (White I.R., 2010).
