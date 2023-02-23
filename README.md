@@ -19,6 +19,7 @@ Downloads](https://cranlogs.r-pkg.org/badges/grand-total/rsimsum)](https://CRAN.
 DOI](https://joss.theoj.org/papers/10.21105/joss.00739/status.svg)](https://doi.org/10.21105/joss.00739)
 [![Lifecycle:
 Stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![R-CMD-check](https://github.com/ellessenne/rsimsum/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ellessenne/rsimsum/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 `rsimsum` is an R package that can compute summary statistics from
@@ -217,7 +218,7 @@ rewritten, and new plot types have been implemented:
 
 ``` r
 autoplot(s, type = "est_ba")
-#> `geom_smooth()` using formula 'y ~ x'
+#> `geom_smooth()` using formula = 'y ~ x'
 ```
 
 <img src="man/figures/README-ba-1.png" width="85%" style="display: block; margin: auto;" />
@@ -250,14 +251,14 @@ been implemented as well:
 
 ``` r
 autoplot(s, type = "est_density")
-#> `geom_smooth()` using formula 'y ~ x'
+#> `geom_smooth()` using formula = 'y ~ x'
 ```
 
 <img src="man/figures/README-density-1.png" width="85%" style="display: block; margin: auto;" />
 
 ``` r
 autoplot(s, type = "est_hex")
-#> `geom_smooth()` using formula 'y ~ x'
+#> `geom_smooth()` using formula = 'y ~ x'
 ```
 
 <img src="man/figures/README-hex-1.png" width="85%" style="display: block; margin: auto;" />
