@@ -1,6 +1,8 @@
 # rsimsum (development version)
 
-* Fixed issues with `stat(level)`, which was deprecated in {ggplot2} 3.4.0.
+* Fixed issues with `stat(level)`, which was deprecated in {ggplot2} 3.4.0 (#44).
+
+* Fixed an error in the calculation of the Monte Carlo standard error for relative % error in ModSE (#45, thanks @LaurenSamuels for reporting this).
 
 # rsimsum 0.11.3
 
