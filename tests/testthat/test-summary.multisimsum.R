@@ -17,6 +17,8 @@ testthat::test_that("summarising a simsum object works fine and prints ok", {
   testthat::expect_output(print(summary(x), mcse = FALSE))
   testthat::expect_output(print(summary(x), mcse = NULL))
   testthat::expect_output(print(summary(x, stats = c("bias", "becover"))))
+  testthat::expect_output(print(summary(x, stats = c("bias", "becover"))))
+  testthat::expect_output(print(summary(x, stats = "rbias")))
   testthat::expect_error(print(summary(x, stats = "wrong")))
   testthat::expect_error(print(summary(x), digits = -1))
 })
@@ -64,6 +66,7 @@ testthat::test_that("summary.multisimsum returns selected stats only", {
   x <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
   testthat::expect_true(object = all(tidy(summary(x, stats = "bias"))[["stat"]] == "bias"))
   testthat::expect_true(object = all(tidy(summary(x, stats = c("bias", "cover")))[["stat"]] %in% c("bias", "cover")))
+  testthat::expect_true(object = all(tidy(summary(x, stats = "rbias"))[["stat"]] == "rbias"))
 })
 
 testthat::test_that("print.summary.multisimsum complains if users ask for the moon", {

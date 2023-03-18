@@ -363,6 +363,14 @@ testthat::test_that("inferring target", {
   # summary.simsum object, with 'by'
   testthat::expect_s3_class(object = autoplot(multisum, stats = "bias"), class = c("gg", "ggplot"))
   # simsum object, no 'by'
+  testthat::expect_s3_class(object = autoplot(single, stats = "rbias"), class = c("gg", "ggplot"))
+  # simsum object, with 'by'
+  testthat::expect_s3_class(object = autoplot(multi, stats = "rbias"), class = c("gg", "ggplot"))
+  # summary.simsum object, no 'by'
+  testthat::expect_s3_class(object = autoplot(singlesum, stats = "rbias"), class = c("gg", "ggplot"))
+  # summary.simsum object, with 'by'
+  testthat::expect_s3_class(object = autoplot(multisum, stats = "rbias"), class = c("gg", "ggplot"))
+  # simsum object, no 'by'
   testthat::expect_s3_class(object = autoplot(single, stats = "cover"), class = c("gg", "ggplot"))
   # simsum object, with 'by'
   testthat::expect_s3_class(object = autoplot(multi, stats = "cover"), class = c("gg", "ggplot"))

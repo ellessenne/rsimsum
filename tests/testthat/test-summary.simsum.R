@@ -62,6 +62,7 @@ testthat::test_that("summary.simsum returns selected stats only", {
   data("MIsim")
   x <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
   testthat::expect_true(object = all(tidy(summary(x, stats = "bias"))[["stat"]] == "bias"))
+  testthat::expect_true(object = all(tidy(summary(x, stats = "rbias"))[["stat"]] == "rbias"))
   testthat::expect_true(object = all(tidy(summary(x, stats = c("bias", "cover")))[["stat"]] %in% c("bias", "cover")))
 })
 

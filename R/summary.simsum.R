@@ -40,7 +40,7 @@ summary.simsum <- function(object, ci_level = 0.95, df = NULL, stats = NULL, ...
   # 'level' must be a numeric value
   checkmate::assert_number(ci_level, lower = 0, upper = 1, add = arg_checks)
   # 'stats' must be one of the allowed values, can be NULL
-  checkmate::assert_character(x = stats, pattern = "^nsim$|^thetamean$|^thetamedian$|^$|^se2mean$|^se2median$|^bias$|^rbias$|^empse$|^mse$|^relprec$|^modelse$|^relerror$|^cover$|^becover$|^power$", null.ok = TRUE)
+  checkmate::assert_subset(x = stats, choices = c("nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "rbias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "becover", "power"), add = arg_checks)
   ### Report if there are any errors
   if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
 
