@@ -119,42 +119,45 @@ Defaults to <code>NULL</code>, in which case all summary statistics are returned
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4      se2mean  2.163731e-02           NA      CC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5    se2median  2.114245e-02           NA      CC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6         bias  1.676616e-02 0.0047786757      CC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7        empse  1.511150e-01 0.0033807248      CC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          mse  2.309401e-02 0.0011338389      CC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9      relprec  0.000000e+00 0.0000000000      CC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10     modelse  1.470963e-01 0.0005274099      CC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11    relerror -2.659384e+00 2.2049438356      CC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12       cover  9.430000e-01 0.0073315073      CC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13     becover  9.400000e-01 0.0075099933      CC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14       power  9.460000e-01 0.0071473072      CC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15        nsim  1.000000e+03           NA MI_LOGT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16   thetamean  5.009231e-01           NA MI_LOGT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 thetamedian  4.969223e-01           NA MI_LOGT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18     se2mean  1.820915e-02           NA MI_LOGT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19   se2median  1.721574e-02           NA MI_LOGT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20        bias  9.230987e-04 0.0041744101 MI_LOGT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21       empse  1.320064e-01 0.0029532306 MI_LOGT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22         mse  1.740913e-02 0.0008812805 MI_LOGT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23     relprec  3.104634e+01 3.9374726448 MI_LOGT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24     modelse  1.349413e-01 0.0006046041 MI_LOGT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25    relerror  2.223259e+00 2.3317772667 MI_LOGT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26       cover  9.490000e-01 0.0069569390 MI_LOGT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27     becover  9.490000e-01 0.0069569390 MI_LOGT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28       power  9.690000e-01 0.0054807846 MI_LOGT</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29        nsim  1.000000e+03           NA    MI_T</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30   thetamean  4.988092e-01           NA    MI_T</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31 thetamedian  4.939111e-01           NA    MI_T</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32     se2mean  1.791169e-02           NA    MI_T</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33   se2median  1.693191e-02           NA    MI_T</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34        bias -1.190835e-03 0.0042509767    MI_T</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35       empse  1.344277e-01 0.0030073985    MI_T</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36         mse  1.805415e-02 0.0009112249    MI_T</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37     relprec  2.636816e+01 3.8423791135    MI_T</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38     modelse  1.338346e-01 0.0005856362    MI_T</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39    relerror -4.412233e-01 2.2689747610    MI_T</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40       cover  9.430000e-01 0.0073315073    MI_T</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41     becover  9.430000e-01 0.0073315073    MI_T</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42       power  9.630000e-01 0.0059691708    MI_T</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7        rbias  3.353232e-02 0.0095573514      CC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8        empse  1.511150e-01 0.0033807248      CC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          mse  2.309401e-02 0.0011338389      CC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10     relprec  0.000000e+00 0.0000000000      CC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11     modelse  1.470963e-01 0.0005274099      CC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12    relerror -2.659384e+00 2.2054817330      CC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13       cover  9.430000e-01 0.0073315073      CC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14     becover  9.400000e-01 0.0075099933      CC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15       power  9.460000e-01 0.0071473072      CC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16        nsim  1.000000e+03           NA MI_LOGT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17   thetamean  5.009231e-01           NA MI_LOGT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 thetamedian  4.969223e-01           NA MI_LOGT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19     se2mean  1.820915e-02           NA MI_LOGT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20   se2median  1.721574e-02           NA MI_LOGT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21        bias  9.230987e-04 0.0041744101 MI_LOGT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22       rbias  1.846197e-03 0.0083488201 MI_LOGT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23       empse  1.320064e-01 0.0029532306 MI_LOGT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24         mse  1.740913e-02 0.0008812805 MI_LOGT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25     relprec  3.104634e+01 3.9374726448 MI_LOGT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26     modelse  1.349413e-01 0.0006046041 MI_LOGT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27    relerror  2.223259e+00 2.3323382138 MI_LOGT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28       cover  9.490000e-01 0.0069569390 MI_LOGT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29     becover  9.490000e-01 0.0069569390 MI_LOGT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30       power  9.690000e-01 0.0054807846 MI_LOGT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31        nsim  1.000000e+03           NA    MI_T</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32   thetamean  4.988092e-01           NA    MI_T</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33 thetamedian  4.939111e-01           NA    MI_T</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34     se2mean  1.791169e-02           NA    MI_T</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35   se2median  1.693191e-02           NA    MI_T</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36        bias -1.190835e-03 0.0042509767    MI_T</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37       rbias -2.381670e-03 0.0085019534    MI_T</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38       empse  1.344277e-01 0.0030073985    MI_T</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39         mse  1.805415e-02 0.0009112249    MI_T</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40     relprec  2.636816e+01 3.8423791135    MI_T</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41     modelse  1.338346e-01 0.0005856362    MI_T</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42    relerror -4.412233e-01 2.2695215740    MI_T</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43       cover  9.430000e-01 0.0073315073    MI_T</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44     becover  9.430000e-01 0.0073315073    MI_T</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45       power  9.630000e-01 0.0059691708    MI_T</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Extracting only bias and coverage:</span></span></span>
 <span class="r-in"><span><span class="fu">get_data</span><span class="op">(</span><span class="va">x</span>, stats <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bias"</span>, <span class="st">"cover"</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -175,42 +178,45 @@ Defaults to <code>NULL</code>, in which case all summary statistics are returned
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4      se2mean  2.163731e-02           NA      CC           NA           NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5    se2median  2.114245e-02           NA      CC           NA           NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6         bias  1.676616e-02 0.0047786757      CC  0.007400129  0.026132193</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7        empse  1.511150e-01 0.0033807248      CC  0.144488895  0.157741093</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          mse  2.309401e-02 0.0011338389      CC  0.020871727  0.025316293</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9      relprec  0.000000e+00 0.0000000000      CC  0.000000000  0.000000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10     modelse  1.470963e-01 0.0005274099      CC  0.146062561  0.148129970</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11    relerror -2.659384e+00 2.2049438356      CC -6.980994702  1.662226309</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12       cover  9.430000e-01 0.0073315073      CC  0.928630510  0.957369490</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13     becover  9.400000e-01 0.0075099933      CC  0.925280684  0.954719316</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14       power  9.460000e-01 0.0071473072      CC  0.931991535  0.960008465</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15        nsim  1.000000e+03           NA MI_LOGT           NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16   thetamean  5.009231e-01           NA MI_LOGT           NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 thetamedian  4.969223e-01           NA MI_LOGT           NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18     se2mean  1.820915e-02           NA MI_LOGT           NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19   se2median  1.721574e-02           NA MI_LOGT           NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20        bias  9.230987e-04 0.0041744101 MI_LOGT -0.007258595  0.009104792</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21       empse  1.320064e-01 0.0029532306 MI_LOGT  0.126218211  0.137794663</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22         mse  1.740913e-02 0.0008812805 MI_LOGT  0.015681848  0.019136404</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23     relprec  3.104634e+01 3.9374726448 MI_LOGT 23.329036439 38.763645587</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24     modelse  1.349413e-01 0.0006046041 MI_LOGT  0.133756280  0.136126285</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25    relerror  2.223259e+00 2.3317772667 MI_LOGT -2.346940122  6.793458804</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26       cover  9.490000e-01 0.0069569390 MI_LOGT  0.935364650  0.962635350</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27     becover  9.490000e-01 0.0069569390 MI_LOGT  0.935364650  0.962635350</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28       power  9.690000e-01 0.0054807846 MI_LOGT  0.958257860  0.979742140</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29        nsim  1.000000e+03           NA    MI_T           NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30   thetamean  4.988092e-01           NA    MI_T           NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31 thetamedian  4.939111e-01           NA    MI_T           NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32     se2mean  1.791169e-02           NA    MI_T           NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33   se2median  1.693191e-02           NA    MI_T           NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34        bias -1.190835e-03 0.0042509767    MI_T -0.009522596  0.007140926</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35       empse  1.344277e-01 0.0030073985    MI_T  0.128533294  0.140322080</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36         mse  1.805415e-02 0.0009112249    MI_T  0.016268182  0.019840118</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37     relprec  2.636816e+01 3.8423791135    MI_T 18.837236583 33.899085938</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38     modelse  1.338346e-01 0.0005856362    MI_T  0.132686735  0.134982387</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39    relerror -4.412233e-01 2.2689747610    MI_T -4.888332074  4.005885552</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40       cover  9.430000e-01 0.0073315073    MI_T  0.928630510  0.957369490</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41     becover  9.430000e-01 0.0073315073    MI_T  0.928630510  0.957369490</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42       power  9.630000e-01 0.0059691708    MI_T  0.951300640  0.974699360</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7        rbias  3.353232e-02 0.0095573514      CC  0.014800257  0.052264386</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8        empse  1.511150e-01 0.0033807248      CC  0.144488895  0.157741093</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          mse  2.309401e-02 0.0011338389      CC  0.020871727  0.025316293</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10     relprec  0.000000e+00 0.0000000000      CC  0.000000000  0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11     modelse  1.470963e-01 0.0005274099      CC  0.146062561  0.148129970</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12    relerror -2.659384e+00 2.2054817330      CC -6.982048962  1.663280569</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13       cover  9.430000e-01 0.0073315073      CC  0.928630510  0.957369490</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14     becover  9.400000e-01 0.0075099933      CC  0.925280684  0.954719316</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15       power  9.460000e-01 0.0071473072      CC  0.931991535  0.960008465</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16        nsim  1.000000e+03           NA MI_LOGT           NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17   thetamean  5.009231e-01           NA MI_LOGT           NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 thetamedian  4.969223e-01           NA MI_LOGT           NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19     se2mean  1.820915e-02           NA MI_LOGT           NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20   se2median  1.721574e-02           NA MI_LOGT           NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21        bias  9.230987e-04 0.0041744101 MI_LOGT -0.007258595  0.009104792</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22       rbias  1.846197e-03 0.0083488201 MI_LOGT -0.014517189  0.018209584</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23       empse  1.320064e-01 0.0029532306 MI_LOGT  0.126218211  0.137794663</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24         mse  1.740913e-02 0.0008812805 MI_LOGT  0.015681848  0.019136404</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25     relprec  3.104634e+01 3.9374726448 MI_LOGT 23.329036439 38.763645587</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26     modelse  1.349413e-01 0.0006046041 MI_LOGT  0.133756280  0.136126285</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27    relerror  2.223259e+00 2.3323382138 MI_LOGT -2.348039558  6.794558240</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28       cover  9.490000e-01 0.0069569390 MI_LOGT  0.935364650  0.962635350</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29     becover  9.490000e-01 0.0069569390 MI_LOGT  0.935364650  0.962635350</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30       power  9.690000e-01 0.0054807846 MI_LOGT  0.958257860  0.979742140</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31        nsim  1.000000e+03           NA    MI_T           NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32   thetamean  4.988092e-01           NA    MI_T           NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33 thetamedian  4.939111e-01           NA    MI_T           NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34     se2mean  1.791169e-02           NA    MI_T           NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35   se2median  1.693191e-02           NA    MI_T           NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36        bias -1.190835e-03 0.0042509767    MI_T -0.009522596  0.007140926</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37       rbias -2.381670e-03 0.0085019534    MI_T -0.019045193  0.014281852</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38       empse  1.344277e-01 0.0030073985    MI_T  0.128533294  0.140322080</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39         mse  1.805415e-02 0.0009112249    MI_T  0.016268182  0.019840118</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40     relprec  2.636816e+01 3.8423791135    MI_T 18.837236583 33.899085938</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41     modelse  1.338346e-01 0.0005856362    MI_T  0.132686735  0.134982387</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42    relerror -4.412233e-01 2.2695215740    MI_T -4.889403808  4.006957286</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43       cover  9.430000e-01 0.0073315073    MI_T  0.928630510  0.957369490</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44     becover  9.430000e-01 0.0073315073    MI_T  0.928630510  0.957369490</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45       power  9.630000e-01 0.0059691708    MI_T  0.951300640  0.974699360</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

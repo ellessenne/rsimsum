@@ -115,7 +115,7 @@ Can be <code>NULL</code>.</p></dd>
 
 
 <dt>true</dt>
-<dd><p>The true value of the parameter; this is used in calculations of bias, coverage, and mean squared error and is required whenever these performance measures are requested.
+<dd><p>The true value of the parameter; this is used in calculations of bias, relative bias, coverage, and mean squared error and is required whenever these performance measures are requested.
 <code>true</code> can be a numeric value or a string that identifies a column in <code>data</code>.
 In the former setting, <code>simsum</code> will assume the same value for all replications; conversely, each replication will use a distinct value for <code>true</code> as identified by each row of <code>data</code>.
 See <code><a href="../articles/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code> for more details.</p></dd>
@@ -134,7 +134,8 @@ Only useful if <code>methodvar</code> is specified.</p></dd>
 
 
 <dt>by</dt>
-<dd><p>A vector of variable names to compute performance measures by a list of factors. Factors listed here are the (potentially several) data-generating mechanisms used to simulate data under different scenarios (e.g. sample size, true distribution of a variable, etc.). Can be <code>NULL</code>.</p></dd>
+<dd><p>A vector of variable names to compute performance measures by a list of factors. Factors listed here are the (potentially several) data-generating mechanisms used to simulate data under different scenarios (e.g. sample size, true distribution of a variable, etc.).
+Can be <code>NULL</code>.</p></dd>
 
 
 <dt>ci.limits</dt>
@@ -158,7 +159,8 @@ See <code><a href="../articles/E-custom-inputs.html">vignette("E-custom-inputs",
 
 
 <dt>control</dt>
-<dd><p>A list of parameters that control the behaviour of <code>simsum</code>. Possible values are:</p><ul><li><p><code>mcse</code>, whether to calculate Monte Carlo standard errors. Defaults to <code>TRUE</code>;</p></li>
+<dd><p>A list of parameters that control the behaviour of <code>simsum</code>.
+Possible values are:</p><ul><li><p><code>mcse</code>, whether to calculate Monte Carlo standard errors. Defaults to <code>TRUE</code>;</p></li>
 <li><p><code>level</code>, the significance level used for coverage, bias-eliminated coverage, and power. Defaults to 0.95;</p></li>
 <li><p><code>power_df</code>, whether to use robust critical values from a t distribution with <code>power_df</code> degrees of freedom when calculating power. Defaults to <code>NULL</code>, in which case a Gaussian distribution is used;</p></li>
 <li><p><code>na.rm</code>, whether to remove point estimates or standard errors where either (or both) is missing. Defaults to <code>TRUE</code>;</p></li>

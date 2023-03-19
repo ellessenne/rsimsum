@@ -27,7 +27,7 @@ It has to be in tidy format, e.g. each variable forms a column and each observat
 
 \item{se}{The name of the variable containing the standard errors of the point estimates.}
 
-\item{true}{The true value of the parameter; this is used in calculations of bias, coverage, and mean squared error and is required whenever these performance measures are requested.
+\item{true}{The true value of the parameter; this is used in calculations of bias, relative bias, coverage, and mean squared error and is required whenever these performance measures are requested.
 \code{true} can be a numeric value or a string that identifies a column in \code{data}.
 In the former setting, \code{simsum} will assume the same value for all replications; conversely, each replication will use a distinct value for \code{true} as identified by each row of \code{data}.
 See \code{vignette("E-custom-inputs", package = "rsimsum")} for more details.}
@@ -40,7 +40,8 @@ If a vector of column names is passed to \code{simsum()}, those columns will be 
 \item{ref}{Specifies the reference method against which relative precision will be calculated.
 Only useful if \code{methodvar} is specified.}
 
-\item{by}{A vector of variable names to compute performance measures by a list of factors. Factors listed here are the (potentially several) data-generating mechanisms used to simulate data under different scenarios (e.g. sample size, true distribution of a variable, etc.). Can be \code{NULL}.}
+\item{by}{A vector of variable names to compute performance measures by a list of factors. Factors listed here are the (potentially several) data-generating mechanisms used to simulate data under different scenarios (e.g. sample size, true distribution of a variable, etc.).
+Can be \code{NULL}.}
 
 \item{ci.limits}{Can be used to specify the limits (lower and upper) of confidence intervals used to calculate coverage and bias-eliminated coverage.
 Useful for non-Wald type estimators (e.g. bootstrap).
@@ -54,7 +55,8 @@ See \code{vignette("E-custom-inputs", package = "rsimsum")} for more details.}
 
 \item{x}{Set to \code{TRUE} to include the \code{data} argument used to calculate summary statistics (i.e. after pre-processing the input dataset e.g. removing values deemed too large via the \code{dropbig} argument) as a slot. Calling \code{simsum} with \code{x = TRUE} is required to produce zipper plots. The downside is that the size of the returned object increases considerably, therefore it is set to \code{FALSE} by default.}
 
-\item{control}{A list of parameters that control the behaviour of \code{simsum}. Possible values are:
+\item{control}{A list of parameters that control the behaviour of \code{simsum}.
+Possible values are:
 \itemize{
 \item \code{mcse}, whether to calculate Monte Carlo standard errors. Defaults to \code{TRUE};
 \item \code{level}, the significance level used for coverage, bias-eliminated coverage, and power. Defaults to 0.95;
@@ -71,7 +73,7 @@ An object of class \code{simsum}.
 }
 \description{
 \code{simsum()} computes performance measures for simulation studies in which each simulated data set yields point estimates by one or more analysis methods.
-Bias, empirical standard error and precision relative to a reference method can be computed for each method.
+Bias, relative bias, empirical standard error and precision relative to a reference method can be computed for each method.
 If, in addition, model-based standard errors are available then \code{simsum()} can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, the coverage under the assumption that there is no bias (bias-eliminated coverage), and the power to reject a null hypothesis.
 Monte Carlo errors are available for all estimated quantities.
 }

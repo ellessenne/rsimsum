@@ -18,7 +18,8 @@
 \arguments{
 \item{x}{An object of class \code{simsum}.}
 
-\item{stats}{Summary statistics to include; can be a scalar value or a vector. Possible choices are:
+\item{stats}{Summary statistics to include; can be a scalar value or a vector.
+Possible choices are:
 \itemize{
 \item \code{nsim}, the number of replications with non-missing point estimates and standard error.
 \item \code{thetamean}, average point estimate.
@@ -26,6 +27,7 @@
 \item \code{se2mean}, average standard error.
 \item \code{se2median}, median standard error.
 \item \code{bias}, bias in point estimate.
+\item \code{rbias}, relative (to the true value) bias in point estimate.
 \item \code{empse}, empirical standard error.
 \item \code{mse}, mean squared error.
 \item \code{relprec}, percentage gain in precision relative to the reference method.

@@ -80,7 +80,7 @@
                         <h4 data-toc-skip class="author">Alessandro
 Gasparini</h4>
             
-            <h4 data-toc-skip class="date">2023-02-23</h4>
+            <h4 data-toc-skip class="date">2023-03-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/rsimsum/blob/HEAD/vignettes/B-relhaz.Rmd" class="external-link"><code>vignettes/B-relhaz.Rmd</code></a></small>
       <div class="d-none name"><code>B-relhaz.Rmd</code></div>
@@ -444,7 +444,7 @@ R package <code>rsimsum</code>.</p>
 <span><span class="co">#&gt; Average point estimate:</span></span>
 <span><span class="co">#&gt;    n    baseline     Cox     Exp   RP(2)</span></span>
 <span><span class="co">#&gt;   50 Exponential -0.4785 -0.4761 -0.4817</span></span>
-<span><span class="co">#&gt;   50     Weibull -0.5282 -0.3491 -0.5348</span></span>
+<span><span class="co">#&gt;   50     Weibull -0.5282 -0.3491 -0.5345</span></span>
 <span><span class="co">#&gt;  250 Exponential -0.5215 -0.5214 -0.5227</span></span>
 <span><span class="co">#&gt;  250     Weibull -0.5120 -0.3518 -0.5139</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -472,28 +472,35 @@ R package <code>rsimsum</code>.</p>
 <span><span class="co">#&gt; Bias in point estimate:</span></span>
 <span><span class="co">#&gt;    n    baseline              Cox              Exp            RP(2)</span></span>
 <span><span class="co">#&gt;   50 Exponential  0.0215 (0.0328)  0.0239 (0.0326)  0.0183 (0.0331)</span></span>
-<span><span class="co">#&gt;   50     Weibull -0.0282 (0.0311)  0.1509 (0.0204) -0.0348 (0.0311)</span></span>
+<span><span class="co">#&gt;   50     Weibull -0.0282 (0.0311)  0.1509 (0.0204) -0.0345 (0.0311)</span></span>
 <span><span class="co">#&gt;  250 Exponential -0.0215 (0.0149) -0.0214 (0.0151) -0.0227 (0.0149)</span></span>
 <span><span class="co">#&gt;  250     Weibull -0.0120 (0.0133)  0.1482 (0.0093) -0.0139 (0.0137)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Relative bias in point estimate:</span></span>
+<span><span class="co">#&gt;    n    baseline              Cox              Exp            RP(2)</span></span>
+<span><span class="co">#&gt;   50 Exponential -0.0430 (0.0657) -0.0478 (0.0652) -0.0366 (0.0662)</span></span>
+<span><span class="co">#&gt;   50     Weibull  0.0564 (0.0623) -0.3018 (0.0408)  0.0690 (0.0622)</span></span>
+<span><span class="co">#&gt;  250 Exponential  0.0430 (0.0298)  0.0427 (0.0301)  0.0455 (0.0298)</span></span>
+<span><span class="co">#&gt;  250     Weibull  0.0241 (0.0267) -0.2963 (0.0186)  0.0279 (0.0274)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Empirical standard error:</span></span>
 <span><span class="co">#&gt;    n    baseline             Cox             Exp           RP(2)</span></span>
 <span><span class="co">#&gt;   50 Exponential 0.3285 (0.0233) 0.3258 (0.0232) 0.3312 (0.0235)</span></span>
-<span><span class="co">#&gt;   50     Weibull 0.3115 (0.0221) 0.2041 (0.0145) 0.3111 (0.0221)</span></span>
+<span><span class="co">#&gt;   50     Weibull 0.3115 (0.0221) 0.2041 (0.0145) 0.3109 (0.0221)</span></span>
 <span><span class="co">#&gt;  250 Exponential 0.1488 (0.0106) 0.1506 (0.0107) 0.1489 (0.0106)</span></span>
 <span><span class="co">#&gt;  250     Weibull 0.1333 (0.0095) 0.0929 (0.0066) 0.1368 (0.0097)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; % gain in precision relative to method Cox:</span></span>
 <span><span class="co">#&gt;    n    baseline             Cox                Exp            RP(2)</span></span>
 <span><span class="co">#&gt;   50 Exponential 0.0000 (0.0000)    1.6773 (3.2902) -1.6262 (1.7888)</span></span>
-<span><span class="co">#&gt;   50     Weibull 0.0000 (0.0000) 132.7958 (16.4433)  0.2412 (3.7362)</span></span>
+<span><span class="co">#&gt;   50     Weibull 0.0000 (0.0000) 132.7958 (16.4433)  0.3583 (3.7387)</span></span>
 <span><span class="co">#&gt;  250 Exponential 0.0000 (0.0000)   -2.3839 (3.0501) -0.1491 (0.9917)</span></span>
 <span><span class="co">#&gt;  250     Weibull 0.0000 (0.0000) 105.8426 (12.4932) -4.9534 (2.0649)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Mean squared error:</span></span>
 <span><span class="co">#&gt;    n    baseline             Cox             Exp           RP(2)</span></span>
 <span><span class="co">#&gt;   50 Exponential 0.1073 (0.0149) 0.1056 (0.0146) 0.1089 (0.0154)</span></span>
-<span><span class="co">#&gt;   50     Weibull 0.0968 (0.0117) 0.0640 (0.0083) 0.0970 (0.0117)</span></span>
+<span><span class="co">#&gt;   50     Weibull 0.0968 (0.0117) 0.0640 (0.0083) 0.0969 (0.0117)</span></span>
 <span><span class="co">#&gt;  250 Exponential 0.0224 (0.0028) 0.0229 (0.0028) 0.0225 (0.0028)</span></span>
 <span><span class="co">#&gt;  250     Weibull 0.0177 (0.0027) 0.0305 (0.0033) 0.0187 (0.0028)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -506,10 +513,10 @@ R package <code>rsimsum</code>.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Relative % error in standard error:</span></span>
 <span><span class="co">#&gt;    n    baseline              Cox               Exp            RP(2)</span></span>
-<span><span class="co">#&gt;   50 Exponential -3.0493 (6.8838)  -4.0156 (6.8114) -4.4322 (6.7841)</span></span>
-<span><span class="co">#&gt;   50     Weibull -2.0115 (6.9601) 41.4993 (10.0341) -3.6873 (6.8377)</span></span>
-<span><span class="co">#&gt;  250 Exponential -6.2002 (6.6512)  -8.3339 (6.4996) -6.4133 (6.6361)</span></span>
-<span><span class="co">#&gt;  250     Weibull -0.9728 (7.0220)  37.7762 (9.7671) -4.0199 (6.8056)</span></span>
+<span><span class="co">#&gt;   50 Exponential -3.0493 (6.9011)  -4.0156 (6.8286) -4.4322 (6.8012)</span></span>
+<span><span class="co">#&gt;   50     Weibull -2.0115 (6.9776) 41.4993 (10.0594) -3.6354 (6.8586)</span></span>
+<span><span class="co">#&gt;  250 Exponential -6.2002 (6.6679)  -8.3339 (6.5160) -6.4133 (6.6528)</span></span>
+<span><span class="co">#&gt;  250     Weibull -0.9728 (7.0397)  37.7762 (9.7917) -4.0199 (6.8228)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Coverage of nominal 95% confidence interval:</span></span>
 <span><span class="co">#&gt;    n    baseline             Cox             Exp           RP(2)</span></span>

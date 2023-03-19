@@ -2,14 +2,17 @@
 #' @description The `summary()` method for objects of class `multisimsum` returns confidence intervals for performance measures based on Monte Carlo standard errors.
 #' @param object An object of class `multisimsum`.
 #' @param ci_level Significance level for confidence intervals based on Monte Carlo standard errors. Ignored if a `multisimsum` object with control parameter `mcse = FALSE` is passed.
-#' @param df Degrees of freedom of a t distribution that will be used to calculate confidence intervals based on Monte Carlo standard errors. If `NULL` (the default), quantiles of a Normal distribution will be used instead.
-#' @param stats Summary statistics to include; can be a scalar value or a vector (for multiple summary statistics at once). Possible choices are:
+#' @param df Degrees of freedom of a t distribution that will be used to calculate confidence intervals based on Monte Carlo standard errors.
+#' If `NULL` (the default), quantiles of a Normal distribution will be used instead.
+#' @param stats Summary statistics to include; can be a scalar value or a vector (for multiple summary statistics at once).
+#' Possible choices are:
 #' * `nsim`, the number of replications with non-missing point estimates and standard error.
 #' * `thetamean`, average point estimate.
 #' * `thetamedian`, median point estimate.
 #' * `se2mean`, average standard error.
 #' * `se2median`, median standard error.
 #' * `bias`, bias in point estimate.
+#' * `rbias`, relative (to the true value) bias in point estimate.
 #' * `empse`, empirical standard error.
 #' * `mse`, mean squared error.
 #' * `relprec`, percentage gain in precision relative to the reference method.

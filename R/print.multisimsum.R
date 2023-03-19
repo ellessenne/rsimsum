@@ -35,7 +35,7 @@ print.multisimsum <- function(x, ...) {
       }
     }
   } else {
-    cat("\tTrue value of the estimands not defined: bias, coverage, and mean squared error were not computed.\n")
+    cat("\tTrue value of the estimands not defined: bias, relative bias, coverage, and mean squared error were not computed.\n")
   }
 
   ### Print `methodvar` (if any), possible methods, and reference method

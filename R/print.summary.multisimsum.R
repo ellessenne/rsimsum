@@ -1,8 +1,12 @@
 #' @title print.summary.multisimsum
 #' @description Print method for `summary.multisimsum` objects
 #' @param x An object of class `summary.multisimsum`.
-#' @param digits Number of significant digits used for printing. Defaults to 4.
-#' @param mcse Should Monte Carlo standard errors be reported? If `mcse = FALSE`, confidence intervals based on Monte Carlo standard errors will be reported instead, see [summary.multisimsum()]. If a `NULL` value is passed, only point estimates are printed regardless of whether Monte Carlo standard errors were computed or not. Defaults to `TRUE`.
+#' @param digits Number of significant digits used for printing.
+#'     Defaults to 4.
+#' @param mcse Should Monte Carlo standard errors be reported?
+#'     If `mcse = FALSE`, confidence intervals based on Monte Carlo standard errors will be reported instead, see [summary.multisimsum()].
+#'     If a `NULL` value is passed, only point estimates are printed regardless of whether Monte Carlo standard errors were computed or not.
+#'     Defaults to `TRUE`.
 #' @param ... Ignored.
 #' @export
 #'

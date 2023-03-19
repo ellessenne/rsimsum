@@ -81,8 +81,8 @@ Analogously, if we want to compare standard errors:
 autoplot(s1, type = "se")
 ```
 
-These two plot types allow comparing estimates (and standard errors) obtained from different methods with ease; in ideal settings, the points of the scatterplots should lay on the diagonal (dashed line). 
-An estimated regression line (of `X` vs `Y`, blue line) is superimposed by default to ease the comparison even more. 
+These two plot types allow comparing estimates (and standard errors) obtained from different methods with ease; in ideal settings, the points of the scatterplots should lay on the diagonal (dashed line).
+An estimated regression line (of `X` vs `Y`, blue line) is superimposed by default to ease the comparison even more.
 
 In addition to plots comparing estimates and standard errors, Bland-Altman-type plots are supported as well:
 
@@ -91,7 +91,7 @@ autoplot(s1, type = "est_ba")
 ```
 
 Bland-Altman plots compare the difference between estimates from two competing methods (on the y-axis) with the mean of the estimates from the two methods (x-axis).
-In the ideal scenario, there should be no trend and all the points from the scatter plot should lay around the horizontal dashed line. 
+In the ideal scenario, there should be no trend and all the points from the scatter plot should lay around the horizontal dashed line.
 To ease comparison, a regression line is included here as well.
 Bland-Altman plots for standard errors could be obtained by setting the argument `type = "se_ba"`.
 
@@ -100,7 +100,7 @@ Bland-Altman plots for standard errors could be obtained by setting the argument
 Another way of visually comparing estimates from different methods is given by ridgeline plots.
 According to the documentation of the `ggridges` package ([source](https://cran.r-project.org/package=ggridges/vignettes/introduction.html)),
 
-> Ridgeline plots are partially overlapping line plots that create the impression of a mountain range. 
+> Ridgeline plots are partially overlapping line plots that create the impression of a mountain range.
 > They can be quite useful for visualizing changes in distributions over time or space.
 
 In the settings of simulation studies, we aim to visualise changes in distribution over data-generating mechanisms.
@@ -117,7 +117,7 @@ To obtain a similar plot for standard errors, call the `autoplot` method with `t
 
 # Lolly plots
 
-Lolly plots are used to present estimates for a given summary statistic with confidence intervals based on Monte Carlo standard errors (if calling the `autoplot` method on `summary` objects). 
+Lolly plots are used to present estimates for a given summary statistic with confidence intervals based on Monte Carlo standard errors (if calling the `autoplot` method on `summary` objects).
 They allow to easily compare methods.
 
 Say we are interested in bias:
@@ -126,7 +126,13 @@ Say we are interested in bias:
 autoplot(summary(s1), type = "lolly", stats = "bias")
 ```
 
-It is straightforward to identify the exponential model as yielding biased results when the true baseline hazard is Weibull, irrespectively of the sample size. 
+It is straightforward to identify the exponential model as yielding biased results when the true baseline hazard is Weibull, irrespectively of the sample size.
+
+On a relative scale, we can plot _relative bias_ as well:
+
+```{r lolly-bias-1.1}
+autoplot(summary(s1), type = "lolly", stats = "rbias")
+```
 
 If confidence intervals based on Monte Carlo errors are not required, it is sufficient to call the `autoplot` method on the `simsum` object:
 
@@ -193,7 +199,7 @@ That is, given a value for z, lines are drawn for connecting the (x, y) coordina
 Hexbin plots are useful to represent the relationship of 2 numerical variables when you have a lot of data points: instead of overlapping, the plotting window is split in several hexbins, and the number of points per hexbin is counted.
 The colour filling denotes then the number of points.
 
-Both plots provide an alternative to scatter plots when there is a large number of data points that overlap. 
+Both plots provide an alternative to scatter plots when there is a large number of data points that overlap.
 Contour plots and hexbin plots can be easily obtained using the `autoplot` method once again, and using the argument `type = "est_density"`, `type = "se_density"`, `type = "est_hex"`, or `type = "se_hex"`.
 For instance, focussing on point estimates:
 

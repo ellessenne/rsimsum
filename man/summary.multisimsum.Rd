@@ -11,9 +11,11 @@
 
 \item{ci_level}{Significance level for confidence intervals based on Monte Carlo standard errors. Ignored if a \code{multisimsum} object with control parameter \code{mcse = FALSE} is passed.}
 
-\item{df}{Degrees of freedom of a t distribution that will be used to calculate confidence intervals based on Monte Carlo standard errors. If \code{NULL} (the default), quantiles of a Normal distribution will be used instead.}
+\item{df}{Degrees of freedom of a t distribution that will be used to calculate confidence intervals based on Monte Carlo standard errors.
+If \code{NULL} (the default), quantiles of a Normal distribution will be used instead.}
 
-\item{stats}{Summary statistics to include; can be a scalar value or a vector (for multiple summary statistics at once). Possible choices are:
+\item{stats}{Summary statistics to include; can be a scalar value or a vector (for multiple summary statistics at once).
+Possible choices are:
 \itemize{
 \item \code{nsim}, the number of replications with non-missing point estimates and standard error.
 \item \code{thetamean}, average point estimate.
@@ -21,6 +23,7 @@
 \item \code{se2mean}, average standard error.
 \item \code{se2median}, median standard error.
 \item \code{bias}, bias in point estimate.
+\item \code{rbias}, relative (to the true value) bias in point estimate.
 \item \code{empse}, empirical standard error.
 \item \code{mse}, mean squared error.
 \item \code{relprec}, percentage gain in precision relative to the reference method.
