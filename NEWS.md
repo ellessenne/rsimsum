@@ -1,5 +1,7 @@
 # rsimsum (development version)
 
+* A new performance measure, relative bias, can now be calculated along with its Monte Carlo error (#41). More details on the formulae are in the introductory vignette, which has been updated accordingly.
+
 * Fixed issues with `stat(level)`, which was deprecated in {ggplot2} 3.4.0 (#44).
 
 * Fixed an error in the calculation of the Monte Carlo standard error for relative % error in ModSE (#45, thanks @LaurenSamuels for reporting this).
@@ -48,7 +50,7 @@ This is a minor release, with the following changes:
   kable(out[[1]], caption = names(out)[1], align = "r")
   ```
   This is implemented for `print.summary.multisimsum()` as well, with an additional level of nesting (by parameter).
-  
+
 ### Bux fixes:
 
 * Fixed some broken links to vignettes (introduced a bunch of time ago when renaming the `.Rmd` files), thanks to @remlapmot for reporting this (#36).
@@ -68,7 +70,7 @@ This is a minor release, with the following changes:
 ### New features:
 
 * `simsum()` and `multisimsum()` now accept multiple column inputs that identify unique methods (see e.g. #24, #30).
-  Internally, this combines the unique values from each column factorially using the `interaction()` function; then, methods are analysed and reported as such. 
+  Internally, this combines the unique values from each column factorially using the `interaction()` function; then, methods are analysed and reported as such.
   See `vignette("E-custom-inputs", package = "rsimsum")` for some examples.
 
 * Two new datasets, `MIsim2` and `frailty2`, are now bundled with `rsimsum` to test the new functionality introduced above.
@@ -228,7 +230,7 @@ Fixed a bug in `dropbig` and related internal function that was returning standa
 
 # rsimsum 0.4.0
 
-`rsimsum` 0.4.0 is a large refactoring of `rsimsum`. 
+`rsimsum` 0.4.0 is a large refactoring of `rsimsum`.
 There are several improvements and breaking changes, outlined below.
 
 ### Improvements
@@ -326,6 +328,6 @@ First submission to CRAN. `rsimsum` can handle:
 * simulation studies with multiple methods to compare
 * simulation studies with multiple data-generating mechanisms (e.g. 'by' factors)
 
-Summary statistics that can be computed are: bias, empirical standard error, mean squared error, percentage gain in precision relative to a reference method, model-based standard error, coverage, bias-corrected coverage, and power. 
+Summary statistics that can be computed are: bias, empirical standard error, mean squared error, percentage gain in precision relative to a reference method, model-based standard error, coverage, bias-corrected coverage, and power.
 
 Monte Carlo standard errors for each summary statistic can be computed as well.
