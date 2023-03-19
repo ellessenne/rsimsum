@@ -77,16 +77,19 @@
 
 
 <dt>df</dt>
-<dd><p>Degrees of freedom of a t distribution that will be used to calculate confidence intervals based on Monte Carlo standard errors. If <code>NULL</code> (the default), quantiles of a Normal distribution will be used instead.</p></dd>
+<dd><p>Degrees of freedom of a t distribution that will be used to calculate confidence intervals based on Monte Carlo standard errors.
+If <code>NULL</code> (the default), quantiles of a Normal distribution will be used instead.</p></dd>
 
 
 <dt>stats</dt>
-<dd><p>Summary statistics to include; can be a scalar value or a vector (for multiple summary statistics at once). Possible choices are:</p><ul><li><p><code>nsim</code>, the number of replications with non-missing point estimates and standard error.</p></li>
+<dd><p>Summary statistics to include; can be a scalar value or a vector (for multiple summary statistics at once).
+Possible choices are:</p><ul><li><p><code>nsim</code>, the number of replications with non-missing point estimates and standard error.</p></li>
 <li><p><code>thetamean</code>, average point estimate.</p></li>
 <li><p><code>thetamedian</code>, median point estimate.</p></li>
 <li><p><code>se2mean</code>, average standard error.</p></li>
 <li><p><code>se2median</code>, median standard error.</p></li>
 <li><p><code>bias</code>, bias in point estimate.</p></li>
+<li><p><code>rbias</code>, relative (to the true value) bias in point estimate.</p></li>
 <li><p><code>empse</code>, empirical standard error.</p></li>
 <li><p><code>mse</code>, mean squared error.</p></li>
 <li><p><code>relprec</code>, percentage gain in precision relative to the reference method.</p></li>
@@ -165,6 +168,11 @@ Defaults to <code>NULL</code>, in which case all possible summary statistics are
 <span class="r-out co"><span class="r-pr">#&gt;</span>  RP(P), Log-Normal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    0.2347 (0.0077)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -0.0152 (0.0050)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Relative bias in point estimate:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     fv_dist   Cox, Gamma  Cox, Log-Normal RP(P), Gamma RP(P), Log-Normal</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Gamma -0.0165 (NA)  0.3066 (0.0101) -0.0239 (NA)   0.3130 (0.0103)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Log-Normal -0.1419 (NA) -0.0233 (0.0066) -0.1421 (NA)  -0.0203 (0.0066)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Empirical standard error:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     fv_dist      Cox, Gamma Cox, Log-Normal    RP(P), Gamma RP(P), Log-Normal</span>
@@ -245,6 +253,11 @@ Defaults to <code>NULL</code>, in which case all possible summary statistics are
 <span class="r-out co"><span class="r-pr">#&gt;</span>  RP(P), Log-Normal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -0.0015 (0.0016)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -0.0016 (0.0015)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Relative bias in point estimate:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     fv_dist      Cox, Gamma Cox, Log-Normal RP(P), Gamma RP(P), Log-Normal</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Gamma 0.0011 (0.0032) 0.0027 (0.0032)  0.0006 (NA)   0.0031 (0.0032)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Log-Normal 0.0012 (0.0030) 0.0028 (0.0030)  0.0013 (NA)   0.0032 (0.0030)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Empirical standard error:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     fv_dist      Cox, Gamma Cox, Log-Normal    RP(P), Gamma RP(P), Log-Normal</span>

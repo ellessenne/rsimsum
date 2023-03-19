@@ -21,6 +21,7 @@
 \item \code{se2mean}, average variance.
 \item \code{se2median}, median variance.
 \item \code{bias}, bias in point estimate.
+\item \code{rbias}, relative (to the true value) bias in point estimate.
 \item \code{empse}, empirical standard error.
 \item \code{mse}, mean squared error.
 \item \code{relprec}, percentage gain in precision relative to the reference method.

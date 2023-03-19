@@ -141,6 +141,10 @@ summary(s)
 #>               CC         MI_LOGT             MI_T
 #>  0.0168 (0.0048) 0.0009 (0.0042) -0.0012 (0.0043)
 #> 
+#> Relative bias in point estimate:
+#>               CC         MI_LOGT             MI_T
+#>  0.0335 (0.0096) 0.0018 (0.0083) -0.0024 (0.0085)
+#> 
 #> Empirical standard error:
 #>               CC         MI_LOGT            MI_T
 #>  0.1511 (0.0034) 0.1320 (0.0030) 0.1344 (0.0030)

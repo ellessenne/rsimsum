@@ -1,13 +1,13 @@
 #' @title Analyses of simulation studies including Monte Carlo error
 #' @description `simsum()` computes performance measures for simulation studies in which each simulated data set yields point estimates by one or more analysis methods.
-#' Bias, empirical standard error and precision relative to a reference method can be computed for each method.
+#' Bias, relative bias, empirical standard error and precision relative to a reference method can be computed for each method.
 #' If, in addition, model-based standard errors are available then `simsum()` can compute the average model-based standard error, the relative error in the model-based standard error, the coverage of nominal confidence intervals, the coverage under the assumption that there is no bias (bias-eliminated coverage), and the power to reject a null hypothesis.
 #' Monte Carlo errors are available for all estimated quantities.
 #' @param data A `data.frame` in which variable names are interpreted.
 #' It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.
 #' @param estvarname The name of the variable containing the point estimates.
 #' @param se The name of the variable containing the standard errors of the point estimates.
-#' @param true The true value of the parameter; this is used in calculations of bias, coverage, and mean squared error and is required whenever these performance measures are requested.
+#' @param true The true value of the parameter; this is used in calculations of bias, relative bias, coverage, and mean squared error and is required whenever these performance measures are requested.
 #' `true` can be a numeric value or a string that identifies a column in `data`.
 #' In the former setting, `simsum` will assume the same value for all replications; conversely, each replication will use a distinct value for `true` as identified by each row of `data`.
 #' See `vignette("E-custom-inputs", package = "rsimsum")` for more details.
@@ -17,7 +17,8 @@
 #' If a vector of column names is passed to `simsum()`, those columns will be combined into a single column named `:methodvar` using the [base::interaction()] function before computing all performance measures.
 #' @param ref Specifies the reference method against which relative precision will be calculated.
 #' Only useful if `methodvar` is specified.
-#' @param by A vector of variable names to compute performance measures by a list of factors. Factors listed here are the (potentially several) data-generating mechanisms used to simulate data under different scenarios (e.g. sample size, true distribution of a variable, etc.). Can be `NULL`.
+#' @param by A vector of variable names to compute performance measures by a list of factors. Factors listed here are the (potentially several) data-generating mechanisms used to simulate data under different scenarios (e.g. sample size, true distribution of a variable, etc.).
+#' Can be `NULL`.
 #' @param ci.limits Can be used to specify the limits (lower and upper) of confidence intervals used to calculate coverage and bias-eliminated coverage.
 #' Useful for non-Wald type estimators (e.g. bootstrap).
 #' Defaults to `NULL`, where Wald-type confidence intervals based on the provided SEs are calculated for coverage; otherwise, it can be a numeric vector (for fixed confidence intervals) or a vector of strings that identify columns in `data` with replication-specific lower and upper limits.
@@ -26,7 +27,8 @@
 #' See `vignette("E-custom-inputs", package = "rsimsum")` for more details.
 #' @param dropbig Specifies that point estimates or standard errors beyond the maximum acceptable values should be dropped. Defaults to `FALSE`.
 #' @param x Set to `TRUE` to include the `data` argument used to calculate summary statistics (i.e. after pre-processing the input dataset e.g. removing values deemed too large via the `dropbig` argument) as a slot. Calling `simsum` with `x = TRUE` is required to produce zipper plots. The downside is that the size of the returned object increases considerably, therefore it is set to `FALSE` by default.
-#' @param control A list of parameters that control the behaviour of `simsum`. Possible values are:
+#' @param control A list of parameters that control the behaviour of `simsum`.
+#' Possible values are:
 #' * `mcse`, whether to calculate Monte Carlo standard errors. Defaults to `TRUE`;
 #' * `level`, the significance level used for coverage, bias-eliminated coverage, and power. Defaults to 0.95;
 #' * `power_df`, whether to use robust critical values from a t distribution with `power_df` degrees of freedom when calculating power. Defaults to `NULL`, in which case a Gaussian distribution is used;

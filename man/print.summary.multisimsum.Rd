@@ -9,9 +9,13 @@
 \arguments{
 \item{x}{An object of class \code{summary.multisimsum}.}
 
-\item{digits}{Number of significant digits used for printing. Defaults to 4.}
+\item{digits}{Number of significant digits used for printing.
+Defaults to 4.}
 
-\item{mcse}{Should Monte Carlo standard errors be reported? If \code{mcse = FALSE}, confidence intervals based on Monte Carlo standard errors will be reported instead, see \code{\link[=summary.multisimsum]{summary.multisimsum()}}. If a \code{NULL} value is passed, only point estimates are printed regardless of whether Monte Carlo standard errors were computed or not. Defaults to \code{TRUE}.}
+\item{mcse}{Should Monte Carlo standard errors be reported?
+If \code{mcse = FALSE}, confidence intervals based on Monte Carlo standard errors will be reported instead, see \code{\link[=summary.multisimsum]{summary.multisimsum()}}.
+If a \code{NULL} value is passed, only point estimates are printed regardless of whether Monte Carlo standard errors were computed or not.
+Defaults to \code{TRUE}.}
 
 \item{...}{Ignored.}
 }

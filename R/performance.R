@@ -28,6 +28,14 @@
       bias <- 1 / nsim * sum(data[[estvarname]] - true, na.rm = control$na.rm)
     }
   }
+  # Relative bias
+  if (!is.null(true)) {
+    if (is.character(true)) {
+      rbias <- 1 / nsim * sum((data[[estvarname]] - data[[true]]) / data[[true]], na.rm = control$na.rm)
+    } else {
+      rbias <- 1 / nsim * sum((data[[estvarname]] - true) / true, na.rm = control$na.rm)
+    }
+  }
   # Empirical standard error
   empse <- sqrt(1 / (nsim - 1) * sum((data[[estvarname]] - mean(data[[estvarname]], na.rm = control$na.rm))^2, na.rm = control$na.rm))
   # Mean squared error
@@ -102,7 +110,15 @@
 
   ### Compute Monte Carlo SEs if requested:
   if (control$mcse) {
-    if (!is.null(true)) bias_mcse <- sqrt(1 / (nsim * (nsim - 1)) * sum((data[[estvarname]] - mean(data[[estvarname]], na.rm = control$na.rm))^2, na.rm = control$na.rm))
+    if (!is.null(true)) {
+      bias_mcse <- sqrt(1 / (nsim * (nsim - 1)) * sum((data[[estvarname]] - mean(data[[estvarname]], na.rm = control$na.rm))^2, na.rm = control$na.rm))
+      if (is.character(true)) {
+        rbias_i <- (data[[estvarname]] - data[[true]]) / data[[true]]
+      } else {
+        rbias_i <- (data[[estvarname]] - true) / true
+      }
+      rbias_mcse <- sd(rbias_i) / sqrt(nsim)
+    }
     empse_mcse <- empse / sqrt(2 * (nsim - 1))
     if (!is.null(true)) {
       if (is.character(true)) {
@@ -126,8 +142,8 @@
 
   # Easy thing to do is to add what can't be computed as null
   if (is.null(true)) {
-    bias <- cover <- mse <- NULL
-    bias_mcse <- cover_mcse <- mse_mcse <- NULL
+    bias <- rbias <- cover <- mse <- NULL
+    bias_mcse <- rbias_mcse <- cover_mcse <- mse_mcse <- NULL
   }
   if (is.null(se)) {
     se2_mean <- se2_median <- se2_var <- modelse <- relerror <- cover <- becover <- power <- NULL
@@ -135,12 +151,12 @@
   }
 
   ### Assemble object to return
-  obj$stat <- c("nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "becover", "power")
-  if (is.null(true)) obj$stat <- obj$stat[!(obj$stat %in% c("bias", "cover", "mse"))]
+  obj$stat <- c("nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "rbias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "becover", "power")
+  if (is.null(true)) obj$stat <- obj$stat[!(obj$stat %in% c("bias", "rbias", "cover", "mse"))]
   if (is.null(se)) obj$stat <- obj$stat[!(obj$stat %in% c("se2mean", "se2median", "modelse", "relerror", "cover", "becover", "power"))]
-  obj$est <- c(nsim, theta_mean, theta_median, se2_mean, se2_median, bias, empse, mse, relprec, modelse, relerror, cover, becover, power)
+  obj$est <- c(nsim, theta_mean, theta_median, se2_mean, se2_median, bias, rbias, empse, mse, relprec, modelse, relerror, cover, becover, power)
   if (control$mcse) {
-    obj$mcse <- c(rep(NA, ifelse(is.null(se), 3, 5)), bias_mcse, empse_mcse, mse_mcse, relprec_mcse, modelse_mcse, relerror_mcse, cover_mcse, becover_mcse, power_mcse)
+    obj$mcse <- c(rep(NA, ifelse(is.null(se), 3, 5)), bias_mcse, rbias_mcse, empse_mcse, mse_mcse, relprec_mcse, modelse_mcse, relerror_mcse, cover_mcse, becover_mcse, power_mcse)
   }
   obj <- as.data.frame(obj, stringsAsFactors = FALSE)
 

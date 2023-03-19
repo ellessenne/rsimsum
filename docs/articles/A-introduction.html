@@ -80,7 +80,7 @@
                         <h4 data-toc-skip class="author">Alessandro
 Gasparini</h4>
             
-            <h4 data-toc-skip class="date">2023-02-23</h4>
+            <h4 data-toc-skip class="date">2023-03-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/rsimsum/blob/HEAD/vignettes/A-introduction.Rmd" class="external-link"><code>vignettes/A-introduction.Rmd</code></a></small>
       <div class="d-none name"><code>A-introduction.Rmd</code></div>
@@ -98,7 +98,8 @@ command <code>simsum</code> in Stata (White I.R., 2010).</p>
 studies, including understanding the role of chance in results of
 simulation studies. Specifically, <code>rsimsum</code> can compute Monte
 Carlo standard errors of summary statistics, defined as the standard
-deviation of the estimated summary statistic.</p>
+deviation of the estimated summary statistic; these are reported by
+default.</p>
 <p>Formula for summary statistics and Monte Carlo standard errors are
 presented in the next section. Note that the terms <em>summary
 statistic</em> and <em>performance measure</em> are used
@@ -145,6 +146,19 @@ as:</p>
 <p><span class="math display">\[\text{MCSE(Bias)} =
 \sqrt{\frac{\frac{1}{n_{\text{sim}} - 1} \sum_{i = 1} ^ {n_{\text{sim}}}
 (\hat{\theta}_i - \bar{\theta}) ^ 2}{n_{\text{sim}}}}\]</span></p>
+<p><code>rsimsum</code> can also compute <strong>relative bias</strong>
+(<em>relative</em> to the true value <span class="math inline">\(\theta\)</span>), which can be interpreted
+similarly as with bias, but in relative terms rather than absolute. This
+is calculated as:</p>
+<p><span class="math display">\[\text{Relative Bias} =
+\frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}}
+\frac{\hat{\theta}_i - \theta}{\theta}\]</span></p>
+<p>Its Monte Carlo standard error is calculated as:</p>
+<p><span class="math display">\[
+\text{MCSE(Relative Bias)} =  \sqrt{\frac{1}{n_{\text{sim}}
+(n_{\text{sim}} - 1)} \sum_i^{n_{\text{sim} \left[ \frac{\hat{\theta}_i
+- \theta}{\theta} - \widehat{\text{Relative Bias}} \right]^2}
+\]</span></p>
 <p>The <strong>empirical standard error</strong> of <span class="math inline">\(\theta\)</span> depends only on <span class="math inline">\(\hat{\theta}\)</span> and does not require any
 knowledge of <span class="math inline">\(\theta\)</span>. It estimates
 the standard deviation of <span class="math inline">\(\hat{\theta}\)</span> over the <span class="math inline">\(n_{\text{sim}}\)</span> replications:</p>
@@ -346,6 +360,10 @@ output:</p>
 <span><span class="co">#&gt;               CC         MI_LOGT             MI_T</span></span>
 <span><span class="co">#&gt;  0.0168 (0.0048) 0.0009 (0.0042) -0.0012 (0.0043)</span></span>
 <span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Relative bias in point estimate:</span></span>
+<span><span class="co">#&gt;               CC         MI_LOGT             MI_T</span></span>
+<span><span class="co">#&gt;  0.0335 (0.0096) 0.0018 (0.0083) -0.0024 (0.0085)</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Empirical standard error:</span></span>
 <span><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></span>
 <span><span class="co">#&gt;  0.1511 (0.0034) 0.1320 (0.0030) 0.1344 (0.0030)</span></span>
@@ -412,6 +430,10 @@ instead:</p>
 <span><span class="co">#&gt; Bias in point estimate:</span></span>
 <span><span class="co">#&gt;                       CC                  MI_LOGT                      MI_T</span></span>
 <span><span class="co">#&gt;  0.0168 (0.0074, 0.0261) 0.0009 (-0.0073, 0.0091) -0.0012 (-0.0095, 0.0071)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Relative bias in point estimate:</span></span>
+<span><span class="co">#&gt;                       CC                  MI_LOGT                      MI_T</span></span>
+<span><span class="co">#&gt;  0.0335 (0.0148, 0.0523) 0.0018 (-0.0145, 0.0182) -0.0024 (-0.0190, 0.0143)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Empirical standard error:</span></span>
 <span><span class="co">#&gt;                       CC                 MI_LOGT                    MI_T</span></span>
@@ -537,6 +559,14 @@ use in an R Markdown document:</p>
 <td align="right">0.0261322</td>
 </tr>
 <tr class="odd">
+<td align="left">rbias</td>
+<td align="right">0.0335323</td>
+<td align="right">0.0095574</td>
+<td align="left">CC</td>
+<td align="right">0.0148003</td>
+<td align="right">0.0522644</td>
+</tr>
+<tr class="even">
 <td align="left">empse</td>
 <td align="right">0.1511150</td>
 <td align="right">0.0033807</td>
@@ -544,7 +574,7 @@ use in an R Markdown document:</p>
 <td align="right">0.1444889</td>
 <td align="right">0.1577411</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">mse</td>
 <td align="right">0.0230940</td>
 <td align="right">0.0011338</td>
@@ -552,7 +582,7 @@ use in an R Markdown document:</p>
 <td align="right">0.0208717</td>
 <td align="right">0.0253163</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">relprec</td>
 <td align="right">0.0000000</td>
 <td align="right">0.0000000</td>
@@ -560,7 +590,7 @@ use in an R Markdown document:</p>
 <td align="right">0.0000000</td>
 <td align="right">0.0000000</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">modelse</td>
 <td align="right">0.1470963</td>
 <td align="right">0.0005274</td>
@@ -568,7 +598,7 @@ use in an R Markdown document:</p>
 <td align="right">0.1460626</td>
 <td align="right">0.1481300</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">relerror</td>
 <td align="right">-2.6593842</td>
 <td align="right">2.2054817</td>
@@ -576,7 +606,7 @@ use in an R Markdown document:</p>
 <td align="right">-6.9820490</td>
 <td align="right">1.6632806</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">cover</td>
 <td align="right">0.9430000</td>
 <td align="right">0.0073315</td>
@@ -584,7 +614,7 @@ use in an R Markdown document:</p>
 <td align="right">0.9286305</td>
 <td align="right">0.9573695</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">becover</td>
 <td align="right">0.9400000</td>
 <td align="right">0.0075100</td>
@@ -592,7 +622,7 @@ use in an R Markdown document:</p>
 <td align="right">0.9252807</td>
 <td align="right">0.9547193</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">power</td>
 <td align="right">0.9460000</td>
 <td align="right">0.0071473</td>
@@ -600,7 +630,7 @@ use in an R Markdown document:</p>
 <td align="right">0.9319915</td>
 <td align="right">0.9600085</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">nsim</td>
 <td align="right">1000.0000000</td>
 <td align="right">NA</td>
@@ -608,7 +638,7 @@ use in an R Markdown document:</p>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">thetamean</td>
 <td align="right">0.5009231</td>
 <td align="right">NA</td>
@@ -616,7 +646,7 @@ use in an R Markdown document:</p>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">thetamedian</td>
 <td align="right">0.4969223</td>
 <td align="right">NA</td>
@@ -624,7 +654,7 @@ use in an R Markdown document:</p>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">se2mean</td>
 <td align="right">0.0182091</td>
 <td align="right">NA</td>
@@ -632,7 +662,7 @@ use in an R Markdown document:</p>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">se2median</td>
 <td align="right">0.0172157</td>
 <td align="right">NA</td>
@@ -640,13 +670,21 @@ use in an R Markdown document:</p>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">bias</td>
 <td align="right">0.0009231</td>
 <td align="right">0.0041744</td>
 <td align="left">MI_LOGT</td>
 <td align="right">-0.0072586</td>
 <td align="right">0.0091048</td>
+</tr>
+<tr class="even">
+<td align="left">rbias</td>
+<td align="right">0.0018462</td>
+<td align="right">0.0083488</td>
+<td align="left">MI_LOGT</td>
+<td align="right">-0.0145172</td>
+<td align="right">0.0182096</td>
 </tr>
 <tr class="odd">
 <td align="left">empse</td>
@@ -761,6 +799,14 @@ use in an R Markdown document:</p>
 <td align="right">0.0071409</td>
 </tr>
 <tr class="odd">
+<td align="left">rbias</td>
+<td align="right">-0.0023817</td>
+<td align="right">0.0085020</td>
+<td align="left">MI_T</td>
+<td align="right">-0.0190452</td>
+<td align="right">0.0142819</td>
+</tr>
+<tr class="even">
 <td align="left">empse</td>
 <td align="right">0.1344277</td>
 <td align="right">0.0030074</td>
@@ -768,7 +814,7 @@ use in an R Markdown document:</p>
 <td align="right">0.1285333</td>
 <td align="right">0.1403221</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">mse</td>
 <td align="right">0.0180542</td>
 <td align="right">0.0009112</td>
@@ -776,7 +822,7 @@ use in an R Markdown document:</p>
 <td align="right">0.0162682</td>
 <td align="right">0.0198401</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">relprec</td>
 <td align="right">26.3681613</td>
 <td align="right">3.8423791</td>
@@ -784,7 +830,7 @@ use in an R Markdown document:</p>
 <td align="right">18.8372366</td>
 <td align="right">33.8990859</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">modelse</td>
 <td align="right">0.1338346</td>
 <td align="right">0.0005856</td>
@@ -792,7 +838,7 @@ use in an R Markdown document:</p>
 <td align="right">0.1326867</td>
 <td align="right">0.1349824</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">relerror</td>
 <td align="right">-0.4412233</td>
 <td align="right">2.2695216</td>
@@ -800,7 +846,7 @@ use in an R Markdown document:</p>
 <td align="right">-4.8894038</td>
 <td align="right">4.0069573</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">cover</td>
 <td align="right">0.9430000</td>
 <td align="right">0.0073315</td>
@@ -808,7 +854,7 @@ use in an R Markdown document:</p>
 <td align="right">0.9286305</td>
 <td align="right">0.9573695</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">becover</td>
 <td align="right">0.9430000</td>
 <td align="right">0.0073315</td>
@@ -816,7 +862,7 @@ use in an R Markdown document:</p>
 <td align="right">0.9286305</td>
 <td align="right">0.9573695</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">power</td>
 <td align="right">0.9630000</td>
 <td align="right">0.0059692</td>
@@ -923,6 +969,10 @@ summarise the results:</p>
 <span><span class="co">#&gt; Bias in point estimate:</span></span>
 <span><span class="co">#&gt;               CC          MI_LOGT             MI_T</span></span>
 <span><span class="co">#&gt;  0.0142 (0.0048) -0.0022 (0.0043) -0.0027 (0.0043)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Relative bias in point estimate:</span></span>
+<span><span class="co">#&gt;           CC      MI_LOGT         MI_T</span></span>
+<span><span class="co">#&gt;  0.0283 (NA) -0.0044 (NA) -0.0055 (NA)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Empirical standard error:</span></span>
 <span><span class="co">#&gt;               CC         MI_LOGT            MI_T</span></span>
@@ -1073,6 +1123,13 @@ combination of data-generating factors:</p>
 <span><span class="co">#&gt;  Exponential 250 -0.0215 (0.0149) -0.0214 (0.0151) -0.0227 (0.0149)</span></span>
 <span><span class="co">#&gt;      Weibull  50 -0.0282 (0.0311)  0.1509 (0.0204) -0.0348 (0.0311)</span></span>
 <span><span class="co">#&gt;      Weibull 250 -0.0120 (0.0133)  0.1482 (0.0093) -0.0139 (0.0137)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Relative bias in point estimate:</span></span>
+<span><span class="co">#&gt;     baseline   n              Cox              Exp            RP(2)</span></span>
+<span><span class="co">#&gt;  Exponential  50 -0.0430 (0.0657) -0.0478 (0.0652) -0.0366 (0.0662)</span></span>
+<span><span class="co">#&gt;  Exponential 250  0.0430 (0.0298)  0.0427 (0.0301)  0.0455 (0.0298)</span></span>
+<span><span class="co">#&gt;      Weibull  50  0.0564 (0.0623) -0.3018 (0.0408)  0.0695 (0.0622)</span></span>
+<span><span class="co">#&gt;      Weibull 250  0.0241 (0.0267) -0.2963 (0.0186)  0.0279 (0.0274)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Empirical standard error:</span></span>
 <span><span class="co">#&gt;     baseline   n             Cox             Exp           RP(2)</span></span>

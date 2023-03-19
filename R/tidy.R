@@ -1,13 +1,15 @@
 #' @title Turn an object into a tidy dataset
 #' @description Extract a tidy dataset with results from an object of class `simsum`, `summary.simsum`, `multisimsum`, or `summary.multisimsum`.
 #' @param x An object of class `simsum`.
-#' @param stats Summary statistics to include; can be a scalar value or a vector. Possible choices are:
+#' @param stats Summary statistics to include; can be a scalar value or a vector.
+#' Possible choices are:
 #' * `nsim`, the number of replications with non-missing point estimates and standard error.
 #' * `thetamean`, average point estimate.
 #' * `thetamedian`, median point estimate.
 #' * `se2mean`, average standard error.
 #' * `se2median`, median standard error.
 #' * `bias`, bias in point estimate.
+#' * `rbias`, relative (to the true value) bias in point estimate.
 #' * `empse`, empirical standard error.
 #' * `mse`, mean squared error.
 #' * `relprec`, percentage gain in precision relative to the reference method.
@@ -42,7 +44,7 @@ tidy.simsum <- function(x, stats = NULL, ...) {
   checkmate::assert_true(x = inherits(x = x, what = c("simsum", "summary.simsum", "multisimsum", "summary.multisimsum")), add = arg_checks)
   # '.stats' must be one of the possible choices
   checkmate::assert_character(x = stats, null.ok = TRUE, add = arg_checks)
-  checkmate::assert_subset(x = stats, choices = c("nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "becover", "power"), add = arg_checks)
+  checkmate::assert_subset(x = stats, choices = c("nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "rbias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "becover", "power"), add = arg_checks)
   ### Report if there are any errors
   if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
   ### Select only summary statistics on interest

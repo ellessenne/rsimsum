@@ -24,7 +24,7 @@ print.simsum <- function(x, ...) {
       cat("True value of the estimand:", x$true, "\n")
     }
   } else {
-    cat("True value of the estimand not defined: bias, coverage, and mean squared error were not computed.\n")
+    cat("True value of the estimand not defined: bias, relative bias, coverage, and mean squared error were not computed.\n")
   }
 
   ### Print `methodvar` (if any), possible methods, and reference method

@@ -57,7 +57,7 @@ testthat::test_that("specifying methodvar and not ref shows a message", {
 testthat::test_that("running simsum on MIsim return summaries of the correct dimension", {
   data("MIsim", package = "rsimsum")
   s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
-  testthat::expect_equal(dim(s$summ), expected = c(42, 4))
+  testthat::expect_equal(dim(s$summ), expected = c(15 * length(unique(MIsim$method)), 4))
 })
 
 testthat::test_that("simsum with mcse option returns mcse", {
@@ -136,10 +136,10 @@ testthat::test_that("simsum with dropbig = TRUE does drop all the big stuff", {
   testthat::expect_equivalent(object = s$x, expected = expected)
 })
 
-testthat::test_that("simsum without 'true' does not compute bias, cover, mse", {
+testthat::test_that("simsum without 'true' does not compute bias, rbias, cover, mse", {
   data("MIsim", package = "rsimsum")
   s <- simsum(data = MIsim, estvarname = "b", se = "se", methodvar = "method")
-  testthat::expect_false(object = any(c("bias", "cover", "mse") %in% s$summ$stat))
+  testthat::expect_false(object = any(c("bias", "rbias", "cover", "mse") %in% s$summ$stat))
 })
 
 testthat::test_that("simsum without 'se' does not compute se2mean, se2median, modelse, relerror, cover, becover, power", {
@@ -148,10 +148,10 @@ testthat::test_that("simsum without 'se' does not compute se2mean, se2median, mo
   testthat::expect_false(object = any(c("se2mean", "se2median", "modelse", "relerror", "cover", "becover", "power") %in% s$summ$stat))
 })
 
-testthat::test_that("simsum without 'se' nor 'true' does not compute se2mean, se2median, modelse, relerror, cover, becover, power, bias, mse", {
+testthat::test_that("simsum without 'se' nor 'true' does not compute se2mean, se2median, modelse, relerror, cover, becover, power, bias, rbias mse", {
   data("MIsim", package = "rsimsum")
   s <- simsum(data = MIsim, estvarname = "b", methodvar = "method")
-  testthat::expect_false(object = any(c("se2mean", "se2median", "modelse", "relerror", "cover", "becover", "power", "bias", "mse") %in% s$summ$stat))
+  testthat::expect_false(object = any(c("se2mean", "se2median", "modelse", "relerror", "cover", "becover", "power", "bias", "rbias", "mse") %in% s$summ$stat))
 })
 
 testthat::test_that("simsum with both ci.limits and df throws an error", {

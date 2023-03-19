@@ -55,7 +55,7 @@ testthat::test_that("specifying methodvar and not ref shows a message", {
 testthat::test_that("running multisimsum on frailty return summaries of the correct dimension", {
   data("frailty")
   ms <- multisimsum(data = frailty, par = "par", true = c(trt = -0.50, fv = 0.75), estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
-  testthat::expect_equal(dim(ms$summ), expected = c(224, 6))
+  testthat::expect_equal(dim(ms$summ), expected = c(15 * length(unique(frailty$par)) * length(unique(frailty$fv_dist)) * length(unique(frailty$model)), 6))
 })
 
 testthat::test_that("multisimsum with mcse option returns mcse", {
@@ -111,10 +111,10 @@ testthat::test_that("multisimsum argument checks", {
   testthat::expect_error(object = rsimsum::multisimsum(data = frailty, par = "par", true = TRUE, estvarname = "b", se = "se", methodvar = "model", by = "fv_dist"))
 })
 
-testthat::test_that("multisimsum without 'true' does not compute bias, cover, mse", {
+testthat::test_that("multisimsum without 'true' does not compute bias, rbias, cover, mse", {
   data("frailty")
   s <- multisimsum(data = frailty, par = "par", estvarname = "b", se = "se", methodvar = "model", by = "fv_dist")
-  testthat::expect_false(object = any(c("bias", "cover", "mse") %in% s$summ$stat))
+  testthat::expect_false(object = any(c("bias", "rbias", "cover", "mse") %in% s$summ$stat))
 })
 
 testthat::test_that("multisimsum without 'se' does not compute se2mean, se2median, modelse, relerror, cover, becover, power", {
@@ -123,8 +123,8 @@ testthat::test_that("multisimsum without 'se' does not compute se2mean, se2media
   testthat::expect_false(object = any(c("se2mean", "se2median", "modelse", "relerror", "cover", "becover", "power") %in% s$summ$stat))
 })
 
-testthat::test_that("multisimsum without 'se' nor 'true' does not compute se2mean, se2median, modelse, relerror, cover, becover, power, bias, mse", {
+testthat::test_that("multisimsum without 'se' nor 'true' does not compute se2mean, se2median, modelse, relerror, cover, becover, power, bias, rbias, mse", {
   data("frailty")
   s <- multisimsum(data = frailty, par = "par", estvarname = "b", methodvar = "model", by = "fv_dist")
-  testthat::expect_false(object = any(c("se2mean", "se2median", "modelse", "relerror", "cover", "becover", "power", "bias", "mse") %in% s$summ$stat))
+  testthat::expect_false(object = any(c("se2mean", "se2median", "modelse", "relerror", "cover", "becover", "power", "bias", "rbias", "mse") %in% s$summ$stat))
 })
