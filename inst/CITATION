@@ -1,6 +1,5 @@
-citHeader("To cite the rsimsum package in publications, please use:")
-
-citEntry(entry = "article",
+bibentry(
+  bibtype = "article",
   author = "Alessandro Gasparini",
   title = "rsimsum: Summarise results from Monte Carlo simulation studies",
   journal = "Journal of Open Source Software",
