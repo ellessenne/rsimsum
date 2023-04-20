@@ -1,10 +1,12 @@
-# rsimsum (development version)
+# rsimsum 0.12.0
 
 * A new performance measure, relative bias, can now be calculated along with its Monte Carlo error (#41). More details on the formulae are in the introductory vignette, which has been updated accordingly.
 
 * Fixed issues with `stat(level)`, which was deprecated in {ggplot2} 3.4.0 (#44).
 
 * Fixed an error in the calculation of the Monte Carlo standard error for relative % error in ModSE (#45, thanks @LaurenSamuels for reporting this).
+
+* Several improvements to package documentation.
 
 # rsimsum 0.11.3
 
