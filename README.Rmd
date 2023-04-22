@@ -157,6 +157,6 @@ citation("rsimsum")
 
 # References
 
-* White, I.R. 2010. _simsum: Analyses of simulation studies including Monte Carlo error_. The Stata Journal 10(3): 369-385 <[https://www.stata-journal.com/article.html?article=st0200](https://www.stata-journal.com/article.html?article=st0200)>
-* Morris, T.P., White, I.R. and Crowther, M.J. 2019. _Using simulation studies to evaluate statistical methods_. Statistics in Medicine, <[doi:10.1002/sim.8086](https://doi.org/10.1002/sim.8086)>
-* Gasparini, A. 2018. _rsimsum: Summarise results from Monte Carlo simulation studies_. Journal of Open Source Software, 3(26):739 <[10.21105/joss.00739](https://doi.org/10.21105/joss.00739)>
+* White, I.R. 2010. _simsum: Analyses of simulation studies including Monte Carlo error_. The Stata Journal, 10(3): 369-385
+* Morris, T.P., White, I.R. and Crowther, M.J. 2019. _Using simulation studies to evaluate statistical methods_. Statistics in Medicine, 38: 2074-2102
+* Gasparini, A. 2018. _rsimsum: Summarise results from Monte Carlo simulation studies_. Journal of Open Source Software, 3(26):739
