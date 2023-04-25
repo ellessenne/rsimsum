@@ -1,3 +1,5 @@
+# rsimsum (development version)
+
 # rsimsum 0.12.0
 
 * A new performance measure, relative bias, can now be calculated along with its Monte Carlo error (#41). More details on the formulae are in the introductory vignette, which has been updated accordingly.
