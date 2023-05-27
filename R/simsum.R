@@ -111,11 +111,11 @@ simsum <- function(data,
   checkmate::assert_subset(x = df, choices = names(data), add = arg_checks)
   # 'estvarname', 'se', 'methodvar', 'by' , 'df' must not be any in ('stat', 'est', 'mcse', 'lower', 'upper', ':methodvar')
   .private_names <- c("stat", "est", "mcse", "lower", "upper", ":methodvar")
-  checkmate::assert_false(x = (estvarname %in% .private_names), add = arg_checks)
-  if (!is.null(se)) checkmate::assert_false(x = (se %in% .private_names), add = arg_checks)
-  if (!is.null(methodvar)) checkmate::assert_false(x = any(methodvar %in% .private_names), add = arg_checks)
-  if (!is.null(by)) checkmate::assert_false(x = any(by %in% .private_names), add = arg_checks)
-  if (!is.null(df)) checkmate::assert_false(x = any(df %in% .private_names), add = arg_checks)
+  .check_private(var = estvarname, label = "estvarname", private_names = .private_names)
+  .check_private(var = se, label = "se", private_names = .private_names)
+  .check_private(var = methodvar, label = "methodvar", private_names = .private_names)
+  .check_private(var = by, label = "by", private_names = .private_names)
+  .check_private(var = df, label = "df", private_names = .private_names)
   # Process vector of 'methodvar' if a vector
   user_methodvar <- NULL
   if (length(methodvar) > 1) {

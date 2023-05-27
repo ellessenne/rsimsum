@@ -201,3 +201,13 @@
   data <- data[nrs > 0]
   return(data)
 }
+
+### Check private names
+.check_private <- function(var, label, private_names) {
+  if (!is.null(var)) {
+    if (any(var %in% private_names)) {
+      this <- which(var %in% private_names)
+      stop(paste0("'", var[this], "' is not an allowed name for '", label, "'"), call. = FALSE)
+    }
+  }
+}
