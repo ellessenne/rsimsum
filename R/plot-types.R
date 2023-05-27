@@ -291,6 +291,11 @@
   names(opts) <- by
   dgms <- do.call(expand.grid, opts)
   dgms[[".scenario"]] <- seq(nrow(dgms))
+  opts_methods <- lapply(X = methodvar, FUN = function(x) levels(data[[x]]))
+  names(opts_methods) <- methodvar
+  opts_methods[[".scenario"]] <- unique(dgms[[".scenario"]])
+  opts_methods <- do.call(expand.grid, opts_methods)
+  dgms <- merge(dgms, opts_methods)
   data <- merge(x = data, y = dgms)
   data <- data[order(data[[".scenario"]]), ]
 
@@ -314,15 +319,23 @@
     }
   }
 
+  ### Identify if simulation design is fully factorial
+  ff <- max(data[[".scenario"]]) == length(unique(data[[".scenario"]]))
+  num_ff <- length(unique(data[[".scenario"]]))
+
   ### Rescale variables included in the nested loop plot
   for (i in seq_along(by)) {
     data[[paste0(".", by[i])]] <- scales::rescale(x = as.numeric(data[[by[i]]]), to = placement[[i]])
   }
 
+  ### Add back scenarios, to obtain equivalent fully-factorial NLP
+  data <- merge(x = data, y = dgms, all = TRUE)
+  data[[".notmissing"]] <- !is.na(data[["est"]])
+
   ### Build basic plot
   if (!is.null(methodvar)) {
     methodvar <- rlang::sym(methodvar)
-    gg <- ggplot2::ggplot(data = data, mapping = ggplot2::aes(x = .scenario, y = est, group = !!methodvar)) +
+    gg <- ggplot2::ggplot(data = data, mapping = ggplot2::aes(x = .scenario, y = est)) +
       ggplot2::geom_hline(yintercept = target, linetype = "dotted") +
       ggplot2::geom_step(mapping = ggplot2::aes(color = !!methodvar))
   } else {
@@ -330,8 +343,13 @@
       ggplot2::geom_hline(yintercept = target, linetype = "dotted") +
       ggplot2::geom_step()
   }
-  gg <- gg +
-    ggplot2::labs(x = paste0(paste(vapply(X = by, FUN = function(x) length(levels(data[[x]])), FUN.VALUE = numeric(1)), collapse = " x "), " = ", max(data[[".scenario"]]), " ordered scenarios"), y = stats)
+  if (ff) {
+    gg <- gg +
+      ggplot2::labs(x = paste0(paste(vapply(X = by, FUN = function(x) length(levels(data[[x]])), FUN.VALUE = numeric(1)), collapse = " x "), " = ", length(unique(data[[".scenario"]])), " ordered scenarios"), y = stats)
+  } else {
+    gg <- gg +
+      ggplot2::labs(x = paste0(num_ff, " ordered scenarios"), y = stats)
+  }
 
   ### Build and add legends of nested loop plot
   for (i in seq_along(by)) {

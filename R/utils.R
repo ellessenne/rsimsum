@@ -188,3 +188,16 @@
   ### Return
   return(internal_df)
 }
+
+### Drop split data.frame in 'data' with zero rows
+.drop_empty_splits <- function(data) {
+  data <- lapply(data, FUN = function(x) {
+    idx <- vapply(X = x, FUN = function(x) {
+      nrow(x) > 0
+    }, FUN.VALUE = logical(1))
+    x[idx]
+  })
+  nrs <- vapply(X = data, FUN = length, FUN.VALUE = numeric(1))
+  data <- data[nrs > 0]
+  return(data)
+}

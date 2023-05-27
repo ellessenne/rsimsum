@@ -36,6 +36,16 @@
 #' )
 #' autoplot(s1, stats = "bias", type = "nlp")
 autoplot.simsum <- function(object, type = "forest", stats = "nsim", target = NULL, fitted = TRUE, scales = "fixed", top = TRUE, density.legend = TRUE, zoom = 1, ...) {
+  # object <- s.nlp.subset
+  # type <- "nlp"
+  # stats <- "bias"
+  # target <- NULL
+  # fitted <- TRUE
+  # scales <- "fixed"
+  # top <- TRUE
+  # density.legend <- TRUE
+  # zoom <- 1
+
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # 'type' must be a single string value, among those allowed

@@ -1,16 +1,19 @@
+library(tidyverse)
 devtools::load_all()
+data("nlp", package = "rsimsum")
 
-data("MIsim", package = "rsimsum")
-MIsim[["true"]] <- 0.5
-s <- rsimsum::simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
-ss <- summary(s, stats = "rbias")
-ss
+nlp.subset <- nlp %>%
+  dplyr::filter(!(ss == 100 & esigma == 2))
 
+s.nlp.subset <- rsimsum::simsum(
+  data = nlp.subset,
+  estvarname = "b",
+  true = 0,
+  se = "se",
+  methodvar = "model",
+  by = c("baseline", "ss", "esigma")
+)
+# Okay
 
-autoplot(summary(s), stats = "bias")
-
-# compare with:
-library(simhelpers)
-lapply(X = split(x = MIsim, f = MIsim$method), FUN = function(x) simhelpers::calc_relative(res_dat = x, estimates = "b", true_param = "true")) %>%
-  do.call(rbind.data.frame, .) %>%
-  as.data.frame()
+# But this is not okay:
+autoplot(s.nlp.subset, stats = "bias", type = "nlp")

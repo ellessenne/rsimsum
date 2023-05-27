@@ -62,6 +62,22 @@ simsum <- function(data,
                    dropbig = FALSE,
                    x = FALSE,
                    control = list()) {
+  # data("nlp", package = "rsimsum")
+  # nlp.subset <- nlp %>%
+  #   dplyr::filter(!(ss == 100 & esigma == 2))
+  # data <- nlp.subset
+  # estvarname <- "b"
+  # true <- 0
+  # se <- "se"
+  # methodvar <- "model"
+  # by <- c("baseline", "ss", "esigma")
+  # ci.limits <- NULL
+  # df <- NULL
+  # dropbig <- FALSE
+  # x <- FALSE
+  # control <- list()
+  # ref <- NULL
+
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # 'data' must be a data.frame
@@ -184,6 +200,9 @@ simsum <- function(data,
 
   # Then, split methodvar
   data <- lapply(X = seq_along(data), FUN = function(i) .split_by(data = data[[i]], by = methodvar))
+
+  # Remove elements in 'data' where we get empty datasets (#47)
+  data <- .drop_empty_splits(data)
 
   # Then call .performance to compute all performance measures
   summ <- lapply(X = seq_along(data), FUN = function(i) {
