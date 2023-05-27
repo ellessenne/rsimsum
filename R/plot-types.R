@@ -286,13 +286,6 @@
 ### Nested loop plot
 #' @keywords internal
 .nlp <- function(data, methodvar, by, stats, target, top) {
-  # data <- df
-  # methodvar <- object$methodvar
-  # by <- object$by
-  # stats <- stats
-  # target <- target
-  # top <- top
-
   ### Compute internal data
   opts <- lapply(X = by, FUN = function(x) levels(data[[x]]))
   names(opts) <- by
