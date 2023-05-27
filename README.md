@@ -286,7 +286,6 @@ If you find `rsimsum` useful, please cite it in your publications:
 
 ``` r
 citation("rsimsum")
-#> 
 #> To cite package 'rsimsum' in publications use:
 #> 
 #>   Gasparini, (2018). rsimsum: Summarise results from Monte Carlo simulation studies.
