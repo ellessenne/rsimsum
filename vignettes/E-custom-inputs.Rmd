@@ -44,7 +44,7 @@ t.test(extra ~ group, data = sleep)
 We can incorporate custom confidence intervals by passing the name of two columns in `data` as the `ci.limits` argument:
 
 ```{r}
-s1 <- simsum(data = tt, estvarname = "diff", true = -1, se = "se", ci.limits = c("lower", "upper"), methodvar = "method", by = "dgm")
+s1 <- simsum(data = tt, estvarname = "diff", true = -1, se = "se", ci.limits = c("conf.low", "conf.high"), methodvar = "method", by = "dgm")
 summary(s1, stats = "cover")
 ```
 
@@ -65,7 +65,7 @@ s3 <- simsum(data = tt, estvarname = "diff", true = -1, se = "se", ci.limits = c
 summary(s3, stats = "cover")
 ```
 
-If you have a better example of the utility of this method please [get in touch](https://twitter.com/ellessenne) - I'd love to hear from you!
+If you have a better example of the utility of this method please get in touch: I'd love to hear from you!
 
 By default, `simsum` will calculate confidence intervals using normal-theory, Wald-type intervals.
 It is possible to use t-based critical values by providing a column for the (replication-specific) degrees of freedom (analogously as passing confidence bounds to `ci.limits`):
@@ -74,7 +74,7 @@ It is possible to use t-based critical values by providing a column for the (rep
 s4 <- simsum(data = tt, estvarname = "diff", true = -1, se = "se", df = "df", methodvar = "method", by = "dgm")
 ```
 
-Given that the confidence intervals in (`lower`, `upper`) are obtained by using critical values from a t distribution, the results of `s4` will be equivalent to the results of `s1`:
+Given that the confidence intervals in (`conf.low`, `conf.high`) are obtained by using critical values from a t distribution, the results of `s4` will be equivalent to the results of `s1`:
 
 ```{r}
 all.equal(tidy(s1), tidy(s4))
@@ -84,7 +84,7 @@ We can pass a column of values for `true` as well:
 
 ```{r}
 tt$true <- -1
-s5 <- simsum(data = tt, estvarname = "diff", true = "true", se = "se", ci.limits = c("lower", "upper"), methodvar = "method", by = "dgm")
+s5 <- simsum(data = tt, estvarname = "diff", true = "true", se = "se", ci.limits = c("conf.low", "conf.high"), methodvar = "method", by = "dgm")
 summary(s5, stats = "cover")
 ```
 
@@ -172,15 +172,15 @@ This approach is particularly useful when the true value might vary across repli
 Of course, it can be combined with custom confidence interval limits for coverage as well:
 
 ```{r}
-frailty$lower <- frailty$b - qt(1 - 0.05 / 2, df = 10) * frailty$se
-frailty$upper <- frailty$b + qt(1 - 0.05 / 2, df = 10) * frailty$se
+frailty$conf.low <- frailty$b - qt(1 - 0.05 / 2, df = 10) * frailty$se
+frailty$conf.high <- frailty$b + qt(1 - 0.05 / 2, df = 10) * frailty$se
 
 ms3 <- multisimsum(
   data = frailty,
   par = "par", true = "true",
   estvarname = "b", se = "se", methodvar = "model",
   by = "fv_dist",
-  ci.limits = c("lower", "upper")
+  ci.limits = c("conf.low", "conf.high")
 )
 summary(ms3, stats = "cover")
 ```

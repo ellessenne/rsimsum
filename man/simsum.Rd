@@ -23,33 +23,40 @@ simsum(
 \item{data}{A \code{data.frame} in which variable names are interpreted.
 It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.}
 
-\item{estvarname}{The name of the variable containing the point estimates.}
+\item{estvarname}{The name of the variable containing the point estimates.
+Note that some column names are forbidden: these are listed below in the \emph{Details} section.}
 
-\item{se}{The name of the variable containing the standard errors of the point estimates.}
+\item{se}{The name of the variable containing the standard errors of the point estimates.
+Note that some column names are forbidden: these are listed below in the \emph{Details} section.}
 
 \item{true}{The true value of the parameter; this is used in calculations of bias, relative bias, coverage, and mean squared error and is required whenever these performance measures are requested.
 \code{true} can be a numeric value or a string that identifies a column in \code{data}.
 In the former setting, \code{simsum} will assume the same value for all replications; conversely, each replication will use a distinct value for \code{true} as identified by each row of \code{data}.
-See \code{vignette("E-custom-inputs", package = "rsimsum")} for more details.}
+See \code{vignette("E-custom-inputs", package = "rsimsum")} for more details.
+Note that some column names are forbidden: these are listed below in the \emph{Details} section.}
 
 \item{methodvar}{The name of the variable containing the methods to compare.
 For instance, methods could be the models compared within a simulation study.
 Can be \code{NULL}.
-If a vector of column names is passed to \code{simsum()}, those columns will be combined into a single column named \verb{:methodvar} using the \code{\link[base:interaction]{base::interaction()}} function before computing all performance measures.}
+If a vector of column names is passed to \code{simsum()}, those columns will be combined into a single column named \verb{:methodvar} using the \code{\link[base:interaction]{base::interaction()}} function before computing all performance measures.
+Note that some column names are forbidden: these are listed below in the \emph{Details} section.}
 
 \item{ref}{Specifies the reference method against which relative precision will be calculated.
 Only useful if \code{methodvar} is specified.}
 
 \item{by}{A vector of variable names to compute performance measures by a list of factors. Factors listed here are the (potentially several) data-generating mechanisms used to simulate data under different scenarios (e.g. sample size, true distribution of a variable, etc.).
-Can be \code{NULL}.}
+Can be \code{NULL}.
+Note that some column names are forbidden: these are listed below in the \emph{Details} section.}
 
 \item{ci.limits}{Can be used to specify the limits (lower and upper) of confidence intervals used to calculate coverage and bias-eliminated coverage.
 Useful for non-Wald type estimators (e.g. bootstrap).
 Defaults to \code{NULL}, where Wald-type confidence intervals based on the provided SEs are calculated for coverage; otherwise, it can be a numeric vector (for fixed confidence intervals) or a vector of strings that identify columns in \code{data} with replication-specific lower and upper limits.
-See \code{vignette("E-custom-inputs", package = "rsimsum")} for more details.}
+See \code{vignette("E-custom-inputs", package = "rsimsum")} for more details.
+Note that some column names are forbidden: these are listed below in the \emph{Details} section.}
 
 \item{df}{Can be used to specify that a column containing the replication-specific number of degrees of freedom that will be used to calculate confidence intervals for coverage (and bias-eliminated coverage) assuming t-distributed critical values (rather than normal theory intervals).
-See \code{vignette("E-custom-inputs", package = "rsimsum")} for more details.}
+See \code{vignette("E-custom-inputs", package = "rsimsum")} for more details.
+Note that some column names are forbidden: these are listed below in the \emph{Details} section.}
 
 \item{dropbig}{Specifies that point estimates or standard errors beyond the maximum acceptable values should be dropped. Defaults to \code{FALSE}.}
 
@@ -78,7 +85,7 @@ If, in addition, model-based standard errors are available then \code{simsum()} 
 Monte Carlo errors are available for all estimated quantities.
 }
 \details{
-The following names are not allowed for \code{estvarname}, \code{se}, \code{methodvar}, \code{by}: \code{stat}, \code{est}, \code{mcse}, \code{lower}, \code{upper}, \verb{:methodvar}.
+The following names are not allowed for any column in \code{data} that is passed to \code{\link[=simsum]{simsum()}}: \code{stat}, \code{est}, \code{mcse}, \code{lower}, \code{upper}, \verb{:methodvar}, \verb{:true}.
 }
 \examples{
 data("MIsim", package = "rsimsum")

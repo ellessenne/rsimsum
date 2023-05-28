@@ -1,5 +1,8 @@
 #' @keywords internal
 .performance <- function(data, estvarname, se, true, empse_ref = NULL, rho = NULL, ci.limits, df, control) {
+  ### Adjust 'true' to use internal column if not NULL
+  if (!is.null(true)) true <- ":true"
+
   ### Make object to return
   obj <- list()
 
@@ -22,29 +25,17 @@
   }
   # Bias
   if (!is.null(true)) {
-    if (is.character(true)) {
-      bias <- 1 / nsim * sum(data[[estvarname]] - data[[true]], na.rm = control$na.rm)
-    } else {
-      bias <- 1 / nsim * sum(data[[estvarname]] - true, na.rm = control$na.rm)
-    }
+    bias <- 1 / nsim * sum(data[[estvarname]] - data[[":true"]], na.rm = control$na.rm)
   }
   # Relative bias
   if (!is.null(true)) {
-    if (is.character(true)) {
-      rbias <- 1 / nsim * sum((data[[estvarname]] - data[[true]]) / data[[true]], na.rm = control$na.rm)
-    } else {
-      rbias <- 1 / nsim * sum((data[[estvarname]] - true) / true, na.rm = control$na.rm)
-    }
+    rbias <- 1 / nsim * sum((data[[estvarname]] - data[[":true"]]) / data[[":true"]], na.rm = control$na.rm)
   }
   # Empirical standard error
   empse <- sqrt(1 / (nsim - 1) * sum((data[[estvarname]] - mean(data[[estvarname]], na.rm = control$na.rm))^2, na.rm = control$na.rm))
   # Mean squared error
   if (!is.null(true)) {
-    if (is.character(true)) {
-      mse <- 1 / nsim * sum((data[[estvarname]] - data[[true]])^2, na.rm = control$na.rm)
-    } else {
-      mse <- 1 / nsim * sum((data[[estvarname]] - true)^2, na.rm = control$na.rm)
-    }
+    mse <- 1 / nsim * sum((data[[estvarname]] - data[[":true"]])^2, na.rm = control$na.rm)
   }
   # Relative change in precision
   if (!is.null(empse_ref) & !is.null(rho)) {
@@ -68,26 +59,14 @@
   # Coverage of a nominal (1 - level)% confidence interval
   if (!is.null(true) & !is.null(se)) {
     if (is.null(ci.limits)) {
-      if (is.character(true)) {
-        cover <- 1 / nsim * sum(data[[true]] >= data[[estvarname]] - crit * data[[se]] & data[[true]] <= data[[estvarname]] + crit * data[[se]], na.rm = control$na.rm)
-      } else {
-        cover <- 1 / nsim * sum(true >= data[[estvarname]] - crit * data[[se]] & true <= data[[estvarname]] + crit * data[[se]], na.rm = control$na.rm)
-      }
+      cover <- 1 / nsim * sum(data[[":true"]] >= data[[estvarname]] - crit * data[[se]] & data[[":true"]] <= data[[estvarname]] + crit * data[[se]], na.rm = control$na.rm)
     } else {
       if (is.character(ci.limits)) {
-        if (is.character(true)) {
-          cover <- 1 / nsim * sum(data[[true]] >= data[[ci.limits[1]]] & data[[true]] <= data[[ci.limits[2]]], na.rm = control$na.rm)
-        } else {
-          cover <- 1 / nsim * sum(true >= data[[ci.limits[1]]] & true <= data[[ci.limits[2]]], na.rm = control$na.rm)
-        }
+        cover <- 1 / nsim * sum(data[[":true"]] >= data[[ci.limits[1]]] & data[[":true"]] <= data[[ci.limits[2]]], na.rm = control$na.rm)
       } else if (is.numeric(ci.limits)) {
         data[["lower"]] <- ci.limits[1]
         data[["upper"]] <- ci.limits[2]
-        if (is.character(true)) {
-          cover <- 1 / nsim * sum(data[[true]] >= data[["lower"]] & data[[true]] <= data[["upper"]], na.rm = control$na.rm)
-        } else {
-          cover <- 1 / nsim * sum(true >= data[["lower"]] & true <= data[["upper"]], na.rm = control$na.rm)
-        }
+        cover <- 1 / nsim * sum(data[[":true"]] >= data[["lower"]] & data[[":true"]] <= data[["upper"]], na.rm = control$na.rm)
       }
     }
   }
@@ -112,20 +91,12 @@
   if (control$mcse) {
     if (!is.null(true)) {
       bias_mcse <- sqrt(1 / (nsim * (nsim - 1)) * sum((data[[estvarname]] - mean(data[[estvarname]], na.rm = control$na.rm))^2, na.rm = control$na.rm))
-      if (is.character(true)) {
-        rbias_i <- (data[[estvarname]] - data[[true]]) / data[[true]]
-      } else {
-        rbias_i <- (data[[estvarname]] - true) / true
-      }
+      rbias_i <- (data[[estvarname]] - data[[":true"]]) / data[[":true"]]
       rbias_mcse <- sd(rbias_i) / sqrt(nsim)
     }
     empse_mcse <- empse / sqrt(2 * (nsim - 1))
     if (!is.null(true)) {
-      if (is.character(true)) {
-        mse_mcse <- sqrt(sum(((data[[estvarname]] - data[[true]])^2 - mse)^2, na.rm = control$na.rm) / (nsim * (nsim - 1)))
-      } else {
-        mse_mcse <- sqrt(sum(((data[[estvarname]] - true)^2 - mse)^2, na.rm = control$na.rm) / (nsim * (nsim - 1)))
-      }
+      mse_mcse <- sqrt(sum(((data[[estvarname]] - data[[":true"]])^2 - mse)^2, na.rm = control$na.rm) / (nsim * (nsim - 1)))
     }
     if (!is.null(empse_ref) & !is.null(rho)) {
       relprec_mcse <- 200 * (empse_ref / empse)^2 * sqrt((1 - rho^2) / (nsim - 1))

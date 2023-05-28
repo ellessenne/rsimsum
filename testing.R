@@ -2,17 +2,20 @@ library(tidyverse)
 devtools::load_all()
 
 # #48
-s.nlp.true <- rsimsum::simsum(
-  data = nlp, estvarname = "b", true = "esigma", se = "se",
-  methodvar = "model", by = c("baseline", "ss", "esigma")
-)
-autoplot(s.nlp.true, stats = "bias", type = "nlp")
-nlp$esigma.copy <- nlp$esigma
-s.nlp.true2 <- rsimsum::simsum(
-  data = nlp, estvarname = "b", true = "esigma.copy", se = "se",
-  methodvar = "model", by = c("baseline", "ss", "esigma")
-)
-autoplot(s.nlp.true2, stats = "bias", type = "nlp")
+reprex::reprex({
+  library(rsimsum)
+  s.nlp.true <- rsimsum::simsum(
+    data = nlp, estvarname = "b", true = "esigma", se = "se",
+    methodvar = "model", by = c("baseline", "ss", "esigma")
+  )
+  autoplot(s.nlp.true, stats = "bias", type = "nlp")
+  nlp$esigma.copy <- nlp$esigma
+  s.nlp.true2 <- rsimsum::simsum(
+    data = nlp, estvarname = "b", true = "esigma.copy", se = "se",
+    methodvar = "model", by = c("baseline", "ss", "esigma")
+  )
+  autoplot(s.nlp.true2, stats = "bias", type = "nlp")
+})
 
 # #49
 reprex::reprex({

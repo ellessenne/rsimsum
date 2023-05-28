@@ -107,25 +107,29 @@ Can be <code>NULL</code>.</p></dd>
 
 
 <dt>estvarname</dt>
-<dd><p>The name of the variable containing the point estimates.</p></dd>
+<dd><p>The name of the variable containing the point estimates.
+Note that some column names are forbidden: these are listed below in the <em>Details</em> section.</p></dd>
 
 
 <dt>se</dt>
-<dd><p>The name of the variable containing the standard errors of the point estimates.</p></dd>
+<dd><p>The name of the variable containing the standard errors of the point estimates.
+Note that some column names are forbidden: these are listed below in the <em>Details</em> section.</p></dd>
 
 
 <dt>true</dt>
 <dd><p>The true value of the parameter; this is used in calculations of bias, relative bias, coverage, and mean squared error and is required whenever these performance measures are requested.
 <code>true</code> can be a numeric value or a string that identifies a column in <code>data</code>.
 In the former setting, <code>simsum</code> will assume the same value for all replications; conversely, each replication will use a distinct value for <code>true</code> as identified by each row of <code>data</code>.
-See <code><a href="../articles/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code> for more details.</p></dd>
+See <code><a href="../articles/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code> for more details.
+Note that some column names are forbidden: these are listed below in the <em>Details</em> section.</p></dd>
 
 
 <dt>methodvar</dt>
 <dd><p>The name of the variable containing the methods to compare.
 For instance, methods could be the models compared within a simulation study.
 Can be <code>NULL</code>.
-If a vector of column names is passed to <code><a href="simsum.html">simsum()</a></code>, those columns will be combined into a single column named <code>:methodvar</code> using the <code><a href="https://rdrr.io/r/base/interaction.html" class="external-link">base::interaction()</a></code> function before computing all performance measures.</p></dd>
+If a vector of column names is passed to <code><a href="simsum.html">simsum()</a></code>, those columns will be combined into a single column named <code>:methodvar</code> using the <code><a href="https://rdrr.io/r/base/interaction.html" class="external-link">base::interaction()</a></code> function before computing all performance measures.
+Note that some column names are forbidden: these are listed below in the <em>Details</em> section.</p></dd>
 
 
 <dt>ref</dt>
@@ -135,19 +139,22 @@ Only useful if <code>methodvar</code> is specified.</p></dd>
 
 <dt>by</dt>
 <dd><p>A vector of variable names to compute performance measures by a list of factors. Factors listed here are the (potentially several) data-generating mechanisms used to simulate data under different scenarios (e.g. sample size, true distribution of a variable, etc.).
-Can be <code>NULL</code>.</p></dd>
+Can be <code>NULL</code>.
+Note that some column names are forbidden: these are listed below in the <em>Details</em> section.</p></dd>
 
 
 <dt>ci.limits</dt>
 <dd><p>Can be used to specify the limits (lower and upper) of confidence intervals used to calculate coverage and bias-eliminated coverage.
 Useful for non-Wald type estimators (e.g. bootstrap).
 Defaults to <code>NULL</code>, where Wald-type confidence intervals based on the provided SEs are calculated for coverage; otherwise, it can be a numeric vector (for fixed confidence intervals) or a vector of strings that identify columns in <code>data</code> with replication-specific lower and upper limits.
-See <code><a href="../articles/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code> for more details.</p></dd>
+See <code><a href="../articles/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code> for more details.
+Note that some column names are forbidden: these are listed below in the <em>Details</em> section.</p></dd>
 
 
 <dt>df</dt>
 <dd><p>Can be used to specify that a column containing the replication-specific number of degrees of freedom that will be used to calculate confidence intervals for coverage (and bias-eliminated coverage) assuming t-distributed critical values (rather than normal theory intervals).
-See <code><a href="../articles/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code> for more details.</p></dd>
+See <code><a href="../articles/E-custom-inputs.html">vignette("E-custom-inputs", package = "rsimsum")</a></code> for more details.
+Note that some column names are forbidden: these are listed below in the <em>Details</em> section.</p></dd>
 
 
 <dt>dropbig</dt>
