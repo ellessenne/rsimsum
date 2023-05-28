@@ -14,14 +14,14 @@ testthat::test_that("expect equivalent values when passing lower, upper (based o
   data("tt", package = "rsimsum")
 
   s6 <- simsum(data = tt, estvarname = "diff", se = "se", df = "df", true = -1)
-  s7 <- simsum(data = tt, estvarname = "diff", se = "se", ci.limits = c("lower", "upper"), true = -1)
+  s7 <- simsum(data = tt, estvarname = "diff", se = "se", ci.limits = c("conf.low", "conf.high"), true = -1)
   testthat::expect_equal(object = tidy(s6), expected = tidy(s7))
 
   s6 <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", df = "df", true = -1)
-  s7 <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", ci.limits = c("lower", "upper"), true = -1)
+  s7 <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", ci.limits = c("conf.low", "conf.high"), true = -1)
   testthat::expect_equal(object = tidy(s6), expected = tidy(s7))
 
   s6 <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", df = "df", true = -1)
-  s7 <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", ci.limits = c("lower", "upper"), true = -1)
+  s7 <- simsum(data = tt, estvarname = "diff", se = "se", methodvar = "method", by = "dgm", ci.limits = c("conf.low", "conf.high"), true = -1)
   testthat::expect_equal(object = tidy(s6), expected = tidy(s7))
 })
