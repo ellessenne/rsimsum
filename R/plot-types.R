@@ -76,7 +76,7 @@
 
 ### Zip plot
 #' @keywords internal
-.zip_plot <- function(data, estvarname, se, true, methodvar, by, ci.limits, df, control, summ, zoom) {
+.zip_plot <- function(data, estvarname, se, true, methodvar, by, ci.limits, df, control, summ, zoom, ci_colors) {
   ### Extract overall coverage
   summ <- summ[summ$stat == "cover", ]
   summ$cover <- summ$est
@@ -138,14 +138,33 @@
   ### Label of the y-axis
   ylab <- ifelse(is.null(df), "Fractional centile of |z-score|", "Fractional centile of |t-score|")
 
+  ### Define CI lines colors
+  if (ci_colors == 2) {
+  	data$line_color_lower <- ifelse(data$cover_lower <= 0.95 & 0.95 <= data$cover_upper, "#1a9850", "#d73027")
+  	data$line_color_upper <- ifelse(data$cover_lower <= 0.95 & 0.95 <= data$cover_upper, "#1a9850", "#d73027")
+  } else if (ci_colors == 3) {
+  	data$line_color_lower <- ifelse(data$cover_lower > 0.95 & data$cover_upper > 0.95, "#377eb8",
+  																	ifelse(data$cover_lower < 0.95 & data$cover_upper < 0.95, "#e41a1c",
+  																				 ifelse(data$cover_lower <= 0.95 & 0.95 <= data$cover_upper, "#4daf4a", NA)))
+
+  	data$line_color_upper <- ifelse(data$cover_lower > 0.95 & data$cover_upper > 0.95, "#377eb8",
+  																	ifelse(data$cover_lower < 0.95 & data$cover_upper < 0.95, "#e41a1c",
+  																				 ifelse(data$cover_lower <= 0.95 & 0.95 <= data$cover_upper, "#4daf4a", NA)))
+  } else {
+  	data$line_color_lower <- "#ffffb3"
+  	data$line_color_upper <- "#ffffb3"
+  }
+
+
   ### Build plot
   gg <- ggplot2::ggplot(data, ggplot2::aes(y = rank, x = lower, color = covering)) +
-    ggplot2::geom_segment(ggplot2::aes(yend = rank, xend = upper)) +
-    ggplot2::geom_vline(xintercept = true, color = "yellow", linetype = "dashed") +
-    ggplot2::geom_hline(ggplot2::aes(yintercept = cover_lower), color = "yellow", linetype = "dashed") +
-    ggplot2::geom_hline(ggplot2::aes(yintercept = cover_upper), color = "yellow", linetype = "dashed") +
-    ggplot2::labs(y = ylab, x = paste0(100 * control$level, "% confidence intervals"), color = "") +
-    theme(legend.position = "bottom")
+  	ggplot2::geom_segment(ggplot2::aes(yend = rank, xend = upper)) +
+  	ggplot2::geom_vline(xintercept = true, color = "black", linetype = "dashed") +
+  	ggplot2::geom_hline(ggplot2::aes(yintercept = cover_lower), color = data$line_color_lower, linetype = "dashed", size = 1) +
+  	ggplot2::geom_hline(ggplot2::aes(yintercept = 0.95), color = "black", linetype = "dashed") +
+  	ggplot2::geom_hline(ggplot2::aes(yintercept = cover_upper), color = data$line_color_upper, linetype = "dashed", size = 1) +
+  	ggplot2::labs(y = ylab, x = paste0(100 * control$level, "% confidence intervals"), color = "") +
+  	theme(legend.position = "bottom")
 
   ### If 'by', use facet_grid; facet_wrap otherwise
   if (!is.null(by) & !is.null(methodvar)) {
