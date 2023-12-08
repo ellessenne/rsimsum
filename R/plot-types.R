@@ -76,7 +76,7 @@
 
 ### Zip plot
 #' @keywords internal
-.zip_plot <- function(data, estvarname, se, true, methodvar, by, ci.limits, df, control, summ, zoom, ci_colors) {
+.zip_plot <- function(data, estvarname, se, true, methodvar, by, ci.limits, df, control, summ, zoom, zip_ci_colors) {
   ### Extract overall coverage
   summ <- summ[summ$stat == "cover", ]
   summ$cover <- summ$est
@@ -139,21 +139,23 @@
   ylab <- ifelse(is.null(df), "Fractional centile of |z-score|", "Fractional centile of |t-score|")
 
   ### Define CI lines colors
-  if (ci_colors == 2) {
-  	data$line_color_lower <- ifelse(data$cover_lower <= 0.95 & 0.95 <= data$cover_upper, "#1a9850", "#d73027")
-  	data$line_color_upper <- ifelse(data$cover_lower <= 0.95 & 0.95 <= data$cover_upper, "#1a9850", "#d73027")
-  } else if (ci_colors == 3) {
-  	data$line_color_lower <- ifelse(data$cover_lower > 0.95 & data$cover_upper > 0.95, "#377eb8",
-  																	ifelse(data$cover_lower < 0.95 & data$cover_upper < 0.95, "#e41a1c",
-  																				 ifelse(data$cover_lower <= 0.95 & 0.95 <= data$cover_upper, "#4daf4a", NA)))
+  if (length(zip_ci_colors) == 2) {
+  	data$line_color_lower <- ifelse(data$cover_lower <= 0.95 & 0.95 <= data$cover_upper, zip_ci_colors[1], zip_ci_colors[2])
+  	data$line_color_upper <- ifelse(data$cover_lower <= 0.95 & 0.95 <= data$cover_upper, zip_ci_colors[1], zip_ci_colors[2])
+  } else if (length(zip_ci_colors) == 3) {
+  	data$line_color_lower <- ifelse(data$cover_lower > 0.95 & data$cover_upper > 0.95, zip_ci_colors[3],
+  																	ifelse(data$cover_lower < 0.95 & data$cover_upper < 0.95, zip_ci_colors[2],
+  																				 ifelse(data$cover_lower <= 0.95 & 0.95 <= data$cover_upper, zip_ci_colors[1], NA)))
 
-  	data$line_color_upper <- ifelse(data$cover_lower > 0.95 & data$cover_upper > 0.95, "#377eb8",
-  																	ifelse(data$cover_lower < 0.95 & data$cover_upper < 0.95, "#e41a1c",
-  																				 ifelse(data$cover_lower <= 0.95 & 0.95 <= data$cover_upper, "#4daf4a", NA)))
+  	data$line_color_upper <- ifelse(data$cover_lower > 0.95 & data$cover_upper > 0.95, zip_ci_colors[3],
+  																	ifelse(data$cover_lower < 0.95 & data$cover_upper < 0.95, zip_ci_colors[2],
+  																				 ifelse(data$cover_lower <= 0.95 & 0.95 <= data$cover_upper, zip_ci_colors[1], NA)))
   } else {
-  	data$line_color_lower <- "#ffffb3"
-  	data$line_color_upper <- "#ffffb3"
+  	data$line_color_lower <- zip_ci_colors[1]
+  	data$line_color_upper <- zip_ci_colors[1]
   }
+
+
 
 
   ### Build plot
