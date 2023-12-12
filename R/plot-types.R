@@ -163,9 +163,9 @@
   gg <- ggplot2::ggplot(data, ggplot2::aes(y = rank, x = lower, color = covering)) +
     ggplot2::geom_segment(ggplot2::aes(yend = rank, xend = upper)) +
     ggplot2::geom_vline(xintercept = true, color = "black", linetype = "dashed") +
-    ggplot2::geom_hline(ggplot2::aes(yintercept = cover_lower), color = data$line_color_lower, linetype = "dashed", size = 1) +
+    ggplot2::geom_hline(ggplot2::aes(yintercept = cover_lower), color = data$line_color_lower, linetype = "dashed", linewidth = 1) +
     ggplot2::geom_hline(ggplot2::aes(yintercept = 0.95), color = "black", linetype = "dashed") +
-    ggplot2::geom_hline(ggplot2::aes(yintercept = cover_upper), color = data$line_color_upper, linetype = "dashed", size = 1) +
+    ggplot2::geom_hline(ggplot2::aes(yintercept = cover_upper), color = data$line_color_upper, linetype = "dashed", linewidth = 1) +
     ggplot2::labs(y = ylab, x = paste0(100 * control$level, "% confidence intervals"), color = "") +
     theme(legend.position = "bottom")
 
