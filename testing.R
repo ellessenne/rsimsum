@@ -17,3 +17,18 @@ s.nlp.subset <- rsimsum::simsum(
 
 # But this is not okay:
 autoplot(s.nlp.subset, stats = "bias", type = "nlp")
+
+#
+data("MIsim", package = "rsimsum")
+s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", ref = "CC", x = TRUE)
+
+data("frailty", package = "rsimsum")
+ms <- multisimsum(
+  data = frailty,
+  par = "par", true = c(trt = -0.50, fv = 0.75),
+  estvarname = "b", se = "se", methodvar = "model",
+  by = "fv_dist",
+  x = TRUE
+)
+ms
+autoplot(ms, par = "trt", type = "zip", zip_ci_colours = c("green", "red"))
