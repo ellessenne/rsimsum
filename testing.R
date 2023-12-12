@@ -31,4 +31,4 @@ ms <- multisimsum(
   x = TRUE
 )
 ms
-autoplot(ms, par = "trt", type = "zip", zip_ci_colours = c("green", "red"))
+autoplot(ms, par = "trt", type = "zip", zip_ci_colours = c("green", "red", "yellow"))

@@ -70,6 +70,8 @@ autoplot.simsum <- function(object, type = "forest", stats = "nsim", target = NU
   if (type %in% c("zip", "est", "se", "est_ba", "se_ba", "est_ridge", "se_ridge", "est_density", "se_density", "est_hex", "se_hex")) {
     checkmate::assert_true(x = !is.null(object$x), add = arg_checks)
   }
+  # zip_ci_colours must be a string
+  checkmate::assert_character(x = zip_ci_colours, min.len = 1, max.len = 3)
   # Report
   if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
 
