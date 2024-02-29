@@ -80,7 +80,7 @@
                         <h4 data-toc-skip class="author">Alessandro
 Gasparini</h4>
             
-            <h4 data-toc-skip class="date">2023-05-27</h4>
+            <h4 data-toc-skip class="date">2023-05-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/ellessenne/rsimsum/blob/HEAD/vignettes/E-custom-inputs.Rmd" class="external-link"><code>vignettes/E-custom-inputs.Rmd</code></a></small>
       <div class="d-none name"><code>E-custom-inputs.Rmd</code></div>
@@ -100,7 +100,7 @@ coverage probability).</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ellessenne.github.io/rsimsum/">rsimsum</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"tt"</span>, package <span class="op">=</span> <span class="st">"rsimsum"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">tt</span><span class="op">)</span></span>
-<span><span class="co">#&gt;        diff       se     lower       upper       df repno dgm method</span></span>
+<span><span class="co">#&gt;        diff       se  conf.low   conf.high       df repno dgm method</span></span>
 <span><span class="co">#&gt; 1 -2.185467 1.130916 -4.432925  0.06199072 88.00000     1   1      1</span></span>
 <span><span class="co">#&gt; 2 -3.359683 1.572366 -6.484430 -0.23493506 88.00000     1   2      1</span></span>
 <span><span class="co">#&gt; 3 -2.185467 1.285290 -4.778318  0.40738411 42.53603     1   1      2</span></span>
@@ -129,7 +129,7 @@ example from the t-test documentation (<code><a href="https://rdrr.io/r/stats/t.
 two columns in <code>data</code> as the <code>ci.limits</code>
 argument:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">tt</span>, estvarname <span class="op">=</span> <span class="st">"diff"</span>, true <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, se <span class="op">=</span> <span class="st">"se"</span>, ci.limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lower"</span>, <span class="st">"upper"</span><span class="op">)</span>, methodvar <span class="op">=</span> <span class="st">"method"</span>, by <span class="op">=</span> <span class="st">"dgm"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">tt</span>, estvarname <span class="op">=</span> <span class="st">"diff"</span>, true <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, se <span class="op">=</span> <span class="st">"se"</span>, ci.limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"conf.low"</span>, <span class="st">"conf.high"</span><span class="op">)</span>, methodvar <span class="op">=</span> <span class="st">"method"</span>, by <span class="op">=</span> <span class="st">"dgm"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'ref' method was not specified, 1 set as the reference</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">s1</span>, stats <span class="op">=</span> <span class="st">"cover"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Values are:</span></span>
@@ -175,8 +175,8 @@ intervals.</p>
 <span><span class="co">#&gt;    2 1.0000 (0.0000) 1.0000 (0.0000)</span></span>
 <span><span class="co">#&gt;    3 1.0000 (0.0000) 1.0000 (0.0000)</span></span>
 <span><span class="co">#&gt;    4 1.0000 (0.0000) 1.0000 (0.0000)</span></span></code></pre></div>
-<p>If you have a better example of the utility of this method please <a href="https://twitter.com/ellessenne" class="external-link">get in touch</a> - I’d love to
-hear from you!</p>
+<p>If you have a better example of the utility of this method please get
+in touch: I’d love to hear from you!</p>
 <p>By default, <code>simsum</code> will calculate confidence intervals
 using normal-theory, Wald-type intervals. It is possible to use t-based
 critical values by providing a column for the (replication-specific)
@@ -185,8 +185,8 @@ degrees of freedom (analogously as passing confidence bounds to
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">tt</span>, estvarname <span class="op">=</span> <span class="st">"diff"</span>, true <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, se <span class="op">=</span> <span class="st">"se"</span>, df <span class="op">=</span> <span class="st">"df"</span>, methodvar <span class="op">=</span> <span class="st">"method"</span>, by <span class="op">=</span> <span class="st">"dgm"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'ref' method was not specified, 1 set as the reference</span></span></code></pre></div>
-<p>Given that the confidence intervals in (<code>lower</code>,
-<code>upper</code>) are obtained by using critical values from a t
+<p>Given that the confidence intervals in (<code>conf.low</code>,
+<code>conf.high</code>) are obtained by using critical values from a t
 distribution, the results of <code>s4</code> will be equivalent to the
 results of <code>s1</code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -195,7 +195,7 @@ results of <code>s1</code>:</p>
 <p>We can pass a column of values for <code>true</code> as well:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tt</span><span class="op">$</span><span class="va">true</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span></span>
-<span><span class="va">s5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">tt</span>, estvarname <span class="op">=</span> <span class="st">"diff"</span>, true <span class="op">=</span> <span class="st">"true"</span>, se <span class="op">=</span> <span class="st">"se"</span>, ci.limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lower"</span>, <span class="st">"upper"</span><span class="op">)</span>, methodvar <span class="op">=</span> <span class="st">"method"</span>, by <span class="op">=</span> <span class="st">"dgm"</span><span class="op">)</span></span>
+<span><span class="va">s5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simsum.html">simsum</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">tt</span>, estvarname <span class="op">=</span> <span class="st">"diff"</span>, true <span class="op">=</span> <span class="st">"true"</span>, se <span class="op">=</span> <span class="st">"se"</span>, ci.limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"conf.low"</span>, <span class="st">"conf.high"</span><span class="op">)</span>, methodvar <span class="op">=</span> <span class="st">"method"</span>, by <span class="op">=</span> <span class="st">"dgm"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'ref' method was not specified, 1 set as the reference</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">s5</span>, stats <span class="op">=</span> <span class="st">"cover"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Values are:</span></span>
@@ -369,15 +369,15 @@ across replications (e.g. when it depends on the simulated dataset).</p>
 <p>Of course, it can be combined with custom confidence interval limits
 for coverage as well:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">frailty</span><span class="op">$</span><span class="va">lower</span> <span class="op">&lt;-</span> <span class="va">frailty</span><span class="op">$</span><span class="va">b</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html" class="external-link">qt</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">0.05</span> <span class="op">/</span> <span class="fl">2</span>, df <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">*</span> <span class="va">frailty</span><span class="op">$</span><span class="va">se</span></span>
-<span><span class="va">frailty</span><span class="op">$</span><span class="va">upper</span> <span class="op">&lt;-</span> <span class="va">frailty</span><span class="op">$</span><span class="va">b</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html" class="external-link">qt</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">0.05</span> <span class="op">/</span> <span class="fl">2</span>, df <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">*</span> <span class="va">frailty</span><span class="op">$</span><span class="va">se</span></span>
+<code class="sourceCode R"><span><span class="va">frailty</span><span class="op">$</span><span class="va">conf.low</span> <span class="op">&lt;-</span> <span class="va">frailty</span><span class="op">$</span><span class="va">b</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html" class="external-link">qt</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">0.05</span> <span class="op">/</span> <span class="fl">2</span>, df <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">*</span> <span class="va">frailty</span><span class="op">$</span><span class="va">se</span></span>
+<span><span class="va">frailty</span><span class="op">$</span><span class="va">conf.high</span> <span class="op">&lt;-</span> <span class="va">frailty</span><span class="op">$</span><span class="va">b</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html" class="external-link">qt</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">0.05</span> <span class="op">/</span> <span class="fl">2</span>, df <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">*</span> <span class="va">frailty</span><span class="op">$</span><span class="va">se</span></span>
 <span></span>
 <span><span class="va">ms3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/multisimsum.html">multisimsum</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">frailty</span>,</span>
 <span>  par <span class="op">=</span> <span class="st">"par"</span>, true <span class="op">=</span> <span class="st">"true"</span>,</span>
 <span>  estvarname <span class="op">=</span> <span class="st">"b"</span>, se <span class="op">=</span> <span class="st">"se"</span>, methodvar <span class="op">=</span> <span class="st">"model"</span>,</span>
 <span>  by <span class="op">=</span> <span class="st">"fv_dist"</span>,</span>
-<span>  ci.limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lower"</span>, <span class="st">"upper"</span><span class="op">)</span></span>
+<span>  ci.limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"conf.low"</span>, <span class="st">"conf.high"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; 'ref' method was not specified, Cox, Gamma set as the reference</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">ms3</span>, stats <span class="op">=</span> <span class="st">"cover"</span><span class="op">)</span></span>

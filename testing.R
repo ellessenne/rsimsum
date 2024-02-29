@@ -1,34 +1,50 @@
 library(tidyverse)
 devtools::load_all()
+
+# #48
+library(rsimsum)
+s.nlp.true <- rsimsum::simsum(
+  data = nlp, estvarname = "b", true = "esigma", se = "se",
+  methodvar = "model", by = c("baseline", "ss", "esigma")
+)
+autoplot(s.nlp.true, stats = "bias", type = "nlp")
+nlp$esigma.copy <- nlp$esigma
+s.nlp.true2 <- rsimsum::simsum(
+  data = nlp, estvarname = "b", true = "esigma.copy", se = "se",
+  methodvar = "model", by = c("baseline", "ss", "esigma")
+)
+autoplot(s.nlp.true2, stats = "bias", type = "nlp")
+
+# #49
+library(dplyr)
+devtools::load_all()
 data("nlp", package = "rsimsum")
-
-nlp.subset <- nlp %>%
-  dplyr::filter(!(ss == 100 & esigma == 2))
-
-s.nlp.subset <- rsimsum::simsum(
-  data = nlp.subset,
-  estvarname = "b",
-  true = 0,
-  se = "se",
-  methodvar = "model",
-  by = c("baseline", "ss", "esigma")
+# estvarname:
+rsimsum::simsum(
+  data = rename(nlp, est = b), estvarname = "est", true = 0, se = "se",
+  methodvar = "model", by = c("baseline", "ss", "esigma")
 )
-# Okay
-
-# But this is not okay:
-autoplot(s.nlp.subset, stats = "bias", type = "nlp")
-
-#
-data("MIsim", package = "rsimsum")
-s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", ref = "CC", x = TRUE)
-
-data("frailty", package = "rsimsum")
-ms <- multisimsum(
-  data = frailty,
-  par = "par", true = c(trt = -0.50, fv = 0.75),
-  estvarname = "b", se = "se", methodvar = "model",
-  by = "fv_dist",
-  x = TRUE
+# se:
+rsimsum::simsum(
+  data = rename(nlp, est = se), estvarname = "b", true = 0, se = "est",
+  methodvar = "model", by = c("baseline", "ss", "esigma")
 )
-ms
-autoplot(ms, par = "trt", type = "zip", zip_ci_colours = c("green", "red", "yellow"))
+# methodvar:
+rsimsum::simsum(
+  data = rename(nlp, est = model), estvarname = "b", true = 0, se = "se",
+  methodvar = "est", by = c("baseline", "ss", "esigma")
+)
+# by:
+rsimsum::simsum(
+  data = rename(nlp, est = ss), estvarname = "b", true = 0, se = "se",
+  methodvar = "model", by = c("baseline", "est", "esigma")
+)
+
+# #48
+devtools::load_all()
+library(ggplot2)
+s.nlp.true <- rsimsum::simsum(
+  data = nlp, estvarname = "b", true = "esigma", se = "se",
+  methodvar = "model", by = c("baseline", "ss", "esigma")
+)
+autoplot(s.nlp.true, stats = "bias", type = "nlp")

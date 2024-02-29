@@ -6,25 +6,32 @@
 #' @param data A `data.frame` in which variable names are interpreted.
 #' It has to be in tidy format, e.g. each variable forms a column and each observation forms a row.
 #' @param estvarname The name of the variable containing the point estimates.
+#' Note that some column names are forbidden: these are listed below in the _Details_ section.
 #' @param se The name of the variable containing the standard errors of the point estimates.
+#' Note that some column names are forbidden: these are listed below in the _Details_ section.
 #' @param true The true value of the parameter; this is used in calculations of bias, relative bias, coverage, and mean squared error and is required whenever these performance measures are requested.
 #' `true` can be a numeric value or a string that identifies a column in `data`.
 #' In the former setting, `simsum` will assume the same value for all replications; conversely, each replication will use a distinct value for `true` as identified by each row of `data`.
 #' See `vignette("E-custom-inputs", package = "rsimsum")` for more details.
+#' Note that some column names are forbidden: these are listed below in the _Details_ section.
 #' @param methodvar The name of the variable containing the methods to compare.
 #' For instance, methods could be the models compared within a simulation study.
 #' Can be `NULL`.
 #' If a vector of column names is passed to `simsum()`, those columns will be combined into a single column named `:methodvar` using the [base::interaction()] function before computing all performance measures.
+#' Note that some column names are forbidden: these are listed below in the _Details_ section.
 #' @param ref Specifies the reference method against which relative precision will be calculated.
 #' Only useful if `methodvar` is specified.
 #' @param by A vector of variable names to compute performance measures by a list of factors. Factors listed here are the (potentially several) data-generating mechanisms used to simulate data under different scenarios (e.g. sample size, true distribution of a variable, etc.).
 #' Can be `NULL`.
+#' Note that some column names are forbidden: these are listed below in the _Details_ section.
 #' @param ci.limits Can be used to specify the limits (lower and upper) of confidence intervals used to calculate coverage and bias-eliminated coverage.
 #' Useful for non-Wald type estimators (e.g. bootstrap).
 #' Defaults to `NULL`, where Wald-type confidence intervals based on the provided SEs are calculated for coverage; otherwise, it can be a numeric vector (for fixed confidence intervals) or a vector of strings that identify columns in `data` with replication-specific lower and upper limits.
 #' See `vignette("E-custom-inputs", package = "rsimsum")` for more details.
+#' Note that some column names are forbidden: these are listed below in the _Details_ section.
 #' @param df Can be used to specify that a column containing the replication-specific number of degrees of freedom that will be used to calculate confidence intervals for coverage (and bias-eliminated coverage) assuming t-distributed critical values (rather than normal theory intervals).
 #' See `vignette("E-custom-inputs", package = "rsimsum")` for more details.
+#' Note that some column names are forbidden: these are listed below in the _Details_ section.
 #' @param dropbig Specifies that point estimates or standard errors beyond the maximum acceptable values should be dropped. Defaults to `FALSE`.
 #' @param x Set to `TRUE` to include the `data` argument used to calculate summary statistics (i.e. after pre-processing the input dataset e.g. removing values deemed too large via the `dropbig` argument) as a slot. Calling `simsum` with `x = TRUE` is required to produce zipper plots. The downside is that the size of the returned object increases considerably, therefore it is set to `FALSE` by default.
 #' @param control A list of parameters that control the behaviour of `simsum`.
@@ -43,7 +50,7 @@
 #' @references Gasparini, A. 2018. rsimsum: Summarise results from Monte Carlo simulation studies. Journal of Open Source Software 3(26):739, \doi{10.21105/joss.00739}
 #' @export
 #' @details
-#' The following names are not allowed for `estvarname`, `se`, `methodvar`, `by`: `stat`, `est`, `mcse`, `lower`, `upper`, `:methodvar`.
+#' The following names are not allowed for any column in `data` that is passed to [simsum()]: `stat`, `est`, `mcse`, `lower`, `upper`, `:methodvar`, `:true`.
 #'
 #' @examples
 #' data("MIsim", package = "rsimsum")
@@ -62,22 +69,6 @@ simsum <- function(data,
                    dropbig = FALSE,
                    x = FALSE,
                    control = list()) {
-  # data("nlp", package = "rsimsum")
-  # nlp.subset <- nlp %>%
-  #   dplyr::filter(!(ss == 100 & esigma == 2))
-  # data <- nlp.subset
-  # estvarname <- "b"
-  # true <- 0
-  # se <- "se"
-  # methodvar <- "model"
-  # by <- c("baseline", "ss", "esigma")
-  # ci.limits <- NULL
-  # df <- NULL
-  # dropbig <- FALSE
-  # x <- FALSE
-  # control <- list()
-  # ref <- NULL
-
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # 'data' must be a data.frame
@@ -109,13 +100,13 @@ simsum <- function(data,
   checkmate::assert_subset(x = by, choices = names(data), add = arg_checks)
   checkmate::assert_subset(x = methodvar, choices = names(data), add = arg_checks)
   checkmate::assert_subset(x = df, choices = names(data), add = arg_checks)
-  # 'estvarname', 'se', 'methodvar', 'by' , 'df' must not be any in ('stat', 'est', 'mcse', 'lower', 'upper', ':methodvar')
-  .private_names <- c("stat", "est", "mcse", "lower", "upper", ":methodvar")
-  checkmate::assert_false(x = (estvarname %in% .private_names), add = arg_checks)
-  if (!is.null(se)) checkmate::assert_false(x = (se %in% .private_names), add = arg_checks)
-  if (!is.null(methodvar)) checkmate::assert_false(x = any(methodvar %in% .private_names), add = arg_checks)
-  if (!is.null(by)) checkmate::assert_false(x = any(by %in% .private_names), add = arg_checks)
-  if (!is.null(df)) checkmate::assert_false(x = any(df %in% .private_names), add = arg_checks)
+  # 'estvarname', 'se', 'methodvar', 'by' , 'df' must not be any in ('stat', 'est', 'mcse', 'lower', 'upper', ':methodvar', ':true')
+  .private_names <- c("stat", "est", "mcse", "lower", "upper", ":methodvar", ":true")
+  .check_private(var = estvarname, label = "estvarname", private_names = .private_names)
+  .check_private(var = se, label = "se", private_names = .private_names)
+  .check_private(var = methodvar, label = "methodvar", private_names = .private_names)
+  .check_private(var = by, label = "by", private_names = .private_names)
+  .check_private(var = df, label = "df", private_names = .private_names)
   # Process vector of 'methodvar' if a vector
   user_methodvar <- NULL
   if (length(methodvar) > 1) {
@@ -134,6 +125,7 @@ simsum <- function(data,
     if (is.character(ci.limits)) {
       checkmate::assert_character(x = ci.limits, len = 2, add = arg_checks)
       checkmate::assert_true(x = all(ci.limits %in% names(data)), add = arg_checks)
+      lapply(X = ci.limits, FUN = function(x) .check_private(var = x, label = "ci.limits", private_names = .private_names))
     }
     if (is.numeric(ci.limits)) {
       checkmate::assert_numeric(x = ci.limits, len = 2, add = arg_checks)
@@ -163,6 +155,15 @@ simsum <- function(data,
     control.default[!(names(control.default) %in% names(control))]
   ), recursive = FALSE)
   control <- control.tmp
+
+  ### Add hidden column with true values
+  if (!is.null(true)) {
+    if (is.character(true)) {
+      data[[":true"]] <- data[[true]]
+    } else {
+      data[[":true"]] <- true
+    }
+  }
 
   ### Factorise 'methodvar', 'by'
   data <- .factorise(data = data, cols = c(methodvar, by))
@@ -256,6 +257,7 @@ simsum <- function(data,
   obj$control <- control
   if (x) {
     obj$x <- .br(lapply(data, .br))
+    if (!is.null(true)) obj$x[[":true"]] <- NULL
     rownames(obj$x) <- NULL
   }
 

@@ -9,8 +9,6 @@ pre_submission_test:
 	R -e "devtools::check_win_oldrelease(quiet = TRUE)"
 	R -e "devtools::check_mac_release(quiet = TRUE)"
 	R -e "rhub::check_for_cran()"
-	R -e "rhub::check(platforms = 'macos-highsierra-release-cran')"
-	R -e "rhub::check(platforms = 'macos-highsierra-release')"
 	make style
 
 docs:

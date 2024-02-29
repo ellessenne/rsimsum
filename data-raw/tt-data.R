@@ -142,6 +142,8 @@ for (i in seq(B)) {
   tt.df[[i]] <- out
 }
 tt <- do.call(rbind.data.frame, tt.df)
+library(dplyr)
+tt <- rename(tt, conf.low = lower, conf.high = upper)
 
 ### Export for use in the package
 usethis::use_data(tt, overwrite = TRUE)

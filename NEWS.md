@@ -1,6 +1,12 @@
 # rsimsum (development version)
 
-* Fixed issues with nested loop plot when the simulation design is not fully-factorial (#47, thanks @mikesweeting).
+* Fixed issues with nested loop plot when the simulation design is not fully-factorial (#47, thanks @mikesweeting);
+
+* Fixed wrong calculations when the same column was used in `true` and in `by` or elsewhere (#48, thanks @mikesweeting);
+
+* Updated columns names for confidence intervals in the `tt` dataset;
+
+* Updated documentation regarding column names that are not allowed when calling `simsum()` or `multisimsum()`.
 
 # rsimsum 0.12.0
 
