@@ -207,7 +207,7 @@
   if (!is.null(var)) {
     if (any(var %in% private_names)) {
       this <- which(var %in% private_names)
-      stop(paste0("'", var[this], "' is not an allowed name for '", label, "'"), call. = FALSE)
+      stop(paste0("'", var[this], "' is not an allowed name for '", label, "'; see help('simsum') for more details."), call. = FALSE)
     }
   }
 }
