@@ -10,6 +10,7 @@
 #' @param top Should the legend for a nested loop plot be on the top side of the plot? Defaults to `TRUE`.
 #' @param density.legend Should the legend for density and hexbin plots be included? Defaults to `TRUE`.
 #' @param zoom A numeric value between 0 and 1 signalling that a zip plot should _zoom_ on the top x% of the plot (to ease interpretation). Defaults to 1, where the whole zip plot is displayed.
+#' @param zip_ci_colours A string with (1) a hex code to use for plotting coverage probability and its Monte Carlo confidence intervals (the default, with value `zip_ci_colours = "yellow"`), (2) a string vector of two hex codes denoting optimal coverage (first element) and over/under coverage (second element) or (3) a vector of three hex codes denoting optimal coverage (first), undercoverage (second), and overcoverage (third).
 #' @param ... Not used.
 #'
 #' @return A `ggplot` object.
@@ -35,7 +36,7 @@
 #'   methodvar = "model", by = c("baseline", "ss", "esigma")
 #' )
 #' autoplot(s1, stats = "bias", type = "nlp")
-autoplot.simsum <- function(object, type = "forest", stats = "nsim", target = NULL, fitted = TRUE, scales = "fixed", top = TRUE, density.legend = TRUE, zoom = 1, ...) {
+autoplot.simsum <- function(object, type = "forest", stats = "nsim", target = NULL, fitted = TRUE, scales = "fixed", top = TRUE, density.legend = TRUE, zoom = 1, zip_ci_colours = "yellow", ...) {
   # object <- s.nlp.subset
   # type <- "nlp"
   # stats <- "bias"
@@ -69,6 +70,8 @@ autoplot.simsum <- function(object, type = "forest", stats = "nsim", target = NU
   if (type %in% c("zip", "est", "se", "est_ba", "se_ba", "est_ridge", "se_ridge", "est_density", "se_density", "est_hex", "se_hex")) {
     checkmate::assert_true(x = !is.null(object$x), add = arg_checks)
   }
+  # zip_ci_colours must be a string
+  checkmate::assert_character(x = zip_ci_colours, min.len = 1, max.len = 3)
   # Report
   if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
 
@@ -117,7 +120,7 @@ autoplot.simsum <- function(object, type = "forest", stats = "nsim", target = NU
   plot <- switch(type,
     "forest" = .forest_plot(data = df, methodvar = object$methodvar, by = object$by, stats = stats, ci = ci, target = target, scales = scales),
     "lolly" = .lolly_plot(data = df, methodvar = object$methodvar, by = object$by, stats = stats, ci = ci, target = target, scales = scales),
-    "zip" = .zip_plot(data = object$x, estvarname = object$estvarname, se = object$se, true = object$true, methodvar = object$methodvar, by = object$by, ci.limits = object$ci.limits, df = object$df, control = object$control, summ = object$summ, zoom = zoom), # zip for coverage
+    "zip" = .zip_plot(data = object$x, estvarname = object$estvarname, se = object$se, true = object$true, methodvar = object$methodvar, by = object$by, ci.limits = object$ci.limits, df = object$df, control = object$control, summ = object$summ, zoom = zoom, zip_ci_colours = zip_ci_colours), # zip for coverage
     "est" = .vs_plot(data = object$x, b = object$estvarname, methodvar = object$methodvar, by = object$by, fitted = fitted, scales = scales, ba = FALSE),
     "se" = .vs_plot(data = object$x, b = object$se, methodvar = object$methodvar, by = object$by, fitted = fitted, scales = scales, ba = FALSE),
     "est_ba" = .vs_plot(data = object$x, b = object$estvarname, methodvar = object$methodvar, by = object$by, fitted = fitted, scales = scales, ba = TRUE),

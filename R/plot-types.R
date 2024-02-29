@@ -76,7 +76,7 @@
 
 ### Zip plot
 #' @keywords internal
-.zip_plot <- function(data, estvarname, se, true, methodvar, by, ci.limits, df, control, summ, zoom) {
+.zip_plot <- function(data, estvarname, se, true, methodvar, by, ci.limits, df, control, summ, zoom, zip_ci_colours) {
   ### Extract overall coverage
   summ <- summ[summ$stat == "cover", ]
   summ$cover <- summ$est
@@ -138,12 +138,34 @@
   ### Label of the y-axis
   ylab <- ifelse(is.null(df), "Fractional centile of |z-score|", "Fractional centile of |t-score|")
 
+  ### Define CI lines colors
+  if (length(zip_ci_colours) == 2) {
+    data$line_color_lower <- ifelse(data$cover_lower <= control$level & control$level <= data$cover_upper, zip_ci_colours[1], zip_ci_colours[2])
+    data$line_color_upper <- ifelse(data$cover_lower <= control$level & control$level <= data$cover_upper, zip_ci_colours[1], zip_ci_colours[2])
+  } else if (length(zip_ci_colours) == 3) {
+    data$line_color_lower <- ifelse(data$cover_lower > control$level & data$cover_upper > control$level, zip_ci_colours[3],
+      ifelse(data$cover_lower < control$level & data$cover_upper < control$level, zip_ci_colours[2],
+        ifelse(data$cover_lower <= control$level & control$level <= data$cover_upper, zip_ci_colours[1], NA)
+      )
+    )
+
+    data$line_color_upper <- ifelse(data$cover_lower > control$level & data$cover_upper > control$level, zip_ci_colours[3],
+      ifelse(data$cover_lower < control$level & data$cover_upper < control$level, zip_ci_colours[2],
+        ifelse(data$cover_lower <= control$level & control$level <= data$cover_upper, zip_ci_colours[1], NA)
+      )
+    )
+  } else {
+    data$line_color_lower <- zip_ci_colours
+    data$line_color_upper <- zip_ci_colours
+  }
+
   ### Build plot
   gg <- ggplot2::ggplot(data, ggplot2::aes(y = rank, x = lower, color = covering)) +
     ggplot2::geom_segment(ggplot2::aes(yend = rank, xend = upper)) +
-    ggplot2::geom_vline(xintercept = true, color = "yellow", linetype = "dashed") +
-    ggplot2::geom_hline(ggplot2::aes(yintercept = cover_lower), color = "yellow", linetype = "dashed") +
-    ggplot2::geom_hline(ggplot2::aes(yintercept = cover_upper), color = "yellow", linetype = "dashed") +
+    ggplot2::geom_vline(xintercept = true, color = "black", linetype = "dashed") +
+    ggplot2::geom_hline(ggplot2::aes(yintercept = cover_lower), color = data$line_color_lower, linetype = "dashed", linewidth = 1) +
+    ggplot2::geom_hline(ggplot2::aes(yintercept = 0.95), color = "black", linetype = "dashed") +
+    ggplot2::geom_hline(ggplot2::aes(yintercept = cover_upper), color = data$line_color_upper, linetype = "dashed", linewidth = 1) +
     ggplot2::labs(y = ylab, x = paste0(100 * control$level, "% confidence intervals"), color = "") +
     theme(legend.position = "bottom")
 

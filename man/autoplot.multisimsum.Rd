@@ -15,6 +15,7 @@
   top = TRUE,
   density.legend = TRUE,
   zoom = 1,
+  zip_ci_colours = "yellow",
   ...
 )
 }
@@ -38,6 +39,8 @@
 \item{density.legend}{Should the legend for density and hexbin plots be included? Defaults to \code{TRUE}.}
 
 \item{zoom}{A numeric value between 0 and 1 signalling that a zip plot should \emph{zoom} on the top x\% of the plot (to ease interpretation). Defaults to 1, where the whole zip plot is displayed.}
+
+\item{zip_ci_colours}{A string with (1) a hex code to use for plotting coverage probability and its Monte Carlo confidence intervals (the default, with value \code{zip_ci_colours = "yellow"}), (2) a string vector of two hex codes denoting optimal coverage (first element) and over/under coverage (second element) or (3) a vector of three hex codes denoting optimal coverage (first), undercoverage (second), and overcoverage (third).}
 
 \item{...}{Not used.}
 }

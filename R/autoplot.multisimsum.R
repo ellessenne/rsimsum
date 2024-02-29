@@ -10,6 +10,7 @@
 #' @param top Should the legend for a nested loop plot be on the top side of the plot? Defaults to `TRUE`.
 #' @param density.legend Should the legend for density and hexbin plots be included? Defaults to `TRUE`.
 #' @param zoom A numeric value between 0 and 1 signalling that a zip plot should _zoom_ on the top x% of the plot (to ease interpretation). Defaults to 1, where the whole zip plot is displayed.
+#' @param zip_ci_colours A string with (1) a hex code to use for plotting coverage probability and its Monte Carlo confidence intervals (the default, with value `zip_ci_colours = "yellow"`), (2) a string vector of two hex codes denoting optimal coverage (first element) and over/under coverage (second element) or (3) a vector of three hex codes denoting optimal coverage (first), undercoverage (second), and overcoverage (third).
 #' @param ... Not used.
 #'
 #' @return A `ggplot` object.
@@ -29,7 +30,7 @@
 #' autoplot(ms, par = "trt", type = "lolly", stats = "cover")
 #' autoplot(ms, par = "trt", type = "zip")
 #' autoplot(ms, par = "trt", type = "est_ba")
-autoplot.multisimsum <- function(object, par, type = "forest", stats = "nsim", target = NULL, fitted = TRUE, scales = "fixed", top = TRUE, density.legend = TRUE, zoom = 1, ...) {
+autoplot.multisimsum <- function(object, par, type = "forest", stats = "nsim", target = NULL, fitted = TRUE, scales = "fixed", top = TRUE, density.legend = TRUE, zoom = 1, zip_ci_colours = "yellow", ...) {
   ### Manipulate object to make it a simsum-like object
   object[["summ"]] <- object[["summ"]][object[["summ"]][[object[["par"]]]] == par, ]
   object[["true"]] <- object[["true"]][par]
@@ -44,7 +45,7 @@ autoplot.multisimsum <- function(object, par, type = "forest", stats = "nsim", t
   }
 
   # Call autoplot.simsum on the subset of results for a given parameter:
-  plot <- autoplot(object = object, type = type, stats = stats, target = target, fitted = fitted, scales = scales, top = top, density.legend = density.legend, zoom = zoom, ...)
+  plot <- autoplot(object = object, type = type, stats = stats, target = target, fitted = fitted, scales = scales, top = top, density.legend = density.legend, zoom = zoom, zip_ci_colours = zip_ci_colours, ...)
 
   # Add title with parameter of interest
   plot <- plot +
