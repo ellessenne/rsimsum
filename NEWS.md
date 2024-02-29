@@ -1,16 +1,21 @@
-# rsimsum (development version)
+# rsimsum 0.13.0
 
 * Fixed issues with nested loop plot when the simulation design is not fully-factorial (#47, thanks @mikesweeting);
 
 * Fixed wrong calculations when the same column was used in `true` and in `by` or elsewhere (#48, thanks @mikesweeting);
 
+* New options for zip plots: via the `zip_ci_colors` argument it is possible to customise the colour of CI lines for coverage.
+  More details are available on GitHub (<https://github.com/ellessenne/rsimsum/pull/55>) and in the documentation.
+
 * Updated columns names for confidence intervals in the `tt` dataset;
 
 * Updated documentation regarding column names that are not allowed when calling `simsum()` or `multisimsum()`.
+  Internals of the package have been reworked accordingly, and more informative error messages are provided to the user.
 
 # rsimsum 0.12.0
 
-* A new performance measure, relative bias, can now be calculated along with its Monte Carlo error (#41). More details on the formulae are in the introductory vignette, which has been updated accordingly.
+* A new performance measure, relative bias, can now be calculated along with its Monte Carlo error (#41). 
+  More details on the formulae are in the introductory vignette, which has been updated accordingly.
 
 * Fixed issues with `stat(level)`, which was deprecated in {ggplot2} 3.4.0 (#44).
 
