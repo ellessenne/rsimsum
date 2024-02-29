@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# rsimsum <img src="man/figures/hex.png" width = "200" align="right" />
+# {rsimsum}: Analysis of Simulation Studies Including Monte Carlo Error <img src="man/figures/hex.png" width = "200" align="right" />
 
 <!-- badges: start -->
 

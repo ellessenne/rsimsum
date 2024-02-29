@@ -15,12 +15,12 @@ knitr::opts_chunk$set(
   fig.height = 4.5,
   fig.width = 6.5,
   out.width = "85%",
-  dpi = 150
+  dpi = 200
 )
 options(width = 100)
 ```
 
-# rsimsum <img src="man/figures/hex.png" width = "200" align="right" />
+# {rsimsum}: Analysis of Simulation Studies Including Monte Carlo Error <img src="man/figures/hex.png" width = "200" align="right" />
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/ellessenne/rsimsum/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ellessenne/rsimsum/actions/workflows/R-CMD-check.yaml)
