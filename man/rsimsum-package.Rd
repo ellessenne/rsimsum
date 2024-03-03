@@ -12,6 +12,7 @@ Summarise results from simulation studies and compute Monte Carlo standard error
 Useful links:
 \itemize{
   \item \url{https://ellessenne.github.io/rsimsum/}
+  \item \url{https://github.com/ellessenne/rsimsum}
   \item Report bugs at \url{https://github.com/ellessenne/rsimsum/issues}
 }
 
