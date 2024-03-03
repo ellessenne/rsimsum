@@ -1,3 +1,5 @@
+# rsimsum (development version)
+
 # rsimsum 0.13.0
 
 * Fixed issues with nested loop plot when the simulation design is not fully-factorial (#47, thanks @mikesweeting);
