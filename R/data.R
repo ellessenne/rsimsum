@@ -1,7 +1,7 @@
 #' @title Example of a simulation study on missing data
 #' @description A dataset from a simulation study comparing different ways to handle missing covariates when fitting a Cox model (White and Royston, 2009).
 #' One thousand datasets were simulated, each containing normally distributed covariates \eqn{x} and \eqn{z} and time-to-event outcome.
-#' Both covariates have 20\% of their values deleted independently of all other variables so the data became missing completely at random (Little and Rubin, 2002).
+#' Both covariates have 20% of their values deleted independently of all other variables so the data became missing completely at random (Little and Rubin, 2002).
 #' Each simulated dataset was analysed in three ways.
 #' A Cox model was fit to the complete cases (`CC`).
 #' Then two methods of multiple imputation using chained equations (van Buuren, Boshuizen, and Knook, 1999) were used.
