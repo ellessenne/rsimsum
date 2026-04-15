@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# {rsimsum}: Analysis of Simulation Studies Including Monte Carlo Error <img src="man/figures/hex.png" width = "200" align="right" />
+# {rsimsum}: Analysis of Simulation Studies Including Monte Carlo Error <img src="man/figures/hex.png" width = "200" align="right" alt="Hex logo of the {rsimsum} R package."/>
 
 <!-- badges: start -->
 
@@ -204,13 +204,13 @@ library(ggplot2)
 autoplot(s, type = "lolly", stats = "bias")
 ```
 
-<img src="man/figures/README-lolly-1.png" width="85%" style="display: block; margin: auto;" />
+<img src="man/figures/README-lolly-1.png" alt="" width="85%" style="display: block; margin: auto;" />
 
 ``` r
 autoplot(s, type = "zip")
 ```
 
-<img src="man/figures/README-zipper-1.png" width="85%" style="display: block; margin: auto;" />
+<img src="man/figures/README-zipper-1.png" alt="" width="85%" style="display: block; margin: auto;" />
 
 With `rsimsum` `0.5.0` the plotting functionality has been completely
 rewritten, and new plot types have been implemented:
@@ -223,7 +223,7 @@ autoplot(s, type = "est_ba")
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
 
-<img src="man/figures/README-ba-1.png" width="85%" style="display: block; margin: auto;" />
+<img src="man/figures/README-ba-1.png" alt="" width="85%" style="display: block; margin: auto;" />
 
 - Ridgeline plots.
 
@@ -232,7 +232,7 @@ autoplot(s, type = "est_ridge")
 #> Picking joint bandwidth of 0.0295
 ```
 
-<img src="man/figures/README-ridgeline-1.png" width="85%" style="display: block; margin: auto;" />
+<img src="man/figures/README-ridgeline-1.png" alt="" width="85%" style="display: block; margin: auto;" />
 
 Nested loop plots have been implemented in `rsimsum` `0.6.0`:
 
@@ -246,7 +246,7 @@ s.nlp <- rsimsum::simsum(
 autoplot(s.nlp, stats = "bias", type = "nlp")
 ```
 
-<img src="man/figures/README-nlp-1.png" width="85%" style="display: block; margin: auto;" />
+<img src="man/figures/README-nlp-1.png" alt="" width="85%" style="display: block; margin: auto;" />
 
 Finally, as of `rsimsum` `0.7.1` contour plots and hexbin plots have
 been implemented as well:
@@ -256,14 +256,14 @@ autoplot(s, type = "est_density")
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
 
-<img src="man/figures/README-density-1.png" width="85%" style="display: block; margin: auto;" />
+<img src="man/figures/README-density-1.png" alt="" width="85%" style="display: block; margin: auto;" />
 
 ``` r
 autoplot(s, type = "est_hex")
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
 
-<img src="man/figures/README-hex-1.png" width="85%" style="display: block; margin: auto;" />
+<img src="man/figures/README-hex-1.png" alt="" width="85%" style="display: block; margin: auto;" />
 
 They provide a useful alternative when there are several data points
 with large overlap (e.g. in a scatterplot).
