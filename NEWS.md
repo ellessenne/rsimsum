@@ -1,8 +1,8 @@
 # rsimsum 0.13.1
 
-* The `control$na.rm` was ignored when calculating the Monte Carlo standard error for relative bias, now fixed (#60).
+* The `control$na.rm` was ignored when calculating the Monte Carlo standard error for relative bias, now fixed (#60, thanks @mikesweeting).
 
-* Fixed namespace conflicts between {rlang} (version 1.2.0) and {checkmate} (#61).
+* Fixed namespace conflicts between {rlang} (version 1.2.0) and {checkmate} (#61, thanks @lionel-).
 
 * Fixed some documentation rendering issues and updated {pkgdown} site.
 

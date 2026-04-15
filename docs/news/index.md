@@ -4,10 +4,12 @@
 
 - The `control$na.rm` was ignored when calculating the Monte Carlo
   standard error for relative bias, now fixed
-  ([\#60](https://github.com/ellessenne/rsimsum/issues/60)).
+  ([\#60](https://github.com/ellessenne/rsimsum/issues/60), thanks
+  [@mikesweeting](https://github.com/mikesweeting)).
 
 - Fixed namespace conflicts between {rlang} (version 1.2.0) and
-  {checkmate} ([\#61](https://github.com/ellessenne/rsimsum/issues/61)).
+  {checkmate} ([\#61](https://github.com/ellessenne/rsimsum/issues/61),
+  thanks [@lionel-](https://github.com/lionel-)).
 
 - Fixed some documentation rendering issues and updated {pkgdown} site.
 
