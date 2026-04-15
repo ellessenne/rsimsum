@@ -27,3 +27,6 @@ cache$
 ^\.DS_Store$
 ^revdep$
 ^CRAN-SUBMISSION$
+^R0\.md$
+^R1\.md$
+^R2\.md$
