@@ -234,7 +234,7 @@ simsum <- function(data,
 
   # If vector of 'methodvar', restore input data
   if (!is.null(user_methodvar)) {
-    summ[[".nr"]] <- seq(nrow(summ))
+    summ[[".nr"]] <- seq_len(nrow(summ))
     summ <- merge(summ, reftable, by = methodvar)
     summ <- summ[order(summ[[".nr"]]), ]
     summ[, methodvar] <- NULL
