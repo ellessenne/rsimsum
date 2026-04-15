@@ -1,6 +1,12 @@
-# rsimsum (development version)
+# rsimsum 0.13.1
 
-* Fixed some documentation rendering issues.
+* The `control$na.rm` was ignored when calculating the Monte Carlo standard error for relative bias, now fixed (#60).
+
+* Fixed namespace conflicts between {rlang} (version 1.2.0) and {checkmate} (#61).
+
+* Fixed some documentation rendering issues and updated {pkgdown} site.
+
+* Internal formatting and housekeeping.
 
 # rsimsum 0.13.0
 

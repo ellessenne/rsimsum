@@ -1,50 +1,48 @@
 Package: rsimsum
-Version: 0.13.0.9000
 Title: Analysis of Simulation Studies Including Monte Carlo Error
-Description: Summarise results from simulation studies and compute Monte Carlo
-  standard errors of commonly used summary statistics. This package is modelled 
-  on the 'simsum' user-written command in 'Stata' (White I.R., 2010 
-  <https://www.stata-journal.com/article.html?article=st0200>), further extending
-  it with additional performance measures and functionality.
+Version: 0.13.1
 Authors@R: c(
-  person(given = "Alessandro", 
-         family = "Gasparini", 
-         role = c("aut", "cre"), 
-         email = "alessandro@ellessenne.xyz",
-         comment = c(ORCID = "0000-0002-8319-7624")),
-  person(given = "Ian R.", 
-         family = "White", 
-         role = "aut")
+    person("Alessandro", "Gasparini", , "alessandro@ellessenne.xyz", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-8319-7624")),
+    person("Ian R.", "White", role = "aut")
   )
+Description: Summarise results from simulation studies and compute Monte
+    Carlo standard errors of commonly used summary statistics. This
+    package is modelled on the 'simsum' user-written command in 'Stata'
+    (White I.R., 2010
+    <https://www.stata-journal.com/article.html?article=st0200>), further
+    extending it with additional performance measures and functionality.
 License: GPL (>= 3)
-Depends:
- R (>= 2.10)
-Imports:
-  checkmate,
-  generics,
-  ggridges,
-  ggplot2,
-  knitr,
-  lifecycle,
-  rlang (>= 1.2.0),
-  scales,
-  stats
-Suggests:
-  covr,
-  devtools,
-  dplyr,
-  eha,
-  rmarkdown,
-  rstpm2,
-  survival,
-  testthat,
-  usethis
-URL: https://ellessenne.github.io/rsimsum/, https://github.com/ellessenne/rsimsum
+URL: https://ellessenne.github.io/rsimsum/,
+    https://github.com/ellessenne/rsimsum
 BugReports: https://github.com/ellessenne/rsimsum/issues
-VignetteBuilder: knitr
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
-LazyData: true
+Depends:
+    R (>= 2.10)
+Imports:
+    checkmate,
+    generics,
+    ggplot2,
+    ggridges,
+    knitr,
+    lifecycle,
+    rlang (>= 1.2.0),
+    scales,
+    stats
+Suggests:
+    covr,
+    devtools,
+    dplyr,
+    eha,
+    rmarkdown,
+    rstpm2,
+    survival,
+    testthat,
+    usethis
+VignetteBuilder: 
+    knitr
 ByteCompile: true
 Encoding: UTF-8
 Language: en-GB
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
