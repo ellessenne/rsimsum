@@ -50,74 +50,104 @@ We will use th following notation throughout this vignette:
 
 The first performance measure of interest is **bias**, which quantifies whether the estimator targets the true value $\theta$ on average. Bias is calculated as:
 
-$$\text{Bias} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} \hat{\theta}_i - \theta$$
+$$
+\text{Bias} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} \hat{\theta}_i - \theta
+$$
 
 The Monte Carlo standard error of bias is calculated as:
 
-$$\text{MCSE(Bias)} = \sqrt{\frac{\frac{1}{n_{\text{sim}} - 1} \sum_{i = 1} ^ {n_{\text{sim}}} (\hat{\theta}_i - \bar{\theta}) ^ 2}{n_{\text{sim}}}}$$
+$$
+\text{MCSE(Bias)} = \sqrt{\frac{\frac{1}{n_{\text{sim}} - 1} \sum_{i = 1} ^ {n_{\text{sim}}} (\hat{\theta}_i - \bar{\theta}) ^ 2}{n_{\text{sim}}}}
+$$
 
 `rsimsum` can also compute **relative bias** (_relative_ to the true value $\theta$), which can be interpreted similarly as with bias, but in relative terms rather than absolute.
 This is calculated as:
 
-$$\text{Relative Bias} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} \frac{\hat{\theta}_i - \theta}{\theta}$$
+$$
+\text{Relative Bias} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} \frac{\hat{\theta}_i - \theta}{\theta}
+$$
 
 Its Monte Carlo standard error is calculated as:
 
 $$
-\text{MCSE(Relative Bias)} =  \sqrt{\frac{1}{n_{\text{sim}} (n_{\text{sim}} - 1)} \sum_i^{n_{\text{sim} \left[ \frac{\hat{\theta}_i - \theta}{\theta} - \widehat{\text{Relative Bias}} \right]^2}
+\text{MCSE(Relative Bias)} = \sqrt{\frac{1}{n_{\text{sim}} (n_{\text{sim}} - 1)} \sum_i^{n_{\text{sim}}} \left[ \frac{\hat{\theta}_i - \theta}{\theta} - \widehat{\text{Relative Bias}} \right]^2}
 $$
 
 The **empirical standard error** of $\theta$ depends only on $\hat{\theta}$ and does not require any knowledge of $\theta$.
 It estimates the standard deviation of $\hat{\theta}$ over the $n_{\text{sim}}$ replications:
 
-$$\text{Empirical SE} = \sqrt{\frac{1}{n_{\text{sim}} - 1} \sum_{i = 1} ^ {n_{\text{sim}}} (\hat{\theta}_i - \bar{\theta}) ^ 2}$$
+$$
+\text{Empirical SE} = \sqrt{\frac{1}{n_{\text{sim}} - 1} \sum_{i = 1} ^ {n_{\text{sim}}} (\hat{\theta}_i - \bar{\theta}) ^ 2}
+$$
 
 The Monte Carlo standard error is calculated as:
 
-$$\text{MCSE(Emp. SE)} = \frac{\widehat{\text{Emp. SE}}}{\sqrt{2 (n_{\text{sim}} - 1)}}$$
+$$
+\text{MCSE(Emp. SE)} = \frac{\widehat{\text{Emp. SE}}}{\sqrt{2 (n_{\text{sim}} - 1)}}
+$$
 
 When comparing different methods, the **relative precision of a given method B against a reference method A** is computed as:
 
-$$\text{Relative % increase in precision} = 100 \left[ \left( \frac{\widehat{\text{Emp. SE}}_A}{\widehat{\text{Emp. SE}}_B} \right) ^ 2 - 1 \right]$$
+$$
+\text{Relative \% increase in precision} = 100 \left[ \left( \frac{\widehat{\text{Emp. SE}}_A}{\widehat{\text{Emp. SE}}_B} \right) ^ 2 - 1 \right]
+$$
 
 Its (approximated) Monte Carlo standard error is:
 
-$$\text{MCSE(Relative % increase in precision)} \simeq 200 \left( \frac{\widehat{\text{Emp. SE}}_A}{\widehat{\text{Emp. SE}}_B} \right)^2 \sqrt{\frac{1 - \rho^2_{AB}}{n_{\text{sim}} - 1}}$$
+$$
+\text{MCSE(Relative \% increase in precision)} \simeq 200 \left( \frac{\widehat{\text{Emp. SE}}_A}{\widehat{\text{Emp. SE}}_B} \right)^2 \sqrt{\frac{1 - \rho^2_{AB}}{n_{\text{sim}} - 1}}
+$$
 
 $\rho^2_{AB}$ is the correlation of $\hat{\theta}_A$ and $\hat{\theta}_B$.
 
 
 A measure that takes into account both precision and accuracy of a method is the **mean squared error**, which is the sum of the squared bias and variance of $\hat{\theta}$:
 
-$$\text{MSE} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} (\hat{\theta}_i - \theta) ^ 2$$
+$$
+\text{MSE} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} (\hat{\theta}_i - \theta) ^ 2
+$$
 
 The Monte Carlo standard error is:
 
-$$\text{MCSE(MSE)} = \sqrt{\frac{\sum_{i = 1} ^ {n_{\text{sim}}} \left[ (\hat{\theta}_i - \theta) ^2 - \text{MSE} \right] ^ 2}{n_{\text{sim}} (n_{\text{sim}} - 1)}}$$
+$$
+\text{MCSE(MSE)} = \sqrt{\frac{\sum_{i = 1} ^ {n_{\text{sim}}} \left[ (\hat{\theta}_i - \theta) ^2 - \text{MSE} \right] ^ 2}{n_{\text{sim}} (n_{\text{sim}} - 1)}}
+$$
 
 The **model based standard error** is computed by averaging the estimated standard errors for each replication:
 
-$$\text{Model SE} = \sqrt{\frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} \widehat{\text{Var}}(\hat{\theta}_i)}$$
+$$
+\text{Model SE} = \sqrt{\frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} \widehat{\text{Var}}(\hat{\theta}_i)}
+$$
 
 Its (approximated) Monte Carlo standard error is computed as:
 
-$$\text{MCSE(Model SE)} \simeq \sqrt{\frac{\text{Var}[\widehat{\text{Var}}(\hat{\theta}_i)]}{4 n_{\text{sim}} \widehat{\text{Model SE}}}}$$
+$$
+\text{MCSE(Model SE)} \simeq \sqrt{\frac{\text{Var}[\widehat{\text{Var}}(\hat{\theta}_i)]}{4 n_{\text{sim}} \widehat{\text{Model SE}}}}
+$$
 
 The model standard error targets the empirical standard error. Hence, the **relative error in the model standard error** is an informative performance measure:
 
-$$\text{Relative % error in model SE} = 100 \left( \frac{\text{Model SE}}{\text{Empirical SE}} - 1\right)$$
+$$
+\text{Relative \% error in model SE} = 100 \left( \frac{\text{Model SE}}{\text{Empirical SE}} - 1\right)
+$$
 
 Its Monte Carlo standard error is computed as:
 
-$$\text{MCSE(Relative % error in model SE)} = 100 \left( \frac{\text{Model SE}}{\text{Empirical SE}} \right) \sqrt{\frac{\text{Var}[\widehat{\text{Var}}(\hat{\theta}_i)]}{4 n_{\text{sim}} \widehat{\text{Model SE}} ^ 4} + \frac{1}{2(n_{\text{sim}} - 1)}}$$
+$$
+\text{MCSE(Relative \% error in model SE)} = 100 \left( \frac{\text{Model SE}}{\text{Empirical SE}} \right) \sqrt{\frac{\text{Var}[\widehat{\text{Var}}(\hat{\theta}_i)]}{4 n_{\text{sim}} \widehat{\text{Model SE}} ^ 4} + \frac{1}{2(n_{\text{sim}} - 1)}}
+$$
 
 **Coverage** is another key property of an estimator. It is defined as the probability that a confidence interval contains the true value $\theta$, and computed as:
 
-$$\text{Coverage} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} I(\hat{\theta}_{i, \text{low}} \le \theta \le \hat{\theta}_{i, \text{upp}})$$
+$$
+\text{Coverage} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} I(\hat{\theta}_{i, \text{low}} \le \theta \le \hat{\theta}_{i, \text{upp}})
+$$
 
 where $I(\cdot)$ is the indicator function. The Monte Carlo standard error is computed as:
 
-$$\text{MCSE(Coverage)} = \sqrt{\frac{\text{Coverage} \times (1 - \text{Coverage})}{n_{\text{sim}}}}$$
+$$
+\text{MCSE(Coverage)} = \sqrt{\frac{\text{Coverage} \times (1 - \text{Coverage})}{n_{\text{sim}}}}
+$$
 
 Under coverage is to be expected if:
 
@@ -130,19 +160,27 @@ Over coverage occurs as a result of $\text{Models SE} > \text{Empirical SE}$.
 
 As under coverage may be a result of bias, another useful summary statistic is **bias-eliminated coverage**:
 
-$$\text{Bias-eliminated coverage} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} I(\hat{\theta}_{i, \text{low}} \le \bar{\theta} \le \hat{\theta}_{i, \text{upp}}) $$
+$$
+\text{Bias-eliminated (BE) coverage} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} I(\hat{\theta}_{i, \text{low}} \le \bar{\theta} \le \hat{\theta}_{i, \text{upp}})
+$$
 
 The Monte Carlo standard error is analogously as coverage:
 
-$$\text{MCSE(Bias-eliminated coverage)} = \sqrt{\frac{\text{Bias-eliminated coverage} \times (1 - \text{Bias-eliminated coverage})}{n_{\text{sim}}}}$$
+$$
+\text{MCSE(BE coverage)} = \sqrt{\frac{\text{BE coverage} \times (1 - \text{BE coverage})}{n_{\text{sim}}}}
+$$
 
 Finally, **power** of a significance test at the $\alpha$ level is defined as:
 
-$$\text{Power} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} I \left[ |\hat{\theta}_i| \ge z_{\alpha/2} \times \sqrt{\widehat{\text{Var}}(\hat{\theta_i})} \right]$$
+$$
+\text{Power} = \frac{1}{n_{\text{sim}}} \sum_{i = 1} ^ {n_{\text{sim}}} I \left[ |\hat{\theta}_i| \ge z_{\alpha/2} \times \sqrt{\widehat{\text{Var}}(\hat{\theta_i})} \right]
+$$
 
 The Monte Carlo standard error is analogously as coverage:
 
-$$\text{MCSE(Power)} = \sqrt{\frac{\text{Power} \times (1 - \text{Power})}{n_{\text{sim}}}}$$
+$$
+\text{MCSE(Power)} = \sqrt{\frac{\text{Power} \times (1 - \text{Power})}{n_{\text{sim}}}}
+$$
 
 Further information on summary statistics for simulation studies can be found in White (2010) and Morris, White, and Crowther (2019).
 
