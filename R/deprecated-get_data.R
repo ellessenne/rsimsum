@@ -21,6 +21,8 @@
 #' @return A `data.frame` containing summary statistics from a simulation study.
 #' @export
 #'
+#' @importFrom lifecycle deprecate_warn
+#'
 #' @examples
 #' data(MIsim)
 #' x <- simsum(

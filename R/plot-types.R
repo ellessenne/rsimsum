@@ -253,6 +253,7 @@
 
 ### Ridgeline plot
 #' @keywords internal
+#' @importFrom ggridges geom_density_ridges
 .ridge_plot <- function(data, b, methodvar, by) {
   ### Create a .dgm column
   if (!is.null(by)) {

@@ -20,25 +20,25 @@ License: GPL (>= 3)
 Depends:
  R (>= 2.10)
 Imports:
- checkmate,
- generics,
- ggridges,
- ggplot2,
- knitr,
- lifecycle,
- rlang (>= 0.4.0),
- scales,
- stats
+  checkmate,
+  generics,
+  ggridges,
+  ggplot2,
+  knitr,
+  lifecycle,
+  rlang (>= 1.2.0),
+  scales,
+  stats
 Suggests:
- covr,
- devtools,
- dplyr,
- eha,
- rmarkdown,
- rstpm2,
- survival,
- testthat,
- usethis
+  covr,
+  devtools,
+  dplyr,
+  eha,
+  rmarkdown,
+  rstpm2,
+  survival,
+  testthat,
+  usethis
 URL: https://ellessenne.github.io/rsimsum/, https://github.com/ellessenne/rsimsum
 BugReports: https://github.com/ellessenne/rsimsum/issues
 VignetteBuilder: knitr

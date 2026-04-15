@@ -1,4 +1,15 @@
-#' @import checkmate generics ggridges ggplot2 knitr lifecycle rlang scales stats
+#' @import generics ggplot2 knitr rlang scales stats
+#' @importFrom checkmate assert_character
+#' @importFrom checkmate assert_int
+#' @importFrom checkmate assert_list
+#' @importFrom checkmate assert_logical
+#' @importFrom checkmate assert_number
+#' @importFrom checkmate assert_string
+#' @importFrom checkmate assert_subset
+#' @importFrom checkmate assert_true
+#' @importFrom checkmate makeAssertCollection
+#' @importFrom checkmate reportAssertions
+
 #' @keywords internal
 "_PACKAGE"
 
