@@ -92,7 +92,7 @@
     if (!is.null(true)) {
       bias_mcse <- sqrt(1 / (nsim * (nsim - 1)) * sum((data[[estvarname]] - mean(data[[estvarname]], na.rm = control$na.rm))^2, na.rm = control$na.rm))
       rbias_i <- (data[[estvarname]] - data[[":true"]]) / data[[":true"]]
-      rbias_mcse <- sd(rbias_i) / sqrt(nsim)
+      rbias_mcse <- sd(rbias_i, na.rm = control$na.rm) / sqrt(nsim)
     }
     empse_mcse <- empse / sqrt(2 * (nsim - 1))
     if (!is.null(true)) {
