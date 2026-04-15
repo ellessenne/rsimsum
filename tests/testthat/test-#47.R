@@ -25,6 +25,12 @@ test_that("NLP with non-fully-factorial design", {
   #
   expect_true(object = (nrow(td.nlp) > nrow(td.nlp.subset)))
   #
-  expect_s3_class(object = autoplot(s.nlp, type = "nlp"), class = c("gg", "ggplot"))
-  expect_s3_class(object = autoplot(s.nlp.subset, type = "nlp"), class = c("gg", "ggplot"))
+  expect_s3_class(
+    object = autoplot(s.nlp, type = "nlp"),
+    class = c("gg", "ggplot")
+  )
+  expect_s3_class(
+    object = autoplot(s.nlp.subset, type = "nlp"),
+    class = c("gg", "ggplot")
+  )
 })

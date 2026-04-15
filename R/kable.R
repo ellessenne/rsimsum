@@ -8,7 +8,12 @@
 #' @param ... Further arguments passed to [knitr::kable()].
 #' @seealso [knitr::kable()]
 #' @export
-kable.simsum <- function(x, stats = NULL, digits = max(3, getOption("digits") - 3), ...) {
+kable.simsum <- function(
+  x,
+  stats = NULL,
+  digits = max(3, getOption("digits") - 3),
+  ...
+) {
   # Get dataset
   out <- tidy(x, stats = stats)
   # Pass dataset to knitr::kable
@@ -17,19 +22,34 @@ kable.simsum <- function(x, stats = NULL, digits = max(3, getOption("digits") - 
 
 #' @rdname kable.simsum
 #' @export
-kable.summary.simsum <- function(x, stats = NULL, digits = max(3, getOption("digits") - 3), ...) {
+kable.summary.simsum <- function(
+  x,
+  stats = NULL,
+  digits = max(3, getOption("digits") - 3),
+  ...
+) {
   kable.simsum(x = x, stats = stats, digits = digits, ...)
 }
 
 #' @rdname kable.simsum
 #' @export
-kable.multisimsum <- function(x, stats = NULL, digits = max(3, getOption("digits") - 3), ...) {
+kable.multisimsum <- function(
+  x,
+  stats = NULL,
+  digits = max(3, getOption("digits") - 3),
+  ...
+) {
   kable.simsum(x = x, stats = stats, digits = digits, ...)
 }
 
 #' @rdname kable.simsum
 #' @export
-kable.summary.multisimsum <- function(x, stats = NULL, digits = max(3, getOption("digits") - 3), ...) {
+kable.summary.multisimsum <- function(
+  x,
+  stats = NULL,
+  digits = max(3, getOption("digits") - 3),
+  ...
+) {
   kable.simsum(x = x, stats = stats, digits = digits, ...)
 }
 

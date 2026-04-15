@@ -34,19 +34,27 @@ print.summary.simsum <- function(x, digits = 4, mcse = TRUE, ...) {
   checkmate::assert_int(x = digits, lower = 0, upper = Inf, add = arg_checks)
   checkmate::assert_logical(x = mcse, len = 1, null.ok = TRUE, add = arg_checks)
   ### Report if there are any errors
-  if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
+  if (!arg_checks$isEmpty()) {
+    checkmate::reportAssertions(arg_checks)
+  }
 
   ### Make sure users are not asking for the moon
   if (!x$control$mcse) {
     mcse <- NULL
-    message("Monte Carlo Standard Errors were not computed!\nDisplaying point estimates only.")
+    message(
+      "Monte Carlo Standard Errors were not computed!\nDisplaying point estimates only."
+    )
   }
   if (is.null(mcse)) {
     cat("Values are:\n\tPoint Estimate\n")
   } else if (mcse) {
     cat("Values are:\n\tPoint Estimate (Monte Carlo Standard Error)\n")
   } else {
-    cat(paste0("Values are:\n\tPoint Estimate (", sprintf("%.0f%%", 100 * (x$ci_level)), " Confidence Interval based on Monte Carlo Standard Errors)\n"))
+    cat(paste0(
+      "Values are:\n\tPoint Estimate (",
+      sprintf("%.0f%%", 100 * (x$ci_level)),
+      " Confidence Interval based on Monte Carlo Standard Errors)\n"
+    ))
   }
 
   ### Format summary table
@@ -57,11 +65,17 @@ print.summary.simsum <- function(x, digits = 4, mcse = TRUE, ...) {
   names(x$summ)[names(x$summ) == "est"] <- "Estimate"
 
   ### Order data.frame with results
-  x$summ <- .order(data = x$summ, by = c("Performance Measure", x$methodvar, x$by))
+  x$summ <- .order(
+    data = x$summ,
+    by = c("Performance Measure", x$methodvar, x$by)
+  )
 
   ### If length(methodvar) > 1 then process multiple columns into one...
   if (length(x$methodvar) > 1) {
-    x$summ <- .compact_method_columns(data = x$summ, methodvar = x$methodvar)$data
+    x$summ <- .compact_method_columns(
+      data = x$summ,
+      methodvar = x$methodvar
+    )$data
     x$methodvar <- ":methodvar"
   }
 

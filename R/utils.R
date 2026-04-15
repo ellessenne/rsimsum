@@ -2,7 +2,11 @@
 #' @keywords internal
 .split_by <- function(data, by) {
   if (!is.null(by)) {
-    out <- split(x = data, f = lapply(X = by, FUN = function(f) data[[f]]), sep = "~")
+    out <- split(
+      x = data,
+      f = lapply(X = by, FUN = function(f) data[[f]]),
+      sep = "~"
+    )
   } else {
     out <- list(data)
   }
@@ -26,13 +30,31 @@
 #' @keywords internal
 .validate_levels <- function(data, cols, char) {
   for (c in cols) {
-    if (any(grepl(char, levels(data[[c]])))) stop(paste0("Levels of the column '", c, "' contain the forbidden character '", char, "'"))
+    if (any(grepl(char, levels(data[[c]])))) {
+      stop(paste0(
+        "Levels of the column '",
+        c,
+        "' contain the forbidden character '",
+        char,
+        "'"
+      ))
+    }
   }
 }
 
 ### Set to NA if standardised values of 'estvarname' or 'se' > 'max' (grouped by 'methodvar', 'by') using either normal ((x - mean) / stdev) or robust ((x - median) / IQR) standardisation
 #' @keywords internal
-.dropbig <- function(data, estvarname, se = NULL, methodvar, by, max, semax, robust, internal = TRUE) {
+.dropbig <- function(
+  data,
+  estvarname,
+  se = NULL,
+  methodvar,
+  by,
+  max,
+  semax,
+  robust,
+  internal = TRUE
+) {
   splt_c <- c(methodvar, by)
   if (length(splt_c) > 0) {
     idata <- .split_by(data, splt_c)
@@ -42,28 +64,59 @@
   odata <- lapply(seq_along(idata), function(i) {
     tmp <- idata[[i]]
     if (robust) {
-      tmp[[paste0(".", estvarname, ".std")]] <- (tmp[[estvarname]] - median(tmp[[estvarname]], na.rm = TRUE)) / (fivenum(tmp[[estvarname]], na.rm = TRUE)[4] - fivenum(tmp[[estvarname]], na.rm = TRUE)[2])
-      if (!is.null(se)) tmp[[paste0(".", se, ".std")]] <- (tmp[[se]] - median(tmp[[se]], na.rm = TRUE)) / (fivenum(tmp[[se]], na.rm = TRUE)[4] - fivenum(tmp[[se]], na.rm = TRUE)[2])
+      tmp[[paste0(".", estvarname, ".std")]] <- (tmp[[estvarname]] -
+        median(tmp[[estvarname]], na.rm = TRUE)) /
+        (fivenum(tmp[[estvarname]], na.rm = TRUE)[4] -
+          fivenum(tmp[[estvarname]], na.rm = TRUE)[2])
+      if (!is.null(se)) {
+        tmp[[paste0(".", se, ".std")]] <- (tmp[[se]] -
+          median(tmp[[se]], na.rm = TRUE)) /
+          (fivenum(tmp[[se]], na.rm = TRUE)[4] -
+            fivenum(tmp[[se]], na.rm = TRUE)[2])
+      }
     } else {
-      tmp[[paste0(".", estvarname, ".std")]] <- (tmp[[estvarname]] - mean(tmp[[estvarname]], na.rm = TRUE)) / sqrt(var(tmp[[estvarname]], na.rm = TRUE))
-      if (!is.null(se)) tmp[[paste0(".", se, ".std")]] <- (tmp[[se]] - mean(tmp[[se]], na.rm = TRUE)) / sqrt(var(tmp[[se]], na.rm = TRUE))
+      tmp[[paste0(".", estvarname, ".std")]] <- (tmp[[estvarname]] -
+        mean(tmp[[estvarname]], na.rm = TRUE)) /
+        sqrt(var(tmp[[estvarname]], na.rm = TRUE))
+      if (!is.null(se)) {
+        tmp[[paste0(".", se, ".std")]] <- (tmp[[se]] -
+          mean(tmp[[se]], na.rm = TRUE)) /
+          sqrt(var(tmp[[se]], na.rm = TRUE))
+      }
     }
     tmp
   })
   odata <- .br(odata)
   if (internal) {
-    odata[[estvarname]] <- ifelse(abs(odata[[paste0(".", estvarname, ".std")]]) > max, NA, odata[[estvarname]])
+    odata[[estvarname]] <- ifelse(
+      abs(odata[[paste0(".", estvarname, ".std")]]) > max,
+      NA,
+      odata[[estvarname]]
+    )
     odata[[paste0(".", estvarname, ".std")]] <- NULL
     if (!is.null(se)) {
-      odata[[se]] <- ifelse(abs(odata[[paste0(".", se, ".std")]]) > semax, NA, odata[[se]])
+      odata[[se]] <- ifelse(
+        abs(odata[[paste0(".", se, ".std")]]) > semax,
+        NA,
+        odata[[se]]
+      )
       odata[[paste0(".", se, ".std")]] <- NULL
     }
   } else {
     if (!is.null(se)) {
-      odata[[".dropbig"]] <- ifelse(abs(odata[[paste0(".", estvarname, ".std")]]) > max | abs(odata[[paste0(".", se, ".std")]]) > semax, TRUE, FALSE)
+      odata[[".dropbig"]] <- ifelse(
+        abs(odata[[paste0(".", estvarname, ".std")]]) > max |
+          abs(odata[[paste0(".", se, ".std")]]) > semax,
+        TRUE,
+        FALSE
+      )
       odata[[paste0(".", se, ".std")]] <- NULL
     } else {
-      odata[[".dropbig"]] <- ifelse(abs(odata[[paste0(".", estvarname, ".std")]]) > max, TRUE, FALSE)
+      odata[[".dropbig"]] <- ifelse(
+        abs(odata[[paste0(".", estvarname, ".std")]]) > max,
+        TRUE,
+        FALSE
+      )
     }
     odata[[paste0(".", estvarname, ".std")]] <- NULL
   }
@@ -87,22 +140,97 @@
 #' @keywords internal
 .describe <- function(x, ref, level) {
   description_df <- data.frame(
-    stat = c("nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "rbias", "empse", "relprec", "mse", "modelse", "relerror", "cover", "becover", "power"),
-    description = c("Non-missing point estimates/standard errors", "Average point estimate", "Median point estimate", "Average variance", "Median variance", "Bias in point estimate", "Relative bias in point estimate", "Empirical standard error", paste("% gain in precision relative to method", ref), "Mean squared error", "Model-based standard error", "Relative % error in standard error", paste("Coverage of nominal", sprintf("%.0f%%", 100 * (level)), "confidence interval"), paste("Bias-eliminated coverage of nominal", sprintf("%.0f%%", 100 * (level)), "confidence interval"), paste("Power of", sprintf("%.0f%%", 100 * (1 - level)), "level test")),
+    stat = c(
+      "nsim",
+      "thetamean",
+      "thetamedian",
+      "se2mean",
+      "se2median",
+      "bias",
+      "rbias",
+      "empse",
+      "relprec",
+      "mse",
+      "modelse",
+      "relerror",
+      "cover",
+      "becover",
+      "power"
+    ),
+    description = c(
+      "Non-missing point estimates/standard errors",
+      "Average point estimate",
+      "Median point estimate",
+      "Average variance",
+      "Median variance",
+      "Bias in point estimate",
+      "Relative bias in point estimate",
+      "Empirical standard error",
+      paste("% gain in precision relative to method", ref),
+      "Mean squared error",
+      "Model-based standard error",
+      "Relative % error in standard error",
+      paste(
+        "Coverage of nominal",
+        sprintf("%.0f%%", 100 * (level)),
+        "confidence interval"
+      ),
+      paste(
+        "Bias-eliminated coverage of nominal",
+        sprintf("%.0f%%", 100 * (level)),
+        "confidence interval"
+      ),
+      paste("Power of", sprintf("%.0f%%", 100 * (1 - level)), "level test")
+    ),
     stringsAsFactors = FALSE
   )
   x <- merge(x, description_df, by = "stat")
   x <- x[, names(x)[names(x) != "stat"]]
-  x$description <- factor(x$description, levels = c("Non-missing point estimates/standard errors", "Average point estimate", "Median point estimate", "Average variance", "Median variance", "Bias in point estimate", "Relative bias in point estimate", "Empirical standard error", paste("% gain in precision relative to method", ref), "Mean squared error", "Model-based standard error", "Relative % error in standard error", paste("Coverage of nominal", sprintf("%.0f%%", 100 * (level)), "confidence interval"), paste("Bias-eliminated coverage of nominal", sprintf("%.0f%%", 100 * (level)), "confidence interval"), paste("Power of", sprintf("%.0f%%", 100 * (1 - level)), "level test")))
+  x$description <- factor(
+    x$description,
+    levels = c(
+      "Non-missing point estimates/standard errors",
+      "Average point estimate",
+      "Median point estimate",
+      "Average variance",
+      "Median variance",
+      "Bias in point estimate",
+      "Relative bias in point estimate",
+      "Empirical standard error",
+      paste("% gain in precision relative to method", ref),
+      "Mean squared error",
+      "Model-based standard error",
+      "Relative % error in standard error",
+      paste(
+        "Coverage of nominal",
+        sprintf("%.0f%%", 100 * (level)),
+        "confidence interval"
+      ),
+      paste(
+        "Bias-eliminated coverage of nominal",
+        sprintf("%.0f%%", 100 * (level)),
+        "confidence interval"
+      ),
+      paste("Power of", sprintf("%.0f%%", 100 * (1 - level)), "level test")
+    )
+  )
   x <- x[order(x$description), ]
-  x <- x[, c("description", "est", names(x)[!(names(x) %in% c("description", "est"))])]
+  x <- x[, c(
+    "description",
+    "est",
+    names(x)[!(names(x) %in% c("description", "est"))]
+  )]
   return(x)
 }
 
 ### Format table of results for pretty printing
 #' @keywords internal
 .format <- function(x, digits, mcse) {
-  x$summ$est <- ifelse(x$summ$stat == "nsim", sprintf("%.0f", x$summ$est), sprintf(paste0("%.", digits, "f"), x$summ$est))
+  x$summ$est <- ifelse(
+    x$summ$stat == "nsim",
+    sprintf("%.0f", x$summ$est),
+    sprintf(paste0("%.", digits, "f"), x$summ$est)
+  )
   if (x$control$mcse) {
     x$summ$mcse <- sprintf(paste0("%.", digits, "f"), x$summ$mcse)
     x$summ$lower <- sprintf(paste0("%.", digits, "f"), x$summ$lower)
@@ -111,9 +239,19 @@
   if (is.null(mcse)) {
     # Do nothing, will return est only
   } else if (mcse) {
-    x$summ$est <- ifelse(x$summ$stat %in% c("nsim", "thetamean", "thetamedian", "se2mean", "se2median"), x$summ$est, paste0(x$summ$est, " (", x$summ$mcse, ")"))
+    x$summ$est <- ifelse(
+      x$summ$stat %in%
+        c("nsim", "thetamean", "thetamedian", "se2mean", "se2median"),
+      x$summ$est,
+      paste0(x$summ$est, " (", x$summ$mcse, ")")
+    )
   } else {
-    x$summ$est <- ifelse(x$summ$stat %in% c("nsim", "thetamean", "thetamedian", "se2mean", "se2median"), x$summ$est, paste0(x$summ$est, " (", x$summ$lower, ", ", x$summ$upper, ")"))
+    x$summ$est <- ifelse(
+      x$summ$stat %in%
+        c("nsim", "thetamean", "thetamedian", "se2mean", "se2median"),
+      x$summ$est,
+      paste0(x$summ$est, " (", x$summ$lower, ", ", x$summ$upper, ")")
+    )
   }
   x$summ[["mcse"]] <- NULL
   x$summ[["lower"]] <- NULL
@@ -132,7 +270,9 @@
 #' @keywords internal
 .bind_methods <- function(data, by, methodvar) {
   data <- .split_by(data = data, by = methodvar)
-  lhs <- lapply(X = c("Performance Measure", by), FUN = function(f) data[[1]][[f]])
+  lhs <- lapply(X = c("Performance Measure", by), FUN = function(f) {
+    data[[1]][[f]]
+  })
   names(lhs) <- c("Performance Measure", by)
   data <- lapply(X = data, FUN = function(x) {
     tmp <- x
@@ -192,9 +332,13 @@
 ### Drop split data.frame in 'data' with zero rows
 .drop_empty_splits <- function(data) {
   data <- lapply(data, FUN = function(x) {
-    idx <- vapply(X = x, FUN = function(x) {
-      nrow(x) > 0
-    }, FUN.VALUE = logical(1))
+    idx <- vapply(
+      X = x,
+      FUN = function(x) {
+        nrow(x) > 0
+      },
+      FUN.VALUE = logical(1)
+    )
     x[idx]
   })
   nrs <- vapply(X = data, FUN = length, FUN.VALUE = numeric(1))
@@ -207,7 +351,16 @@
   if (!is.null(var)) {
     if (any(var %in% private_names)) {
       this <- which(var %in% private_names)
-      stop(paste0("'", var[this], "' is not an allowed name for '", label, "'; see help('simsum') for more details."), call. = FALSE)
+      stop(
+        paste0(
+          "'",
+          var[this],
+          "' is not an allowed name for '",
+          label,
+          "'; see help('simsum') for more details."
+        ),
+        call. = FALSE
+      )
     }
   }
 }

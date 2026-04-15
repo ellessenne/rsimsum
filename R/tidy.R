@@ -41,12 +41,40 @@ tidy.simsum <- function(x, stats = NULL, ...) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # '.x' must be an object of class 'simsum', 'summary.simsum', 'multisimsum', 'summary.multisimsum' (any)
-  checkmate::assert_true(x = inherits(x = x, what = c("simsum", "summary.simsum", "multisimsum", "summary.multisimsum")), add = arg_checks)
+  checkmate::assert_true(
+    x = inherits(
+      x = x,
+      what = c("simsum", "summary.simsum", "multisimsum", "summary.multisimsum")
+    ),
+    add = arg_checks
+  )
   # '.stats' must be one of the possible choices
   checkmate::assert_character(x = stats, null.ok = TRUE, add = arg_checks)
-  checkmate::assert_subset(x = stats, choices = c("nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "rbias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "becover", "power"), add = arg_checks)
+  checkmate::assert_subset(
+    x = stats,
+    choices = c(
+      "nsim",
+      "thetamean",
+      "thetamedian",
+      "se2mean",
+      "se2median",
+      "bias",
+      "rbias",
+      "empse",
+      "mse",
+      "relprec",
+      "modelse",
+      "relerror",
+      "cover",
+      "becover",
+      "power"
+    ),
+    add = arg_checks
+  )
   ### Report if there are any errors
-  if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
+  if (!arg_checks$isEmpty()) {
+    checkmate::reportAssertions(arg_checks)
+  }
   ### Select only summary statistics on interest
   if (!is.null(stats)) {
     x$summ <- x$summ[x$summ$stat %in% stats, ]
@@ -67,4 +95,6 @@ tidy.multisimsum <- function(x, stats = NULL, ...) tidy.simsum(x, stats, ...)
 
 #' @export
 #' @rdname tidy
-tidy.summary.multisimsum <- function(x, stats = NULL, ...) tidy.simsum(x, stats, ...)
+tidy.summary.multisimsum <- function(x, stats = NULL, ...) {
+  tidy.simsum(x, stats, ...)
+}

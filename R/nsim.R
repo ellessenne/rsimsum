@@ -33,7 +33,9 @@ nsim <- function(alpha, sigma, delta, power = 0.5) {
   checkmate::assert_number(delta, lower = 0, add = arg_checks)
 
   ### Report if there are any errors
-  if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
+  if (!arg_checks$isEmpty()) {
+    checkmate::reportAssertions(arg_checks)
+  }
 
   ### Compute B
   B <- (((stats::qnorm(1 - alpha / 2) + stats::qnorm(power)) * sigma) / delta)^2

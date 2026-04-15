@@ -19,19 +19,32 @@ print.simsum <- function(x, ...) {
   cat("Summary of a simulation study with a single estimand.\n")
   if (!is.null(x$true)) {
     if (is.character(x$true)) {
-      cat("True value of the estimand from column", paste0("'", x$true, "'"), "\n")
+      cat(
+        "True value of the estimand from column",
+        paste0("'", x$true, "'"),
+        "\n"
+      )
     } else {
       cat("True value of the estimand:", x$true, "\n")
     }
   } else {
-    cat("True value of the estimand not defined: bias, relative bias, coverage, and mean squared error were not computed.\n")
+    cat(
+      "True value of the estimand not defined: bias, relative bias, coverage, and mean squared error were not computed.\n"
+    )
   }
 
   ### Print `methodvar` (if any), possible methods, and reference method
   if (!is.null(x$methodvar)) {
     if (length(x$methodvar) > 1) {
-      cat("\nColumns identifying methods:", paste(x$methodvar, collapse = ", "), "\n")
-      reftable <- .compact_method_columns(data = tidy.simsum(x), methodvar = x$methodvar)$data[[":methodvar"]]
+      cat(
+        "\nColumns identifying methods:",
+        paste(x$methodvar, collapse = ", "),
+        "\n"
+      )
+      reftable <- .compact_method_columns(
+        data = tidy.simsum(x),
+        methodvar = x$methodvar
+      )$data[[":methodvar"]]
       cat("\tUnique methods:", paste(unique(reftable), collapse = ", "), "\n")
     } else {
       cat("\nMethod variable:", x$methodvar, "\n")

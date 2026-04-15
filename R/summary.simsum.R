@@ -34,15 +34,43 @@
 #' )
 #' xs <- summary(object)
 #' xs
-summary.simsum <- function(object, ci_level = 0.95, df = NULL, stats = NULL, ...) {
+summary.simsum <- function(
+  object,
+  ci_level = 0.95,
+  df = NULL,
+  stats = NULL,
+  ...
+) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # 'level' must be a numeric value
   checkmate::assert_number(ci_level, lower = 0, upper = 1, add = arg_checks)
   # 'stats' must be one of the allowed values, can be NULL
-  checkmate::assert_subset(x = stats, choices = c("nsim", "thetamean", "thetamedian", "se2mean", "se2median", "bias", "rbias", "empse", "mse", "relprec", "modelse", "relerror", "cover", "becover", "power"), add = arg_checks)
+  checkmate::assert_subset(
+    x = stats,
+    choices = c(
+      "nsim",
+      "thetamean",
+      "thetamedian",
+      "se2mean",
+      "se2median",
+      "bias",
+      "rbias",
+      "empse",
+      "mse",
+      "relprec",
+      "modelse",
+      "relerror",
+      "cover",
+      "becover",
+      "power"
+    ),
+    add = arg_checks
+  )
   ### Report if there are any errors
-  if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
+  if (!arg_checks$isEmpty()) {
+    checkmate::reportAssertions(arg_checks)
+  }
 
   ### Compute confidence intervals if Monte Carlo standard errors are available
   if (object$control$mcse) {
@@ -56,7 +84,9 @@ summary.simsum <- function(object, ci_level = 0.95, df = NULL, stats = NULL, ...
   }
 
   ### Add ci_level slot
-  if (object$control$mcse) object$ci_level <- ci_level
+  if (object$control$mcse) {
+    object$ci_level <- ci_level
+  }
 
   ## If no methodvar is specified, it is not possible to compute relprec
   if (is.null(object$methodvar)) {

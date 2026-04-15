@@ -57,18 +57,42 @@
 #' s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method", ref = "CC")
 #' # If 'ref' is not specified, the reference method is inferred
 #' s <- simsum(data = MIsim, estvarname = "b", true = 0.5, se = "se", methodvar = "method")
-simsum <- function(data,
-                   estvarname,
-                   se = NULL,
-                   true = NULL,
-                   methodvar = NULL,
-                   ref = NULL,
-                   by = NULL,
-                   ci.limits = NULL,
-                   df = NULL,
-                   dropbig = FALSE,
-                   x = FALSE,
-                   control = list()) {
+simsum <- function(
+  data,
+  estvarname,
+  se = NULL,
+  true = NULL,
+  methodvar = NULL,
+  ref = NULL,
+  by = NULL,
+  ci.limits = NULL,
+  df = NULL,
+  dropbig = FALSE,
+  x = FALSE,
+  control = list()
+) {
+  # set.seed(135)
+  # data = data.frame(
+  #   dataset_id = 1:5,
+  #   method = 1,
+  #   estimate = rnorm(5, mean = 1),
+  #   se = rnorm(5, 1 / sqrt(5), 0.05),
+  #   true = 1
+  # )
+  # data[1, "se"] = NA
+  # estvarname = "estimate"
+  # se = "se"
+  # true = "true"
+  # methodvar = "method"
+  # x = TRUE
+  # ref = "1"
+  # by = NULL
+  # ci.limits = NULL
+  # df = NULL
+  # dropbig = FALSE
+  # x = FALSE
+  # control = list()
+
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # 'data' must be a data.frame
@@ -80,7 +104,10 @@ simsum <- function(data,
   checkmate::assert_string(x = df, null.ok = TRUE, add = arg_checks)
   # 'true' must be a single numeric value, or a string that identifies a column in 'data'
   if (!is.null(true)) {
-    checkmate::assert_true(x = inherits(x = true, what = c("character", "numeric", "integer")), add = arg_checks)
+    checkmate::assert_true(
+      x = inherits(x = true, what = c("character", "numeric", "integer")),
+      add = arg_checks
+    )
     if (is.character(true)) {
       checkmate::assert_string(x = true, add = arg_checks)
       checkmate::assert_true(x = all(true %in% names(data)), add = arg_checks)
@@ -95,37 +122,80 @@ simsum <- function(data,
   checkmate::assert_character(x = methodvar, null.ok = TRUE, add = arg_checks)
   checkmate::assert_character(x = by, null.ok = TRUE, add = arg_checks)
   # 'estvarname', 'se' must be in 'data'; all elements of 'by' must be in 'data'; 'methodvar' must be in 'data'; 'df' must be in 'data'
-  checkmate::assert_subset(x = estvarname, choices = names(data), add = arg_checks)
+  checkmate::assert_subset(
+    x = estvarname,
+    choices = names(data),
+    add = arg_checks
+  )
   checkmate::assert_subset(x = se, choices = names(data), add = arg_checks)
   checkmate::assert_subset(x = by, choices = names(data), add = arg_checks)
-  checkmate::assert_subset(x = methodvar, choices = names(data), add = arg_checks)
+  checkmate::assert_subset(
+    x = methodvar,
+    choices = names(data),
+    add = arg_checks
+  )
   checkmate::assert_subset(x = df, choices = names(data), add = arg_checks)
   # 'estvarname', 'se', 'methodvar', 'by' , 'df' must not be any in ('stat', 'est', 'mcse', 'lower', 'upper', ':methodvar', ':true')
-  .private_names <- c("stat", "est", "mcse", "lower", "upper", ":methodvar", ":true")
-  .check_private(var = estvarname, label = "estvarname", private_names = .private_names)
+  .private_names <- c(
+    "stat",
+    "est",
+    "mcse",
+    "lower",
+    "upper",
+    ":methodvar",
+    ":true"
+  )
+  .check_private(
+    var = estvarname,
+    label = "estvarname",
+    private_names = .private_names
+  )
   .check_private(var = se, label = "se", private_names = .private_names)
-  .check_private(var = methodvar, label = "methodvar", private_names = .private_names)
+  .check_private(
+    var = methodvar,
+    label = "methodvar",
+    private_names = .private_names
+  )
   .check_private(var = by, label = "by", private_names = .private_names)
   .check_private(var = df, label = "df", private_names = .private_names)
   # Process vector of 'methodvar' if a vector
   user_methodvar <- NULL
   if (length(methodvar) > 1) {
-    reftable <- .compact_method_columns(data = data, methodvar = methodvar)$reftable
+    reftable <- .compact_method_columns(
+      data = data,
+      methodvar = methodvar
+    )$reftable
     data <- .compact_method_columns(data = data, methodvar = methodvar)$data
     user_methodvar <- methodvar
     methodvar <- ":methodvar"
   }
   # 'ref' must be one of the options in 'methodvar'
   if (!is.null(methodvar)) {
-    checkmate::assert_subset(x = ref, choices = as.character(unique(data[[methodvar]])), add = arg_checks)
+    checkmate::assert_subset(
+      x = ref,
+      choices = as.character(unique(data[[methodvar]])),
+      add = arg_checks
+    )
   }
   # 'ci.limits' must be either a numeric vector of length 2 or a string vector with column names in 'data'
   if (!is.null(ci.limits)) {
-    checkmate::assert_true(x = inherits(x = ci.limits, what = c("character", "numeric", "integer")), add = arg_checks)
+    checkmate::assert_true(
+      x = inherits(x = ci.limits, what = c("character", "numeric", "integer")),
+      add = arg_checks
+    )
     if (is.character(ci.limits)) {
       checkmate::assert_character(x = ci.limits, len = 2, add = arg_checks)
-      checkmate::assert_true(x = all(ci.limits %in% names(data)), add = arg_checks)
-      lapply(X = ci.limits, FUN = function(x) .check_private(var = x, label = "ci.limits", private_names = .private_names))
+      checkmate::assert_true(
+        x = all(ci.limits %in% names(data)),
+        add = arg_checks
+      )
+      lapply(X = ci.limits, FUN = function(x) {
+        .check_private(
+          var = x,
+          label = "ci.limits",
+          private_names = .private_names
+        )
+      })
     }
     if (is.numeric(ci.limits)) {
       checkmate::assert_numeric(x = ci.limits, len = 2, add = arg_checks)
@@ -133,27 +203,94 @@ simsum <- function(data,
   }
   # 'control' must be a list, with well defined components
   checkmate::assert_list(x = control, add = arg_checks)
-  checkmate::assert_subset(x = names(control), choices = c("mcse", "level", "power_df", "na.rm", "char.sep", "dropbig.max", "dropbig.semax", "dropbig.robust"), empty.ok = TRUE, add = arg_checks)
-  checkmate::assert_logical(x = control$mcse, len = 1, null.ok = TRUE, add = arg_checks)
-  checkmate::assert_number(x = control$level, lower = 0, upper = 1, null.ok = TRUE, add = arg_checks)
-  checkmate::assert_number(x = control$power_df, null.ok = TRUE, add = arg_checks)
-  checkmate::assert_logical(x = control$na.rm, len = 1, null.ok = TRUE, add = arg_checks)
-  checkmate::assert_string(x = control$char.sep, null.ok = TRUE, add = arg_checks)
-  checkmate::assert_number(x = control$dropbig.max, null.ok = TRUE, add = arg_checks)
-  checkmate::assert_number(x = control$dropbig.semax, null.ok = TRUE, add = arg_checks)
-  checkmate::assert_logical(x = control$dropbig.robust, len = 1, null.ok = TRUE, add = arg_checks)
+  checkmate::assert_subset(
+    x = names(control),
+    choices = c(
+      "mcse",
+      "level",
+      "power_df",
+      "na.rm",
+      "char.sep",
+      "dropbig.max",
+      "dropbig.semax",
+      "dropbig.robust"
+    ),
+    empty.ok = TRUE,
+    add = arg_checks
+  )
+  checkmate::assert_logical(
+    x = control$mcse,
+    len = 1,
+    null.ok = TRUE,
+    add = arg_checks
+  )
+  checkmate::assert_number(
+    x = control$level,
+    lower = 0,
+    upper = 1,
+    null.ok = TRUE,
+    add = arg_checks
+  )
+  checkmate::assert_number(
+    x = control$power_df,
+    null.ok = TRUE,
+    add = arg_checks
+  )
+  checkmate::assert_logical(
+    x = control$na.rm,
+    len = 1,
+    null.ok = TRUE,
+    add = arg_checks
+  )
+  checkmate::assert_string(
+    x = control$char.sep,
+    null.ok = TRUE,
+    add = arg_checks
+  )
+  checkmate::assert_number(
+    x = control$dropbig.max,
+    null.ok = TRUE,
+    add = arg_checks
+  )
+  checkmate::assert_number(
+    x = control$dropbig.semax,
+    null.ok = TRUE,
+    add = arg_checks
+  )
+  checkmate::assert_logical(
+    x = control$dropbig.robust,
+    len = 1,
+    null.ok = TRUE,
+    add = arg_checks
+  )
   # Report
-  if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
+  if (!arg_checks$isEmpty()) {
+    checkmate::reportAssertions(arg_checks)
+  }
 
   ### Only one of 'ci.limits' and 'df' can be specified
-  if (!is.null(ci.limits) & !is.null(df)) stop("Only one of 'ci.limits' and 'df' can be specified.", call. = FALSE)
+  if (!is.null(ci.limits) & !is.null(df)) {
+    stop("Only one of 'ci.limits' and 'df' can be specified.", call. = FALSE)
+  }
 
   ### Set control parameters
-  control.default <- list(mcse = TRUE, level = 0.95, power_df = NULL, na.rm = TRUE, char.sep = "~", dropbig.max = 10, dropbig.semax = 100, dropbig.robust = TRUE)
-  control.tmp <- unlist(list(
-    control[names(control) %in% names(control.default)],
-    control.default[!(names(control.default) %in% names(control))]
-  ), recursive = FALSE)
+  control.default <- list(
+    mcse = TRUE,
+    level = 0.95,
+    power_df = NULL,
+    na.rm = TRUE,
+    char.sep = "~",
+    dropbig.max = 10,
+    dropbig.semax = 100,
+    dropbig.robust = TRUE
+  )
+  control.tmp <- unlist(
+    list(
+      control[names(control) %in% names(control.default)],
+      control.default[!(names(control.default) %in% names(control))]
+    ),
+    recursive = FALSE
+  )
   control <- control.tmp
 
   ### Add hidden column with true values
@@ -169,27 +306,46 @@ simsum <- function(data,
   data <- .factorise(data = data, cols = c(methodvar, by))
 
   ### Check that levels of factors are ok
-  .validate_levels(data = data, cols = c(methodvar, by), char = control$char.sep)
+  .validate_levels(
+    data = data,
+    cols = c(methodvar, by),
+    char = control$char.sep
+  )
 
   ### Set reference method if `ref` is not specified
   if (!is.null(methodvar)) {
     methods <- levels(data[[methodvar]])
     if (is.null(ref)) {
       ref <- methods[1]
-      message(paste("'ref' method was not specified,", ref, "set as the reference"))
+      message(paste(
+        "'ref' method was not specified,",
+        ref,
+        "set as the reference"
+      ))
     }
     data[[methodvar]] <- relevel(data[[methodvar]], ref = ref)
   }
 
   ### Throw a warning if `ref` is specified and `methodvar` is not
   if (is.null(methodvar) & !is.null(ref)) {
-    warning("'ref' method is specified while 'methodvar' is not: 'ref' will be ignored")
+    warning(
+      "'ref' method is specified while 'methodvar' is not: 'ref' will be ignored"
+    )
     ref <- NULL
   }
 
   ### Identify and drop (if required) point estimates and standard errors that are too big
   if (dropbig) {
-    data <- .dropbig(data = data, estvarname = estvarname, se = se, methodvar = methodvar, by = by, max = control$dropbig.max, semax = control$dropbig.semax, robust = control$dropbig.robust)
+    data <- .dropbig(
+      data = data,
+      estvarname = estvarname,
+      se = se,
+      methodvar = methodvar,
+      by = by,
+      max = control$dropbig.max,
+      semax = control$dropbig.semax,
+      robust = control$dropbig.robust
+    )
   }
 
   ### Drop estimates if SE is missing, and vice versa
@@ -200,7 +356,9 @@ simsum <- function(data,
   data <- .split_by(data = data, by = by)
 
   # Then, split methodvar
-  data <- lapply(X = seq_along(data), FUN = function(i) .split_by(data = data[[i]], by = methodvar))
+  data <- lapply(X = seq_along(data), FUN = function(i) {
+    .split_by(data = data[[i]], by = methodvar)
+  })
 
   # Remove elements in 'data' where we get empty datasets (#47)
   data <- .drop_empty_splits(data)
@@ -208,17 +366,40 @@ simsum <- function(data,
   # Then call .performance to compute all performance measures
   summ <- lapply(X = seq_along(data), FUN = function(i) {
     if (!is.null(methodvar)) {
-      rho <- vapply(X = methods, FUN = function(x) stats::cor(data[[i]][[ref]][[estvarname]], data[[i]][[x]][[estvarname]], use = ifelse(control$na.rm, "na.or.complete", "everything")), FUN.VALUE = numeric(1))
+      rho <- vapply(
+        X = methods,
+        FUN = function(x) {
+          stats::cor(
+            data[[i]][[ref]][[estvarname]],
+            data[[i]][[x]][[estvarname]],
+            use = ifelse(control$na.rm, "na.or.complete", "everything")
+          )
+        },
+        FUN.VALUE = numeric(1)
+      )
     } else {
       rho <- NULL
     }
     out.out <- lapply(X = seq_along(data[[i]]), FUN = function(j) {
       if (!is.null(methodvar)) {
-        empse_ref <- sqrt(stats::var(data[[i]][[ref]][[estvarname]], na.rm = control$na.rm))
+        empse_ref <- sqrt(stats::var(
+          data[[i]][[ref]][[estvarname]],
+          na.rm = control$na.rm
+        ))
       } else {
         empse_ref <- NULL
       }
-      out.in <- .performance(data = data[[i]][[j]], estvarname = estvarname, se = se, true = true, rho = rho[names(data[[i]][j])], empse_ref = empse_ref, ci.limits = ci.limits, df = df, control = control)
+      out.in <- .performance(
+        data = data[[i]][[j]],
+        estvarname = estvarname,
+        se = se,
+        true = true,
+        rho = rho[names(data[[i]][j])],
+        empse_ref = empse_ref,
+        ci.limits = ci.limits,
+        df = df,
+        control = control
+      )
       if (!is.null(methodvar)) {
         out.in[[methodvar]] <- unique(data[[i]][[j]][[methodvar]])
       }
@@ -257,7 +438,9 @@ simsum <- function(data,
   obj$control <- control
   if (x) {
     obj$x <- .br(lapply(data, .br))
-    if (!is.null(true)) obj$x[[":true"]] <- NULL
+    if (!is.null(true)) {
+      obj$x[[":true"]] <- NULL
+    }
     rownames(obj$x) <- NULL
   }
 

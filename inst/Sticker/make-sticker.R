@@ -27,7 +27,10 @@ for (i in 1:nrow(dgm)) {
 }
 data <- bind_rows(data)
 
-p <- ggplot(data, aes(x = y, y = factor(dgm), colour = factor(method), fill = factor(method))) +
+p <- ggplot(
+  data,
+  aes(x = y, y = factor(dgm), colour = factor(method), fill = factor(method))
+) +
   geom_density_ridges(alpha = 2 / 3, rel_min_height = 0.001) +
   theme_void() +
   theme_transparent() +

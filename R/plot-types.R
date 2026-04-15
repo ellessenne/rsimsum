@@ -4,9 +4,15 @@
   ### Build basic plot
   if (!is.null(methodvar)) {
     methodvar <- rlang::sym(methodvar)
-    gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = {{ methodvar }}, y = est))
+    gg <- ggplot2::ggplot(
+      data = data,
+      ggplot2::aes(x = {{ methodvar }}, y = est)
+    )
   } else {
-    gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = "Single Method", y = est)) +
+    gg <- ggplot2::ggplot(
+      data = data,
+      ggplot2::aes(x = "Single Method", y = est)
+    ) +
       ggplot2::labs(x = "")
   }
   gg <- gg +
@@ -18,13 +24,20 @@
   if (!is.null(by)) {
     by <- rlang::syms(by)
     gg <- gg +
-      ggplot2::facet_wrap(facets = ggplot2::vars(!!!{{ by }}), labeller = ggplot2::label_both, scales = scales)
+      ggplot2::facet_wrap(
+        facets = ggplot2::vars(!!!{{ by }}),
+        labeller = ggplot2::label_both,
+        scales = scales
+      )
   }
 
   ### Add confidence intervals if we are calling autoplot on a summary object
   if (ci) {
     gg <- gg +
-      ggplot2::geom_errorbar(ggplot2::aes(ymin = lower, ymax = upper), width = 1 / 3)
+      ggplot2::geom_errorbar(
+        ggplot2::aes(ymin = lower, ymax = upper),
+        width = 1 / 3
+      )
   }
 
   ### Return plot
@@ -37,11 +50,17 @@
   ### Build basic plot
   if (!is.null(methodvar)) {
     methodvar <- rlang::sym(methodvar)
-    gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = est, y = {{ methodvar }})) +
+    gg <- ggplot2::ggplot(
+      data = data,
+      ggplot2::aes(x = est, y = {{ methodvar }})
+    ) +
       ggplot2::geom_vline(xintercept = target, linetype = "dotted") +
       ggplot2::geom_segment(aes(xend = target, yend = {{ methodvar }}))
   } else {
-    gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = est, y = "Single Method")) +
+    gg <- ggplot2::ggplot(
+      data = data,
+      ggplot2::aes(x = est, y = "Single Method")
+    ) +
       ggplot2::geom_vline(xintercept = target, linetype = "dotted") +
       ggplot2::geom_segment(aes(xend = target, yend = "Single Method")) +
       ggplot2::labs(y = "")
@@ -54,19 +73,35 @@
   if (!is.null(by)) {
     by <- rlang::syms(by)
     gg <- gg +
-      ggplot2::facet_wrap(facets = ggplot2::vars(!!!{{ by }}), labeller = ggplot2::label_both, scales = scales)
+      ggplot2::facet_wrap(
+        facets = ggplot2::vars(!!!{{ by }}),
+        labeller = ggplot2::label_both,
+        scales = scales
+      )
   }
 
   ### Add confidence intervals if we are calling autoplot on a summary object
   if (ci) {
     if (!is.null(methodvar)) {
       gg <- gg +
-        ggplot2::geom_point(ggplot2::aes(x = lower, y = {{ methodvar }}), shape = 40) +
-        ggplot2::geom_point(ggplot2::aes(x = upper, y = {{ methodvar }}), shape = 41)
+        ggplot2::geom_point(
+          ggplot2::aes(x = lower, y = {{ methodvar }}),
+          shape = 40
+        ) +
+        ggplot2::geom_point(
+          ggplot2::aes(x = upper, y = {{ methodvar }}),
+          shape = 41
+        )
     } else {
       gg <- gg +
-        ggplot2::geom_point(ggplot2::aes(x = lower, y = "Single Method"), shape = 40) +
-        ggplot2::geom_point(ggplot2::aes(x = upper, y = "Single Method"), shape = 41)
+        ggplot2::geom_point(
+          ggplot2::aes(x = lower, y = "Single Method"),
+          shape = 40
+        ) +
+        ggplot2::geom_point(
+          ggplot2::aes(x = upper, y = "Single Method"),
+          shape = 41
+        )
     }
   }
 
@@ -76,7 +111,20 @@
 
 ### Zip plot
 #' @keywords internal
-.zip_plot <- function(data, estvarname, se, true, methodvar, by, ci.limits, df, control, summ, zoom, zip_ci_colours) {
+.zip_plot <- function(
+  data,
+  estvarname,
+  se,
+  true,
+  methodvar,
+  by,
+  ci.limits,
+  df,
+  control,
+  summ,
+  zoom,
+  zip_ci_colours
+) {
   ### Extract overall coverage
   summ <- summ[summ$stat == "cover", ]
   summ$cover <- summ$est
@@ -86,8 +134,10 @@
     summ$lower <- NULL
     summ$upper <- NULL
   } else {
-    summ$cover_lower <- summ$cover - stats::qnorm(1 - (1 - 0.95) / 2) * summ$mcse
-    summ$cover_upper <- summ$cover + stats::qnorm(1 - (1 - 0.95) / 2) * summ$mcse
+    summ$cover_lower <- summ$cover -
+      stats::qnorm(1 - (1 - 0.95) / 2) * summ$mcse
+    summ$cover_upper <- summ$cover +
+      stats::qnorm(1 - (1 - 0.95) / 2) * summ$mcse
   }
   summ$est <- NULL
   summ$stat <- NULL
@@ -112,7 +162,11 @@
     data[["upper"]] <- ci.limits[2]
   }
   data[["covering"]] <- (true >= data[["lower"]] & true <= data[["upper"]])
-  data[["covering"]] <- factor(data[["covering"]], levels = c(FALSE, TRUE), labels = c("Non-coverers", "Coverers"))
+  data[["covering"]] <- factor(
+    data[["covering"]],
+    levels = c(FALSE, TRUE),
+    labels = c("Non-coverers", "Coverers")
+  )
 
   ### Compute z value
   data[["z"]] <- abs((data[[estvarname]] - true) / data[[se]])
@@ -136,22 +190,50 @@
   data <- merge(x = data, y = summ)
 
   ### Label of the y-axis
-  ylab <- ifelse(is.null(df), "Fractional centile of |z-score|", "Fractional centile of |t-score|")
+  ylab <- ifelse(
+    is.null(df),
+    "Fractional centile of |z-score|",
+    "Fractional centile of |t-score|"
+  )
 
   ### Define CI lines colors
   if (length(zip_ci_colours) == 2) {
-    data$line_color_lower <- ifelse(data$cover_lower <= control$level & control$level <= data$cover_upper, zip_ci_colours[1], zip_ci_colours[2])
-    data$line_color_upper <- ifelse(data$cover_lower <= control$level & control$level <= data$cover_upper, zip_ci_colours[1], zip_ci_colours[2])
+    data$line_color_lower <- ifelse(
+      data$cover_lower <= control$level & control$level <= data$cover_upper,
+      zip_ci_colours[1],
+      zip_ci_colours[2]
+    )
+    data$line_color_upper <- ifelse(
+      data$cover_lower <= control$level & control$level <= data$cover_upper,
+      zip_ci_colours[1],
+      zip_ci_colours[2]
+    )
   } else if (length(zip_ci_colours) == 3) {
-    data$line_color_lower <- ifelse(data$cover_lower > control$level & data$cover_upper > control$level, zip_ci_colours[3],
-      ifelse(data$cover_lower < control$level & data$cover_upper < control$level, zip_ci_colours[2],
-        ifelse(data$cover_lower <= control$level & control$level <= data$cover_upper, zip_ci_colours[1], NA)
+    data$line_color_lower <- ifelse(
+      data$cover_lower > control$level & data$cover_upper > control$level,
+      zip_ci_colours[3],
+      ifelse(
+        data$cover_lower < control$level & data$cover_upper < control$level,
+        zip_ci_colours[2],
+        ifelse(
+          data$cover_lower <= control$level & control$level <= data$cover_upper,
+          zip_ci_colours[1],
+          NA
+        )
       )
     )
 
-    data$line_color_upper <- ifelse(data$cover_lower > control$level & data$cover_upper > control$level, zip_ci_colours[3],
-      ifelse(data$cover_lower < control$level & data$cover_upper < control$level, zip_ci_colours[2],
-        ifelse(data$cover_lower <= control$level & control$level <= data$cover_upper, zip_ci_colours[1], NA)
+    data$line_color_upper <- ifelse(
+      data$cover_lower > control$level & data$cover_upper > control$level,
+      zip_ci_colours[3],
+      ifelse(
+        data$cover_lower < control$level & data$cover_upper < control$level,
+        zip_ci_colours[2],
+        ifelse(
+          data$cover_lower <= control$level & control$level <= data$cover_upper,
+          zip_ci_colours[1],
+          NA
+        )
       )
     )
   } else {
@@ -160,13 +242,38 @@
   }
 
   ### Build plot
-  gg <- ggplot2::ggplot(data, ggplot2::aes(y = rank, x = lower, color = covering)) +
+  gg <- ggplot2::ggplot(
+    data,
+    ggplot2::aes(y = rank, x = lower, color = covering)
+  ) +
     ggplot2::geom_segment(ggplot2::aes(yend = rank, xend = upper)) +
-    ggplot2::geom_vline(xintercept = true, color = "black", linetype = "dashed") +
-    ggplot2::geom_hline(ggplot2::aes(yintercept = cover_lower), color = data$line_color_lower, linetype = "dashed", linewidth = 1) +
-    ggplot2::geom_hline(ggplot2::aes(yintercept = 0.95), color = "black", linetype = "dashed") +
-    ggplot2::geom_hline(ggplot2::aes(yintercept = cover_upper), color = data$line_color_upper, linetype = "dashed", linewidth = 1) +
-    ggplot2::labs(y = ylab, x = paste0(100 * control$level, "% confidence intervals"), color = "") +
+    ggplot2::geom_vline(
+      xintercept = true,
+      color = "black",
+      linetype = "dashed"
+    ) +
+    ggplot2::geom_hline(
+      ggplot2::aes(yintercept = cover_lower),
+      color = data$line_color_lower,
+      linetype = "dashed",
+      linewidth = 1
+    ) +
+    ggplot2::geom_hline(
+      ggplot2::aes(yintercept = 0.95),
+      color = "black",
+      linetype = "dashed"
+    ) +
+    ggplot2::geom_hline(
+      ggplot2::aes(yintercept = cover_upper),
+      color = data$line_color_upper,
+      linetype = "dashed",
+      linewidth = 1
+    ) +
+    ggplot2::labs(
+      y = ylab,
+      x = paste0(100 * control$level, "% confidence intervals"),
+      color = ""
+    ) +
     theme(legend.position = "bottom")
 
   ### If 'by', use facet_grid; facet_wrap otherwise
@@ -174,7 +281,14 @@
     by <- rlang::syms(by)
     methodvar <- rlang::sym(methodvar)
     gg <- gg +
-      ggplot2::facet_grid(cols = ggplot2::vars(!!!{{ by }}), rows = ggplot2::vars({{ methodvar }}), labeller = ggplot2::labeller(.rows = ggplot2::label_value, .cols = ggplot2::label_both))
+      ggplot2::facet_grid(
+        cols = ggplot2::vars(!!!{{ by }}),
+        rows = ggplot2::vars({{ methodvar }}),
+        labeller = ggplot2::labeller(
+          .rows = ggplot2::label_value,
+          .cols = ggplot2::label_both
+        )
+      )
   } else if (is.null(by) & !is.null(methodvar)) {
     methodvar <- rlang::sym(methodvar)
     gg <- gg +
@@ -197,7 +311,12 @@
 #' @keywords internal
 .vs_plot <- function(data, b, methodvar, by, fitted, scales, ba) {
   ### Compute internal df
-  internal_df <- .make_internal_df(data = data, b = b, methodvar = methodvar, by = by)
+  internal_df <- .make_internal_df(
+    data = data,
+    b = b,
+    methodvar = methodvar,
+    by = by
+  )
 
   ### if Bland-Altman type plot, replace X and Y for mean and diff
   if (ba) {
@@ -211,7 +330,9 @@
 
   ### Build plot
   caption <- paste0("Comparison of variable '", b, "'")
-  if (ba) caption <- paste0(caption, "; Bland-Altman type plot")
+  if (ba) {
+    caption <- paste0(caption, "; Bland-Altman type plot")
+  }
   gg <- ggplot2::ggplot(data = internal_df, ggplot2::aes(x = X, y = Y)) +
     ggplot2::geom_point() +
     ggplot2::labs(caption = caption)
@@ -235,7 +356,15 @@
   if (!is.null(by)) {
     by <- rlang::syms(by)
     gg <- gg +
-      ggplot2::facet_grid(cols = ggplot2::vars(!!!{{ by }}), rows = ggplot2::vars(contrast), scales = scales, labeller = ggplot2::labeller(.rows = ggplot2::label_value, .cols = ggplot2::label_both))
+      ggplot2::facet_grid(
+        cols = ggplot2::vars(!!!{{ by }}),
+        rows = ggplot2::vars(contrast),
+        scales = scales,
+        labeller = ggplot2::labeller(
+          .rows = ggplot2::label_value,
+          .cols = ggplot2::label_both
+        )
+      )
   } else {
     gg <- gg +
       ggplot2::facet_wrap(~contrast, scales = scales)
@@ -267,7 +396,15 @@
   b <- rlang::sym(b)
   if (!is.null(methodvar)) {
     methodvar <- rlang::sym(methodvar)
-    gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = !!{{ b }}, y = .dgm, color = {{ methodvar }}, fill = {{ methodvar }}))
+    gg <- ggplot2::ggplot(
+      data = data,
+      ggplot2::aes(
+        x = !!{{ b }},
+        y = .dgm,
+        color = {{ methodvar }},
+        fill = {{ methodvar }}
+      )
+    )
   } else {
     gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = !!{{ b }}, y = .dgm))
   }
@@ -293,9 +430,15 @@
   ### Build basic plot
   if (!is.null(methodvar)) {
     methodvar <- rlang::sym(methodvar)
-    gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = {{ methodvar }}, y = .dgm, fill = est))
+    gg <- ggplot2::ggplot(
+      data = data,
+      ggplot2::aes(x = {{ methodvar }}, y = .dgm, fill = est)
+    )
   } else {
-    gg <- ggplot2::ggplot(data = data, ggplot2::aes(x = "Single Method", y = .dgm, fill = est)) +
+    gg <- ggplot2::ggplot(
+      data = data,
+      ggplot2::aes(x = "Single Method", y = .dgm, fill = est)
+    ) +
       ggplot2::labs(x = "")
   }
   gg <- gg +
@@ -329,15 +472,27 @@
   for (i in seq_along(placement)) {
     if (i == 1) {
       if (top) {
-        placement[[i]] <- c(round(limits[2], digits = 2) + delta, round(limits[2], digits = 2) + 2 * delta)
+        placement[[i]] <- c(
+          round(limits[2], digits = 2) + delta,
+          round(limits[2], digits = 2) + 2 * delta
+        )
       } else {
-        placement[[i]] <- c(round(limits[1], digits = 2) - 2 * delta, round(limits[1], digits = 2) - delta)
+        placement[[i]] <- c(
+          round(limits[1], digits = 2) - 2 * delta,
+          round(limits[1], digits = 2) - delta
+        )
       }
     } else {
       if (top) {
-        placement[[i]] <- c(placement[[i - 1]][2] + delta, placement[[i - 1]][2] + 2 * delta)
+        placement[[i]] <- c(
+          placement[[i - 1]][2] + delta,
+          placement[[i - 1]][2] + 2 * delta
+        )
       } else {
-        placement[[i]] <- c(placement[[i - 1]][1] - 2 * delta, placement[[i - 1]][1] - delta)
+        placement[[i]] <- c(
+          placement[[i - 1]][1] - 2 * delta,
+          placement[[i - 1]][1] - delta
+        )
       }
     }
   }
@@ -348,7 +503,10 @@
 
   ### Rescale variables included in the nested loop plot
   for (i in seq_along(by)) {
-    data[[paste0(".", by[i])]] <- scales::rescale(x = as.numeric(data[[by[i]]]), to = placement[[i]])
+    data[[paste0(".", by[i])]] <- scales::rescale(
+      x = as.numeric(data[[by[i]]]),
+      to = placement[[i]]
+    )
   }
 
   ### Add back scenarios, to obtain equivalent fully-factorial NLP
@@ -358,17 +516,38 @@
   ### Build basic plot
   if (!is.null(methodvar)) {
     methodvar <- rlang::sym(methodvar)
-    gg <- ggplot2::ggplot(data = data, mapping = ggplot2::aes(x = .scenario, y = est)) +
+    gg <- ggplot2::ggplot(
+      data = data,
+      mapping = ggplot2::aes(x = .scenario, y = est)
+    ) +
       ggplot2::geom_hline(yintercept = target, linetype = "dotted") +
       ggplot2::geom_step(mapping = ggplot2::aes(color = !!methodvar))
   } else {
-    gg <- ggplot2::ggplot(data = data, mapping = ggplot2::aes(x = .scenario, y = est)) +
+    gg <- ggplot2::ggplot(
+      data = data,
+      mapping = ggplot2::aes(x = .scenario, y = est)
+    ) +
       ggplot2::geom_hline(yintercept = target, linetype = "dotted") +
       ggplot2::geom_step()
   }
   if (ff) {
     gg <- gg +
-      ggplot2::labs(x = paste0(paste(vapply(X = by, FUN = function(x) length(levels(data[[x]])), FUN.VALUE = numeric(1)), collapse = " x "), " = ", length(unique(data[[".scenario"]])), " ordered scenarios"), y = stats)
+      ggplot2::labs(
+        x = paste0(
+          paste(
+            vapply(
+              X = by,
+              FUN = function(x) length(levels(data[[x]])),
+              FUN.VALUE = numeric(1)
+            ),
+            collapse = " x "
+          ),
+          " = ",
+          length(unique(data[[".scenario"]])),
+          " ordered scenarios"
+        ),
+        y = stats
+      )
   } else {
     gg <- gg +
       ggplot2::labs(x = paste0(num_ff, " ordered scenarios"), y = stats)
@@ -379,7 +558,18 @@
     .tmp <- rlang::sym(paste0(".", by[i]))
     gg <- gg +
       ggplot2::geom_step(mapping = ggplot2::aes(y = !!.tmp)) +
-      ggplot2::annotate(geom = "text", x = 1, y = placement[[i]][2] + delta / 2, label = paste0(by[i], ": ", paste(levels(data[[by[i]]]), collapse = ", ")), hjust = 0, vjust = 0.5)
+      ggplot2::annotate(
+        geom = "text",
+        x = 1,
+        y = placement[[i]][2] + delta / 2,
+        label = paste0(
+          by[i],
+          ": ",
+          paste(levels(data[[by[i]]]), collapse = ", ")
+        ),
+        hjust = 0,
+        vjust = 0.5
+      )
   }
 
   ### Return plot
@@ -387,9 +577,23 @@
 }
 
 #' @keywords internal
-.density_plot <- function(data, b, methodvar, by, fitted, scales, hex, density.legend) {
+.density_plot <- function(
+  data,
+  b,
+  methodvar,
+  by,
+  fitted,
+  scales,
+  hex,
+  density.legend
+) {
   ### Compute internal df
-  internal_df <- .make_internal_df(data = data, b = b, methodvar = methodvar, by = by)
+  internal_df <- .make_internal_df(
+    data = data,
+    b = b,
+    methodvar = methodvar,
+    by = by
+  )
 
   ### Build plot
   caption <- paste0("Comparison of variable '", b, "'")
@@ -402,7 +606,11 @@
       ggplot2::geom_hex(show.legend = density.legend)
   } else {
     gg <- gg +
-      ggplot2::stat_density_2d(mapping = ggplot2::aes(fill = after_stat(level)), geom = "polygon", show.legend = density.legend)
+      ggplot2::stat_density_2d(
+        mapping = ggplot2::aes(fill = after_stat(level)),
+        geom = "polygon",
+        show.legend = density.legend
+      )
   }
 
   ### Add reference line
@@ -413,7 +621,15 @@
   if (!is.null(by)) {
     by <- rlang::syms(by)
     gg <- gg +
-      ggplot2::facet_grid(cols = ggplot2::vars(!!!{{ by }}), rows = ggplot2::vars(contrast), scales = scales, labeller = ggplot2::labeller(.rows = ggplot2::label_value, .cols = ggplot2::label_both))
+      ggplot2::facet_grid(
+        cols = ggplot2::vars(!!!{{ by }}),
+        rows = ggplot2::vars(contrast),
+        scales = scales,
+        labeller = ggplot2::labeller(
+          .rows = ggplot2::label_value,
+          .cols = ggplot2::label_both
+        )
+      )
   } else {
     gg <- gg +
       ggplot2::facet_wrap(~contrast)

@@ -28,7 +28,16 @@
 #'   data = frailty2, estvarname = "b", se = "se",
 #'   methodvar = "model", by = "fv_dist", max = 2, semax = 2, robust = FALSE
 #' )
-dropbig <- function(data, estvarname, se = NULL, methodvar = NULL, by = NULL, max = 10, semax = 100, robust = TRUE) {
+dropbig <- function(
+  data,
+  estvarname,
+  se = NULL,
+  methodvar = NULL,
+  by = NULL,
+  max = 10,
+  semax = 100,
+  robust = TRUE
+) {
   ### Check arguments
   arg_checks <- checkmate::makeAssertCollection()
   # 'data' must be a data.frame
@@ -42,16 +51,36 @@ dropbig <- function(data, estvarname, se = NULL, methodvar = NULL, by = NULL, ma
   # 'by' must be a vector of strings; can be NULL
   checkmate::assert_character(x = by, null.ok = TRUE, add = arg_checks)
   # 'estvarname', 'se' must be in 'data'; all elements of 'by' must be in 'data'; 'methodvar' must be in 'data'
-  checkmate::assert_subset(x = estvarname, choices = names(data), add = arg_checks)
+  checkmate::assert_subset(
+    x = estvarname,
+    choices = names(data),
+    add = arg_checks
+  )
   checkmate::assert_subset(x = se, choices = names(data), add = arg_checks)
   checkmate::assert_subset(x = by, choices = names(data), add = arg_checks)
-  checkmate::assert_subset(x = methodvar, choices = names(data), add = arg_checks)
+  checkmate::assert_subset(
+    x = methodvar,
+    choices = names(data),
+    add = arg_checks
+  )
   # 'max', 'semax' must be a single number
   checkmate::assert_number(x = max, add = arg_checks)
   checkmate::assert_number(x = semax, add = arg_checks)
   # Report
-  if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
+  if (!arg_checks$isEmpty()) {
+    checkmate::reportAssertions(arg_checks)
+  }
 
   ### Uses the internal function .dropbig
-  return(.dropbig(data = data, estvarname = estvarname, se = se, methodvar = methodvar, by = by, max = max, semax = semax, robust = robust, internal = FALSE))
+  return(.dropbig(
+    data = data,
+    estvarname = estvarname,
+    se = se,
+    methodvar = methodvar,
+    by = by,
+    max = max,
+    semax = semax,
+    robust = robust,
+    internal = FALSE
+  ))
 }

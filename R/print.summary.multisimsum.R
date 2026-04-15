@@ -37,19 +37,27 @@ print.summary.multisimsum <- function(x, digits = 4, mcse = TRUE, ...) {
   checkmate::assert_int(x = digits, lower = 0, upper = Inf, add = arg_checks)
   checkmate::assert_logical(x = mcse, len = 1, null.ok = TRUE, add = arg_checks)
   ### Report if there are any errors
-  if (!arg_checks$isEmpty()) checkmate::reportAssertions(arg_checks)
+  if (!arg_checks$isEmpty()) {
+    checkmate::reportAssertions(arg_checks)
+  }
 
   ### Make sure users are not asking for the moon
   if (!x$control$mcse) {
     mcse <- NULL
-    message("Monte Carlo Standard Errors were not computed!\nDisplaying point estimates only.")
+    message(
+      "Monte Carlo Standard Errors were not computed!\nDisplaying point estimates only."
+    )
   }
   if (is.null(mcse)) {
     cat("Values are:\n\tPoint Estimate\n")
   } else if (mcse) {
     cat("Values are:\n\tPoint Estimate (Monte Carlo Standard Error)\n")
   } else {
-    cat(paste0("Values are:\n\tPoint Estimate (", sprintf("%.0f%%", 100 * (x$ci_level)), " Confidence Interval based on Monte Carlo Standard Errors)\n"))
+    cat(paste0(
+      "Values are:\n\tPoint Estimate (",
+      sprintf("%.0f%%", 100 * (x$ci_level)),
+      " Confidence Interval based on Monte Carlo Standard Errors)\n"
+    ))
   }
 
   ### Format summary table
@@ -60,11 +68,17 @@ print.summary.multisimsum <- function(x, digits = 4, mcse = TRUE, ...) {
   names(x$summ)[names(x$summ) == "est"] <- "Estimate"
 
   ### Order data.frame with results
-  x$summ <- .order(data = x$summ, by = c("Performance Measure", x$par, x$methodvar, x$by))
+  x$summ <- .order(
+    data = x$summ,
+    by = c("Performance Measure", x$par, x$methodvar, x$by)
+  )
 
   ### If length(methodvar) > 1 then process multiple columns into one...
   if (length(x$methodvar) > 1) {
-    x$summ <- .compact_method_columns(data = x$summ, methodvar = x$methodvar)$data
+    x$summ <- .compact_method_columns(
+      data = x$summ,
+      methodvar = x$methodvar
+    )$data
     x$methodvar <- ":methodvar"
   }
 
@@ -77,14 +91,33 @@ print.summary.multisimsum <- function(x, digits = 4, mcse = TRUE, ...) {
 
   ### Loop printing by parameter
   for (i in seq_along(par_split)) {
-    cat(paste("\n", ifelse(i > 1, paste(rep("-", times = options()$width), collapse = ""), ""), ifelse(i > 1, "\n", ""), "\nParameter:", names(par_split)[i], "\n"))
+    cat(paste(
+      "\n",
+      ifelse(
+        i > 1,
+        paste(rep("-", times = options()$width), collapse = ""),
+        ""
+      ),
+      ifelse(i > 1, "\n", ""),
+      "\nParameter:",
+      names(par_split)[i],
+      "\n"
+    ))
     par_split[[i]][[x$par]] <- NULL
 
     ### If methodvar, put them side by side
-    if (!is.null(x$methodvar)) par_split[[i]] <- .bind_methods(data = par_split[[i]], by = x$by, methodvar = x$methodvar)
+    if (!is.null(x$methodvar)) {
+      par_split[[i]] <- .bind_methods(
+        data = par_split[[i]],
+        by = x$by,
+        methodvar = x$methodvar
+      )
+    }
 
     ### Split by summary statistics for printing
-    par_split[[i]][["Performance Measure"]] <- droplevels(par_split[[i]][["Performance Measure"]])
+    par_split[[i]][["Performance Measure"]] <- droplevels(par_split[[i]][[
+      "Performance Measure"
+    ]])
     output <- .split_by(data = par_split[[i]], by = "Performance Measure")
 
     for (ii in seq_along(output)) {

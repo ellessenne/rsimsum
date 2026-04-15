@@ -30,11 +30,41 @@
 #' autoplot(ms, par = "trt", type = "lolly", stats = "cover")
 #' autoplot(ms, par = "trt", type = "zip")
 #' autoplot(ms, par = "trt", type = "est_ba")
-autoplot.multisimsum <- function(object, par, type = "forest", stats = "nsim", target = NULL, fitted = TRUE, scales = "fixed", top = TRUE, density.legend = TRUE, zoom = 1, zip_ci_colours = "yellow", ...) {
+autoplot.multisimsum <- function(
+  object,
+  par,
+  type = "forest",
+  stats = "nsim",
+  target = NULL,
+  fitted = TRUE,
+  scales = "fixed",
+  top = TRUE,
+  density.legend = TRUE,
+  zoom = 1,
+  zip_ci_colours = "yellow",
+  ...
+) {
   ### Manipulate object to make it a simsum-like object
-  object[["summ"]] <- object[["summ"]][object[["summ"]][[object[["par"]]]] == par, ]
+  object[["summ"]] <- object[["summ"]][
+    object[["summ"]][[object[["par"]]]] == par,
+  ]
   object[["true"]] <- object[["true"]][par]
-  if (type %in% c("zip", "est", "se", "est_ba", "se_ba", "est_density", "se_density", "est_hex", "se_hex", "est_ridge", "se_ridge")) {
+  if (
+    type %in%
+      c(
+        "zip",
+        "est",
+        "se",
+        "est_ba",
+        "se_ba",
+        "est_density",
+        "se_density",
+        "est_hex",
+        "se_hex",
+        "est_ridge",
+        "se_ridge"
+      )
+  ) {
     object[["x"]] <- object[["x"]][object[["x"]][[object[["par"]]]] == par, ]
   }
   #
@@ -45,7 +75,19 @@ autoplot.multisimsum <- function(object, par, type = "forest", stats = "nsim", t
   }
 
   # Call autoplot.simsum on the subset of results for a given parameter:
-  plot <- autoplot(object = object, type = type, stats = stats, target = target, fitted = fitted, scales = scales, top = top, density.legend = density.legend, zoom = zoom, zip_ci_colours = zip_ci_colours, ...)
+  plot <- autoplot(
+    object = object,
+    type = type,
+    stats = stats,
+    target = target,
+    fitted = fitted,
+    scales = scales,
+    top = top,
+    density.legend = density.legend,
+    zoom = zoom,
+    zip_ci_colours = zip_ci_colours,
+    ...
+  )
 
   # Add title with parameter of interest
   plot <- plot +
