@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 options(width = 100)
 ```
 
-# {rsimsum}: Analysis of Simulation Studies Including Monte Carlo Error <img src="man/figures/hex.png" width = "200" align="right" />
+# {rsimsum}: Analysis of Simulation Studies Including Monte Carlo Error <img src="man/figures/hex.png" width = "200" align="right" alt="Hex logo of the {rsimsum} R package."/>
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/ellessenne/rsimsum/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ellessenne/rsimsum/actions/workflows/R-CMD-check.yaml)
