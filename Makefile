@@ -6,8 +6,9 @@ pre_submission_test:
 	R -e "devtools::check_win_devel(quiet = TRUE, webform = TRUE)"
 	R -e "devtools::check_win_release(quiet = TRUE, webform = TRUE)"
 	R -e "devtools::check_win_oldrelease(quiet = TRUE, webform = TRUE)"
-	R -e "devtools::check_mac_release(quiet = TRUE, webform = TRUE)"
-	R -e "rhub::rhub_check(platforms = c('linux', 'm1-san', 'macos', 'macos-arm64', 'windows'))"
+	R -e "devtools::check_mac_release(quiet = TRUE)"
+	R -e "devtools::check_mac_devel(quiet = TRUE)"
+	R -e "rhub::rhub_check(platforms = c('linux', 'm1-san', 'macos-arm64', 'windows'))"
 
 docs:
 	R -e "devtools::document()"
