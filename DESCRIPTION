@@ -2,10 +2,16 @@ Package: rsimsum
 Title: Analysis of Simulation Studies Including Monte Carlo Error
 Version: 0.13.1
 Authors@R: c(
-    person("Alessandro", "Gasparini", , "alessandro@ellessenne.xyz", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0002-8319-7624")),
-    person("Ian R.", "White", role = "aut")
-  )
+    person(
+        given = "Alessandro", 
+        family = "Gasparini", 
+        email = "alessandro@ellessenne.xyz", 
+        comment = c(ORCID = "0000-0002-8319-7624"),
+        role = c("cre", "aut")),
+    person(
+        given = "Ian R.", 
+        family = "White", 
+        role = "aut"))
 Description: Summarise results from simulation studies and compute Monte
     Carlo standard errors of commonly used summary statistics. This
     package is modelled on the 'simsum' user-written command in 'Stata'
