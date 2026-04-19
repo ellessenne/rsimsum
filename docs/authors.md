@@ -2,7 +2,7 @@
 
 ## Authors
 
-- **Alessandro Gasparini**. Author, maintainer.
+- **Alessandro Gasparini**. Maintainer, author.
   [](https://orcid.org/0000-0002-8319-7624)
 
 - **Ian R. White**. Author.
