@@ -1,12 +1,11 @@
 ## Test environments
 
-* local R installation, R 4.3.2, Intel-based macOS Sonoma 14.3.1
+* local R installation, R 4.5.3, macOS Tahoe 26.4.1 on Apple M4
 * ubuntu-latest (via GitHub Actions, devel, release, oldrel-1, oldrel-2, oldrel-3, oldrel-4)
-* windows-latest (via GitHub Actions, release, 3.6, 4.1)
+* windows-latest (via GitHub Actions, release, oldrel-4)
 * macos-latest (via GitHub Actions, release)
 * windows (via winbuilder, devel, release, oldrel)
-* rhub (with rhub::check_for_cran())
-* arm64 mac (via macbuilder)
+* rhub (platforms: 'linux', 'm1-san', 'macos-arm64', 'windows')
 
 ## R CMD check results
 
