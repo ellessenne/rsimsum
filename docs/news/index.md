@@ -1,6 +1,10 @@
 # Changelog
 
+## rsimsum (development version)
+
 ## rsimsum 0.13.1
+
+CRAN release: 2026-04-21
 
 - The `control$na.rm` was ignored when calculating the Monte Carlo
   standard error for relative bias, now fixed
