@@ -1,3 +1,5 @@
+# rsimsum (development version)
+
 # rsimsum 0.13.1
 
 * The `control$na.rm` was ignored when calculating the Monte Carlo standard error for relative bias, now fixed (#60, thanks @mikesweeting).

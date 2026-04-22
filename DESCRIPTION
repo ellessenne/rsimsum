@@ -1,6 +1,6 @@
 Package: rsimsum
 Title: Analysis of Simulation Studies Including Monte Carlo Error
-Version: 0.13.1
+Version: 0.13.1.9000
 Authors@R: c(
     person(
         given = "Alessandro", 
